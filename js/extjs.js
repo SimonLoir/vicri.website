@@ -20,6 +20,7 @@ function $(element){
 	var e = {
 		type : "ExtJsObject",
 		dom:re,
+		node: re,
 		height: function(value){
 			if (value !== undefined) {
 				this.dom.style.height = value;
@@ -122,6 +123,12 @@ function $(element){
 		},
 		clear: function (){
 			this.html('');
+		},
+		child: function(element_type){
+			var elem  = document.createElement(element_type);
+			// Dans cette version, this.node = this.dom => this.dom va être supprimé dans la v2
+			this.node.appendChild(elem);
+			return $(elem);
 		}
 	};
 
@@ -190,6 +197,7 @@ var AR = {
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.send(d); 
 	}}
+	
 var ExtJs = {
 	version: "1.0",
 	ok:function () {

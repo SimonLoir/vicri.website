@@ -4,6 +4,8 @@ var page = {
 	target : "home",
 	informations : "",
 	getInformations : function (){ // récupère l'information après le #
+		this.url = window.location.href;
+
 		var pageInformations = this.url.split('#')[1];
 		
 		if (pageInformations != undefined) {
@@ -22,5 +24,7 @@ var page = {
 				}
 			}
 		}
+		this.target = "home";
+		return this.target;
 	}
 }

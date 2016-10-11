@@ -12,9 +12,15 @@ var page = {
 	},
 	getTarget : function () {
 		this.getInformations();
-
 		if (this.informations != "") {
-			
+			var pagesInformationsArray = this.informations.split(';');
+			for (var i = 0; i < pagesInformationsArray.length; i++) {
+				var info = pagesInformationsArray[i].split('=');
+				if(info[0] == "page"){
+					this.target = info[1];
+					return info[1];
+				}
+			}
 		}
 	}
 }

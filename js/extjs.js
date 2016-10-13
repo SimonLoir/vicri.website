@@ -171,6 +171,29 @@ var AR = {
   		xhttp.open("GET", url, true);
   		xhttp.send(); 
 	}
+	,PUT : function (url, func, error) {
+		var xhttp = new XMLHttpRequest();
+		
+  		xhttp.onreadystatechange = function() {
+    		if (xhttp.readyState == 4 && xhttp.status == 200) {
+    			func(xhttp.responseText);
+    		} else if (xhttp.readyState == 4) {
+
+    		    if (error != undefined) {
+    		        try {
+    		            error();
+    		        } catch (e) {
+
+    		        }
+    		    }
+
+    		}
+    	}
+  		xhttp.open("POST", url, true);
+  		xhttp.setRequestHeader("x-http-method-override", "PUT");
+
+  		xhttp.send(); 
+	}
 	,
 	/*
 	* Post Request data = object {user:"simon", data: "other"} #only strings (and numbers)

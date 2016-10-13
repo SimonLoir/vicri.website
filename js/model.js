@@ -26,5 +26,26 @@ var page = {
 		}
 		this.target = "home";
 		return this.target;
+	},
+	get : function (query){
+		this.getInformations();
+		if (this.informations != "") {
+			var pagesInformationsArray = this.informations.split(';');
+			for (var i = 0; i < pagesInformationsArray.length; i++) {
+				var info = pagesInformationsArray[i].split('=');
+				if(info[0] == query){
+					this.target = info[1];
+					return info[1];
+				}
+			}
+			return false;
+		}else{
+			return false;
+		}
 	}
+}
+
+/* Un utilisateur */
+function user(){
+
 }

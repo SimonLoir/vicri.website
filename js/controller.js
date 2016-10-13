@@ -1,9 +1,13 @@
-$(document).ready(doWork);
-window.onhashchange = doWork;
+/*
+Pour le système de pages : 
+*/
+$(document).ready(doWork); // Quand tout est chargé
+window.onhashchange = doWork; // Quand on modifie url#...
 
 var content = $('.content');
+
 function doWork(){
-	console.log("Sélection de la page");
+	content.clear();
 	if (page.getTarget() == "home") {
 		
 	}else{

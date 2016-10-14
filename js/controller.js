@@ -16,7 +16,7 @@ function doWork(){
 }
 
 $('.put').click(function(){
-	AR.PUT("api/header.test.php", function (data) {
+	AR.PUT("api/header.test.php", {},function (data) {
 		$('.content').html(data);
 	})
 })

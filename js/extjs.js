@@ -193,53 +193,7 @@ var AR = {
   		xhttp.setRequestHeader("x-http-method-override", "DELETE");
 
   		xhttp.send(); 
-	} PUT: function (url, func, error) {
-		var xhttp = new XMLHttpRequest();
-		
-  		xhttp.onreadystatechange = function() {
-    		if (xhttp.readyState == 4 && xhttp.status == 200) {
-    			func(xhttp.responseText);
-    		} else if (xhttp.readyState == 4) {
-
-    		    if (error != undefined) {
-    		        try {
-    		            error();
-    		        } catch (e) {
-
-    		        }
-    		    }
-
-    		}
-    	}
-  		xhttp.open("GET", url, true);
-  		xhttp.setRequestHeader("x-http-method-override", "DELETE");
-
-  		xhttp.send(); 
-	},PUT : function (url, func, error) {
-		var xhttp = new XMLHttpRequest();
-		
-  		xhttp.onreadystatechange = function() {
-    		if (xhttp.readyState == 4 && xhttp.status == 200) {
-    			func(xhttp.responseText);
-    		} else if (xhttp.readyState == 4) {
-
-    		    if (error != undefined) {
-    		        try {
-    		            error();
-    		        } catch (e) {
-
-    		        }
-    		    }
-
-    		}
-    	}
-  		xhttp.open("GET", url, true);
-  		//On simule une requête PUT
-  		xhttp.setRequestHeader("x-http-method-override", "PUT");
-
-  		xhttp.send(); 
-	}
-	,
+	},
 	/*
 	* Post Request data = object {user:"simon", data: "other"} #only strings (and numbers)
 	*/
@@ -271,7 +225,38 @@ var AR = {
   		}
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.send(d); 
-	}}
+	}, 
+	PUT : function (url, data ,func, error) {
+		var xhttp = new XMLHttpRequest();
+  		xhttp.onreadystatechange = function() {
+  		    if (xhttp.readyState == 4 && xhttp.status == 200) {
+  		        func(xhttp.responseText);
+  		    } else if (xhttp.readyState == 4) {
+  		    
+  		        if (error != undefined) {
+  		            try {
+  		                error();
+  		            } catch (e) {
+
+  		            }
+  		        }
+  		    
+            }
+    	}
+  		xhttp.open("POST", url, true);
+  		var keys = 	Object.keys(data);
+  		var d = "";
+  		for (var i = 0; i < keys.length; i++) {
+  			 if (i !== 0 ) {
+  			 	d = d + "&";
+  			 }
+  			 d = d + keys[i] + "=" + data[keys[i]];
+  		}
+  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  		xhttp.setRequestHeader("x-http-method-override", "PUT");
+  		xhttp.send(d); 
+	}
+}
 	
 var ExtJs = {
 	version: "1.0",

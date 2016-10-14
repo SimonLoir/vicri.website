@@ -15,21 +15,4 @@ function doWork(){
 	}
 }
 
-$('.put').click(function(){
-	AR.PUT("api/header.test.php", {},function (data) {
-		$('.content').html(data);
-	})
-})
-
-$('.post').click(function(){
-	AR.POST("api/header.test.php", {},function (data) {
-		$('.content').html(data);
-	})
-})
-
-$('.get').click(function(){
-	AR.GET("api/header.test.php", function (data) {
-		$('.content').html(data);
-	})
-})
 

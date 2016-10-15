@@ -40,6 +40,18 @@ if ($method == "GET") {
 
 		exit(json_encode($result));
 
+	}if ($res == "videos") { 
+
+		$result = [];
+
+		$projects = $db->query('SELECT * FROM vidéos', "projects");
+		
+		foreach ($projects as $project) {
+			$result[] = $project->exec();
+		}
+
+		exit(json_encode($result));
+
 	}elseif ($res == "doc") {
 		
 	}

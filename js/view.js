@@ -34,12 +34,13 @@ var view = {
 			var description = e.child('p');
 			description.html(project.shortDescription);
 
-			var open = e.child("button");
-
+			var open = e.child("a");
 			if (project.user_is_manager == true) {
 				open.html("Gérer");
+				open.node.href = "#page=project;pid=" + project.id + 'manager=true';
 			}else{
 				open.html("Ouvir");
+				open.node.href = "#page=project;pid=" + project.id;
 			}
 		}
 	}

@@ -52,6 +52,13 @@ if ($method == "GET") {
 
 		exit(json_encode($result));
 
+	}elseif($res == "project"){
+
+		$project = $db->query('SELECT * FROM projects WHERE id = "'.$_GET['id'].'"', "project")[0];
+
+		exit(json_encode($project->exec()));
+
+
 	}elseif ($res == "doc") {
 		
 	}

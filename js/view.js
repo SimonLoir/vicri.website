@@ -62,6 +62,17 @@ var view = {
 			open.node.href = "#page=project;pid=" + video.id + ';manager=false';
 			open.html('Accèder au projet');
 		}
+	},
+
+	createProjectAsManager : function(data){
+		alert("ok")
+	},
+	createProjectAsVisitor : function(data){
+		if (data == "UError") {
+			$('.content').html('Erreur : utilisateur non connecté ou ne participant pas au projet')
+		}else{
+			$('.content').html('Ok')
+		}
 	}
 
 }

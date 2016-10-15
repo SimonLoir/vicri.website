@@ -7,7 +7,7 @@ window.onhashchange = doWork; // Quand on modifie url#...
 var content = $('.content');
 
 function doWork(){
-	content.html('Chargement ...');
+	content.html('');
 	if (page.getTarget() == "home") {
 		
 	}else if (page.getTarget() == "videos") {
@@ -33,11 +33,28 @@ function doWork(){
 		});
 
 	}else if(page.getTarget() == "project"){
-		if (page.get("manager") == "true") {
+
+		AR.GET('api?res=project&id='  + page.get('pid') + "&manager=" + page.get("manager"), function (data){
+			
+			var pdata = JSON.parse(data);
+
 			// On doit faire une vérification
-		}else{
+
+			if (page.get("manager") == "true" && pdata != "UError") {
+				
+				
+				view.createProjectAsManager(pdata);
+
 			// Pas besoin de vérification : l'utilisateur n'aura pas le droit de modifier le projet.
-		}
+
+			}else{
+				
+				view.createProjectAsVisitor(pdata);
+
+			}
+
+		});
+
 	}else{
 		content.html('Erreur : cette page n\'existe pas');
 	}

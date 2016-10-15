@@ -37,11 +37,30 @@ var view = {
 			var open = e.child("a");
 			if (project.user_is_manager == true) {
 				open.html("Gérer");
-				open.node.href = "#page=project;pid=" + project.id + 'manager=true';
+				open.node.href = "#page=project;pid=" + project.id + ';manager=true';
 			}else{
 				open.html("Ouvir");
-				open.node.href = "#page=project;pid=" + project.id;
+				open.node.href = "#page=project;pid=" + project.id + ';manager=false';
 			}
+		}
+	},
+	createVideoList : function(data){
+		var container = $(".content").child('div');
+		for (var i = 0; i < data.length; i++) {
+			var video = data[i];
+
+			var video_container = container.child("div");
+			video_container.node.style.display = "inline-block";
+
+			var iframe  = video_container.child("iframe");
+			iframe.node.src = video.url;
+			iframe.node.style.display = "block";
+			iframe.node.style.width = "400px";
+			iframe.node.style.height = "225px";
+
+			var open = video_container.child("a");
+			open.node.href = "#page=project;pid=" + video.id + ';manager=false';
+			open.html('Accèder au projet');
 		}
 	}
 

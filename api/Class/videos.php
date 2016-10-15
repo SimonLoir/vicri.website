@@ -3,19 +3,12 @@ Class videos{
 
 	public function exec(){
 
-		$this->managers = explode(';', $this->managers);
-
-		if (in_array($_SESSION['user_id'], $this->managers)) {
-
-			$this->user_is_manager = true;
-
+		if ($this->provider == 'youtube') {
+			$this->url = "https://www.youtube.com/embed/" . $this->url;
+			return $this;
 		}else{
-
-			$this->user_is_manager = false;
-			
+			$this->url = "";
 		}
-
-		return $this;
 
 	}
 

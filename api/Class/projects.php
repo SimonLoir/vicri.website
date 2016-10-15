@@ -14,7 +14,7 @@ Class projects{
 		}else{
 
 			$this->user_is_manager = false;
-			
+
 		}
 
 		return $this;

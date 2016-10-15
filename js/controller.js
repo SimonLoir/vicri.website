@@ -11,7 +11,16 @@ function doWork(){
 	if (page.getTarget() == "home") {
 		
 	}else if (page.getTarget() == "videos") {
-		
+
+		AR.GET('api?res=videos', function(data){
+			$('.content').clear();
+			try{
+				view.createVideoList(JSON.parse(data));
+			}catch(error){
+				$('.content').html(error.message);
+			}
+		});
+
 	}else if (page.getTarget() == "projets") {
 
 		AR.GET('api?res=projects', function(data){
@@ -23,6 +32,8 @@ function doWork(){
 			}
 		});
 
+	}else if(page.getTarget() == "project"){
+		
 	}else{
 		content.html('Erreur : cette page n\'existe pas');
 	}

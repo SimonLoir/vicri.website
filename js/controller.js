@@ -16,7 +16,11 @@ function doWork(){
 
 		AR.GET('api?res=projects', function(data){
 			$('.content').clear();
-			view.createProjectList(JSON.parse(data));
+			try{
+				view.createProjectList(JSON.parse(data));
+			}catch(error){
+				$('.content').html(error.message);
+			}
 		});
 
 	}else{

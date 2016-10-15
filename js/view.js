@@ -65,14 +65,22 @@ var view = {
 	},
 
 	createProjectAsManager : function(data){
-		alert("ok")
+		$('.content').createImage(data.name);
 	},
 	createProjectAsVisitor : function(data){
 		if (data == "UError") {
 			$('.content').html('Erreur : utilisateur non connecté ou ne participant pas au projet')
 		}else{
-			$('.content').html('Ok')
+			$('.content').createImage(data.name);
 		}
 	}
+}
 
+ExtJsPlugIn.createImage = function (text){
+	//https://api.fnkr.net/testimg/200x200/ffba6f/fff/?text=Projets
+	var img = document.createElement("img");
+	img.src = "https://api.fnkr.net/testimg/1600x300/ffba6f/fff/?text=" + text;
+	img.style.width = "100%";
+	this.node.appendChild(img);
+	return img;
 }

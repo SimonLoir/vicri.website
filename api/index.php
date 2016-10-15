@@ -15,6 +15,7 @@ if (!isset($_GET['res']) || empty($_GET['res']) ) {
 }else{
 	$res = $_GET['res'];
 }
+
 /* --- --- --- --- --- --- ---*/
 include "../../config.php";
 /* --- --- --- --- --- --- ---*/

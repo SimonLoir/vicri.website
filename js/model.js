@@ -44,8 +44,3 @@ var page = {
 		}
 	}
 }
-
-/* Un utilisateur */
-function user(){
-
-}

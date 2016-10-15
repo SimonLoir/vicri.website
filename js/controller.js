@@ -33,7 +33,11 @@ function doWork(){
 		});
 
 	}else if(page.getTarget() == "project"){
-		
+		if (page.get("manager") == "true") {
+			// On doit faire une vérification
+		}else{
+			// Pas besoin de vérification : l'utilisateur n'aura pas le droit de modifier le projet.
+		}
 	}else{
 		content.html('Erreur : cette page n\'existe pas');
 	}

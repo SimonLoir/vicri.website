@@ -21,6 +21,7 @@ include "../../config.php";
 /* --- --- --- --- --- --- ---*/
 
 include 'Class/autoloader.php';
+
 spl_autoload_register(["autoloader", "load"]);
 
 

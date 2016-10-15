@@ -7,6 +7,7 @@ var view = {
 	createProjectList : function (project_list) {
 		var container = $(".content").child('div');
 
+
 		for (var i = 0; i < project_list.length; i++) {
 			var project = project_list[i];
 
@@ -27,9 +28,19 @@ var view = {
             }else{
                 progress__style.background = "#eb1515";
             }
-            
+            progress__style.color = "white";
+            progress__style.padding = "3px";
+
 			var description = e.child('p');
 			description.html(project.shortDescription);
+
+			var open = e.child("button");
+
+			if (project.user_is_manager == true) {
+				open.html("Gérer");
+			}else{
+				open.html("Ouvir");
+			}
 		}
 	}
 

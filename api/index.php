@@ -17,7 +17,7 @@ if (!isset($_GET['res']) || empty($_GET['res']) ) {
 }
 
 /* --- --- --- --- --- --- ---*/
-include "../../config.php";
+/* => */include "../../config.php";
 /* --- --- --- --- --- --- ---*/
 
 include 'Class/autoloader.php';

@@ -15,13 +15,15 @@ if (!isset($_GET['res']) || empty($_GET['res']) ) {
 }else{
 	$res = $_GET['res'];
 }
-
+/* --- --- --- --- --- --- ---*/
+include "../config.php";
+/* --- --- --- --- --- --- ---*/
 
 include 'Class/autoloader.php';
 spl_autoload_register(["autoloader", "load"]);
 
 
-$db = new db('u223506911_base');
+$db = new db('u223506911_base',$db__user , $db__pass, $db__host);
 
 if ($method == "GET") {
 	if ($res == "projects") { 

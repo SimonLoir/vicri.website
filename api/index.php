@@ -16,9 +16,9 @@ if (!isset($_GET['res']) || empty($_GET['res']) ) {
 	$res = $_GET['res'];
 }
 
-/* --- --- --- --- --- --- ---*/
-/* => */include "../../config.php";
-/* --- --- --- --- --- --- ---*/
+/* --- --- --- --- --- --- --- --- --- --- */
+/*  => */include "../../config.php"; /* <= */
+/* --- --- --- --- --- --- --- --- --- --- */
 
 include 'Class/autoloader.php';
 
@@ -32,7 +32,7 @@ if ($method == "GET") {
 
 		$result = [];
 
-		$projects = $db->query('SELECT * FROM projects', "projects");
+		$projects = $db->query('SELECT id, name, managers, shortDescription, progression FROM projects', "projects");
 		
 		foreach ($projects as $project) {
 			$result[] = $project->exec();

@@ -62,5 +62,20 @@ if ($method == "GET") {
 	}elseif ($res == "doc") {
 		
 	}
+}if ($method == "POST") {
+	if ($res == "admin::newuser") {
+
+
+
+	}elseif($res == "uconnect"){
+
+		if (isset($_POST['key']) && $_POST['key'] == "ViCri2016__Access__Key#V2") {
+			exit('');
+		}else{
+			exit("uError");
+		}
+
+
+	}
 }
  ?>

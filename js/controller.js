@@ -1,7 +1,3 @@
-/*
-Pour le système de pages : 
-*/
-
 $(document).ready(doWork); // Quand tout est chargé
 window.onhashchange = doWork; // Quand on modifie url#...
 

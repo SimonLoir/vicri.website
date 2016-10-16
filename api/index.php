@@ -65,16 +65,41 @@ if ($method == "GET") {
 }if ($method == "POST") {
 	if ($res == "admin::newuser") {
 
+		if (isset($_SESSION["admin"]) && $_SESSION["admin"] == "indse") {
+			if (isset($_POST['name'])&& isset($_POST['firstname'])&& isset($_POST['email'])&& isset($_POST['pseudo'])&& isset($_POST['password'])) {
+				if (!empty($_POST['name'])&& !empty($_POST['firstname'])&& !empty($_POST['email'])&& !empty($_POST['pseudo'])&& !empty($_POST['password'])) {
+					
+					$name = $_POST['name'];
+					
+					$firstname = $_POST['firstname'];
+					
+					$email = $_POST['email'];
+					
+					$pseudo = $_POST['pseudo'];
+					
+					$password = sha1(md5($_POST['password']) . sha1($_POST['email']));
 
+					/*if () {
+						exit('Ok');
+					}else{
+						exit("Server error");
+					}*/
 
-	}elseif($res == "uconnect"){
+					if($db->query("INSERT INTO users VALUES (NULL, '$name', '$firstname', '$email', '$pseudo', '$password')", "none", true)){
+						exit('Créé');
+					}else{
+						exit("server__error");
+					}
 
-		if (isset($_POST['key']) && $_POST['key'] == "ViCri2016__Access__Key#V2") {
-			exit('');
+				}else{
+					exit("e");
+				}
+			}else{
+				exit("Erreur");
+			}
 		}else{
-			exit("uError");
+			exit('Error : you must be connected');
 		}
-
 
 	}
 }

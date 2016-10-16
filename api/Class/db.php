@@ -26,14 +26,22 @@ Class db{
 
 	}
 
-	public function query($statement, $class = '___::none'){
+	public function query($statement, $class = 'none', $return = false){
 
 		$request = $this->getPDO()->query($statement);
-		if ($class == "___::none") {
+		
+		if ($return == true) {
+			
+			return $request;
+
+		}
+
+		if ($class == "none") {
 			$result = $request->fetchAll(PDO::FETCH_OBJ);
 		}else{
 			$result = $request->fetchAll(PDO::FETCH_CLASS, $class);
 		}
+
 		return $result;
 
 	}

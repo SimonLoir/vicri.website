@@ -1,41 +1,43 @@
-<script src="js/extjs.js"></script>
+<?php session_start(); ?>
 <?php 
-
-session_start();
-
-if (isset($_SESSION["__admin"])) {
-	echo '<script>var app = "ok";</script>';
-
-
-}else{
-	echo '<script>var app = "log";</script>';
-	echo '
-	<form method="post" id="login">
-		Pour continuer, introduisez la clé "admin"
-		<input type="text" placeholder="Clé admin" id="key">
-		<input type="submit">
-	</form>
-	';
-
+if (isset($_GET['logout'])) {
+	session_destroy();
+	header('Location: admin.php');
 }
-
-?>
-
-<script>
-	if (app == "log") {
-		var form = document.querySelector("#login");
-
-		form.onsubmit = function (){
-			var key = document.querySelector("#key").value;
-
-			AR.POST('api?res=uconnect', {key:key}, function (data){
-				if (data == "__Ok") {
-					return;
-				}
-			})
-			return false;
+ ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Admin panel</title>
+</head>
+<body>
+	<?php if (!isset($_SESSION["admin"])): ?>
+		<?php 
+		if (isset($_POST['submit']) && isset($_POST['key'])) {
+			if ($_POST['key'] == "v1crI2015-2016-KEY") {
+				$_SESSION['admin'] = "indse";
+				header('Location: admin.php');
+			}else{
+				echo "Erreur de clé d'accès";
+			}
 		}
-	}
-
-
-</script>
+		 ?>
+		<form action="" method="post">
+			<input type="password" name="key">
+			<input type="submit" name="submit">
+		</form>
+	<?php endif ?>
+	<?php if (isset($_SESSION["admin"])): ?>
+		<form method="POST" action="api/index.php?res=admin::newuser">
+			<input type="text" name="name" placeholder="name"><br />
+			<input type="text" name="firstname" placeholder="firstname"><br />
+			<input type="text" name="email" placeholder="email"><br />
+			<input type="text" name="pseudo" placeholder="pseudo"><br />
+			<input type="password" name="password" placeholder="password">
+			
+			<input type="submit" value="Ok">
+		</form>
+	<?php endif ?>
+</body>
+</html>

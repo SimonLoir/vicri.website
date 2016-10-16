@@ -12,14 +12,7 @@ function doWork(){
 		
 	}else if (page.getTarget() == "videos") {
 
-		AR.GET('api?res=videos', function(data){
-			$('.content').clear();
-			try{
-				view.createVideoList(JSON.parse(data));
-			}catch(error){
-				$('.content').html(error.message);
-			}
-		});
+		model.getAllVideos(view.createVideoList);
 
 	}else if (page.getTarget() == "projets") {
 

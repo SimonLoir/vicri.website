@@ -44,3 +44,16 @@ var page = {
 		}
 	}
 }
+
+var model = {
+	getAllVideos : function (callback) {
+		AR.GET('api?res=videos', function(data){
+			$('.content').clear();
+			try{
+				callback(JSON.parse(data));
+			}catch(error){
+				$('.content').html(error.message);
+			}
+		});
+	}
+}

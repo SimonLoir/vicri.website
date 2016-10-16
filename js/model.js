@@ -55,5 +55,37 @@ var model = {
 				$('.content').html(error.message);
 			}
 		});
+	},
+	getAllProjects : function (callback){
+		AR.GET('api?res=projects', function(data){
+			$('.content').clear();
+			try{
+				callback(JSON.parse(data));
+			}catch(error){
+				$('.content').html(error.message);
+			}
+		});
+	},
+	getProject(callback_manager, callback){
+		AR.GET('api?res=project&id='  + page.get('pid') + "&manager=" + page.get("manager"), function (data){
+			
+			var pdata = JSON.parse(data);
+
+			// On doit faire une vérification
+
+			if (page.get("manager") == "true" && pdata != "UError") {
+				
+				
+				callback_manager(pdata);
+
+			// Pas besoin de vérification : l'utilisateur n'aura pas le droit de modifier le projet.
+
+			}else{
+				
+				callback(pdata);
+
+			}
+
+		});
 	}
 }

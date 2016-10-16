@@ -8,7 +8,9 @@ window.onhashchange = doWork; // Quand on modifie url#...
 var content = $('.content');
 
 function doWork(){
+	
 	content.html('');
+
 	if (page.getTarget() == "home") {
 		
 	}else if (page.getTarget() == "videos") {
@@ -24,7 +26,9 @@ function doWork(){
 		model.getProject( view.createProjectAsManager , view.createProjectAsVisitor);
 
 	}else{
+
 		content.html('Erreur : cette page n\'existe pas');
+
 	}
 }
 

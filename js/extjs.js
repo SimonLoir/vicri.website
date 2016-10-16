@@ -122,7 +122,7 @@ function $(element){
 		remove: function () {
 			this.dom.parentElement.removeChild(this.dom);
 		},
-		child: function (child) {
+		addChild: function (child) {
 		    this.dom.parentElement.appendChild(child);
 		},
 		css: function (prop, value) {

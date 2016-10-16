@@ -61,7 +61,16 @@ if ($method == "GET") {
 
 	}elseif ($res == "doc") {
 		
+	}elseif ($res == "user_connection_state"){
+
+		if (isset($_SESSION["user_id"])) {
+			exit(json_encode($db->query('SELECT name, firstname, mail, pseudo FROM users WHERE id = "'.$_SESSION["user_id"].'"')[0]));
+		}else{
+			exit("Empty");
+		}
+
 	}
+
 }if ($method == "POST") {
 	if ($res == "admin::newuser") {
 

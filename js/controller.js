@@ -1,10 +1,10 @@
-$(document).ready(doWork); // Quand tout est chargé
-window.onhashchange = doWork; // Quand on modifie url#...
+$(document).ready(user.li_state); // Quand tout est chargé
+window.onhashchange = user.li_state; // Quand on modifie url#...
 
 var content = $('.content');
 
 function doWork(){
-	
+
 	content.html('');
 
 	if (page.getTarget() == "home") {

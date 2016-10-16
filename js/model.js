@@ -89,3 +89,33 @@ var model = {
 		});
 	}
 }
+
+var user = {
+	li_state : function (){
+		AR.GET('api?res=user_connection_state', function (data) {
+			if (data == "Empty") {
+
+				user.isConnected = false;
+
+			}else if (data != ""){
+
+				user.isConnected = true;
+
+				try {
+					
+					var d = JSON.parse(data);
+					user.pseudo = d.pseudo;
+					user.mail = d.mail;
+					user.name = d.name;
+					user.firstname = d.firstname;
+
+				} catch(e) {
+					// statements
+					alert(e)
+				}
+			}
+			doWork()
+		});
+	}
+	
+}

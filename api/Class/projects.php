@@ -3,6 +3,26 @@ Class projects{
 
 	public $user_is_manager;
 
+	/*
+	PRE :
+		* id (int)
+		* name (string)
+		* managers (string)
+		* progression (int)
+		* pined (int)
+		* shortDescription (string)
+
+	POST :
+
+		* id (int)
+		* name (string)
+		=> * managers (array)
+		* progression (int)
+		* pined (int)
+		* shortDescription (string)
+		+ user_is_manager (bool)
+	*/
+
 	public function exec(){
 
 		$this->managers = explode(';', $this->managers);

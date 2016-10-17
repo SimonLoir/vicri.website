@@ -32,7 +32,7 @@ if ($method == "GET") {
 
 		$result = [];
 
-		$projects = $db->query('SELECT id, name, managers, shortDescription, progression FROM projects', "projects");
+		$projects = $db->query('SELECT id, name, managers, shortDescription, progression, pined FROM projects', "projects");
 		
 		foreach ($projects as $project) {
 			$result[] = $project->exec();

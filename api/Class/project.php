@@ -1,5 +1,33 @@
 <?php 
 Class project{
+	/*
+	PRE :
+		* id (int)
+		* name (string)
+		* managers (string)
+		* type (string)
+		* progression (int)
+		* pined (int)
+		* description (string)
+		* shortDescription (string)
+		* goals (string)
+		* links (string)
+
+	POST :
+
+		* id (int)
+		* name (string)
+		=> * managers (array)
+		* type (string)
+		* progression (int)
+		* pined (int)
+		* description (string)
+		* shortDescription (string)
+		* goals (string)
+		* links (string)
+
+		|| UError (user error)
+	*/
 	public function exec()
 	{
 		$this->managers = explode(';', $this->managers);

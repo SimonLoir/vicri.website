@@ -11,7 +11,8 @@ Class projects{
 		* progression (int)
 		* pined (int)
 		* shortDescription (string)
-
+	ACTION :
+		Transforme this->manager (string) en this->manager (array)
 	POST :
 
 		* id (int)

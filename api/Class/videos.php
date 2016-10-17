@@ -7,6 +7,8 @@ Class videos{
 		* provider (string)
 		* title (string)
 		* description (string)
+	ACTION :
+		Crée l'url correcte avec le provider
 	POST : 
 		* id (int)
 		=> * url (string)

@@ -49,8 +49,8 @@ Class db{
 	/*
 	PRE : 
 		$statement : requête SQL à exécuter
-		$class : nom de l'objet à utiliser pour retourner le résultat (none nutilisaant pas d'objet)
-		$return : FALSE (défaut) TRUE est utilisé lors d'une reueste ne demandant pas un résultat sous forme de tableau (INSERT, DELETE, ...)
+		$class : nom de l'objet à utiliser pour retourner le résultat (none n'utilisant pas d'objet)
+		$return : FALSE (défaut) TRUE est utilisé lors d'une requete ne demandant pas un résultat sous forme de tableau (INSERT, DELETE, ...)
 	POST :
 		Pour return = true
 			$statement || false

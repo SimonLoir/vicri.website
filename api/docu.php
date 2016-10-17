@@ -15,6 +15,7 @@
 		}
 		.section>div{
 			border-left: 5px solid rgba(0,0,0,0.75);
+			transition: 0.3s;
 			display: block;
 			padding: 15px;
 			padding-left: 40px;
@@ -41,6 +42,15 @@
 				<p>Get the project by its id.</p>
 				<span>Return => {id (int) ,name (string) ,managers (array) ,type (string) ,progression (int) ,pined (int) ,description (string) ,shortDescription (string) ,goals (string) ,links (string)} <br /><b>OR</b><br />{"UError"}
 				
+				</span>
+			</div>
+		</div>
+		<div class="section">
+			<h3 id="videos">?res=videos</h3>
+			<div>
+				<span>Output format: JSON</span>
+				<p>Get all videos</p>
+				<span>Return => [{id (int) ,url (string) ,provider (string) ,title (string) ,description (string)} , {video}]
 				</span>
 			</div>
 		</div>

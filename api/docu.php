@@ -12,19 +12,24 @@
 		}
 		.section{
 			padding: 15px;
+			padding-left:50px; 
 		}
-		.section>div{
+		.section>div, .get{
 			border-left: 5px solid rgba(0,0,0,0.75);
 			transition: 0.3s;
 			display: block;
 			padding: 15px;
 			padding-left: 40px;
 		}
+		.get{
+			padding-left: 10px;
+		}
 	</style>
 </head>
 <body>
 	<h1>API Documentation</h1>
 	<h2>GET method</h2>
+	<div class="get">
 		<div class="section">
 			<h3 id="projects">?res=projects</h3>
 			<div>
@@ -54,6 +59,6 @@
 				</span>
 			</div>
 		</div>
-
+	</div>
 </body>
 </html>

@@ -1,4 +1,8 @@
 <?php 
+/*
+* ACTION : charge les classes utilisées
+*/
+
 
 Class autoloader{
 

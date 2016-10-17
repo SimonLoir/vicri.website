@@ -7,7 +7,7 @@
 <body>
 	<h1>Documentation of the API</h1>
 	<h2>GET method</h2>
-		<h3>projects</h3>
+		<h3>?res=projects</h3>
 		<p>
 			<span>Output : JSON</span>
 			<p>Get all projects</p>

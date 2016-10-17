@@ -20,25 +20,45 @@ if (!isset($_GET['res']) || empty($_GET['res']) ) {
 /*  => */include "../../config.php"; /* <= */
 /* --- --- --- --- --- --- --- --- --- --- */
 
+/*
+Initialisation de l'autoloader
+*/
 include 'Class/autoloader.php';
-
 spl_autoload_register(["autoloader", "load"]);
 
+/*
+Création de l'objet db 
 
+	=> la connection à la BDD n'est initialisée QUE si on utilise la méthode ->query
+
+*/
 $db = new db('u223506911_base',$db__user , $db__pass, $db__host);
 
+/* 
+* Method : get
+ */
 if ($method == "GET") {
 	if ($res == "projects") { 
 
+		// Résulat final
 		$result = [];
 
+		// Requête SQL 
+		/*
+		POST : 
+			[
+				[projet](array),
+				[projet](array),
+				...(array)
+			](array)
+		*/
 		$projects = $db->query('SELECT id, name, managers, shortDescription, progression, pined FROM projects', "projects");
 		
 		foreach ($projects as $project) {
 			$result[] = $project->exec();
 		}
 
-		exit(json_encode($result));
+		exit(json_encode($result)); // return [{projet}, {projet}]
 
 	}elseif ($res == "videos") { 
 
@@ -64,6 +84,9 @@ if ($method == "GET") {
 	}elseif ($res == "user_connection_state"){
 
 		if (isset($_SESSION["user_id"])) {
+			/*
+			Attention : On ne récupère JAMAIS le mot de passe car il serait retourné côté client !!!
+			*/
 			exit(json_encode($db->query('SELECT name, firstname, mail, pseudo FROM users WHERE id = "'.$_SESSION["user_id"].'"')[0]));
 		}else{
 			exit("Empty");
@@ -87,12 +110,6 @@ if ($method == "GET") {
 					$pseudo = $_POST['pseudo'];
 					
 					$password = sha1(md5($_POST['password']) . sha1($_POST['email']));
-
-					/*if () {
-						exit('Ok');
-					}else{
-						exit("Server error");
-					}*/
 
 					if($db->query("INSERT INTO users VALUES (NULL, '$name', '$firstname', '$email', '$pseudo', '$password')", "none", true)){
 						exit('Créé');

@@ -1,6 +1,19 @@
 <?php 
 Class videos{
-
+	/*
+	PRE :
+		* id (int)
+		* url (string)
+		* provider (string)
+		* title (string)
+		* description (string)
+	POST : 
+		* id (int)
+		=> * url (string)
+		* provider (string)
+		* title (string)
+		* description (string)
+	*/
 	public function exec(){
 
 		if ($this->provider == 'youtube') {

@@ -9,7 +9,7 @@
 	<h2>GET method</h2>
 		<h3>?res=projects</h3>
 		<p>
-			<span>Output : JSON</span>
+			<span>Output format: JSON</span>
 			<p>Get all projects</p>
 			<span>[{id (int), name (string), managers (array), progression (int), pined (int), shortDescription (string), user_is_manager (bool)}, {project}, {project}]</span>
 		</p>

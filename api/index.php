@@ -11,7 +11,7 @@ if (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
 
 
 if (!isset($_GET['res']) || empty($_GET['res']) ) {
-	$res = "docu";
+	$res = "doc";
 }else{
 	$res = $_GET['res'];
 }
@@ -80,7 +80,7 @@ if ($method == "GET") {
 
 
 	}elseif ($res == "doc") {
-		
+		include 'docu.php';
 	}elseif ($res == "user_connection_state"){
 
 		if (isset($_SESSION["user_id"])) {

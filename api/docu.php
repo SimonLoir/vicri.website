@@ -22,7 +22,7 @@
 	</style>
 </head>
 <body>
-	<h1>Documentation of the API</h1>
+	<h1>API Documentation</h1>
 	<h2>GET method</h2>
 		<div class="section">
 			<h3 id="projects">?res=projects</h3>

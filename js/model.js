@@ -91,6 +91,18 @@ var model = {
 }
 
 var user = {
+	/*
+	PRE : /
+	POST : 
+		+ user.isConnected
+		#Si user.isConnected = false
+		+ user.pseudo
+		+ user.mail
+		+ user.name 
+		+ user.firstnames
+
+		=> controller.js : doWork()
+	*/
 	li_state : function (){
 		AR.GET('api?res=user_connection_state', function (data) {
 			if (data == "Empty") {
@@ -110,8 +122,7 @@ var user = {
 					user.firstname = d.firstname;
 
 				} catch(e) {
-					// statements
-					alert(e)
+					console.log(e);
 				}
 			}
 			doWork()

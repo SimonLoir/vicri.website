@@ -1,12 +1,26 @@
 var view = {
+	/*
+	Pre : text != undefined
+	*/
 	createTitle : function (text){
 		var e = $(".content").child("h2");
 		e.html(text);
 	}
 	,
+	/*
+	Pre : 
+		project_list (array)
+		voir documentation (?res=projects)
+		[{id (int), name (string), managers (array), progression (int), pined (int), shortDescription (string), user_is_manager (bool)}, {project}, {project}]
+	POST : 
+		+ nodes => HTML , DOM elements
+	*/
 	createProjectList : function (project_list) {
 		var container = $(".content").child('div');
 
+		/*
+		Pour tous les projets de la liste de projets
+		*/
 
 		for (var i = 0; i < project_list.length; i++) {
 			var project = project_list[i];
@@ -35,6 +49,7 @@ var view = {
 			description.html(project.shortDescription);
 
 			var open = e.child("a");
+
 			if (project.user_is_manager == true) {
 				open.html("Gérer");
 				open.node.href = "#page=project;pid=" + project.id + ';manager=true';
@@ -44,6 +59,13 @@ var view = {
 			}
 		}
 	},
+	/*
+	Pré :
+		data (array)
+		[{id (int) ,url (string) ,provider (string) ,title (string) ,description (string)} , {video}] 
+	Post : 
+		Dom elements, HTML
+	*/
 	createVideoList : function(data){
 		var container = $(".content").child('div');
 		for (var i = 0; i < data.length; i++) {
@@ -63,10 +85,23 @@ var view = {
 			open.html('Accèder au projet');
 		}
 	},
-
+	/*
+	Pré :
+		data (array) 
+		{id (int) ,name (string) ,managers (array) ,type (string) ,progression (int) ,pined (int) ,description (string) ,shortDescription (string) ,goals (string) ,links (string)} 
+	Post : 
+		Dom elements, HTML
+	*/
 	createProjectAsManager : function(data){
 		$('.content').createImage(data.name);
 	},
+	/*
+	Pré :
+		data (array) 
+		{id (int) ,name (string) ,managers (array) ,type (string) ,progression (int) ,pined (int) ,description (string) ,shortDescription (string) ,goals (string) ,links (string)} 
+	Post : 
+		Dom elements, HTML
+	*/
 	createProjectAsVisitor : function(data){
 		if (data == "UError") {
 			$('.content').html('Erreur : utilisateur non connecté ou ne participant pas au projet')
@@ -76,8 +111,9 @@ var view = {
 	}
 }
 
+// Petite méthode qui est utilisée dans model.createProjectAsVisitor() voir $('.content').createImage(data.name);
+
 ExtJsPlugIn.createImage = function (text){
-	//https://api.fnkr.net/testimg/200x200/ffba6f/fff/?text=Projets
 	var img = document.createElement("img");
 	img.src = "https://api.fnkr.net/testimg/1600x300/ffba6f/fff/?text=" + text;
 	img.style.width = "100%";

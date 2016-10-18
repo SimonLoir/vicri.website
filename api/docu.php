@@ -25,12 +25,16 @@
 		}
 		.get{
 			padding-left: 10px;
+			border-left: 5px solid rgba(42, 67, 173, 0.94);
+		}
+		.get_title{
+			color : rgba(42, 67, 173, 0.94);
 		}
 	</style>
 </head>
 <body>
 	<h1>API Documentation</h1>
-	<h2>GET method</h2>
+	<h2 class="get_title">GET method</h2>
 	<div class="get">
 		<div class="section">
 			<h3 id="projects">?res=projects</h3>

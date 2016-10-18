@@ -100,18 +100,22 @@ var view = {
 		
 		var project_type = $('.content').child("span");
 		project_type.html('Type de projet :' + data.type);
+		project_type.node.view_element_type = "type";
 
 		$('.content').child("br"); // On ne le conserve pas dans une variable 
 
 		var project_progression = $('.content').child("span");
 		project_progression.html('Progression :' + data.progression + " %");
+		project_progression.node.view_element_type = "progression";
 
 		var project_short_description = $('.content').child("p");
 		project_short_description.html('Description courte : ' + data.shortDescription);
+		project_short_description.node.view_element_type = "sdescription";
 
 		var project_description = $('.content').child("p");
 		project_description.html('Description: ' + data.description);
-		
+		project_description.node.view_element_type = "description";
+
 		var elements = [project_type, project_progression, project_short_description, project_description]
 
 		console.log(elements);
@@ -120,6 +124,9 @@ var view = {
 			var btn = elements[i].child('button');
 			btn.html('éditer');
 			btn.addClass("edit");
+			btn.click(function (){
+				controller.onProjectEditButtonClick($(this));
+			});
 		}
 
 	},

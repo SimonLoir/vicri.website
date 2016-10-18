@@ -47,4 +47,13 @@ function doWork(){
 	}
 }
 
+var controller = {
+	onProjectEditButtonClick : function (button){
+		var type = button.node.parentElement.view_element_type;
 
+		if (type == "type") {
+			//Pour la vue 
+			var text = prompt("Choisissez un type", objectStorage.data.type);
+		}
+	}
+}

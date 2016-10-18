@@ -1,4 +1,5 @@
 var view = {
+
 	/*
 	Pre : text != undefined
 	*/
@@ -85,6 +86,7 @@ var view = {
 			open.html('Accèder au projet');
 		}
 	},
+
 	/*
 	Pré :
 		data (array) 
@@ -92,8 +94,34 @@ var view = {
 	Post : 
 		Dom elements, HTML
 	*/
+
 	createProjectAsManager : function(data){
 		$('.content').createImage(data.name);
+		
+		var project_type = $('.content').child("span");
+		project_type.html('Type de projet :' + data.type);
+
+		$('.content').child("br"); // On ne le conserve pas dans une variable 
+
+		var project_progression = $('.content').child("span");
+		project_progression.html('Progression :' + data.progression + " %");
+
+		var project_short_description = $('.content').child("p");
+		project_short_description.html('Description courte : ' + data.shortDescription);
+
+		var project_description = $('.content').child("p");
+		project_description.html('Description: ' + data.description);
+		
+		var elements = [project_type, project_progression, project_short_description, project_description]
+
+		console.log(elements);
+
+		for (var i = 0; i < elements.length; i++) {
+			var btn = elements[i].child('button');
+			btn.html('éditer');
+			btn.addClass("edit");
+		}
+
 	},
 	/*
 	Pré :
@@ -108,6 +136,17 @@ var view = {
 		}else{
 			$('.content').createImage(data.name);
 		}
+
+		var project_type = $('.content').child("span");
+		project_type.html('Type de projet :' + data.type);
+
+		$('.content').child("br"); // On ne le conserve pas dans une variable 
+
+		var project_progression = $('.content').child("span");
+		project_progression.html('Progression :' + data.progression + " %");
+
+		var project_description = $('.content').child("p");
+		project_description.html('Description: ' + data.description);
 	}
 }
 

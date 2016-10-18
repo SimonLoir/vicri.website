@@ -3,6 +3,11 @@ var page = {
 	url : window.location.href,
 	target : "home",
 	informations : "",
+	/*
+	Pré : window.location.href
+	Post :
+		+ this.informations
+	*/
 	getInformations : function (){ // récupère l'information après le #
 		this.url = window.location.href;
 
@@ -12,6 +17,12 @@ var page = {
 			this.informations = pageInformations;
 		}
 	},
+	/*
+	Pré : 
+		this.getInformations => this.informations
+	Post : 
+		this.target
+	*/
 	getTarget : function () {
 		this.getInformations();
 		if (this.informations != "") {
@@ -27,6 +38,11 @@ var page = {
 		this.target = "home";
 		return this.target;
 	},
+	/*
+	Pré : query != empty
+	Post :  
+		false || information
+	*/
 	get : function (query){
 		this.getInformations();
 		if (this.informations != "") {
@@ -46,6 +62,12 @@ var page = {
 }
 
 var model = {
+	/*
+	PRE : /
+	POST : 
+		+ data
+		=> callback(data)
+	*/
 	getAllVideos : function (callback) {
 		AR.GET('api?res=videos', function(data){
 			$('.content').clear();
@@ -56,6 +78,12 @@ var model = {
 			}
 		});
 	},
+	/*
+	PRE : /
+	POST : 
+		+ data
+		=> callback(data)
+	*/
 	getAllProjects : function (callback){
 		AR.GET('api?res=projects', function(data){
 			$('.content').clear();
@@ -66,6 +94,12 @@ var model = {
 			}
 		});
 	},
+	/*
+	PRE : /
+	POST : 
+		+ pdata
+		=> callback(pdata)
+	*/
 	getProject(callback_manager, callback){
 		AR.GET('api?res=project&id='  + page.get('pid') + "&manager=" + page.get("manager"), function (data){
 			

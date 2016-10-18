@@ -61,6 +61,17 @@
 				</span>
 			</div>
 		</div>
+		<div class="section">
+			<h3 id="user_connection_state">?res=user_connection_state</h3>
+			<div>
+				<span>Output format: JSON <b>OR</b> String</span>
+				<p>Get user connection state</p>
+				<span>Return => {name ,firstname ,mail ,pseudo}
+				<br /><b>OR</b><br />
+				"Empty"
+				</span>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -116,13 +116,11 @@ var view = {
 		project_description.html('Description: ' + data.description);
 		project_description.node.view_element_type = "description";
 
-		var elements = [project_type, project_progression, project_short_description, project_description]
-
-		console.log(elements);
+		var elements = [project_type, project_progression, project_short_description, project_description];
 
 		for (var i = 0; i < elements.length; i++) {
 			var btn = elements[i].child('button');
-			btn.html('éditer');
+			btn.html('Modifier');
 			btn.addClass("edit");
 			btn.click(function (){
 				controller.onProjectEditButtonClick($(this));
@@ -154,14 +152,64 @@ var view = {
 
 		var project_description = $('.content').child("p");
 		project_description.html('Description: ' + data.description);
+	},
+	/*
+	PRE : 
+		type = type || progression || sdescription || description 
+	POST :
+		new popup
+	*/
+	popup : function (type){
+
+		var mask = $("body").child('div');
+		mask.addClass('mask');
+
+		var popup = $("body").child('div');
+		popup.addClass('popup');
+
+		var form = popup.child('div');
+
+		/*
+			Fermeture du popup
+		*/
+
+		var exit = popup.child('span');
+		exit.html('×');
+		exit.addClass('exit');
+
+		exit.click(function(){popup.remove();mask.remove();});
+
+		/*
+			Actions relatives au type
+		*/
+
+		if (type == "type") {
+			form.child('span').html('Sélectionnez le type de projet : <br />');
+
+			var select = form.child('select');
+			select.node.options[0] = new Option("Vidéo", 0);
+			select.node.options[1] = new Option("Photo", 1);
+			select.node.options[2] = new Option("Programmation", 2);
+			select.node.options[3] = new Option("Autre", 3);
+
+			form.node.onsubmit = function () {
+				controller.onPopupConfirm(type, select.node);
+			}
+		}
+
+		var send = form.child('input');
+		send.node.type = "submit";
+
+
 	}
+
 }
 
 // Petite méthode qui est utilisée dans model.createProjectAsVisitor() voir $('.content').createImage(data.name);
 
 ExtJsPlugIn.createImage = function (text){
 	var img = document.createElement("img");
-	img.src = "https://api.fnkr.net/testimg/1600x300/ffba6f/fff/?text=" + text;
+	img.src = "https://api.fnkr.net/testimg/1600x300/468ACA/fff/?text=" + text;
 	img.style.width = "100%";
 	this.node.appendChild(img);
 	return img;

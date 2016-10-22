@@ -1,5 +1,7 @@
 /*Ext JS v1 by Simon Loir*/
-var ExtJsPlugIn = {};
+var ExtJsPlugIn = {
+	document : {}
+};
 function $(element){
 	var re;
 	/*
@@ -13,6 +15,11 @@ function $(element){
 				document.addEventListener("DOMContentLoaded", toDo);
 			}
 		}
+		var keys = 	Object.keys(ExtJsPlugIn.document);
+  	
+  		for (var i = 0; i < keys.length; i++) {
+  			e[keys[i]] = ExtJsPlugIn.document[keys[i]];
+  		}
 		return e;
 	}else if(typeof(element) === "object"){
 		re = element;
@@ -295,6 +302,111 @@ var cookies = {
     	return "";
 	}
 }
+
+
+ExtJsPlugIn.document.ExtViewVersion = "Alpha - 0.1";
+ExtJsPlugIn.document.ExtViewBuild = 4;
+var ExtView_Watcher = {}
+var ExtView_Watcher_Input = {}
+var v = { 
+    set : function (prop, value) {
+        v[prop] = value;
+        if (ExtView_Watcher[prop] != undefined){
+        	var evw = ExtView_Watcher[prop];
+            for (var i = 0; i < evw.length; i++) {
+                $(evw[i]).EVReload();
+            }
+        }
+        if (ExtView_Watcher_Input[prop] != undefined){
+        	var evw = ExtView_Watcher_Input[prop];
+            for (var i = 0; i < evw.length; i++) {
+                evw[i].value = value;
+            }
+        }
+       
+    }
+};
+
+ExtJsPlugIn.document.watch = function () {
+    let inputs = document.querySelectorAll('[ext-var]');//ext-var
+    
+    for (i = 0; i < inputs.length; i++) {
+        var that = inputs[i];
+        
+        that.addEventListener("keyup", function (){
+            v.set(that.getAttribute('ext-var'), that.value)
+        }); 
+        
+        if  (that.hasAttribute('ext-val')){
+            var varname = that.getAttribute('ext-val')
+            if (ExtView_Watcher_Input[varname] == undefined){
+                ExtView_Watcher_Input[varname] = [];
+            }
+            ExtView_Watcher_Input[varname].push(that);
+        }
+    } 
+    
+    
+    
+    
+    let existing = document.querySelectorAll('[ext-html]');
+    
+    for (i = 0; i < existing.length; i++) {
+        $(existing[i]).html(existing[i].getAttribute('ext-html'));
+        existing[i].setAttribute('extjs', "");
+    }
+    
+	let e = document.querySelectorAll("[extjs]");
+	for (i = 0; i < e.length; i++) { 
+        var el = e[i];
+        var html = el.innerHTML;
+        
+        el.setAttribute('ext-html', html);
+        el.removeAttribute("extjs");
+        
+        var res = html.replace(/{{(.[^\}|\{]+)}}/gi, function myFunction(x){
+            /*
+                On regarde si c'est une variable ou autre chose
+            */
+            if  (el.hasAttribute('extjs-noindex')){
+                
+            }else{
+                var varname = x.replace("{{", "").replace("}}", "").replace("v.", "");
+                
+                if (ExtView_Watcher[varname] == undefined){
+                    ExtView_Watcher[varname] = [];
+                }
+                ExtView_Watcher[varname].push(el);
+            }
+             var x__view_result = eval(x);
+            if  (x__view_result == undefined){
+                return "";
+            }else{
+                return x__view_result;
+            }
+        });
+        
+        $(el).html(res);
+    }
+}
+
+ExtJsPlugIn.EVReload = function (){
+    var el = this.node;
+    var html = el.getAttribute('ext-html');
+                
+    var res = html.replace(/{{(.[^\}|\{]+)}}/gi, function myFunction(x){
+         return eval(x);
+    });
+    
+    $(el).html(res);
+}
+
+
+$().ready(function (){
+   	if  (document.body.hasAttribute('ext-app')){
+        $().watch();
+    }
+})
 
 
 

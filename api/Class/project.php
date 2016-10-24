@@ -19,6 +19,7 @@ Class project{
 		/*
 			PRE :
 				* managers (string) init [comma separated numbers]
+				
 			POST :
 				* managers is now an array [same numbers]
 				IF ?manager = "true" AND user_id isn't in managers : return "UError"

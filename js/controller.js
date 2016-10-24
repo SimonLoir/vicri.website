@@ -15,12 +15,15 @@ Fonctionnement de controller.js
 
 $(document).ready(user.li_state); // Quand tout est chargé
 window.onhashchange = user.li_state; // Quand on modifie url#...
+$(document).ready(view.createHamburgerAndMenu);//
 
 var content = $('.content');
 
 function doWork(){
 
 	content.html('');
+
+	view.addContentToMenu();
 
 	if (page.getTarget() == "home") {
 		

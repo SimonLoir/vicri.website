@@ -1,3 +1,4 @@
+var menu;
 var view = {
 
 	/*
@@ -27,6 +28,7 @@ var view = {
 			var project = project_list[i];
 
 			var e = container.child('div');
+			e.addClass("element");
 
 			var title = e.child('span');
 			title.html(project.name);
@@ -50,6 +52,7 @@ var view = {
 			description.html(project.shortDescription);
 
 			var open = e.child("a");
+			open.addClass('btn')
 
 			if (project.user_is_manager == true) {
 				open.html("Gérer");
@@ -201,6 +204,39 @@ var view = {
 		send.node.type = "submit";
 
 
+	},
+
+	createHamburgerAndMenu : function () {
+		menu = document.createElement('div');
+		document.body.appendChild(menu);
+		menu.classList.add('left_menu');
+		$(menu).click(function () {
+			$('.hamburger').click();
+		});
+
+		/* On crée l'hamburger du menu */
+		$('.hamburger').click(function () {
+		    if (this.classList.contains('clicked')) {
+		        $(this).removeClass('clicked');
+		        $(this).addClass('none');
+		        menu.classList.remove('open')
+		    } else {
+		        $(this).removeClass('none');
+		        $(this).addClass('clicked');   
+		        menu.classList.add('open');
+		    };
+		    
+		});
+	},
+
+	addContentToMenu : function () {
+		$(menu).html('');
+
+		var menu_app = $(menu).child("div");
+		menu_app.addClass('menu_app');
+
+		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=projets">Projets</a></button>');
+		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">play_circle_filled</i></span><a href="#page=videos">Vidéos</a></button>');
 	}
 
 }
@@ -214,3 +250,4 @@ ExtJsPlugIn.createImage = function (text){
 	this.node.appendChild(img);
 	return img;
 }
+

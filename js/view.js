@@ -114,23 +114,29 @@ var view = {
 	*/
 
 	createProjectAsManager : function(data){
-		$('.content').createImage(data.name);
-		
-		var project_type = $('.content').child("span");
+		var container = $('.content').child("div");
+		container.addClass('element');
+
+		var image_and_title = container.child('div');
+		image_and_title.createImage(data.name);
+
+		container.child("br");
+
+		var project_type = container.child("span");
 		project_type.html('Type de projet :' + data.type);
 		project_type.node.view_element_type = "type";
 
-		$('.content').child("br"); // On ne le conserve pas dans une variable 
+		container.child("br"); // On ne le conserve pas dans une variable 
 
-		var project_progression = $('.content').child("span");
+		var project_progression = container.child("span");
 		project_progression.html('Progression :' + data.progression + " %");
 		project_progression.node.view_element_type = "progression";
 
-		var project_short_description = $('.content').child("p");
+		var project_short_description = container.child("p");
 		project_short_description.html('Description courte : ' + data.shortDescription);
 		project_short_description.node.view_element_type = "sdescription";
 
-		var project_description = $('.content').child("p");
+		var project_description = container.child("p");
 		project_description.html('Description: ' + data.description);
 		project_description.node.view_element_type = "description";
 
@@ -155,20 +161,26 @@ var view = {
 	*/
 	createProjectAsVisitor : function(data){
 		if (data == "UError") {
-			$('.content').html('Erreur : utilisateur non connecté ou ne participant pas au projet')
-		}else{
-			$('.content').createImage(data.name);
+			$('.content').html('<div class="error">Erreur : utilisateur non connecté ou ne participant pas au projet</div>');
+			return false;
 		}
 
-		var project_type = $('.content').child("span");
+		var container = $('.content').child("div");
+		container.addClass('element');
+
+		var image_and_title = container.child('div');
+		image_and_title.createImage(data.name);
+
+
+		var project_type = container.child("span");
 		project_type.html('Type de projet :' + data.type);
 
-		$('.content').child("br"); // On ne le conserve pas dans une variable 
+		container.child("br"); // On ne le conserve pas dans une variable 
 
-		var project_progression = $('.content').child("span");
+		var project_progression = container.child("span");
 		project_progression.html('Progression :' + data.progression + " %");
 
-		var project_description = $('.content').child("p");
+		var project_description = container.child("p");
 		project_description.html('Description: ' + data.description);
 	},
 	/*
@@ -261,8 +273,8 @@ var view = {
 
 ExtJsPlugIn.createImage = function (text){
 	var img = document.createElement("img");
-	img.src = "https://api.fnkr.net/testimg/1600x300/468ACA/fff/?text=" + text;
-	img.style.width = "100%";
+	img.src = "https://api.fnkr.net/testimg/150x150/468ACA/fff/?text=" + text;
+	img.style.maxWidth = "99%";
 	this.node.appendChild(img);
 	return img;
 }

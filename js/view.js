@@ -265,6 +265,7 @@ var view = {
 		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">home</i></span><a href="#page=home">Home</a></button>');
 		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=projets">Projets</a></button>');
 		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">play_circle_filled</i></span><a href="#page=videos">Vidéos</a></button>');
+		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;"></i></span>vicri.esy.es</button>');
 	}
 
 }

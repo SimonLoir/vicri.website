@@ -1,30 +1,30 @@
 <?php 
 Class projects{
-
-	public $user_is_manager;
-
-	/*
-	PRE :
+/*	VAR :
 		* id (int)
 		* name (string)
 		* managers (string)
 		* progression (int)
 		* pined (int)
 		* shortDescription (string)
+		*¨user_is_manager (bool)
+*/
+	public $user_is_manager;
+
+	
+	public function clientFormat(){
+		/*
+	PRE :
+	    * managers (string) init [comma separated numbers]
+
 	ACTION :
 		Transforme this->manager (string) en this->manager (array)
-	POST :
-
-		* id (int)
-		* name (string)
-		=> * managers (array)
-		* progression (int)
-		* pined (int)
-		* shortDescription (string)
-		+ user_is_manager (bool)
+	POST : 
+		* managers is now an array [same numbers]
+		+ user_is_manager    = False : _SESSION non init or user_id not in managers
+						else = True  
 	*/
 
-	public function exec(){
 
 		$this->managers = explode(';', $this->managers);
 

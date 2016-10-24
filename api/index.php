@@ -55,7 +55,7 @@ if ($method == "GET") {
 		$projects = $db->query('SELECT id, name, managers, shortDescription, progression, pined FROM projects', "projects");
 		
 		foreach ($projects as $project) {
-			$result[] = $project->exec();
+			$result[] = $project->clientFormat();
 		}
 
 		exit(json_encode($result)); // return [{projet}, {projet}]
@@ -67,7 +67,7 @@ if ($method == "GET") {
 		$videos = $db->query('SELECT * FROM videos', "videos");
 		
 		foreach ($videos as $video) {
-			$result[] = $video->exec();
+			$result[] = $video->clientFormat();
 		}
 
 		exit(json_encode($result));
@@ -76,7 +76,7 @@ if ($method == "GET") {
 
 		$project = $db->query('SELECT * FROM projects WHERE id = "'.$_GET['id'].'"', "project")[0];
 
-		exit(json_encode($project->exec()));
+		exit(json_encode($project->clientFormat()));
 
 
 	}elseif ($res == "doc") {

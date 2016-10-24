@@ -28,7 +28,7 @@ Class project{
 
 		|| UError (user error)
 	*/
-	public function exec()
+	public function clientFormat()
 	{
 		$this->managers = explode(';', $this->managers);
 

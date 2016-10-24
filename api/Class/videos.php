@@ -16,7 +16,7 @@ Class videos{
 		* title (string)
 		* description (string)
 	*/
-	public function exec(){
+	public function clientFormat(){
 
 		if ($this->provider == 'youtube') {
 			$this->url = "https://www.youtube.com/embed/" . $this->url;

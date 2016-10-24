@@ -77,18 +77,33 @@ var view = {
 
 			var video_container = container.child("div");
 			video_container.node.style.display = "inline-block";
+			video_container.addClass('grid_element');
 
 			var iframe  = video_container.child("iframe");
 			iframe.node.src = video.url;
-			iframe.node.style.display = "block";
-			iframe.node.style.width = "400px";
-			iframe.node.style.height = "225px";
 
 			var open = video_container.child("a");
+			open.addClass('btn2')
 			open.node.href = "#page=project;pid=" + video.id + ';manager=false';
 			open.html('Accèder au projet');
+
+			var information_button = video_container.child('button');
+			information_button.addClass("btn2");
+			information_button.node.style.color = "rgba(0,0,0,0.65)";
+			information_button.node.style.float = "left";
+			information_button.node.style.paddingLeft = "5px";
+
+			information_button.click(function(){
+				view.videoShowInformations(video);
+			});
+
+			information_button.html('<i class="material-icons">info</i> infos');
 		}
 	},
+	videoShowInformations : function (video){
+		alert('Informations sur la vidéo : \n Titre :' + video.title + "\n Description :" + video.description + "\n Url :" + video.url);
+	}
+	,
 
 	/*
 	Pré :
@@ -235,6 +250,7 @@ var view = {
 		var menu_app = $(menu).child("div");
 		menu_app.addClass('menu_app');
 
+		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">home</i></span><a href="#page=home">Home</a></button>');
 		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=projets">Projets</a></button>');
 		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">play_circle_filled</i></span><a href="#page=videos">Vidéos</a></button>');
 	}

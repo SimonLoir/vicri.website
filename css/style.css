@@ -102,7 +102,25 @@ body{
     padding: 10px;
     box-shadow: 0px 2px 8px rgba(38,38,38,0.25);
     font-family:"Roboto", sans-serif;
-}.element:nth-child(1){
+}
+.grid_element{
+    position: relative;
+    background-color: white;
+    color:rgba(33, 33, 33, 0.7);
+    margin: 15px;
+    padding: 10px;
+    box-shadow: 0px 2px 8px rgba(38,38,38,0.25);
+    font-family:"Roboto", sans-serif;
+    width: 300px;
+    max-width: 90%;
+}
+.grid_element iframe{
+    width: 99%;
+    height: 200px;
+    border:none;
+}
+
+.element:nth-child(1){
     margin-top: 3px;
 }
 .element .section_title{
@@ -409,6 +427,10 @@ svg{
     margin-left: 20px;
     margin-right: 20px;
     
+}
+.left_menu a{
+    text-decoration: none;
+    color:inherit;
 }
 .left_menu .menu_app button span{
     padding-right: 20px;

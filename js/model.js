@@ -144,7 +144,7 @@ var user = {
 
 		=> controller.js : doWork()
 	*/
-	li_state : function (){
+	liState : function (){
 		AR.GET('api?res=user_connection_state', function (data) {
 			if (data == "Empty") {
 

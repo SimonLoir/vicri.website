@@ -287,3 +287,7 @@ ExtJsPlugIn.createImage = function (text){
 	return img;
 }
 
+ExtJsPlugIn.showError = function (text) {
+	this.html('<div class="error">' + text + '</div>');
+}
+

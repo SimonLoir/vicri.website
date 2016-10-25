@@ -2,7 +2,7 @@
 Fonctionnement de controller.js
 
 	Au chargement ou quand on modifie l'url,
-	on execute la methode user.li_state() qui va exécuter la fonction du controller doWork()
+	on execute la methode user.liState() qui va exécuter la fonction du controller doWork()
 	
 		function doWork()
 
@@ -13,9 +13,9 @@ Fonctionnement de controller.js
 			on appelle la méthode correspondante au niveau du model an lui donnant le callback(dans la view) correspondant
 */
 
-$(document).ready(user.li_state); // Quand tout est chargé
-window.onhashchange = user.li_state; // Quand on modifie url#...
-$(document).ready(view.createHamburgerAndMenu);//
+$(document).ready(user.liState); // Quand tout est chargé
+window.onhashchange = user.liState; // Quand on modifie url#...
+$(document).ready(view.createHamburgerAndMenu);
 
 var content = $('.content');
 
@@ -45,7 +45,7 @@ function doWork(){
 
 	}else{
 
-		content.html('Erreur : cette page n\'existe pas');
+		content.showError("Désolé, cette page n'existe pas !");
 
 	}
 }

@@ -34,9 +34,11 @@ var view = {
 			title.html(project.name);
 
 			var progress = e.child("span");
+            progress.html(project.progression + "%");
+            progress.addClass('progress');
+			
 			var progress__style = progress.node.style;
             progress__style.display = "inline-block";
-            progress.html(project.progression + "%");
             
             if  (project.progression > 90){
                 progress__style.background = "#286928";
@@ -51,14 +53,19 @@ var view = {
 			var description = e.child('p');
 			description.html(project.shortDescription);
 
-			var open = e.child("a");
-			open.addClass('btn')
+			var btns = e.child('div');
+			btns.css('display', "block");
+			btns.css('height', "32px");
+
+			var open = btns.child("a");
+			open.addClass('btn2');
+
 
 			if (project.user_is_manager == true) {
 				open.html("Gérer");
 				open.node.href = "#page=project;pid=" + project.id + ';manager=true';
 			}else{
-				open.html("Ouvir");
+				open.html("Ouvrir");
 				open.node.href = "#page=project;pid=" + project.id + ';manager=false';
 			}
 		}
@@ -274,7 +281,7 @@ var view = {
 
 ExtJsPlugIn.createImage = function (text){
 	var img = document.createElement("img");
-	img.src = "https://api.fnkr.net/testimg/150x150/468ACA/fff/?text=" + text;
+	img.src = "https://api.fnkr.net/testimg/150x150/" +Math.floor(Math.random()*16777215).toString(16) + "/FFFFFF/?text=" + text;
 	img.style.maxWidth = "99%";
 	this.node.appendChild(img);
 	return img;

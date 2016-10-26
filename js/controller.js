@@ -32,7 +32,7 @@ function doWork(){
 
 
 	if (page.getTarget() == "home") {
-		
+		view.load.hide();
 	}else if (page.getTarget() == "videos") {
 
 		model.getAllVideos(view.createVideoList);
@@ -50,6 +50,8 @@ function doWork(){
 		model.getProject( view.createProjectAsManager , view.createProjectAsVisitor);
 
 	}else{
+
+		view.load.hide();
 
 		content.showError("Désolé, cette page n'existe pas !");
 

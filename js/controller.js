@@ -12,9 +12,13 @@ Fonctionnement de controller.js
 
 			on appelle la méthode correspondante au niveau du model an lui donnant le callback(dans la view) correspondant
 */
+function start() {
+	user.liState();
+	view.load.show('chargement');
+}
 
-$(document).ready(user.liState); // Quand tout est chargé
-window.onhashchange = user.liState; // Quand on modifie url#...
+$(document).ready(start); // Quand tout est chargé
+window.onhashchange = start;
 $(document).ready(view.createHamburgerAndMenu);
 
 var content = $('.content');
@@ -24,6 +28,8 @@ function doWork(){
 	content.html('');
 
 	view.addContentToMenu();
+
+
 
 	if (page.getTarget() == "home") {
 		

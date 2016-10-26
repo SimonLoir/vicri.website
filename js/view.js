@@ -18,6 +18,7 @@ var view = {
 		+ nodes => HTML , DOM elements
 	*/
 	createProjectList : function (project_list) {
+		view.load.hide();
 		var container = $(".content").child('div');
 
 		/*
@@ -78,6 +79,7 @@ var view = {
 		Dom elements, HTML
 	*/
 	createVideoList : function(data){
+		view.load.hide();
 		var container = $(".content").child('div');
 		for (var i = 0; i < data.length; i++) {
 			var video = data[i];
@@ -121,6 +123,7 @@ var view = {
 	*/
 
 	createProjectAsManager : function(data){
+		view.load.hide();
 		var container = $('.content').child("div");
 		container.addClass('element');
 
@@ -167,6 +170,7 @@ var view = {
 		Dom elements, HTML
 	*/
 	createProjectAsVisitor : function(data){
+		view.load.hide();
 		if (data == "UError") {
 			$('.content').html('<div class="error">Erreur : utilisateur non connecté ou ne participant pas au projet</div>');
 			return false;
@@ -277,6 +281,67 @@ var view = {
 		
 
 	}
+
+
+	, 
+
+
+	 load : {
+		element: null,
+		mask:null,
+		active: false,
+		show: function (string) {
+		    if (this.active == false) {
+		        var loader = document.createElement('div');
+		        loader.classList.add('loader');
+		        this.element = loader;
+		        var e = document.createElement('span');
+		        e.classList.add('e');
+		        e.classList.add('e1');
+		        var e2 = document.createElement('span');
+		        e2.classList.add('e');
+		        e2.classList.add('e2');
+		        var e3 = document.createElement('span');
+		        e3.classList.add('e');
+		        e3.classList.add('e3');
+		        var br = document.createElement('br');
+		        var text = document.createElement('span');
+		        text.innerHTML = string;
+		        var hide = document.createElement('div');
+		        hide.style.position = "fixed";
+		        hide.style.zIndex = 99;
+		        hide.style.background = "#fafafa";
+		        hide.style.top = 0;
+		        hide.style.bottom = 0;
+		        hide.style.left = 0;
+		        hide.style.right = 0;
+
+		        this.mask = hide;
+
+		        loader.appendChild(e);
+		        loader.appendChild(e2);
+		        loader.appendChild(e3);
+		        loader.appendChild(br);
+		        loader.appendChild(text);
+		        document.body.appendChild(hide);
+
+		        document.body.appendChild(loader);
+		        this.active = true;
+		    }
+		},
+		hide: function () {
+		    try {
+		        this.active = false;
+		        this.element.parentElement.removeChild(this.element);
+		        this.element = null;
+		        this.mask.parentElement.removeChild(this.mask);
+		        this.mask = null;
+		    } catch (e) {
+
+		    }
+		    
+		}
+}
 
 }
 

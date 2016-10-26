@@ -90,6 +90,7 @@ var model = {
 	*/
 	getAllProjects : function (callback){
 		AR.GET('api?res=projects', function(data){
+			alert(data)
 			$('.content').clear();
 			try{
 				callback(JSON.parse(data));

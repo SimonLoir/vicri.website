@@ -244,7 +244,8 @@ var view = {
 		menu = document.createElement('div');
 		document.body.appendChild(menu);
 		menu.classList.add('left_menu');
-		$(menu).click(function () {
+
+		$(menu).click(function (e) {
 			$('.hamburger').click();
 		});
 
@@ -269,10 +270,12 @@ var view = {
 		var menu_app = $(menu).child("div");
 		menu_app.addClass('menu_app');
 
-		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">home</i></span><a href="#page=home">Home</a></button>');
-		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=projets">Projets</a></button>');
-		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;">play_circle_filled</i></span><a href="#page=videos">Vidéos</a></button>');
-		menu_app.html(menu_app.html() + '<button><span><i class="material-icons" style="font-size:inherit;"></i></span>vicri.esy.es</button>');
+		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">home</i></span><a href="#page=home">Home</a></div>');
+		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=projets">Projets</a></div>');
+		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">play_circle_filled</i></span><a href="#page=videos">Vidéos</a></div>');
+		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;"></i></span>vicri.esy.es</div>');
+		
+
 	}
 
 }

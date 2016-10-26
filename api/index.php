@@ -16,6 +16,10 @@ if (!isset($_GET['res']) || empty($_GET['res']) ) {
 	$res = $_GET['res'];
 }
 
+if ($res != "doc") {
+	header('Content-Type:application/json');
+}
+
 /* --- --- --- --- --- --- --- --- --- --- */
 /*  => */include "../../config.php"; /* <= */
 /* --- --- --- --- --- --- --- --- --- --- */
@@ -32,7 +36,7 @@ Création de l'objet db
 	=> la connection à la BDD n'est initialisée QUE si on utilise la méthode ->query
 
 */
-$db = new db('u223506911_base',$db__user , $db__pass, $db__host);
+$db = new db($db__base, $db__user , $db__pass, $db__host);
 
 /* 
 * Method : get
@@ -109,7 +113,7 @@ if ($method == "GET") {
 					
 					$pseudo = $_POST['pseudo'];
 					
-					$password = sha1(md5($_POST['password']) . sha1($_POST['email']));
+					$password = password_hash($_POST['password'] , PASSWORD_DEFAULT);
 
 					if($db->query("INSERT INTO users VALUES (NULL, '$name', '$firstname', '$email', '$pseudo', '$password')", "none", true)){
 						exit('Créé');

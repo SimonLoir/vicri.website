@@ -418,7 +418,7 @@ svg{
     }
 }
 
-.left_menu .menu_app button{
+.left_menu .menu_app .button{
     border:none;
     background: transparent;
     font-family: "Roboto", sans-serif;
@@ -447,7 +447,7 @@ svg{
     text-decoration: none;
     color:inherit;
 }
-.left_menu .menu_app button span{
+.left_menu .menu_app .button span{
     padding-right: 20px;
     font-weight: 900;
     display: inline-block;

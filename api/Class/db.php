@@ -16,6 +16,7 @@ Class db{
 	ACTION :
 		Assigne les valeurs aux propriétés
 	*/
+
 	public function __construct($db_name, $db_user = "root", $db_pass = "", $db_host = "localhost"){
 
 		$this->db_name = $db_name;
@@ -26,16 +27,11 @@ Class db{
 	}
 
 	/*
-	PRE : 
-		this->db_host
-		this->db_user
-		this->db_name
-		this->db_pass
-	ACTION :
-		(initialise la connection à la BDD)
+	PRE : /
 	POST :
 		this->pdo
 	*/
+
 	private function getPDO(){
 
 		if ($this->pdo === null) {
@@ -78,6 +74,12 @@ Class db{
 		}
 
 		return $result;
+
+	}
+
+	function newquery($statement, $options = ["obj" => false, "prepare" => false]){
+		 
+
 
 	}
 

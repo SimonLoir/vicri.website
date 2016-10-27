@@ -16,7 +16,7 @@ if (!isset($_GET['res']) || empty($_GET['res']) ) {
 	$res = $_GET['res'];
 }
 
-if ($res != "doc") {
+if ($res != "doc" && $res != "indev") {
 	header('Content-Type:application/json');
 }
 
@@ -96,6 +96,22 @@ if ($method == "GET") {
 			exit("Empty");
 		}
 
+	}elseif ($res == "indev"){
+		echo "Test area";
+		echo "<hr />";
+		// exemple de $res == project avec la nouvelle méthode query
+
+		/*$project = $db->query('SELECT * FROM projects WHERE id = "'.$_GET['id'].'"', "project")[0];*/
+
+		$project = $db->newquery('SELECT * FROM projects WHERE id = :id', [
+			"prepare" => [":id" => $_GET['id']],
+			"class"   => "project",
+			"one" => true
+		]);
+
+
+		var_dump($project);
+		var_dump($project->clientFormat());
 	}
 
 }if ($method == "POST") {

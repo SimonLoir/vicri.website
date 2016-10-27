@@ -73,12 +73,57 @@ Class db{
 
 	}
 
-	function newquery($statement, $options = ["obj" => false, "prepare" => false]){
-		 
-		if (isset($options['prepare'])) {
-			# code...
-		}
+	/*
+	In dev
+	*/
 
+	public function newquery($statement, $options = null){
+
+		if ($options == null) {
+
+			$request = $this->getPDO()->query($statement);
+
+			$result = $request->fetchAll(PDO::FETCH_OBJ);
+
+			return $result;
+
+		}else{
+
+			if (isset($options['prepare']) && is_array($options['prepare'])) {
+
+				echo "prepare";
+				
+				$request = $this->getPDO()->prepare($statement);
+
+				$request->execute($options['prepare']);
+
+			}else{
+
+				$request = $this->getPDO()->query($statement);
+
+			}
+
+			if (isset($options['result']) && $options['result'] == true) {
+
+				return $request;
+
+			}elseif(isset($options['class']) && is_string($options['class'])){
+
+				$result = $request->fetchAll(PDO::FETCH_CLASS, $options['class']);
+
+				if (isset($options['one']) && $options['one'] == true) {
+					return $result[0];
+				}else{
+					return $result;
+				}
+
+			}else{
+
+				return $request->fetchAll(PDO::FETCH_OBJ);
+
+			}
+
+		}
 	}
 
 }?>

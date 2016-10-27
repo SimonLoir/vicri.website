@@ -22,12 +22,14 @@ Class project{
 				
 			POST :
 				* managers is now an array [same numbers]
-				IF ?manager = "true" AND user_id isn't in managers : return "UError"
+				
+				output   = "UError" : _GET['manager'] = true and ( _SESSION non init or user_id not in managers )
+					else = current project
 		*/
 
 		$this->managers = explode(';', $this->managers);
 
-		if ($_GET['manager']  == "true" && !in_array($_SESSION['user_id'], $this->managers)) {
+		if ($_GET['manager']  == "true" && (!in_array($_SESSION['user_id'], $this->managers) || !isset($_SESSION['user_id'])) ) {
 
 			return "UError";
 

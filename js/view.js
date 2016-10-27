@@ -48,6 +48,7 @@ var view = {
             }else{
                 progress__style.background = "#eb1515";
             }
+            
             progress__style.color = "white";
             progress__style.padding = "3px";
 

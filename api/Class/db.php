@@ -29,7 +29,7 @@ Class db{
 	/*
 	PRE : /
 	POST :
-		this->pdo
+		+ 
 	*/
 
 	private function getPDO(){
@@ -44,17 +44,13 @@ Class db{
 
 	/*
 	PRE : 
-		$statement : requête SQL à exécuter
-		$class : nom de l'objet à utiliser pour retourner le résultat (none n'utilisant pas d'objet)
-		$return : FALSE (défaut) TRUE est utilisé lors d'une requete ne demandant pas un résultat sous forme de tableau (INSERT, DELETE, ...)
+		statement [SQL statement] (string)
+
 	POST :
-		Pour return = true
-			$statement || false
-		Pour return = false
-			Pour class != "none"
-				objet créé sur base de la class
-			Pour class = "none"
-				tableau
+		output  =  object made with class : return = false and class not empty (or "none") 
+		   else =  array : return = false and class is empty (or "none")
+		   else =  statement : return = true and request didn't fail
+		   else =  FALSE : return = true and request failed
 	*/
 
 	public function query($statement, $class = 'none', $return = false){

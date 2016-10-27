@@ -16,9 +16,6 @@ Class projects{
 		/*
 	PRE :
 	    * managers (string) init [comma separated numbers]
-
-	ACTION :
-		Transforme this->manager (string) en this->manager (array)
 	POST : 
 		* managers is now an array [same numbers]
 		+ user_is_manager    = False : _SESSION non init or user_id not in managers

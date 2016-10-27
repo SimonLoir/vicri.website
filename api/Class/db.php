@@ -9,12 +9,12 @@ Class db{
 
 	/*
 	PRÉ : 
-		$db_name : nom de la base de données (obligatoire)
-		$db_user : nom de l'utilisateur de la BDD (donner si != "root")
-		$db_pass : mdp de l'utilisateur (donner si != "")
-		$db_host : hôte mysql
-	ACTION :
-		Assigne les valeurs aux propriétés
+		db_name
+		db_user
+		db_pass
+		db_host
+	POST : /		
+		
 	*/
 
 	public function __construct($db_name, $db_user = "root", $db_pass = "", $db_host = "localhost"){
@@ -29,7 +29,7 @@ Class db{
 	/*
 	PRE : /
 	POST :
-		+ 
+		output = this->pdo
 	*/
 
 	private function getPDO(){
@@ -75,7 +75,9 @@ Class db{
 
 	function newquery($statement, $options = ["obj" => false, "prepare" => false]){
 		 
-
+		if (isset($options['prepare'])) {
+			# code...
+		}
 
 	}
 

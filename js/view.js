@@ -7,6 +7,72 @@ var view = {
 	createTitle : function (text){
 		var e = $(".content").child("h2");
 		e.html(text);
+	},
+
+	addInputAnimations : function () {
+		var all = document.querySelectorAll(".input");
+    	for (var i = 0; i < all.length; i++) {
+    	    
+    	    all[i].onfocus = function () {
+    	        this.parentElement.classList.add('focus');
+    	        if(this.parentElement.classList.contains("notempty")){
+    	            this.parentElement.classList.remove('notempty');
+    	        }
+    	    }
+    	    all[i].onblur = function(){
+    	        this.parentElement.classList.remove('focus');
+    	        if(this.value != ""){
+    	           this.parentElement.classList.add('notempty');
+    	        }
+    	    }
+    	}
+	}
+
+	,
+	createLoginPage : function (callback){
+		view.load.hide();
+		var container = $(".content").child('div');
+
+		var e = container.child('div');
+		e.addClass("element");
+
+		var form = e.child("form");
+		form.node.action = "#";
+		form.node.autocomplete = "off";
+
+		var username = form.child("div");
+		username.addClass('field');
+
+		var username_text = username.child('label');
+		username_text.html('Username');
+		username_text.addClass('top');
+
+		var username_input = username.child("input");
+		username_input.addClass('input');
+
+		var password = form.child("div");
+		password.addClass('field');
+
+		var password_text = password.child('label');
+		password_text.html('Password');
+		password_text.addClass('top');
+
+		var password_input = password.child("input");
+		password_input.addClass('input');
+		password_input.node.type = "password";
+
+		var send = form.child('input');
+		send.node.type = "submit";
+		send.node.value = "Me connecter";
+		send.addClass('btn');
+
+        form.node.onsubmit = function (){
+        	alert('ok');
+        	return false;
+        }
+
+        view.addInputAnimations();
+		
 	}
 	,
 	/*
@@ -278,6 +344,13 @@ var view = {
 		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">home</i></span><a href="#page=home">Home</a></div>');
 		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=projets">Projets</a></div>');
 		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">play_circle_filled</i></span><a href="#page=videos">Vidéos</a></div>');
+
+		if (user.isConnected == true) {
+			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=account">Mon compte</a></div>');
+		}else{
+			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=login">Me connecter</a></div>');
+		}
+
 		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;"></i></span>vicri.esy.es</div>');
 		
 

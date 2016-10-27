@@ -43,11 +43,11 @@ function doWork(){
 
 	}else if(page.getTarget() == "project"){
 
-		/*
-			2 callbacks car on utilise une vue différente si l'utilisateur est manager du projet ou non
-		*/
-
 		model.getProject( view.createProjectAsManager , view.createProjectAsVisitor);
+
+	}else if(page.getTarget() == "login"){
+
+		view.createLoginPage(model.login);
 
 	}else{
 

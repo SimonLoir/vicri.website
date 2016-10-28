@@ -1,4 +1,5 @@
 var menu;
+var loginInputs;
 var view = {
 
 	/*
@@ -32,7 +33,9 @@ var view = {
 	,
 	createLoginPage : function (callback){
 		view.load.hide();
+
 		var container = $(".content").child('div');
+
 
 		var e = container.child('div');
 		e.addClass("element");
@@ -62,17 +65,25 @@ var view = {
 		password_input.addClass('input');
 		password_input.node.type = "password";
 
+
 		var send = form.child('input');
 		send.node.type = "submit";
 		send.node.value = "Me connecter";
 		send.addClass('btn');
 
+		loginInputs = [username_input,password_input, send];
         form.node.onsubmit = function (){
 
         	callback(username_input.node.value, password_input.node.value);
 
         	return false;
         }
+
+        e.child("br");
+
+        var loginWithGoogle = e.child('div');
+		loginWithGoogle.node.id = "loginbutton_google_sign_in_instance";
+		renderButton(loginWithGoogle.node.id);
 
         view.addInputAnimations();
 		

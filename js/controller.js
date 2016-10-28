@@ -12,6 +12,7 @@ Fonctionnement de controller.js
 
 			on appelle la méthode correspondante au niveau du model an lui donnant le callback(dans la view) correspondant
 */
+
 function start() {
 	user.liState();
 	view.load.show('chargement');
@@ -66,4 +67,30 @@ var controller = {
 	onPopupConfirm(type, input){
 		
 	}
+}
+
+var google_user_id;
+var google_user_mail;
+
+function onSuccess(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  google_user_id = profile.getId(); // Do not send to your backend! Use an ID token instead.
+  google_user_mail = profile.getEmail();
+	model.login(google_user_mail,google_user_id);
+
+}
+
+function onFailure(error) {
+  console.log(error);
+}
+function renderButton(id) {
+  gapi.signin2.render(id, {
+    'scope': 'profile email',
+    'width': 240,
+    'height': 50,
+    'longtitle': true,
+    'theme': 'dark',
+    'onsuccess': onSuccess,
+    'onfailure': onFailure
+  });
 }

@@ -90,8 +90,6 @@ Class db{
 		}else{
 
 			if (isset($options['prepare']) && is_array($options['prepare'])) {
-
-				echo "prepare";
 				
 				$request = $this->getPDO()->prepare($statement);
 

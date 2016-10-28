@@ -19,6 +19,7 @@ var view = {
     	            this.parentElement.classList.remove('notempty');
     	        }
     	    }
+
     	    all[i].onblur = function(){
     	        this.parentElement.classList.remove('focus');
     	        if(this.value != ""){
@@ -44,7 +45,7 @@ var view = {
 		username.addClass('field');
 
 		var username_text = username.child('label');
-		username_text.html('Username');
+		username_text.html('Email');
 		username_text.addClass('top');
 
 		var username_input = username.child("input");
@@ -67,7 +68,9 @@ var view = {
 		send.addClass('btn');
 
         form.node.onsubmit = function (){
-        	alert('ok');
+
+        	callback(username_input.node.value, password_input.node.value);
+
         	return false;
         }
 

@@ -128,6 +128,20 @@ var model = {
 			}
 
 		});
+	},
+	login : function ( email, password) {
+
+		AR.POST('api/index.php?res=login', {email: email, password: password}, function (data){
+			if (JSON.parse(data) == "ok") {
+				
+				window.location.hash = "page=projets";
+				
+				alert('Bienvenue !');
+			}else{
+				alert('Une erreur est survenue');
+			}
+		});
+
 	}
 }
 

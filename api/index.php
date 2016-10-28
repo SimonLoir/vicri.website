@@ -102,7 +102,8 @@ if ($method == "GET") {
 		// exemple de $res == project avec la nouvelle méthode query
 
 		/*$project = $db->query('SELECT * FROM projects WHERE id = "'.$_GET['id'].'"', "project")[0];*/
-
+		var_dump($_SESSION);
+		/*
 		$project = $db->newquery('SELECT * FROM projects WHERE id = :id', [
 			"prepare" => [":id" => $_GET['id']],
 			"class"   => "project",
@@ -111,7 +112,7 @@ if ($method == "GET") {
 
 
 		var_dump($project);
-		var_dump($project->clientFormat());
+		var_dump($project->clientFormat());*/
 	}
 
 }if ($method == "POST") {
@@ -147,6 +148,32 @@ if ($method == "GET") {
 			exit('Error : you must be connected');
 		}
 
+	}elseif($res == "login"){
+
+		if (!isset($_POST['email']) || !isset($_POST['password'])) {
+			exit(json_encode("Error : the server can't execute that request !"));
+		}
+
+		$user_infos = $db->newquery('SELECT * FROM users WHERE mail = :email', [
+			"prepare" => [":email" => $_POST['email']]
+		]);
+
+		if ($user_infos != null) {
+			
+			if (password_verify($_POST['password'],$user_infos[0]->password)) {
+
+				$_SESSION['user_id'] = $user_infos[0]->id;
+
+				exit(json_encode("ok"));
+
+			}else{
+				exit(json_encode("Error : incorrect password"));
+			}
+
+		}else{
+			exit(json_encode("Error : can't find the user"));
+		}
+		
 	}
 }
  ?>

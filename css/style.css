@@ -122,7 +122,15 @@ body{
     font-family:"Roboto", sans-serif;
     width: 300px;
     max-width: 90%;
+    vertical-align: top;
 }
+
+.home_e_p{
+    height: 150px;
+    display: block;
+    overflow: hidden;
+}
+
 .grid_element iframe{
     width: 99%;
     height: 200px;

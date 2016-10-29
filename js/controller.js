@@ -44,6 +44,9 @@ var controller = {
 		
 		if (page.getTarget() == "home") {
 			view.load.hide();
+
+			
+			
 		}else if (page.getTarget() == "videos") {
 
 			model.getAllVideos(view.createVideoList);

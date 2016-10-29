@@ -30,6 +30,13 @@
 		.get_title{
 			color : rgba(42, 67, 173, 0.94);
 		}
+		.post{
+			padding-left: 10px;
+			border-left: 5px solid rgba(48, 113, 43, 0.94);
+		}
+		.post_title{
+			color : rgba(48, 113, 43, 0.94);
+		}
 	</style>
 </head>
 <body>
@@ -76,6 +83,28 @@
 				</span>
 			</div>
 		</div>
+	</div>
+	<h2 class="post_title">POST method</h2>
+	<div class="post">
+		
+		<div class="section">
+			<h3 id="project">?res=login</h3>
+			<div>
+				<span>Output format: JSON</span>
+				<span><br />POST: password, email</span>
+				<p>
+					Connect the user. 
+				</p>
+				<span>
+					Return => {"ok"}
+					<br /><b>OR</b><br />
+					{"Error : incorrect password"}
+					<br /><b>OR</b><br />
+					{"Error : can't find the user"}		
+				</span>
+			</div>
+		</div>
+		
 	</div>
 </body>
 </html>

@@ -88,9 +88,6 @@ if ($method == "GET") {
 	}elseif ($res == "user_connection_state"){
 
 		if (isset($_SESSION["user_id"])) {
-			/*
-			Attention : On ne récupère JAMAIS le mot de passe car il serait retourné côté client !!!
-			*/
 			exit(json_encode($db->query('SELECT name, firstname, mail, pseudo FROM users WHERE id = "'.$_SESSION["user_id"].'"')[0]));
 		}else{
 			exit("Empty");
@@ -98,6 +95,9 @@ if ($method == "GET") {
 
 	}elseif ($res == "indev"){
 		exit("Dev area");
+	}elseif ($res == "logout"){
+		session_destroy();
+		header('Location: ../');
 	}
 
 }if ($method == "POST") {

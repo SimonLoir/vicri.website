@@ -358,11 +358,12 @@ var view = {
 		menu_app.addClass('menu_app');
 
 		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">home</i></span><a href="#page=home">Home</a></div>');
-		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=projets">Projets</a></div>');
+		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">list</i></span><a href="#page=projets">Projets</a></div>');
 		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">play_circle_filled</i></span><a href="#page=videos">Vidéos</a></div>');
 
 		if (user.isConnected == true) {
 			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=account">Mon compte</a></div>');
+			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">exit_to_app</i></span><a href="api/index.php?res=logout">Me déconnecter</a></div>');
 		}else{
 			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=login">Me connecter</a></div>');
 		}

@@ -64,7 +64,7 @@ body{
     top:0;
     left:0;
     right: 0;
-    background: #018AD2;
+    background: #3f51b5;
     box-shadow: 0 2px 10px rgba(52, 52, 52, 0.8);
     color: white;
     z-index: 95;
@@ -195,7 +195,7 @@ body{
 	border: none;
 	border-radius: 2px;
 	/*background: #2196f3;*/
-    background-color:#03A9F5;
+    background-color:#3f51b5;
     text-transform: uppercase;
     font-family:"Roboto", sans-serif;
     color:white;
@@ -209,7 +209,7 @@ body{
 .btn:focus{
     outline: none;
     background: white;
-    color:#03A9F5;
+    color:#3f51b5;
     box-shadow: 0px 1px 5px #b1b1b1;
 }
 
@@ -225,11 +225,14 @@ body{
 	border-radius: 2px;
     text-transform: uppercase;
     font-family:"Roboto", sans-serif;
-    color:#03A9F5;
+    color:#3f51b5;
     transition: 0.75s;
     margin-right: 5px;
     float:right;
-    
+}
+
+.btn2:active{
+    background: #E7E7E7;
 }
 
 

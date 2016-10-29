@@ -10,34 +10,62 @@ if (isset($_GET['logout'])) {
 <head>
 	<meta charset="UTF-8">
 	<title>Admin panel</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/extjs.js"></script>
 </head>
 <body>
-	<?php if (!isset($_SESSION["admin"])): ?>
-		<?php 
-		if (isset($_POST['submit']) && isset($_POST['key'])) {
-			if ($_POST['key'] == "v1crI2015-2016-KEY") {
-				$_SESSION['admin'] = "indse";
-				header('Location: admin.php');
-			}else{
-				echo "Erreur de clé d'accès";
-			}
-		}
-		 ?>
-		<form action="" method="post">
-			<input type="password" name="key">
-			<input type="submit" name="submit">
-		</form>
-	<?php endif ?>
-	<?php if (isset($_SESSION["admin"])): ?>
-		<form method="POST" action="api/index.php?res=admin::newuser">
-			<input type="text" name="name" placeholder="name"><br />
-			<input type="text" name="firstname" placeholder="firstname"><br />
-			<input type="text" name="email" placeholder="email"><br />
-			<input type="text" name="pseudo" placeholder="pseudo"><br />
-			<input type="password" name="password" placeholder="password">
-			
-			<input type="submit" value="Ok">
-		</form>
+<h1>Admin panel</h1>
+	<?php if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] == 1): ?>
+		<div class="element">
+			<form method="POST" action="api/index.php?res=admin::newuser">
+				<div class="field">
+       				<label class="top">name</label>
+       				<input type="text" name="name" class="input">
+   				</div>
+				<div class="field">
+       				<label class="top">firstname</label>
+       				<input type="text" name="firstname" class="input">
+   				</div>
+   				<div class="field">
+       				<label class="top">email</label>
+       				<input type="text" name="email" class="input">
+   				</div>
+   				<div class="field">
+       				<label class="top">pseudo</label>
+       				<input type="text" name="pseudo" class="input">
+   				</div>
+   				<div class="field">
+       				<label class="top">password</label>
+       				<input type="password" name="password" class="input">
+   				</div>
+				
+				<input type="submit" value="Ok" class='btn'>
+			</form>
+		</div>
 	<?php endif ?>
 </body>
 </html>
+
+<script>
+	
+	$(document).ready(function () {
+		var all = document.querySelectorAll(".input");
+    	for (var i = 0; i < all.length; i++) {
+    	    
+    	    all[i].onfocus = function () {
+    	        this.parentElement.classList.add('focus');
+    	        if(this.parentElement.classList.contains("notempty")){
+    	            this.parentElement.classList.remove('notempty');
+    	        }
+    	    }
+
+    	    all[i].onblur = function(){
+    	        this.parentElement.classList.remove('focus');
+    	        if(this.value != ""){
+    	           this.parentElement.classList.add('notempty');
+    	        }
+    	    }
+    	}
+	});
+
+</script>

@@ -79,11 +79,10 @@ var view = {
         	return false;
         }
 
-        e.child("br");
-
+        /*e.child("br");
         var loginWithGoogle = e.child('div');
 		loginWithGoogle.node.id = "loginbutton_google_sign_in_instance";
-		renderButton(loginWithGoogle.node.id);
+		renderButton(loginWithGoogle.node.id);*/
 
         view.addInputAnimations();
 		
@@ -289,7 +288,7 @@ var view = {
 		var popup = $("body").child('div');
 		popup.addClass('popup');
 
-		var form = popup.child('div');
+		var form = popup.child('form');
 
 		/*
 			Fermeture du popup
@@ -309,19 +308,22 @@ var view = {
 			form.child('span').html('Sélectionnez le type de projet : <br />');
 
 			var select = form.child('select');
+			select.addClass('bar');
 			select.node.options[0] = new Option("Vidéo", 0);
 			select.node.options[1] = new Option("Photo", 1);
 			select.node.options[2] = new Option("Programmation", 2);
 			select.node.options[3] = new Option("Autre", 3);
 
 			form.node.onsubmit = function () {
-				controller.onPopupConfirm(type, select.node);
+				controller.onPopupConfirm(type, select.node, exit);
+				return false;
 			}
 		}
 
 		var send = form.child('input');
+		send.addClass('btn2');
 		send.node.type = "submit";
-
+		send.node.value = "Confirmer"
 
 	},
 

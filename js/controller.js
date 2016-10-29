@@ -24,48 +24,49 @@ $(document).ready(view.createHamburgerAndMenu);
 
 var content = $('.content');
 
-function doWork(){
-
-	content.html('');
-
-	view.addContentToMenu();
-
-
-
-	if (page.getTarget() == "home") {
-		view.load.hide();
-	}else if (page.getTarget() == "videos") {
-
-		model.getAllVideos(view.createVideoList);
-
-	}else if (page.getTarget() == "projets") {
-
-		model.getAllProjects(view.createProjectList);
-
-	}else if(page.getTarget() == "project"){
-
-		model.getProject( view.createProjectAsManager , view.createProjectAsVisitor);
-
-	}else if(page.getTarget() == "login"){
-
-		view.createLoginPage(model.login);
-
-	}else{
-
-		view.load.hide();
-
-		content.showError("Désolé, cette page n'existe pas !");
-
-	}
-}
 
 var controller = {
 	onProjectEditButtonClick : function (button){
 		var type = button.node.parentElement.view_element_type;
 		view.popup(type);
 	},
-	onPopupConfirm(type, input){
+	onPopupConfirm(type, input, btn){
+		if (type == "type") {
+			var value = input.selectedIndex;
+			btn.click();
+		}
+	},
+	doWork : function (){
+
+		content.html('');
+
+		view.addContentToMenu();
 		
+		if (page.getTarget() == "home") {
+			view.load.hide();
+		}else if (page.getTarget() == "videos") {
+
+			model.getAllVideos(view.createVideoList);
+
+		}else if (page.getTarget() == "projets") {
+
+			model.getAllProjects(view.createProjectList);
+
+		}else if(page.getTarget() == "project"){
+
+			model.getProject( view.createProjectAsManager , view.createProjectAsVisitor);
+
+		}else if(page.getTarget() == "login"){
+
+			view.createLoginPage(model.login);
+
+		}else{
+
+			view.load.hide();
+
+			content.showError("Désolé, cette page n'existe pas !");
+
+		}
 	}
 }
 
@@ -77,8 +78,9 @@ function onSuccess(googleUser) {
 	var profile = googleUser.getBasicProfile();
 	google_user_id = profile.getId(); // Do not send to your backend! Use an ID token instead.
 	google_user_mail = profile.getEmail();
-	 var id_token = googleUser.getAuthResponse().id_token;
-	model.loginWithGoogle(id_token);
+	var id_token = googleUser.getAuthResponse().id_token;
+
+	alert('La connnexion avec Google est indisponible pour le moment');
 
 }
 

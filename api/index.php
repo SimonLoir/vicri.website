@@ -97,28 +97,13 @@ if ($method == "GET") {
 		}
 
 	}elseif ($res == "indev"){
-		echo "Test area";
-		echo "<hr />";
-		// exemple de $res == project avec la nouvelle méthode query
-
-		/*$project = $db->query('SELECT * FROM projects WHERE id = "'.$_GET['id'].'"', "project")[0];*/
-		var_dump($_SESSION);
-		/*
-		$project = $db->newquery('SELECT * FROM projects WHERE id = :id', [
-			"prepare" => [":id" => $_GET['id']],
-			"class"   => "project",
-			"one" => true
-		]);
-
-
-		var_dump($project);
-		var_dump($project->clientFormat());*/
+		exit("Dev area");
 	}
 
 }if ($method == "POST") {
 	if ($res == "admin::newuser") {
 
-		if (isset($_SESSION["admin"]) && $_SESSION["admin"] == "indse") {
+		if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] == 1) {
 			if (isset($_POST['name'])&& isset($_POST['firstname'])&& isset($_POST['email'])&& isset($_POST['pseudo'])&& isset($_POST['password'])) {
 				if (!empty($_POST['name'])&& !empty($_POST['firstname'])&& !empty($_POST['email'])&& !empty($_POST['pseudo'])&& !empty($_POST['password'])) {
 					

@@ -195,7 +195,7 @@ var user = {
 					console.log(e);
 				}
 			}
-			doWork()
+			controller.doWork()
 		});
 	}
 	

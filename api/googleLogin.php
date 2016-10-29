@@ -1,6 +1,6 @@
 <?php 
 
-exit(json_encode("error"));
+exit(json_encode("Service désactivé..."));
 
 include "vendor/autoload.php";
 

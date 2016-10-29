@@ -116,7 +116,6 @@ function $(element){
 		html: function(string){
 			if (typeof(string) === "string" || typeof(string) === "number") {
 				this.dom.innerHTML = string;
-				return this
 			}else{
 				return this.dom.innerHTML;
 			}

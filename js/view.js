@@ -9,53 +9,6 @@ var view = {
 		var e = $(".content").child("h2");
 		e.html(text);
 	},
-	createHomePage : function () {
-		var container = $('.content');
-		
-		/*
-		Vidéos
-		*/
-
-		var e_videos = container.child("div");
-		e_videos.node.style.display = "inline-block";
-		e_videos.addClass('grid_element');
-		
-		e_videos.child('span').html('Vidéos');
-
-		e_videos.child('p').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus minus veniam neque ipsam incidunt harum possimus inventore sapiente, aliquam laboriosam! Vel, eligendi provident nostrum itaque voluptate! Est totam, distinctio! Explicabo. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet alias quos libero aspernatur reiciendis a eius praesentium ab vero laudantium est et eaque, quasi id sed nemo aperiam amet esse.').addClass('home_e_p');
-
-		var e_video_link = e_videos.child('a');
-		e_video_link.node.href = "#page=videos";
-		e_video_link.addClass('btn2');
-		e_video_link.html("Nos vidéos");
-
-		/*
-		Projets
-		*/
-		
-		var e_projects = container.child("div");
-		e_projects.node.style.display = "inline-block";
-		e_projects.addClass('grid_element');
-		
-		e_projects.child('span').html('Projets');
-
-		e_projects.child('p').html('Lorem ipsum dolor sit amendi provident nostrum itaque voluptate! Est totam, distinctio! Explicabo.').addClass('home_e_p');
-
-		var e_project_link = e_projects.child('a');
-		e_project_link.node.href = "#page=projets";
-		e_project_link.addClass('btn2');
-		e_project_link.html("Nos Projets");
-
-		if (user.isConnected == true) {
-			var e_project_new = e_projects.child('a');
-			e_project_new.node.href = "#page=new_project";
-			e_project_new.addClass('btn2');
-			e_project_new.html("Nouveau projet");
-		}
-
-
-	}
-	,
 
 	addInputAnimations : function () {
 		var all = document.querySelectorAll(".input");

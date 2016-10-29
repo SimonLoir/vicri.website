@@ -45,7 +45,7 @@ var controller = {
 		if (page.getTarget() == "home") {
 			view.load.hide();
 
-			view.createHomePage();
+			
 			
 		}else if (page.getTarget() == "videos") {
 

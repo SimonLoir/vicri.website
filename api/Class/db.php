@@ -53,7 +53,7 @@ Class db{
 		   else =  FALSE : return = true and request failed
 	*/
 
-	public function query($statement, $class = 'none', $return = false){
+	public function oldquery($statement, $class = 'none', $return = false){
 
 		$request = $this->getPDO()->query($statement);
 		
@@ -77,7 +77,7 @@ Class db{
 	In dev
 	*/
 
-	public function newquery($statement, $options = null){
+	public function query($statement, $options = null){
 
 		if ($options == null) {
 

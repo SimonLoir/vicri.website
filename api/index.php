@@ -56,7 +56,7 @@ if ($method == "GET") {
 				...(array)
 			](array)
 		*/
-		$projects = $db->query('SELECT id, name, managers, shortDescription, progression, pined FROM projects', "projects");
+		$projects = $db->query('SELECT id, name, managers, shortDescription, progression, pined FROM projects', ['class'=> "projects"]);
 		
 		foreach ($projects as $project) {
 			$result[] = $project->clientFormat();
@@ -68,7 +68,7 @@ if ($method == "GET") {
 
 		$result = [];
 
-		$videos = $db->query('SELECT * FROM videos', "videos");
+		$videos = $db->query('SELECT * FROM videos', ['class'=> "videos"]);
 		
 		foreach ($videos as $video) {
 			$result[] = $video->clientFormat();
@@ -78,7 +78,11 @@ if ($method == "GET") {
 
 	}elseif($res == "project"){
 
-		$project = $db->query('SELECT * FROM projects WHERE id = "'.$_GET['id'].'"', "project")[0];
+		$project = $db->query('SELECT * FROM projects WHERE id = :project_id', [
+			"class" => "project",
+			"prepare" => [":project_id" => $_GET['id']],
+			"one" => true
+		]);
 
 		exit(json_encode($project->clientFormat()));
 
@@ -88,7 +92,9 @@ if ($method == "GET") {
 	}elseif ($res == "user_connection_state"){
 
 		if (isset($_SESSION["user_id"])) {
-			exit(json_encode($db->query('SELECT name, firstname, mail, pseudo FROM users WHERE id = "'.$_SESSION["user_id"].'"')[0]));
+			exit(json_encode($db->query('SELECT name, firstname, mail, pseudo FROM users WHERE id = :user_id', [
+				"prepare" => [":user_id" => $_SESSION['user_id']] 
+			])));
 		}else{
 			exit("Empty");
 		}
@@ -117,7 +123,12 @@ if ($method == "GET") {
 					
 					$password = password_hash($_POST['password'] , PASSWORD_DEFAULT);
 
-					if($db->query("INSERT INTO users VALUES (NULL, '$name', '$firstname', '$email', '$pseudo', '$password')", "none", true)){
+					if($db->query("INSERT INTO users VALUES (NULL, :name, :firstname, :email, :pseudo, :password)", [
+
+						"prepare" => [":name" => $name, ":firstname" => $firstname, ":email" => $email, ":pseudo" => $pseudo, ":password" => $password],
+						"result" => true
+
+					])){
 						exit('Créé');
 					}else{
 						exit("server__error");
@@ -139,7 +150,7 @@ if ($method == "GET") {
 			exit(json_encode("Error : the server can't execute that request !"));
 		}
 
-		$user_infos = $db->newquery('SELECT * FROM users WHERE mail = :email', [
+		$user_infos = $db->query('SELECT * FROM users WHERE mail = :email', [
 			"prepare" => [":email" => $_POST['email']]
 		]);
 

@@ -142,6 +142,21 @@ var model = {
 			}
 		});
 
+	},
+	loginWithGoogle : function (token) {
+
+		AR.POST('api/googleLogin.php', {token: token}, function (data){
+			$('.content').html(decodeURIComponent(data))
+			if (JSON.parse(data) == "ok") {
+				
+				window.location.hash = "page=projets";
+				
+				alert('Bienvenue !');
+			}else{
+				alert('Une erreur est survenue');
+			}
+		});
+
 	}
 }
 

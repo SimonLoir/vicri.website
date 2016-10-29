@@ -73,10 +73,12 @@ var google_user_id;
 var google_user_mail;
 
 function onSuccess(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  google_user_id = profile.getId(); // Do not send to your backend! Use an ID token instead.
-  google_user_mail = profile.getEmail();
-	model.login(google_user_mail,google_user_id);
+
+	var profile = googleUser.getBasicProfile();
+	google_user_id = profile.getId(); // Do not send to your backend! Use an ID token instead.
+	google_user_mail = profile.getEmail();
+	 var id_token = googleUser.getAuthResponse().id_token;
+	model.loginWithGoogle(id_token);
 
 }
 

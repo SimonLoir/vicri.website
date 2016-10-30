@@ -102,7 +102,11 @@ var view = {
 		form.child('span').html('<br /><br />*Vous pourrez modifier ce projet un fois créé');
 
 		form.node.onsubmit = function () {
-			
+			view.load.show('Création du projet')
+			if (callback(projectname_input.node.value,project_short_desc_input.node.value) == false) {
+				view.load.hide();
+			}
+			return false;
 		}
 
 		view.addInputAnimations();
@@ -546,6 +550,6 @@ ExtJsPlugIn.createImage = function (text){
 }
 
 ExtJsPlugIn.showError = function (text) {
-	this.html('<div class="error">' + text + '</div>' + this.html);
+	this.html('<div class="error">' + text + '</div>' + this.html());
 }
 

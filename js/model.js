@@ -157,6 +157,35 @@ var model = {
 			}
 		});
 
+	}, newProject: function (project_name, project_short_description) {
+
+		if (project_short_description.length > 200) {
+			alert('Votre description est trop longue. Le maximum autorisé est de 200 \n taille actuelle : ' + project_short_description.length);
+			return false;
+		}
+		if (project_short_description == "" || project_name == "") {
+			alert('Merci de remplir tous les champs');
+			return false;
+		}
+		if (project_short_description.length < 10) {
+			alert('Votre description est trop courte ! Votre description courte doit comporter entre 10 et 200 caractères');
+			return false;
+		}
+		AR.POST('api/index.php?res=new_project', {
+
+			name : project_name, desc : project_short_description 
+
+		}, function (data) {
+
+			if (JSON.parse(data) == "Ok") {
+				window.location.hash = "page=projets";
+			}
+
+		}, function (){
+			alert("Une erreur est survenue, réessayez ultérieurement");
+		});
+
+
 	}
 }
 

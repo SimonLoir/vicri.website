@@ -188,6 +188,36 @@ if ($method == "GET") {
 
 		}
 		
+	}elseif($res == "new_project"){
+
+		if (!isset($_SESSION['user_id'])) {
+			exit(json_encode('You must be logged in !'));
+		}
+
+		if (!isset($_POST['name']) || !isset($_POST['desc'])) {
+			exit(json_encode("ERROR / request : POST params = name and desc"));
+		}
+
+		if (empty($_POST['name']) || empty($_POST['desc'])) {
+			exit(json_encode("ERROR / request : empty POST param :  name or desc"));
+		}
+
+		if ($db->query('INSERT INTO projects VALUES(NULL, :name, :user_id , "video", 0, 0, "", :descri, "", "")', [
+			"result" => true, 
+
+			"prepare" => [
+				":user_id" => $_SESSION['user_id'],
+				":name" => $_POST['name'], 
+				":descri" => $_POST['desc']
+				]
+
+			])) {
+			
+			exit(json_encode('Ok'));
+
+		}else{
+			exit(json_encode('Server error'));
+		}
 	}
 }
  ?>

@@ -14,6 +14,11 @@
 ExtJsPlugIn.htm = function (html) {
 	this.html(this.html() +"<br />" +  html);
 }
+
+ExtJsPlugIn.undefined = function (res) {
+	let html = "<p><b style=\"color:crimson;\"> => Alert : </b> " + res + " is undefined</p>"
+	this.html(this.html() +  html);
+}
 		AR.GET('api?res=projects', function (string) {
 			var test = $("body").child('div');
 			try {
@@ -23,7 +28,7 @@ ExtJsPlugIn.htm = function (html) {
     			test.html('<h2>?res=projects<h2>');
 
     			if (data[0] == undefined) {
-    				test.htm("Alert : data[0] is undefined");error = true;
+    				test.undefined("data[0]")
     			}else{
     				test.htm("Ok : data[0] is defined => " + JSON.stringify(data[0]));
     			}
@@ -31,42 +36,42 @@ ExtJsPlugIn.htm = function (html) {
     			var x = data[0];
 
     			if (x.id == undefined) {
-    				test.htm("Alert : data[0].id is undefined");error = true;
+    				test.undefined("data[0].id");error = true;
     			}else{
     				test.htm("Ok : data[0].id is defined => " + JSON.stringify(data[0].id));
     			}
 
     			if (x.progression == undefined) {
-    				test.htm("Alert : data[0].progression is undefined");error = true;
+    				test.undefined("data[0].progression");error = true;
     			}else{
     				test.htm("Ok : data[0].progression is defined => " + JSON.stringify(data[0].progression));
     			}
 
     			if (x.pined == undefined) {
-    				test.htm("Alert : data[0].pined is undefined");error = true;
+    				test.undefined("data[0].pined");error = true;
     			}else{
     				test.htm("Ok : data[0].pined is defined => " + JSON.stringify(data[0].pined));
     			}
 
     			if (x.managers == undefined) {
-    				test.htm("Alert : data[0].managers is undefined");error = true;
+    				test.undefined("data[0].managers");error = true;
     			}else{
     				test.htm("Ok : data[0].managers is defined => " + JSON.stringify(data[0].managers));
     			}
 
     			if (x.user_is_manager == undefined) {
-    				test.htm("Alert : data[0].user_is_manager is undefined");error = true;
+    				test.undefined("data[0].user_is_manager");error = true;
     			}else{
     				test.htm("Ok : data[0].user_is_manager is defined => " + JSON.stringify(data[0].user_is_manager));
     				if (typeof(data[0].user_is_manager) == "boolean") {
-    					test.htm("Ok : typeof -> data[0].user_is_manager => boolean");
+    					test.htm("           => Ok : typeof -> data[0].user_is_manager => boolean");
     				}else{
-    					test.htm("Alert : typeof -> data[0].user_is_manager => <b>!= boolean</b>");
+    					test.htm("           => Alert : typeof -> data[0].user_is_manager => <b>!= boolean</b>");
     				}
     			}
 
     			if (x.name == undefined) {
-    				test.htm("Alert : data[0].name is undefined");error = true;
+    				test.undefined("data[0].name");error = true;
     			}else{
     				test.htm("Ok : data[0].name is defined => " + JSON.stringify(data[0].name));
     			}

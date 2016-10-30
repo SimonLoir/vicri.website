@@ -62,8 +62,8 @@ if ($method == "GET") {
 			$result[] = $project->clientFormat();
 		}
 
-		exit(json_encode($result)); // return [{projet}, {projet}]
-
+		  exit(json_encode($result)); // return [{projet}, {projet}]
+		//exit(json_encode(["test"]));
 	}elseif ($res == "videos") { 
 
 		$result = [];

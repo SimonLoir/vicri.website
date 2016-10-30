@@ -56,6 +56,58 @@ var view = {
 
 	}
 	,
+	createNewProjectPage : function (callback) {
+
+		view.load.hide();
+
+		var container = $(".content").child('div');
+
+
+		var e = container.child('div');
+		e.addClass("element");
+
+		e.child("span").html('Créer un projet').addClass('section_title');
+
+		var form = e.child("form");
+		form.node.action = "#";
+		form.node.autocomplete = "off";
+
+		var projectname = form.child("div");
+		projectname.addClass('field');
+
+		var projectname_text = projectname.child('label');
+		projectname_text.html('Nom du projet');
+		projectname_text.addClass('top');
+
+		var projectname_input = projectname.child("input");
+		projectname_input.addClass('input');
+
+		var project_short_desc = form.child("div");
+		project_short_desc.addClass('field');
+
+		var project_short_desc_text = project_short_desc.child('label');
+		project_short_desc_text.html('Donnez une brève description du projet');
+		project_short_desc_text.addClass('top');
+
+		var project_short_desc_input = project_short_desc.child("textarea");
+		project_short_desc_input.addClass('input');
+
+		project_short_desc_input.css('height', "80px");
+
+		var send = form.child("input");
+		send.node.type = "submit";
+		send.node.value = "Créer le projet *";
+		send.addClass('btn');
+
+		form.child('span').html('<br /><br />*Vous pourrez modifier ce projet un fois créé');
+
+		form.node.onsubmit = function () {
+			
+		}
+
+		view.addInputAnimations();
+	}
+	,
 
 	addInputAnimations : function () {
 		var all = document.querySelectorAll(".input");
@@ -494,6 +546,6 @@ ExtJsPlugIn.createImage = function (text){
 }
 
 ExtJsPlugIn.showError = function (text) {
-	this.html('<div class="error">' + text + '</div>');
+	this.html('<div class="error">' + text + '</div>' + this.html);
 }
 

@@ -63,6 +63,15 @@ var controller = {
 
 			view.createLoginPage(model.login);
 
+		}else if(page.getTarget() == "new_project"){
+
+			if (user.isConnected == true) {
+				view.createNewProjectPage(model.newProject);
+			}else{
+				view.load.hide();
+				$('.content').showError('Vous ne pouvez pas accèder à cette partie du site car vous n\'êtes pas connecté<br /><br /><a href="#page=login" style="color:white;text-decoration:none;border:2px solid white; padding:5px;border-radius:3px;">Me connecter</a>')
+			}
+
 		}else{
 
 			view.load.hide();
@@ -73,6 +82,16 @@ var controller = {
 	}
 }
 
+
+
+
+
+
+/*
+
+A utiliser plus tard
+
+*/
 var google_user_id;
 var google_user_mail;
 

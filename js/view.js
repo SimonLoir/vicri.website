@@ -10,8 +10,21 @@ var view = {
 		e.html(text);
 	},
 	modify_project : function (data) {
+		var container = $('.content');
 		view.load.hide();
-			alert(data)
+		
+		var e = container.child("div");
+		e.addClass('element');
+
+		var form = e.child('form');
+
+		var input = form.input("Nom du projet", data.name);
+
+		var short_description = form.textarea("Brève description du projet", data.shortDescription);
+
+		var description = form.textarea("Description du projet", data.description);
+
+
 	}
 	,
 	createHomePage : function () {
@@ -496,5 +509,45 @@ ExtJsPlugIn.createImage = function (text){
 
 ExtJsPlugIn.showError = function (text) {
 	this.html('<div class="error">' + text + '</div>' + this.html());
+}
+
+ExtJsPlugIn.input = function (text, value){
+	var element = this.child("div");
+		element.addClass('field');
+
+		var element_text = element.child('label');
+		element_text.html(text);
+		element_text.addClass('top');
+
+		var element_input = element.child("input");
+		element_input.addClass('input');
+		element_input.node.value = value;
+
+		view.addInputAnimations();
+
+		element_input.node.focus();
+		element_input.node.blur();
+
+	return element_input;
+}
+
+ExtJsPlugIn.textarea = function (text, value){
+	var element = this.child("div");
+		element.addClass('field');
+
+		var element_text = element.child('label');
+		element_text.html(text);
+		element_text.addClass('top');
+
+		var element_input = element.child("textarea");
+		element_input.addClass('input');
+		element_input.node.value = value;
+
+		view.addInputAnimations();
+
+		element_input.node.focus();
+		element_input.node.blur();
+
+	return element_input;
 }
 

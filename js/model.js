@@ -187,7 +187,6 @@ var model = {
 
 
 	}, getCalendar : function (callback) {
-		var data = [];
 
 		var d = new Date();
 
@@ -224,7 +223,11 @@ var model = {
 			month : d.getMonth()
 		};
 
-		callback(data, today, weekday, month);
+		AR.GET('api/index.php?res=get_calendar', function (data) {
+
+			callback(data, today, weekday, month);
+
+		});
 
 
 

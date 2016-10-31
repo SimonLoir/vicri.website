@@ -19,7 +19,13 @@ var view = {
 		e.child('div').html(today.day).addClass('dayNumber').child('span').html(today.dayName + " " + today.day + " " + today.monthName.toLowerCase()).addClass('plain_text_date');
 
 		e.child("br");e.child("br");
+
+		var c = e.child('div');
+
+		
+
 		//alert(today.dayName + " " + today.day + " " + today.monthName.toLowerCase())
+	
 	},
 	modify_project : function (data) {
 		var container = $('.content');

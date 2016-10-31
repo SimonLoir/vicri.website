@@ -26,16 +26,6 @@ var content = $('.content');
 
 
 var controller = {
-	onProjectEditButtonClick : function (button){
-		var type = button.node.parentElement.view_element_type;
-		view.popup(type);
-	},
-	onPopupConfirm(type, input, btn){
-		if (type == "type") {
-			var value = input.selectedIndex;
-			btn.click();
-		}
-	},
 	doWork : function (){
 
 		content.html('');
@@ -58,6 +48,13 @@ var controller = {
 		}else if(page.getTarget() == "project"){
 
 			model.getProject( view.createProjectAsManager , view.createProjectAsVisitor);
+
+		}else if(page.getTarget() == "modify_project"){
+
+			model.getProject( view.modify_project , function (data) {
+				$('.content').showError('Vous ne pouvez pas modifier ce projet');
+				view.load.hide();
+			});
 
 		}else if(page.getTarget() == "login"){
 

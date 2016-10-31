@@ -9,6 +9,11 @@ var view = {
 		var e = $(".content").child("h2");
 		e.html(text);
 	},
+	modify_project : function (data) {
+		view.load.hide();
+			alert(data)
+	}
+	,
 	createHomePage : function () {
 		var container = $('.content');
 		
@@ -99,7 +104,7 @@ var view = {
 		send.node.value = "Créer le projet *";
 		send.addClass('btn');
 
-		form.child('span').html('<br /><br />*Vous pourrez modifier ce projet un fois créé');
+		form.child('span').html('<br /><br />*Vous pourrez modifier ce projet une fois créé');
 
 		form.node.onsubmit = function () {
 			view.load.show('Création du projet')
@@ -308,41 +313,33 @@ var view = {
 	createProjectAsManager : function(data){
 		view.load.hide();
 		var container = $('.content').child("div");
-		container.addClass('element');
+			container.addClass('element');
 
 		var image_and_title = container.child('div');
-		image_and_title.createImage(data.name);
+			image_and_title.createImage(data.name);	
 
-		container.child("br");
+			container.child("br");
+		var link = container.child('a');
+			link.html('Modifier')
+			link.node.href = "#page=modify_project;pid=" + page.get('pid') + ";manager=true";
+			link.addClass('btn');
+			container.child("br");
+			container.child("br");
 
 		var project_type = container.child("span");
-		project_type.html('Type de projet :' + data.type);
-		project_type.node.view_element_type = "type";
-
-		container.child("br"); // On ne le conserve pas dans une variable 
+			project_type.html('Type de projet :' + data.type);
+	
+			container.child("br");
 
 		var project_progression = container.child("span");
-		project_progression.html('Progression :' + data.progression + " %");
-		project_progression.node.view_element_type = "progression";
+			project_progression.html('Progression :' + data.progression + " %");
 
 		var project_short_description = container.child("p");
-		project_short_description.html('Description courte : ' + data.shortDescription);
-		project_short_description.node.view_element_type = "sdescription";
+			project_short_description.html('Description courte : ' + data.shortDescription);
 
 		var project_description = container.child("p");
-		project_description.html('Description: ' + data.description);
-		project_description.node.view_element_type = "description";
+			project_description.html('Description: ' + data.description);
 
-		var elements = [project_type, project_progression, project_short_description, project_description];
-
-		for (var i = 0; i < elements.length; i++) {
-			var btn = elements[i].child('button');
-			btn.html('Modifier');
-			btn.addClass("edit");
-			btn.click(function (){
-				controller.onProjectEditButtonClick($(this));
-			});
-		}
 
 	},
 	/*
@@ -376,58 +373,6 @@ var view = {
 
 		var project_description = container.child("p");
 		project_description.html('Description: ' + data.description);
-	},
-	/*
-	PRE : 
-		type = type || progression || sdescription || description 
-	POST :
-		new popup
-	*/
-	popup : function (type){
-
-		var mask = $("body").child('div');
-		mask.addClass('mask');
-
-		var popup = $("body").child('div');
-		popup.addClass('popup');
-
-		var form = popup.child('form');
-
-		/*
-			Fermeture du popup
-		*/
-
-		var exit = popup.child('span');
-		exit.html('×');
-		exit.addClass('exit');
-
-		exit.click(function(){popup.remove();mask.remove();});
-
-		/*
-			Actions relatives au type
-		*/
-
-		if (type == "type") {
-			form.child('span').html('Sélectionnez le type de projet : <br />');
-
-			var select = form.child('select');
-			select.addClass('bar');
-			select.node.options[0] = new Option("Vidéo", 0);
-			select.node.options[1] = new Option("Photo", 1);
-			select.node.options[2] = new Option("Programmation", 2);
-			select.node.options[3] = new Option("Autre", 3);
-
-			form.node.onsubmit = function () {
-				controller.onPopupConfirm(type, select.node, exit);
-				return false;
-			}
-		}
-
-		var send = form.child('input');
-		send.addClass('btn2');
-		send.node.type = "submit";
-		send.node.value = "Confirmer"
-
 	},
 
 	createHamburgerAndMenu : function () {
@@ -543,8 +488,8 @@ var view = {
 
 ExtJsPlugIn.createImage = function (text){
 	var img = document.createElement("img");
-	img.src = "https://api.fnkr.net/testimg/150x150/" +Math.floor(Math.random()*16777215).toString(16) + "/FFFFFF/?text=" + text;
-	img.style.maxWidth = "99%";
+	img.src = "https://api.fnkr.net/testimg/" + Math.floor(this.node.offsetWidth) + "x200/" + Math.floor(Math.random()*16777215).toString(16) + "/FFFFFF/?text=" + text;
+	img.style.width = "100%";
 	this.node.appendChild(img);
 	return img;
 }

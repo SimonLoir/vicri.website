@@ -8,6 +8,18 @@ var view = {
 	createTitle : function (text){
 		var e = $(".content").child("h2");
 		e.html(text);
+	},makeCalendar : function (data, today, days, months) {
+		view.load.hide();
+
+		var container = $('.content');
+
+		var e = container.child("div");
+		e.addClass('element');
+
+		e.child('div').html(today.day).addClass('dayNumber').child('span').html(today.dayName + " " + today.day + " " + today.monthName.toLowerCase()).addClass('plain_text_date');
+
+		e.child("br");e.child("br");
+		//alert(today.dayName + " " + today.day + " " + today.monthName.toLowerCase())
 	},
 	modify_project : function (data) {
 		var container = $('.content');

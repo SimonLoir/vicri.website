@@ -112,6 +112,23 @@ body{
     box-shadow: 0px 2px 8px rgba(38,38,38,0.25);
     font-family:"Roboto", sans-serif;
 }
+
+.element .dayNumber{
+    text-align: center;
+    height: 200px;
+    font-size: 70px;
+    line-height: 200px;
+    position: relative;
+
+ }
+ .dayNumber .plain_text_date{
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    font-size: 25px;
+ }
+
 .grid_element{
     position: relative;
     background-color: white;

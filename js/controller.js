@@ -41,6 +41,10 @@ var controller = {
 
 			model.getAllVideos(view.createVideoList);
 
+		}else if (page.getTarget() == "calendar") {
+
+			model.getCalendar(view.makeCalendar);
+
 		}else if (page.getTarget() == "projets") {
 
 			model.getAllProjects(view.createProjectList);

@@ -186,6 +186,48 @@ var model = {
 		});
 
 
+	}, getCalendar : function (callback) {
+		var data = [];
+
+		var d = new Date();
+
+		var weekday = new Array(7);
+		weekday[0]=  "dimanche";
+		weekday[1] = "lundi";
+		weekday[2] = "mardi";
+		weekday[3] = "mercredi";
+		weekday[4] = "jeudi";
+		weekday[5] = "vendredi";
+		weekday[6] = "samedi";
+		
+		var month = new Array();
+		month[0] = "Janvier";
+		month[1] = "Février";
+		month[2] = "Mars";
+		month[3] = "Avril";
+		month[4] = "Mai";
+		month[5] = "Juin";
+		month[6] = "Juillet";
+		month[7] = "Août";
+		month[8] = "Septembre";
+		month[9] = "Octobre";
+		month[10] = "Novembre";
+		month[11] = "Décembre";
+
+		var n = weekday[d.getDay()]; 
+		var m = month[d.getMonth()];
+
+		var today = {
+			dayName : n,
+			day: d.getDate(),
+			monthName: m,
+			month : d.getMonth()
+		};
+
+		callback(data, today, weekday, month);
+
+
+
 	}
 }
 

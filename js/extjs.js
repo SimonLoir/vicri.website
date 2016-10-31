@@ -123,6 +123,7 @@ function $(element){
 		},
 		addClass: function(classx){
 			this.dom.classList.add(classx);
+			return this;
 		},
 		removeClass: function(classx){
 			this.dom.classList.remove(classx);

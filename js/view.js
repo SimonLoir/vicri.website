@@ -9,6 +9,31 @@ var view = {
 	createTitle : function (text){
 		var e = $(".content").child("h2");
 		e.html(text);
+	},createNewEventPage : function (callback){
+
+		var container = $('.content');
+
+		var e = container.child("div");
+		e.addClass('element');
+
+		var form = e.child('form');
+		form.node.autocomplete = "off";
+
+		var title = form.input("Nom de l'évènement", "");
+
+		var description = form.textarea("Contenu de l'évènement", "");
+
+		
+
+		var submit = form.child("input");
+		submit.node.type = "submit";
+		submit.node.value = "Créer";
+		submit.addClass('btn');
+
+		title[0].node.focus();
+
+		view.load.hide();
+
 	},
 	showConfirmationMessage : function (text) {
 		$(".content").child('div').html(text).addClass('cNotif');
@@ -26,22 +51,30 @@ var view = {
 		e.child("br");e.child("br");e.child("br");e.child("br");
 
 		var c = e.child('div');
-
+		
+		var now = new Date();
+		var n = now.getTime();
+		
 		for (var i = 0; i < data.length; i++) {
 
 			var ev = data[i];
 
-			var ev_container = e.child("div").addClass('ev_c');
-
+			
 			var d = new Date(ev.date);
 
-			var ev_date = ev_container.child('div').addClass('ev_date').html(d.getDate() + "/" + (d.getMonth() + 1)).css("background", theme);
+			if (ev.global == 1 && d.getTime() >= n) {
+				var ev_container = e.child("div").addClass('ev_c');
 
-			var ev_c2 = ev_container.child("div").addClass('cont2');
 
-			var ev_title = ev_c2.child('span').addClass('ev_title').html( d.getHours() + ":" + d.getMinutes() + " "+ ev.title);
+				var ev_date = ev_container.child('div').addClass('ev_date').html(d.getDate() + "/" + (d.getMonth() + 1)).css("background", theme);
 
-			var ev_description = ev_c2.child('p').addClass('ev_description').html(ev.description);
+				var ev_c2 = ev_container.child("div").addClass('cont2');
+
+				var ev_title = ev_c2.child('span').addClass('ev_title').html(ev.title + " (" + d.getHours() + ":" + d.getMinutes() + ')');
+
+				var ev_description = ev_c2.child('p').addClass('ev_description').html(ev.description);
+			}
+
 
 		}
 
@@ -70,7 +103,6 @@ var view = {
 		var short_description = form.textarea("Brève description du projet", data.shortDescription);
 
 		var description = form.textarea("Description du projet", data.description);
-
 
 	}
 	,
@@ -592,7 +624,7 @@ ExtJsPlugIn.input = function (text, value){
 		element_input.node.focus();
 		element_input.node.blur();
 
-	return element_input;
+	return [element_input, element];
 }
 
 ExtJsPlugIn.textarea = function (text, value){
@@ -612,6 +644,6 @@ ExtJsPlugIn.textarea = function (text, value){
 		element_input.node.focus();
 		element_input.node.blur();
 
-	return element_input;
+	return [element_input, element];
 }
 

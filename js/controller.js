@@ -78,6 +78,10 @@ var controller = {
 				$('.content').showError('Vous ne pouvez pas accèder à cette partie du site car vous n\'êtes pas connecté<br /><br /><a href="#page=login" style="color:white;text-decoration:none;border:2px solid white; padding:5px;border-radius:3px;">Me connecter</a>')
 			}
 
+		}else if(page.getTarget() == "new_event"){
+
+			view.createNewEventPage(model.newEvent);
+
 		}else{
 
 			view.load.hide();

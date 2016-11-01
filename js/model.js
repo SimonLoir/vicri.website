@@ -223,9 +223,9 @@ var model = {
 			month : d.getMonth()
 		};
 
-		AR.GET('api/index.php?res=get_calendar', function (data) {
+		AR.GET('api/index.php?res=calendar', function (data) {
 
-			callback(data, today, weekday, month);
+			callback(JSON.parse(data), today, weekday, month);
 
 		});
 

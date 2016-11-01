@@ -110,6 +110,23 @@ if ($method == "GET") {
 
 		header('Location: ../');
 
+	}elseif($res == "calendar"){
+		$end = array();
+
+		$events = $db->query('SELECT * FROM events ORDER BY date', [
+			'class'=> "events"
+		]);
+		
+
+
+		foreach ($events as $event) {
+
+			$end[] = $event->clientFormat();
+
+		}
+
+		exit(json_encode($end));
+
 	}
 
 }if ($method == "POST") {

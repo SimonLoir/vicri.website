@@ -22,7 +22,24 @@ var view = {
 
 		var c = e.child('div');
 
-		
+		for (var i = 0; i < data.length; i++) {
+
+			var ev = data[i];
+
+			var ev_container = e.child("div");
+
+			var d = new Date(ev.date);
+
+			var ev_date = ev_container.child('div').addClass('ev_date').html(d.getDate() + "/" + (d.getMonth() + 1))
+
+			var ev_c2 = ev_container.child("div").addClass('cont2');
+
+			var ev_title = ev_c2.child('span').addClass('ev_title').html(ev.title);
+
+			var ev_description = ev_c2.child('p').addClass('ev_description').html(ev.description);
+
+		}
+
 
 		//alert(today.dayName + " " + today.day + " " + today.monthName.toLowerCase())
 	

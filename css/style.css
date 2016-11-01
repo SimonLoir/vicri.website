@@ -114,8 +114,6 @@ body{
 }
 
 .ev_date{
-
-    background: #C73E3E;
     color:white;
     display: inline-block;
     height: 80px;
@@ -123,39 +121,21 @@ body{
     line-height: 80px;
     text-align: center;
 }
-@media (max-width: 950px) {
-    .ev_date{
-        display: block;
-        width: auto;
-        height: 30px;
-        line-height: 30px;
-    }
-    .ev_title, .ev_description{
-        position: relative;
-        display: block;
-        padding: 15px;
-        margin: auto;
-    }
-    .cont2{
-        text-align:center;
-        padding:auto;
-        margin: auto;
-    }
-}
+
 .cont2{
     display: inline-block;
     vertical-align: top;
-    border:1px solid transparent;
+    max-width: calc(100% - 110px);
+    padding: 8px;
 }
+
 .ev_title{
-    font-size: 20px;
-    color: black;   
-    padding-left: 15px;
+    color:black;
+    font-size: 22px;
+
 }
-.ev_description{
-    
-    padding-left: 15px;
-}
+
+
 
 .element .dayNumber{
     text-align: center;

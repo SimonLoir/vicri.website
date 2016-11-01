@@ -30,7 +30,9 @@ var view = {
 
 			var d = new Date(ev.date);
 
-			var ev_date = ev_container.child('div').addClass('ev_date').html(d.getDate() + "/" + (d.getMonth() + 1))
+			//background: #C73E3E;
+
+			var ev_date = ev_container.child('div').addClass('ev_date').html(d.getDate() + "/" + (d.getMonth() + 1)).css("background", "#C73E3E");
 
 			var ev_c2 = ev_container.child("div").addClass('cont2');
 

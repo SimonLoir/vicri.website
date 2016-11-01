@@ -28,7 +28,12 @@ var content = $('.content');
 var controller = {
 	doWork : function (){
 
-		content.html('');
+		$('.content').html("");
+
+		if (page.get('action') == "welcome" && user.isConnected == true) {
+			view.showConfirmationMessage('Vous êtes maintenant connecté. Bienvenue ' + user.firstname + " !")
+			console.log(user)
+		}
 
 		view.addContentToMenu();
 		

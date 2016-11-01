@@ -8,13 +8,17 @@ var view = {
 	createTitle : function (text){
 		var e = $(".content").child("h2");
 		e.html(text);
-	},makeCalendar : function (data, today, days, months) {
+	},
+	showConfirmationMessage : function (text) {
+		$(".content").child('div').html(text).addClass('cNotif');
+	}
+	,makeCalendar : function (data, today, days, months) {
 		view.load.hide();
 
 		var container = $('.content');
 
 		var e = container.child("div");
-		e.addClass('element');
+		e.addClass('element').css('position', "relative");
 
 		e.child('div').html(today.day).addClass('dayNumber').child('span').html(today.dayName + " " + today.day + " " + today.monthName.toLowerCase()).addClass('plain_text_date');
 
@@ -26,22 +30,27 @@ var view = {
 
 			var ev = data[i];
 
-			var ev_container = e.child("div");
+			var ev_container = e.child("div").addClass('ev_c');
 
 			var d = new Date(ev.date);
-
-			//background: #C73E3E;
 
 			var ev_date = ev_container.child('div').addClass('ev_date').html(d.getDate() + "/" + (d.getMonth() + 1)).css("background", "#C73E3E");
 
 			var ev_c2 = ev_container.child("div").addClass('cont2');
 
-			var ev_title = ev_c2.child('span').addClass('ev_title').html(ev.title);
+			var ev_title = ev_c2.child('span').addClass('ev_title').html( d.getHours() + ":" + d.getMinutes() + " "+ ev.title);
 
 			var ev_description = ev_c2.child('p').addClass('ev_description').html(ev.description);
 
 		}
 
+
+		var plus = e.child('button').addClass('btn3').html('&#43;');
+		plus.css('position', "absolute");
+		plus.css('top', "15px");
+		plus.css('right', "15px");
+		plus.css('cursor', "pointer");
+		plus.click(function(){window.location.hash = "page=new_event"});
 
 		//alert(today.dayName + " " + today.day + " " + today.monthName.toLowerCase())
 	
@@ -106,6 +115,21 @@ var view = {
 			e_project_new.node.href = "#page=new_project";
 			e_project_new.addClass('btn2');
 			e_project_new.html("Nouveau projet");
+		}
+
+		if (user.isConnected == true) {
+			var e_calendars = container.child("div");
+			e_calendars.node.style.display = "inline-block";
+			e_calendars.addClass('grid_element');
+			
+			e_calendars.child('span').html('Calendrier');
+	
+			e_calendars.child('p').html('Lorem ipsum dolor sit amendi provident nostrum itaque voluptate! Est totam, distinctio! Explicabo.').addClass('home_e_p');
+	
+			var e_calendar_link = e_calendars.child('a');
+			e_calendar_link.node.href = "#page=calendar";
+			e_calendar_link.addClass('btn2');
+			e_calendar_link.html("Accèder au calendrier");
 		}
 
 
@@ -462,6 +486,8 @@ var view = {
 		if (user.isConnected == true) {
 			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=account">Mon compte</a></div>');
 			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">exit_to_app</i></span><a href="api/index.php?res=logout">Me déconnecter</a></div>');
+			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">date_range</i></span><a href="#page=calendar">Calendrier</a></div>');
+		
 		}else{
 			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=login">Me connecter</a></div>');
 		}

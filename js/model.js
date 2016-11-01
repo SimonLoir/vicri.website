@@ -134,9 +134,7 @@ var model = {
 		AR.POST('api/index.php?res=login', {email: email, password: password}, function (data){
 			if (JSON.parse(data) == "ok") {
 				
-				window.location.hash = "page=home";
-				
-				alert('Bienvenue !');
+				window.location.hash = "page=home;action=welcome";
 			}else{
 				alert('Une erreur est survenue');
 			}
@@ -259,7 +257,8 @@ var user = {
 
 				try {
 					
-					var d = JSON.parse(data);
+					var d = JSON.parse(data)[0];
+
 					user.pseudo = d.pseudo;
 					user.mail = d.mail;
 					user.name = d.name;

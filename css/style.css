@@ -103,6 +103,16 @@ body{
     box-shadow: 0px 2px 8px rgba(38,38,38,0.25);
     font-family:"Roboto", sans-serif;
 }
+
+.cNotif{
+    background-color: rgba(50, 154, 37, 0.87);
+    color:white;
+    margin: 0px auto;
+    padding: 10px;
+    box-shadow: 0px 2px 8px rgba(38,38,38,0.25);
+    font-family:"Roboto", sans-serif;
+    transition: 0.8s;
+}
 .element{
     position: relative;
     background-color: white;
@@ -116,10 +126,11 @@ body{
 .ev_date{
     color:white;
     display: inline-block;
-    height: 80px;
-    width: 80px;
-    line-height: 80px;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
     text-align: center;
+    border-radius: 50%;
 }
 
 .cont2{
@@ -134,6 +145,11 @@ body{
     color:black;
     font-size: 22px;
 
+}
+
+.ev_c{
+    max-width: 500px;
+    margin: auto;
 }
 
 
@@ -302,9 +318,6 @@ body{
     color: white;
     font-size: 35px;
     box-shadow: 0px 6px 10px 0px rgba(0,0,0,0.3);
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
     font-family: "Roboto";
 }
 

@@ -127,6 +127,7 @@ body{
     vertical-align: top;
     max-width: calc(100% - 110px);
     padding: 8px;
+    padding-top: 0;
 }
 
 .ev_title{

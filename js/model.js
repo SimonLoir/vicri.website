@@ -230,14 +230,18 @@ var model = {
 
 
 	}, newEvent: function (date, title, desc){
-		//alert('New event ' + title + ":\n " + desc + "\n\n => " + date)
-
 		AR.POST('api/index.php?res=new_event', {
+
 			date: date, title:title, desc: desc
+
 		}, function (data){ if (JSON.parse(data) == "ok") {
+
 			window.location.hash = "page=calendar;action=created_event"
+
 		}else{
-			alert('Erreur : le serveur ne peut pas ajouter cet event pour le moment' + data)
+
+			alert('Erreur : le serveur ne peut pas ajouter cet event pour le moment')
+		
 		}});
 
 	}

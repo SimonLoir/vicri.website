@@ -60,7 +60,7 @@ var controller = {
 
 		}else if(page.getTarget() == "modify_project"){
 
-			model.getProject( view.modify_project , function (data) {
+			model.getProject( view.modifyProject , function (data) {
 				$('.content').showError('Vous ne pouvez pas modifier ce projet');
 				view.load.hide();
 			});

@@ -121,7 +121,7 @@ var view = {
 		//alert(today.dayName + " " + today.day + " " + today.monthName.toLowerCase())
 	
 	},
-	modify_project : function (data) {
+	modifyProject : function (data) {
 		var container = $('.content');
 		view.load.hide();
 		
@@ -135,6 +135,23 @@ var view = {
 		var short_description = form.textarea("Brève description du projet", data.shortDescription);
 
 		var description = form.textarea("Description du projet", data.description);
+
+		var progression = form.input('Progression du projet (en %)', data.progression);
+
+		var goals = form.textarea('Objectifs', data.goals);
+
+		var links = form.textarea('Liens', data.links);
+
+			var values = [data.type,"video", "photo", "code","3d", "jeu"];
+			var texts = ["Actuel :" + data.type,"Vidéo", "Photo", "Code","3D", "Jeu"]
+
+		var type = form.selectArray('Type de projet', values , texts);
+
+		var send = form.child('input');
+		send.node.type = "submit";
+		send.node.value = "Modifier";
+		send.addClass('btn');
+
 
 	}
 	,
@@ -707,3 +724,32 @@ ExtJsPlugIn.selectMinMax = function (text, min, max){
 
 	return [element_input, element];
 }
+
+ExtJsPlugIn.selectArray = function (text, array, texts){
+	var element = this.child("div");
+		element.addClass('field').addClass('notempty');
+
+		var element_text = element.child('label');
+		element_text.html(text);
+		element_text.addClass('top');
+
+		var element_input = element.child("select");
+
+		var select = element_input.node;
+		
+		for (var i = 0; i < array.length; i++) {
+			//array[i]
+			var opt = document.createElement('option');
+		    opt.value = array[i];
+		    opt.innerHTML = texts[i];
+		    select.appendChild(opt);
+		}
+
+		view.addInputAnimations();
+
+		element_input.node.focus();
+		element_input.node.blur();
+
+	return [element_input, element];
+}
+

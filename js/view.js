@@ -23,7 +23,19 @@ var view = {
 
 		var description = form.textarea("Contenu de l'évènement", "");
 
-		
+		var date = new Date();
+
+		var day = form.selectMinMax('Jour', 1, 31);
+
+		var month = form.selectMinMax('Mois', 1, 12);
+
+		var year = form.selectMinMax('Année', date.getFullYear(), date.getFullYear() + 10);
+
+		var hour = form.selectMinMax('Heure', 0, 23);
+
+		var minute = form.selectMinMax('Minute', 0, 59);
+
+		form.child("br")
 
 		var submit = form.child("input");
 		submit.node.type = "submit";
@@ -31,6 +43,20 @@ var view = {
 		submit.addClass('btn');
 
 		title[0].node.focus();
+
+		form.node.onsubmit = function (){
+			//var date = new Date()
+			var d_day = day[0].node.options[day[0].node.options.selectedIndex].value;
+			var d_month = month[0].node.options[month[0].node.options.selectedIndex].value;
+			var d_year = year[0].node.options[year[0].node.options.selectedIndex].value;
+			var d_hour = hour[0].node.options[hour[0].node.options.selectedIndex].value;
+			var d_minute = minute[0].node.options[minute[0].node.options.selectedIndex].value;
+			
+
+			var d_date = new Date(d_year + "-" + d_month + '-' + d_day + ' ' + d_hour + ":" + d_minute + ":00"); 
+			console.log(d_date.getTime());
+			return false;
+		}
 
 		view.load.hide();
 
@@ -647,3 +673,31 @@ ExtJsPlugIn.textarea = function (text, value){
 	return [element_input, element];
 }
 
+
+ExtJsPlugIn.selectMinMax = function (text, min, max){
+	var element = this.child("div");
+		element.addClass('field').addClass('notempty').addClass('ib-80');
+
+		var element_text = element.child('label');
+		element_text.html(text);
+		element_text.addClass('top');
+
+		var element_input = element.child("select");
+
+		var select = element_input.node;
+		
+		for (var i = min; i<=max; i++){
+		    var opt = document.createElement('option');
+		    opt.value = i;
+		    opt.innerHTML = i;
+		    select.appendChild(opt);
+		}
+
+
+		view.addInputAnimations();
+
+		element_input.node.focus();
+		element_input.node.blur();
+
+	return [element_input, element];
+}

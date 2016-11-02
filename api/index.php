@@ -239,6 +239,37 @@ if ($method == "GET") {
 		}else{
 			exit(json_encode('Server error'));
 		}
+	}elseif($res == "new_event"){
+		if (!isset($_SESSION['user_id'])) {
+			exit(json_encode('You must be logged in !'));
+		}
+
+		if (!isset($_POST['title']) || !isset($_POST['desc']) || !isset($_POST['date'])) {
+			exit(json_encode("ERROR / request : POST params = name and desc and date"));
+		}
+
+		if (empty($_POST['title']) || empty($_POST['desc']) || empty($_POST['date'])) {
+			exit(json_encode("ERROR / request : empty POST param :  name or desc or date"));
+		}
+
+
+		if ($db->query('INSERT INTO events VALUES(NULL, :title, :descri , :date, 1, 0)', [
+			"result" => true, 
+
+			"prepare" => [
+				":title" => $_POST['title'], 
+				":descri" => $_POST['desc'],
+				":date" => $_POST['date']
+				]
+
+			])) {
+			
+			exit(json_encode('ok'));
+
+		}else{
+			exit(json_encode('Server error'));
+		}
+
 	}
 }
  ?>

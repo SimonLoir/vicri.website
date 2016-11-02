@@ -13,6 +13,12 @@ var view = {
 
 		var container = $('.content');
 
+		if (user.isConnected != true) {
+			container.showError('Vous devez être connecté !');
+			view.load.hide();
+			return false;
+		}
+
 		var e = container.child("div");
 		e.addClass('element');
 
@@ -52,9 +58,9 @@ var view = {
 			var d_hour = hour[0].node.options[hour[0].node.options.selectedIndex].value;
 			var d_minute = minute[0].node.options[minute[0].node.options.selectedIndex].value;
 			
+			var real_date = d_year + "-" + d_month + '-' + d_day + ' ' + d_hour + ":" + d_minute + ":00";
 
-			var d_date = new Date(d_year + "-" + d_month + '-' + d_day + ' ' + d_hour + ":" + d_minute + ":00"); 
-			console.log(d_date.getTime());
+			model.newEvent(real_date, title[0].node.value, description[0].node.value);
 			return false;
 		}
 

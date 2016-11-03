@@ -374,8 +374,12 @@ var view = {
 			var e = container.child('div');
 			e.addClass("element");
 
-			var title = e.child('span');
-			title.html(project.name);
+			var title = e.child('span');//	
+			if (project.pined == true) {
+				title.html("&#128204; " + project.name);
+			}else{
+				title.html(project.name);
+			}
 
 			var progress = e.child("span");
             progress.html(project.progression + "%");

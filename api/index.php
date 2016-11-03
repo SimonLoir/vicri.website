@@ -49,7 +49,7 @@ if ($method == "GET") {
 
 		$result = [];
 
-		$projects = $db->query('SELECT id, name, managers, shortDescription, progression, pined FROM projects', ['class'=> "projects"]);
+		$projects = $db->query('SELECT id, name, managers, shortDescription, progression, pined FROM projects ORDER BY pined DESC, id DESC', ['class'=> "projects"]);
 		
 		foreach ($projects as $project) {
 

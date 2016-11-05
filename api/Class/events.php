@@ -12,6 +12,11 @@ Class events{
 	
 	public function clientFormat()
 	{
+		/*
+			PRE : /
+			POST : 
+				output = current event
+		*/
 		return $this;
 	}
 }

@@ -6,9 +6,9 @@ var page = {
 	/*
 	Pré : window.location.href
 	Post :
-		+ this.informations
+		this.informations = part after the # in 
 	*/
-	getInformations : function (){ // récupère l'information après le #
+	getInformations : function (){
 		this.url = window.location.href;
 
 		var pageInformations = this.url.split('#')[1];
@@ -18,10 +18,9 @@ var page = {
 		}
 	},
 	/*
-	Pré : 
-		this.getInformations => this.informations
+	Pré : / 
 	Post : 
-		this.target
+		this.target = page target (ex : index.html#page=home => target will be equal to home)
 	*/
 	getTarget : function () {
 		this.getInformations();
@@ -39,9 +38,10 @@ var page = {
 		return this.target;
 	},
 	/*
-	Pré : query != empty
+	Pré : query as string
 	Post :  
-		false || information
+		output = false : the query can not be found in page.informations or page.informations is empty
+			   = requested information in page.informations 
 	*/
 	get : function (query){
 		this.getInformations();

@@ -43,37 +43,6 @@ Class db{
 	}
 
 	/*
-	PRE : 
-		statement [SQL statement] (string)
-
-	POST :
-		output  =  object made with class : return = false and class not empty (or "none") 
-		   else =  array : return = false and class is empty (or "none")
-		   else =  statement : return = true and request didn't fail
-		   else =  FALSE : return = true and request failed
-	*/
-
-	public function oldquery($statement, $class = 'none', $return = false){
-
-		$request = $this->getPDO()->query($statement);
-		
-		if ($return == true) {
-			
-			return $request;
-
-		}
-
-		if ($class == "none") {
-			$result = $request->fetchAll(PDO::FETCH_OBJ);
-		}else{
-			$result = $request->fetchAll(PDO::FETCH_CLASS, $class);
-		}
-
-		return $result;
-
-	}
-
-	/*
 	In dev
 	*/
 

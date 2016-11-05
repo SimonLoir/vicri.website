@@ -6,7 +6,7 @@ var page = {
 	/*
 	Pré : window.location.href
 	Post :
-		this.informations = part after the # in 
+		this.informations = part after the # in window.location
 	*/
 	getInformations : function (){
 		this.url = window.location.href;

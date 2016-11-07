@@ -14,8 +14,7 @@ Class events{
 	{
 		/*
 			PRE : /
-			POST : 
-				output = current event
+			POST : current event returned
 		*/
 		return $this;
 	}

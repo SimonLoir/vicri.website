@@ -57,7 +57,7 @@ var view = {
 			var d_year = year[0].node.options[year[0].node.options.selectedIndex].value;
 			var d_hour = hour[0].node.options[hour[0].node.options.selectedIndex].value;
 			var d_minute = minute[0].node.options[minute[0].node.options.selectedIndex].value;
-			
+
 			var real_date = d_year + "-" + d_month + '-' + d_day + ' ' + d_hour + ":" + d_minute + ":00";
 
 			model.newEvent(real_date, title[0].node.value, description[0].node.value);
@@ -83,15 +83,15 @@ var view = {
 		e.child("br");e.child("br");e.child("br");e.child("br");
 
 		var c = e.child('div');
-		
+
 		var now = new Date();
 		var n = now.getTime();
-		
+
 		for (var i = 0; i < data.length; i++) {
 
 			var ev = data[i];
 
-			
+
 			var d = new Date(ev.date);
 
 			if (ev.global == 1 && d.getTime() >= n) {
@@ -119,12 +119,12 @@ var view = {
 		plus.click(function(){window.location.hash = "page=new_event"});
 
 		//alert(today.dayName + " " + today.day + " " + today.monthName.toLowerCase())
-	
+
 	},
 	modifyProject : function (data) {
 		var container = $('.content');
 		view.load.hide();
-		
+
 		var e = container.child("div");
 		e.addClass('element');
 
@@ -152,12 +152,17 @@ var view = {
 		send.node.value = "Modifier";
 		send.addClass('btn');
 
+		form.node.onsubmit = function  () {
+			model.updateProject(input[0].node.value, short_description[0].node.value, description[0].node.value, progression[0].node.value, goals[0].node.value, links[0].node.value, type[0].node.options[type[0].node.selectedIndex].value);
+
+			return false;
+		}
 
 	}
 	,
 	createHomePage : function () {
 		var container = $('.content');
-		
+
 		/*
 		Vidéos
 		*/
@@ -165,7 +170,7 @@ var view = {
 		var e_videos = container.child("div");
 		e_videos.node.style.display = "inline-block";
 		e_videos.addClass('grid_element');
-		
+
 		e_videos.child('span').html('Vidéos');
 
 		e_videos.child('p').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus minus veniam neque ipsam incidunt harum possimus inventore sapiente, aliquam laboriosam! Vel, eligendi provident nostrum itaque voluptate! Est totam, distinctio! Explicabo. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet alias quos libero aspernatur reiciendis a eius praesentium ab vero laudantium est et eaque, quasi id sed nemo aperiam amet esse.').addClass('home_e_p');
@@ -178,11 +183,11 @@ var view = {
 		/*
 		Projets
 		*/
-		
+
 		var e_projects = container.child("div");
 		e_projects.node.style.display = "inline-block";
 		e_projects.addClass('grid_element');
-		
+
 		e_projects.child('span').html('Projets');
 
 		e_projects.child('p').html('Lorem ipsum dolor sit amendi provident nostrum itaque voluptate! Est totam, distinctio! Explicabo.').addClass('home_e_p');
@@ -203,11 +208,11 @@ var view = {
 			var e_calendars = container.child("div");
 			e_calendars.node.style.display = "inline-block";
 			e_calendars.addClass('grid_element');
-			
+
 			e_calendars.child('span').html('Calendrier');
-	
+
 			e_calendars.child('p').html('Lorem ipsum dolor sit amendi provident nostrum itaque voluptate! Est totam, distinctio! Explicabo.').addClass('home_e_p');
-	
+
 			var e_calendar_link = e_calendars.child('a');
 			e_calendar_link.node.href = "#page=calendar";
 			e_calendar_link.addClass('btn2');
@@ -277,7 +282,7 @@ var view = {
 	addInputAnimations : function () {
 		var all = document.querySelectorAll(".input");
     	for (var i = 0; i < all.length; i++) {
-    	    
+
     	    all[i].onfocus = function () {
     	        this.parentElement.classList.add('focus');
     	        if(this.parentElement.classList.contains("notempty")){
@@ -349,15 +354,15 @@ var view = {
 		renderButton(loginWithGoogle.node.id);*/
 
         view.addInputAnimations();
-		
+
 	}
 	,
 	/*
-	Pre : 
+	Pre :
 		project_list (array)
 		voir documentation (?res=projects)
 		[{id (int), name (string), managers (array), progression (int), pined (int), shortDescription (string), user_is_manager (bool)}, {project}, {project}]
-	POST : 
+	POST :
 		+ nodes => HTML , DOM elements
 	*/
 	createProjectList : function (project_list) {
@@ -374,7 +379,7 @@ var view = {
 			var e = container.child('div');
 			e.addClass("element");
 
-			var title = e.child('span');//	
+			var title = e.child('span');//
 			if (project.pined == true) {
 				title.html("&#128204; " + project.name);
 			}else{
@@ -384,10 +389,10 @@ var view = {
 			var progress = e.child("span");
             progress.html(project.progression + "%");
             progress.addClass('progress');
-			
+
 			var progress__style = progress.node.style;
             progress__style.display = "inline-block";
-            
+
             if  (project.progression > 90){
                 progress__style.background = "#286928";
             }else if  (project.progression >= 50){
@@ -395,7 +400,7 @@ var view = {
             }else{
                 progress__style.background = "#eb1515";
             }
-            
+
             progress__style.color = "white";
             progress__style.padding = "3px";
 
@@ -422,8 +427,8 @@ var view = {
 	/*
 	Pré :
 		data (array)
-		[{id (int) ,url (string) ,provider (string) ,title (string) ,description (string)} , {video}] 
-	Post : 
+		[{id (int) ,url (string) ,provider (string) ,title (string) ,description (string)} , {video}]
+	Post :
 		Dom elements, HTML
 	*/
 	createVideoList : function(data){
@@ -464,9 +469,9 @@ var view = {
 
 	/*
 	Pré :
-		data (array) 
-		{id (int) ,name (string) ,managers (array) ,type (string) ,progression (int) ,pined (int) ,description (string) ,shortDescription (string) ,goals (string) ,links (string)} 
-	Post : 
+		data (array)
+		{id (int) ,name (string) ,managers (array) ,type (string) ,progression (int) ,pined (int) ,description (string) ,shortDescription (string) ,goals (string) ,links (string)}
+	Post :
 		Dom elements, HTML
 	*/
 
@@ -476,7 +481,7 @@ var view = {
 			container.addClass('element');
 
 		var image_and_title = container.child('div');
-			image_and_title.createImage(data.name);	
+			image_and_title.createImage(data.name);
 
 			container.child("br");
 		var link = container.child('a');
@@ -488,7 +493,7 @@ var view = {
 
 		var project_type = container.child("span");
 			project_type.html('Type de projet :' + data.type);
-	
+
 			container.child("br");
 
 		var project_progression = container.child("span");
@@ -504,9 +509,9 @@ var view = {
 	},
 	/*
 	Pré :
-		data (array) 
-		{id (int) ,name (string) ,managers (array) ,type (string) ,progression (int) ,pined (int) ,description (string) ,shortDescription (string) ,goals (string) ,links (string)} 
-	Post : 
+		data (array)
+		{id (int) ,name (string) ,managers (array) ,type (string) ,progression (int) ,pined (int) ,description (string) ,shortDescription (string) ,goals (string) ,links (string)}
+	Post :
 		Dom elements, HTML
 	*/
 	createProjectAsVisitor : function(data){
@@ -526,7 +531,7 @@ var view = {
 		var project_type = container.child("span");
 		project_type.html('Type de projet :' + data.type);
 
-		container.child("br"); // On ne le conserve pas dans une variable 
+		container.child("br"); // On ne le conserve pas dans une variable
 
 		var project_progression = container.child("span");
 		project_progression.html('Progression :' + data.progression + " %");
@@ -552,10 +557,10 @@ var view = {
 		        menu.classList.remove('open')
 		    } else {
 		        $(this).removeClass('none');
-		        $(this).addClass('clicked');   
+		        $(this).addClass('clicked');
 		        menu.classList.add('open');
 		    };
-		    
+
 		});
 	},
 
@@ -573,18 +578,18 @@ var view = {
 			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=account">Mon compte</a></div>');
 			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">exit_to_app</i></span><a href="api/index.php?res=logout">Me déconnecter</a></div>');
 			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">date_range</i></span><a href="#page=calendar">Calendrier</a></div>');
-		
+
 		}else{
 			menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;">account_circle</i></span><a href="#page=login">Me connecter</a></div>');
 		}
 
 		menu_app.html(menu_app.html() + '<div class="button"><span><i class="material-icons" style="font-size:inherit;"></i></span>vicri.esy.es</div>');
-		
+
 
 	}
 
 
-	, 
+	,
 
 
 	 load : {
@@ -640,7 +645,7 @@ var view = {
 		    } catch (e) {
 
 		    }
-		    
+
 		}
 }
 
@@ -712,7 +717,7 @@ ExtJsPlugIn.selectMinMax = function (text, min, max){
 		var element_input = element.child("select");
 
 		var select = element_input.node;
-		
+
 		for (var i = min; i<=max; i++){
 		    var opt = document.createElement('option');
 		    opt.value = i;
@@ -740,7 +745,7 @@ ExtJsPlugIn.selectArray = function (text, array, texts){
 		var element_input = element.child("select");
 
 		var select = element_input.node;
-		
+
 		for (var i = 0; i < array.length; i++) {
 			//array[i]
 			var opt = document.createElement('option');
@@ -756,4 +761,3 @@ ExtJsPlugIn.selectArray = function (text, array, texts){
 
 	return [element_input, element];
 }
-

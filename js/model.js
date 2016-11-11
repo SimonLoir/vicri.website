@@ -12,14 +12,14 @@ var page = {
 		this.url = window.location.href;
 
 		var pageInformations = this.url.split('#')[1];
-		
+
 		if (pageInformations != undefined) {
 			this.informations = pageInformations;
 		}
 	},
 	/*
-	Pré : / 
-	Post : 
+	Pré : /
+	Post :
 		this.target = page target (ex : index.html#page=home => target will be equal to home)
 	*/
 	getTarget : function () {
@@ -39,9 +39,9 @@ var page = {
 	},
 	/*
 	Pré : query as string
-	Post :  
+	Post :
 		output = false : the query can not be found in page.informations or page.informations is empty
-			   = requested information in page.informations 
+			   = requested information in page.informations
 	*/
 	get : function (query){
 		this.getInformations();
@@ -68,7 +68,7 @@ var objectStorage = {
 var model = {
 	/*
 	PRE : /
-	POST : 
+	POST :
 		+ data
 		=> callback(data)
 	*/
@@ -84,7 +84,7 @@ var model = {
 	},
 	/*
 	PRE : /
-	POST : 
+	POST :
 		+ data
 		=> callback(data)
 	*/
@@ -100,14 +100,14 @@ var model = {
 	},
 	/*
 	PRE : /
-	POST : 
+	POST :
 		+ pdata
 		=> objectStorage.data = pdata
 		=> callback(pdata)
 	*/
 	getProject(callback_manager, callback){
 		AR.GET('api?res=project&id='  + page.get('pid') + "&manager=" + page.get("manager"), function (data){
-			
+
 			var pdata = JSON.parse(data);
 
 			objectStorage.data = pdata;
@@ -115,14 +115,14 @@ var model = {
 			// On doit faire une vérification
 
 			if (page.get("manager") == "true" && pdata != "UError") {
-				
-				
+
+
 				callback_manager(pdata);
 
 			// Pas besoin de vérification : l'utilisateur n'aura pas le droit de modifier le projet.
 
 			}else{
-				
+
 				callback(pdata);
 
 			}
@@ -133,7 +133,7 @@ var model = {
 
 		AR.POST('api/index.php?res=login', {email: email, password: password}, function (data){
 			if (JSON.parse(data) == "ok") {
-				
+
 				window.location.hash = "page=home;action=welcome";
 			}else{
 				alert('Une erreur est survenue');
@@ -146,9 +146,9 @@ var model = {
 		AR.POST('api/googleLogin.php', {token: token}, function (data){
 			$('.content').html(decodeURIComponent(data))
 			if (JSON.parse(data) == "ok") {
-				
+
 				window.location.hash = "page=projets";
-				
+
 				alert('Bienvenue !');
 			}else{
 				alert('Une erreur est survenue');
@@ -171,7 +171,7 @@ var model = {
 		}
 		AR.POST('api/index.php?res=new_project', {
 
-			name : project_name, desc : project_short_description 
+			name : project_name, desc : project_short_description
 
 		}, function (data) {
 
@@ -196,7 +196,7 @@ var model = {
 		weekday[4] = "jeudi";
 		weekday[5] = "vendredi";
 		weekday[6] = "samedi";
-		
+
 		var month = new Array();
 		month[0] = "Janvier";
 		month[1] = "Février";
@@ -211,7 +211,7 @@ var model = {
 		month[10] = "Novembre";
 		month[11] = "Décembre";
 
-		var n = weekday[d.getDay()]; 
+		var n = weekday[d.getDay()];
 		var m = month[d.getMonth()];
 
 		var today = {
@@ -241,21 +241,26 @@ var model = {
 		}else{
 
 			alert('Erreur : le serveur ne peut pas ajouter cet event pour le moment')
-		
+
 		}});
 
+	},
+	updateProject : function(input, short_description, description, progression, goals, links, type){
+		AR.PUT('api/index.php?res=project', {input: input, short_description: short_description, description: description, progression: progression, goals: goals, links: links, type: type}, function (data) {
+			alert(data);
+		})
 	}
 }
 
 var user = {
 	/*
 	PRE : /
-	POST : 
+	POST :
 		+ user.isConnected
 		#Si user.isConnected = false
 		+ user.pseudo
 		+ user.mail
-		+ user.name 
+		+ user.name
 		+ user.firstnames
 
 		=> controller.js : doWork()
@@ -271,7 +276,7 @@ var user = {
 				user.isConnected = true;
 
 				try {
-					
+
 					var d = JSON.parse(data)[0];
 
 					user.pseudo = d.pseudo;
@@ -286,5 +291,5 @@ var user = {
 			controller.doWork()
 		});
 	}
-	
+
 }

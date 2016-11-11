@@ -10,7 +10,7 @@ if (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
 }else{
 
 	$method = $_SERVER['REQUEST_METHOD'];
-	
+
 }
 
 
@@ -24,7 +24,7 @@ if ($res != "doc" && $res != "indev") {
 	header('Content-Type:application/json');
 }
 
-header("Cache-Control: no-cache, must-revalidate"); 
+header("Cache-Control: no-cache, must-revalidate");
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 
 
@@ -41,16 +41,16 @@ spl_autoload_register(["autoloader", "load"]);
 
 $db = new db($db__base, $db__user , $db__pass, $db__host);
 
-/* 
+/*
 * Method : get
  */
 if ($method == "GET") {
-	if ($res == "projects") { 
+	if ($res == "projects") {
 
 		$result = [];
 
 		$projects = $db->query('SELECT id, name, managers, shortDescription, progression, pined FROM projects ORDER BY pined DESC, id DESC', ['class'=> "projects"]);
-		
+
 		foreach ($projects as $project) {
 
 			$result[] = $project->clientFormat();
@@ -59,12 +59,12 @@ if ($method == "GET") {
 
 		 exit(json_encode($result));
 
-	}elseif ($res == "videos") { 
+	}elseif ($res == "videos") {
 
 		$result = [];
 
 		$videos = $db->query('SELECT * FROM videos', ['class'=> "videos"]);
-		
+
 		foreach ($videos as $video) {
 
 			$result[] = $video->clientFormat();
@@ -94,7 +94,7 @@ if ($method == "GET") {
 
 			exit(json_encode($db->query('SELECT name, firstname, mail, pseudo FROM users WHERE id = :user_id', [
 
-				"prepare" => [":user_id" => $_SESSION['user_id']] 
+				"prepare" => [":user_id" => $_SESSION['user_id']]
 
 			])));
 
@@ -120,7 +120,7 @@ if ($method == "GET") {
 		$events = $db->query('SELECT * FROM events ORDER BY date', [
 			'class'=> "events"
 		]);
-		
+
 
 
 		foreach ($events as $event) {
@@ -133,7 +133,9 @@ if ($method == "GET") {
 
 	}
 
-}if ($method == "POST") {
+}
+
+if ($method == "POST") {
 	if ($res == "admin::newuser") {
 
 		if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] == 1) {
@@ -141,15 +143,15 @@ if ($method == "GET") {
 			if (isset($_POST['name'])&& isset($_POST['firstname'])&& isset($_POST['email'])&& isset($_POST['pseudo'])&& isset($_POST['password'])) {
 
 				if (!empty($_POST['name'])&& !empty($_POST['firstname'])&& !empty($_POST['email'])&& !empty($_POST['pseudo'])&& !empty($_POST['password'])) {
-					
+
 					$name = $_POST['name'];
-					
+
 					$firstname = $_POST['firstname'];
-					
+
 					$email = $_POST['email'];
-					
+
 					$pseudo = $_POST['pseudo'];
-					
+
 					$password = password_hash($_POST['password'] , PASSWORD_DEFAULT);
 
 					if($db->query("INSERT INTO users VALUES (NULL, :name, :firstname, :email, :pseudo, :password)", [
@@ -190,7 +192,7 @@ if ($method == "GET") {
 		]);
 
 		if ($user_infos != null) {
-			
+
 			if (password_verify($_POST['password'],$user_infos[0]->password)) {
 
 				$_SESSION['user_id'] = $user_infos[0]->id;
@@ -208,7 +210,7 @@ if ($method == "GET") {
 			exit(json_encode("Error : can't find the user"));
 
 		}
-		
+
 	}elseif($res == "new_project"){
 
 		if (!isset($_SESSION['user_id'])) {
@@ -224,16 +226,16 @@ if ($method == "GET") {
 		}
 
 		if ($db->query('INSERT INTO projects VALUES(NULL, :name, :user_id , "video", 0, 0, "", :descri, "", "")', [
-			"result" => true, 
+			"result" => true,
 
 			"prepare" => [
 				":user_id" => $_SESSION['user_id'],
-				":name" => $_POST['name'], 
+				":name" => $_POST['name'],
 				":descri" => $_POST['desc']
 				]
 
 			])) {
-			
+
 			exit(json_encode('Ok'));
 
 		}else{
@@ -254,22 +256,28 @@ if ($method == "GET") {
 
 
 		if ($db->query('INSERT INTO events VALUES(NULL, :title, :descri , :date, 1, 0)', [
-			"result" => true, 
+			"result" => true,
 
 			"prepare" => [
-				":title" => $_POST['title'], 
+				":title" => $_POST['title'],
 				":descri" => $_POST['desc'],
 				":date" => $_POST['date']
 				]
 
 			])) {
-			
+
 			exit(json_encode('ok'));
 
 		}else{
 			exit(json_encode('Server error'));
 		}
 
+	}
+}
+
+if ($method == "PUT") {
+	if ($res == "project") {
+		var_dump($_POST);
 	}
 }
  ?>

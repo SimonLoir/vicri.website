@@ -42,11 +42,12 @@ Class db{
 
 	}
 
-	/*
-	In dev
-	*/
-
 	public function query($statement, $options = null){
+		/* (utilité : seule fonction faisant le lien entre le code serveur et la BD)
+		PRE : statement fondé et bien formé
+		POST : statement exécuté dans la BD, et le résultat est retourné (use the sources luke)
+
+		*/
 
 		if ($options == null) {
 

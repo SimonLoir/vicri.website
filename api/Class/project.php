@@ -21,7 +21,7 @@ Class project{
 				* managers (string) init [semicolon separated values]
 				
 			POST :
-				* error if not manager (verified) 
+				* "UError" if user not manager (verified) 
 					  else return project with managers as an array [same numbers] 
 
 		*/

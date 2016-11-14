@@ -18,13 +18,12 @@ Class project{
 	{
 		/*
 			PRE :
-				* managers (string) init [comma separated numbers]
+				* managers (string) init [semicolon separated values]
 				
 			POST :
-				* managers is now an array [same numbers]
-				
-				output   = "UError" : _GET['manager'] = true and ( _SESSION non init or user_id not in managers )
-					else = current project
+				* error if not manager (verified) 
+					  else return project with managers as an array [same numbers] 
+
 		*/
 
 		$this->managers = explode(';', $this->managers);

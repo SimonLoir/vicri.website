@@ -64,7 +64,6 @@ var page = {
 var objectStorage = {
 
 }
-
 var model = {
 	/*
 	PRE : /

@@ -16,7 +16,7 @@ function $(element){
 			}
 		}
 		var keys = 	Object.keys(ExtJsPlugIn.document);
-  	
+
   		for (var i = 0; i < keys.length; i++) {
   			e[keys[i]] = ExtJsPlugIn.document[keys[i]];
   		}
@@ -41,7 +41,7 @@ function $(element){
 			}else{
 				return this.dom.offsetHeight;
 			}
-			
+
 		},
 		width: function(value){
 			if (value !== undefined) {
@@ -49,7 +49,7 @@ function $(element){
 			}else{
 				return this.dom.offsetWidth;
 			}
-			
+
 		},
 		click: function(toDo, element){
 			if (element === undefined) {
@@ -92,7 +92,7 @@ function $(element){
 			}else{
 				console.log('over cant be create')
 			}
-		}, 
+		},
 		leave: function(toDo, element){
 			if (element === undefined) {
 				if (toDo !== undefined) {
@@ -149,16 +149,16 @@ function $(element){
 	};
 
 	var keys = 	Object.keys(ExtJsPlugIn);
-  	
+
   	for (var i = 0; i < keys.length; i++) {
   		e[keys[i]] = ExtJsPlugIn[keys[i]];
   	}
-  	
+
 	return e;}
 var AR = {
 
 	/*
-	* Get Request 
+	* Get Request
 	*/
 	GET : function (url, func, error) {
 		var xhttp = new XMLHttpRequest();
@@ -178,11 +178,11 @@ var AR = {
     		}
     	}
   		xhttp.open("GET", url, true);
-  		xhttp.send(); 
+  		xhttp.send();
 	}
 	,DELETE : function (url, func, error) {
 		var xhttp = new XMLHttpRequest();
-		
+
   		xhttp.onreadystatechange = function() {
     		if (xhttp.readyState == 4 && xhttp.status == 200) {
     			func(xhttp.responseText);
@@ -201,7 +201,7 @@ var AR = {
   		xhttp.open("GET", url, true);
   		xhttp.setRequestHeader("x-http-method-override", "DELETE");
 
-  		xhttp.send(); 
+  		xhttp.send();
 	},
 	/*
 	* Post Request data = object {user:"simon", data: "other"} #only strings (and numbers)
@@ -212,7 +212,7 @@ var AR = {
   		    if (xhttp.readyState == 4 && xhttp.status == 200) {
   		        func(xhttp.responseText);
   		    } else if (xhttp.readyState == 4) {
-  		    
+
   		        if (error != undefined) {
   		            try {
   		                error();
@@ -220,7 +220,7 @@ var AR = {
 
   		            }
   		        }
-  		    
+
             }
     	}
   		xhttp.open("POST", url, true);
@@ -233,15 +233,15 @@ var AR = {
   			 d = d + keys[i] + "=" + data[keys[i]];
   		}
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  		xhttp.send(d); 
-	}, 
+  		xhttp.send(d);
+	},
 	PUT : function (url, data ,func, error) {
 		var xhttp = new XMLHttpRequest();
   		xhttp.onreadystatechange = function() {
   		    if (xhttp.readyState == 4 && xhttp.status == 200) {
   		        func(xhttp.responseText);
   		    } else if (xhttp.readyState == 4) {
-  		    
+
   		        if (error != undefined) {
   		            try {
   		                error();
@@ -249,7 +249,7 @@ var AR = {
 
   		            }
   		        }
-  		    
+
             }
     	}
   		xhttp.open("POST", url, true);
@@ -263,10 +263,10 @@ var AR = {
   		}
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader("x-http-method-override", "PUT");
-  		xhttp.send(d); 
+  		xhttp.send(d);
 	}
 }
-	
+
 var ExtJs = {
 	version: "1.0",
 	ok:function () {
@@ -310,7 +310,7 @@ ExtJsPlugIn.document.ExtViewVersion = "Alpha - 0.1";
 ExtJsPlugIn.document.ExtViewBuild = 4;
 var ExtView_Watcher = {}
 var ExtView_Watcher_Input = {}
-var v = { 
+var v = {
     set : function (prop, value) {
         v[prop] = value;
         if (ExtView_Watcher[prop] != undefined){
@@ -325,20 +325,20 @@ var v = {
                 evw[i].value = value;
             }
         }
-       
+
     }
 };
 
 ExtJsPlugIn.document.watch = function () {
     let inputs = document.querySelectorAll('[ext-var]');//ext-var
-    
+
     for (i = 0; i < inputs.length; i++) {
         var that = inputs[i];
-        
+
         that.addEventListener("keyup", function (){
             v.set(that.getAttribute('ext-var'), that.value)
-        }); 
-        
+        });
+
         if  (that.hasAttribute('ext-val')){
             var varname = that.getAttribute('ext-val')
             if (ExtView_Watcher_Input[varname] == undefined){
@@ -346,35 +346,35 @@ ExtJsPlugIn.document.watch = function () {
             }
             ExtView_Watcher_Input[varname].push(that);
         }
-    } 
-    
-    
-    
-    
+    }
+
+
+
+
     let existing = document.querySelectorAll('[ext-html]');
-    
+
     for (i = 0; i < existing.length; i++) {
         $(existing[i]).html(existing[i].getAttribute('ext-html'));
         existing[i].setAttribute('extjs', "");
     }
-    
+
 	let e = document.querySelectorAll("[extjs]");
-	for (i = 0; i < e.length; i++) { 
+	for (i = 0; i < e.length; i++) {
         var el = e[i];
         var html = el.innerHTML;
-        
+
         el.setAttribute('ext-html', html);
         el.removeAttribute("extjs");
-        
+
         var res = html.replace(/{{(.[^\}|\{]+)}}/gi, function myFunction(x){
             /*
                 On regarde si c'est une variable ou autre chose
             */
             if  (el.hasAttribute('extjs-noindex')){
-                
+
             }else{
                 var varname = x.replace("{{", "").replace("}}", "").replace("v.", "");
-                
+
                 if (ExtView_Watcher[varname] == undefined){
                     ExtView_Watcher[varname] = [];
                 }
@@ -387,7 +387,7 @@ ExtJsPlugIn.document.watch = function () {
                 return x__view_result;
             }
         });
-        
+
         $(el).html(res);
     }
 }
@@ -395,11 +395,11 @@ ExtJsPlugIn.document.watch = function () {
 ExtJsPlugIn.EVReload = function (){
     var el = this.node;
     var html = el.getAttribute('ext-html');
-                
+
     var res = html.replace(/{{(.[^\}|\{]+)}}/gi, function myFunction(x){
          return eval(x);
     });
-    
+
     $(el).html(res);
 }
 
@@ -409,7 +409,3 @@ $().ready(function (){
         $().watch();
     }
 })
-
-
-
-

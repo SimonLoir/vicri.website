@@ -38,4 +38,45 @@ Class project{
 
 		}
 	}
+
+	/* advanced usage */
+
+	private $db;
+	public $error = false;
+
+	public function setDb($db_instance){
+
+		$this->db = $db_instance;
+
+	}
+
+	private function getDb(){
+		
+		return $this->db;
+	
+	}
+
+	public function updateDb($field, $value)
+	{
+		$query = $this->getDb()->query('UPDATE projects SET '.$field.' = :value WHERE id = :id', 
+			["result" => true, "prepare" => [
+				":value" => $value,
+				":id" => $this->id
+			]]
+		);
+	}
+
+	public function updateName($value)
+	{
+		if ($value == $this->name) {
+			return true;
+		}else{
+			
+			if ($this->updateDb("name", $value)) {
+				return true;
+			}
+			$this->error = true;
+		}
+	}
+
 } ?>

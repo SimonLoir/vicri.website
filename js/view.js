@@ -153,7 +153,8 @@ var view = {
 		send.addClass('btn');
 
 		form.node.onsubmit = function  () {
-			model.updateProject(input[0].node.value, short_description[0].node.value, description[0].node.value, progression[0].node.value, goals[0].node.value, links[0].node.value, type[0].node.options[type[0].node.selectedIndex].value);
+			view.load.show('mise à jour des informations');
+			model.updateProject(input[0].node.value, short_description[0].node.value, description[0].node.value, progression[0].node.value, goals[0].node.value, links[0].node.value, type[0].node.options[type[0].node.selectedIndex].value, data.id);
 			return false;
 		}
 

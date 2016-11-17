@@ -278,6 +278,10 @@ if ($method == "POST") {
 if ($method == "PUT") {
 	if ($res == "project") {
 
+		if (!isset($_POST["id"]) || empty($_POST["id"])) {
+			exit(json_encode("Une erreur est survenue au niveau du serveur"));
+		} 
+
 		if (!isset($_POST["name"]) || empty($_POST["name"])) {
 			exit(json_encode("Une erreur est survenue : merci de renseigner le nom du projet"));
 		} 
@@ -317,7 +321,32 @@ if ($method == "PUT") {
 
 		$type = $_POST["type"];
 
-		exit(json_encode("Ok " . $progression));
+		$user = $_SESSION['user_id'];
+
+		$project = $db->query('SELECT * FROM projects WHERE id = :project_id', [
+			"class" => "project",
+			"prepare" => [":project_id" => $_POST['id']],
+			"one" => true
+		]);
+
+		$project->clientFormat();
+
+		if ($project == "UError") {
+			exit("Vous n'avez pas le droit de modifier ce projet");
+		}
+
+		$project->setDb($db);
+
+		$project->updateName($name);
+
+		//$project->updateDescription($name);
+
+		if ($project->error == true) {
+			exit(json_encode("Une erreur est survenue lors de la modification de votre projet"));
+		}
+
+		exit(json_encode($project));
+
 	}
 }
  ?>

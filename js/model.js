@@ -244,8 +244,8 @@ var model = {
 		}});
 
 	},
-	updateProject : function(input, short_description, description, progression, goals, links, type){
-		AR.PUT('api/index.php?res=project', {name: input, short_description: short_description, description: description, progression: progression, goals: goals, links: links, type: type}, function (data) {
+	updateProject : function(input, short_description, description, progression, goals, links, type, pid){
+		AR.PUT('api/index.php?res=project&manager=' + page.get('manager'), {name: input, short_description: short_description, description: description, progression: progression, goals: goals, links: links, type: type, id:pid}, function (data) {
 			alert(data);
 		});
 	}

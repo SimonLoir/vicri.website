@@ -225,7 +225,7 @@ if ($method == "POST") {
 			exit(json_encode("ERROR / request : empty POST param :  name or desc"));
 		}
 
-		if ($db->query('INSERT INTO projects VALUES(NULL, :name, :user_id , "video", 0, 0, "", :descri, "", "")', [
+		if ($db->query('INSERT INTO projects VALUES(NULL, :name, :user_id , "video", 0, 0, "/", :descri, "/", "/")', [
 			"result" => true,
 
 			"prepare" => [
@@ -277,7 +277,47 @@ if ($method == "POST") {
 
 if ($method == "PUT") {
 	if ($res == "project") {
-		var_dump($_POST);
+
+		if (!isset($_POST["name"]) || empty($_POST["name"])) {
+			exit(json_encode("Une erreur est survenue : merci de renseigner le nom du projet"));
+		} 
+
+		$name = $_POST["name"];
+		
+		if (!isset($_POST["short_description"]) || empty($_POST["short_description"])) {
+			exit(json_encode("Une erreur est survenue : merci de renseigner la description courte "));
+		} 
+
+		$short_description = $_POST["short_description"];
+		
+		if (!isset($_POST["description"]) || empty($_POST["description"])) {
+			exit(json_encode("Une erreur est survenue : merci de renseigner la description"));
+		}
+		if (!isset($_POST["progression"])) {
+			exit(json_encode("Une erreur est survenue : merci de renseigner la progression"));
+		} 
+
+		$progression = intval($_POST["progression"]);
+		
+		if (!isset($_POST["goals"]) || empty($_POST["goals"])) {
+			exit(json_encode("Une erreur est survenue : merci de renseigner les objectifs de votre projet"));
+		} 
+
+		$goals = $_POST["goals"];
+		
+		if (!isset($_POST["links"]) || empty($_POST["links"])) {
+			exit(json_encode("Une erreur est survenue : merci de renseigner les liens de votre projet"));
+		} 
+
+		$links = $_POST["links"];
+		
+		if (!isset($_POST["type"]) || empty($_POST["type"])) {
+			exit(json_encode("Une erreur est survenue : merci de renseigner le type de projet"));
+		} 
+
+		$type = $_POST["type"];
+
+		exit(json_encode("Ok " . $progression));
 	}
 }
  ?>

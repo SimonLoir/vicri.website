@@ -64,6 +64,7 @@ Class project{
 				":id" => $this->id
 			]]
 		);
+		return $query;
 	}
 
 	public function updateName($value)

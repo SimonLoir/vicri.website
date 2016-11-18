@@ -34,6 +34,9 @@ Class project{
 
 		}else{
 
+			if (!isset($_GET['mod']) || $_GET['mod'] != "true") {
+				$this->description = nl2br(htmlspecialchars($this->description));
+			}
 			return $this;
 
 		}

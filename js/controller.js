@@ -63,7 +63,7 @@ var controller = {
 			model.getProject( view.modifyProject , function (data) {
 				$('.content').showError('Vous ne pouvez pas modifier ce projet');
 				view.load.hide();
-			});
+			}, true);
 
 		}else if(page.getTarget() == "login"){
 

@@ -297,6 +297,9 @@ if ($method == "PUT") {
 		if (!isset($_POST["description"]) || empty($_POST["description"])) {
 			exit(json_encode("Une erreur est survenue : merci de renseigner la description"));
 		}
+
+		$description = $_POST["description"];
+
 		if (!isset($_POST["progression"])) {
 			exit(json_encode("Une erreur est survenue : merci de renseigner la progression"));
 		} 
@@ -339,13 +342,23 @@ if ($method == "PUT") {
 
 		$project->updateName($name);
 
-		//$project->updateDescription($name);
+		$project->updateDescription($description);
+
+		$project->updateShortDescription($short_description);
+
+		$project->updateGoals($goals);
+
+		$project->updateLinks($links);
+
+		$project->updateType($type);
+
+		$project->updateProgression($progression);
 
 		if ($project->error == true) {
 			exit(json_encode("Une erreur est survenue lors de la modification de votre projet"));
 		}
 
-		exit(json_encode($project));
+		exit(json_encode("Ok"));
 
 	}
 }

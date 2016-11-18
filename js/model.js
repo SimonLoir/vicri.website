@@ -246,7 +246,14 @@ var model = {
 	},
 	updateProject : function(input, short_description, description, progression, goals, links, type, pid){
 		AR.PUT('api/index.php?res=project&manager=' + page.get('manager'), {name: input, short_description: short_description, description: description, progression: progression, goals: goals, links: links, type: type, id:pid}, function (data) {
-			alert(data);
+			var x_response = JSON.parse(data);
+			view.load.hide();
+			$("#x_result_div").html("");
+			if (x_response == "Ok"){
+				view.showConfirmationMessage('Ok', $("#x_result_div"));
+			}else{
+				$("#x_result_div").showError(x_response);
+			}
 		});
 	}
 }

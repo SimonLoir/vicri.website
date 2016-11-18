@@ -80,4 +80,89 @@ Class project{
 		}
 	}
 
+	public function updateDescription($value)
+	{
+		if ($value == $this->description) {
+			return true;
+		}else{
+			
+			if ($this->updateDb("description", $value)) {
+				return true;
+			}
+			$this->error = true;
+		}
+	}
+
+	public function updateShortDescription($value)
+	{
+		if ($value == $this->shortDescription) {
+			return true;
+		}else{
+			
+			if ($this->updateDb("shortDescription", $value)) {
+				return true;
+			}
+			$this->error = true;
+		}
+	}
+
+	public function updateGoals($value)
+	{
+		if ($value == $this->goals) {
+			return true;
+		}else{
+			
+			if ($this->updateDb("goals", $value)) {
+				return true;
+			}
+			$this->error = true;
+		}
+	}
+
+	public function updateLinks($value)
+	{
+		if ($value == $this->links) {
+			return true;
+		}else{
+			
+			if ($this->updateDb("links", $value)) {
+				return true;
+			}
+			$this->error = true;
+		}
+	}
+
+	public function updateType($value)
+	{
+		if ($value == $this->type) {
+			return true;
+		}else{
+			$correct_types = ["video", "photo", "code","3d", "jeu"];
+			if (!in_array($value, $correct_types)) {
+				exit(json_encode("Error : Le type de projet est incorrect"));
+			}
+			if ($this->updateDb("type", $value)) {
+				return true;
+			}
+			$this->error = true;
+		}
+	}
+	//updateProgression
+
+	public function updateProgression($value)
+	{
+		if ($value == $this->progression) {
+			return true;
+		}else{
+			if ($value > 100) {
+				$value = 100;
+			}
+			if ($this->updateDb("progression", $value)) {
+				return true;
+			}
+			$this->error = true;
+		}
+	}
+
+
 } ?>

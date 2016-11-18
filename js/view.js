@@ -67,8 +67,12 @@ var view = {
 		view.load.hide();
 
 	},
-	showConfirmationMessage : function (text) {
-		$(".content").child('div').html(text).addClass('cNotif');
+	showConfirmationMessage : function (text, attach_to) {
+		if (attach_to == undefined) {
+			$(".content").child('div').html(text).addClass('cNotif');
+		}else{
+			attach_to.child('div').html(text).addClass('cNotif');
+		}
 	}
 	,makeCalendar : function (data, today, days, months) {
 		view.load.hide();
@@ -127,6 +131,9 @@ var view = {
 
 		var e = container.child("div");
 		e.addClass('element');
+
+		var result_messages = e.child('div');
+		result_messages.node.id = "x_result_div";
 
 		var form = e.child('form');
 

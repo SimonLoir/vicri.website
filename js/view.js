@@ -93,7 +93,7 @@ var view = {
 		e.child('br');
 		e.child("br");
 
-		e.child('button').addClass('btn').html('mettre à jour mon mot de passe').click(function(){
+		e.child('button').addClass('disabled').html('mettre à jour mon mot de passe').click(function(){
 			window.location.hash = "page=update_password"
 		});
 

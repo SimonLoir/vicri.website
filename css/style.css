@@ -271,7 +271,7 @@ body{
     margin-right: 5px;
 }
 .disabled{
-   cursor:pointer;
+   cursor:not-allowed;
     font-size: 12px;
     padding: 9px;
     padding-left: 21px;/*2196f3*/

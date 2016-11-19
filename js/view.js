@@ -91,14 +91,23 @@ var view = {
 		e.child('span').html('Pseudo : ' + user.pseudo);
 
 		e.child('br');
+
+		e.child('span').html('Google LogIn : désactivé');
+
+		e.child('br');
+
 		e.child("br");
 
+		e.child('button').addClass('disabled').html('modifier mes informations').click(function(){
+			window.location.hash = "page=update_account";
+		});
+
 		e.child('button').addClass('disabled').html('mettre à jour mon mot de passe').click(function(){
-			window.location.hash = "page=update_password"
+			window.location.hash = "page=update_password";
 		});
 
 		e.child('button').addClass("disabled").html('configurer google log in').click(function(){
-			alert('Désolé, cette option est désactivée');
+			
 		});
 	}
 	,makeCalendar : function (data, today, days, months) {
@@ -251,6 +260,19 @@ var view = {
 			e_calendar_link.node.href = "#page=calendar";
 			e_calendar_link.addClass('btn2');
 			e_calendar_link.html("Accèder au calendrier");
+
+			var e_accounts = container.child("div");
+			e_accounts.node.style.display = "inline-block";
+			e_accounts.addClass('grid_element');
+
+			e_accounts.child('span').html('Mon compte');
+
+			e_accounts.child('p').html('Gérez votre compte vicri, modifiez votre pseudo et votre mot de passe. C\'est ici que vous pouvez gérer vos comptes.').addClass('home_e_p');
+
+			var e_account_link = e_accounts.child('a');
+			e_account_link.node.href = "#page=account";
+			e_account_link.addClass('btn2');
+			e_account_link.html("Accèder à mon compte");
 		}
 
 

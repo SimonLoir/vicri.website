@@ -73,6 +73,33 @@ var view = {
 		}else{
 			attach_to.child('div').html(text).addClass('cNotif');
 		}
+	},
+	createAccountPage : function () {
+		view.load.hide();
+
+		var container = $('.content');
+
+		var e = container.child("div");
+		e.addClass('element').css('position', "relative");
+
+		e.child('h2').html(user.firstname + " " + user.name);
+
+		e.child('span').html('Email : ' + user.mail);
+
+		e.child('br');
+
+		e.child('span').html('Pseudo : ' + user.pseudo);
+
+		e.child('br');
+		e.child("br");
+
+		e.child('button').addClass('btn').html('mettre à jour mon mot de passe').click(function(){
+			window.location.hash = "page=update_password"
+		});
+
+		e.child('button').addClass("disabled").html('configurer google log in').click(function(){
+			alert('Désolé, cette option est désactivée');
+		});
 	}
 	,makeCalendar : function (data, today, days, months) {
 		view.load.hide();

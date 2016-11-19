@@ -10,7 +10,7 @@ Fonctionnement de controller.js
 
 			on vérifie si la page existe sinon on affiche une erreur.
 
-			on appelle la méthode correspondante au niveau du model an lui donnant le callback(dans la view) correspondant
+			on appelle la méthode correspondante au niveau du model an lui donnant le callback (dans la view) correspondant
 */
 
 function start() {
@@ -68,6 +68,10 @@ var controller = {
 		}else if(page.getTarget() == "login"){
 
 			view.createLoginPage(model.login);
+
+		}else if(page.getTarget() == "account"){
+
+			view.createAccountPage();
 
 		}else if(page.getTarget() == "new_project"){
 

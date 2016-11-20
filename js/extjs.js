@@ -55,13 +55,7 @@ function $(element){
 		click: function(toDo, element){
 			if (element === undefined) {
 				if (toDo !== undefined) {
-					this.dom.addEventListener("click", function (){
-						if (this.classList.contains('disabled')) {
-							alert(ExtJsElement_disMessage);
-						}else{
-							toDo();
-						}
-					});
+					this.dom.addEventListener("click", toDo);
 				}else{
 					this.dom.click();
 				}

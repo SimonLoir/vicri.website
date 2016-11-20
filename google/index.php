@@ -51,8 +51,13 @@ if (isset($authUrl)){
   echo $authUrl;
   header("Location: " . $authUrl);
 }else{
-	echo "Your email : " ;
-	echo json_encode($token_data["email"]);
+	$user_email = $token_data["email"];
+
+  if (strpos($user_email, "@indse.be")) {
+    
+  }else{
+    echo "Désolé, cette adresse email n'est pas valide";
+  }
 }
 
 ?>

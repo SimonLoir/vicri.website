@@ -92,7 +92,7 @@ var view = {
 
 		e.child('br');
 
-		e.child('span').html('Google LogIn : désactivé');
+		e.child('span').html('Google Sign In : activé, vous pouvez vous connecter avec votre compte INDSé via le menu de connexion (se connecter avec google)');
 
 		e.child('br');
 
@@ -104,10 +104,6 @@ var view = {
 
 		e.child('button').addClass('disabled').html('mettre à jour mon mot de passe').click(function(){
 			window.location.hash = "page=update_password";
-		});
-
-		e.child('button').addClass("disabled").html('configurer google log in').click(function(){
-			
 		});
 	}
 	,makeCalendar : function (data, today, days, months) {

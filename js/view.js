@@ -397,6 +397,10 @@ var view = {
 		send.addClass('btn');
 
 		loginInputs = [username_input,password_input, send];
+
+		form.child('a').html('Me connecter avec Google').node.href = "../google";
+
+
         form.node.onsubmit = function (){
 
         	callback(username_input.node.value, password_input.node.value);

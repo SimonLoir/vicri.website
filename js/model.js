@@ -260,18 +260,13 @@ var model = {
 
 var user = {
 	/*
-	PRE : /
-	POST :
-		+ user.isConnected
-		#Si user.isConnected = false
-		+ user.pseudo
-		+ user.mail
-		+ user.name
-		+ user.firstnames
-
-		=> controller.js : doWork()
+	Note : ici, on va juste faire une vérification de l'état de connexion de l'utilisateur. 
+			On stockera dans une variable le timestamp de la dernière actualisation et on fera une vérification de la page : 
+			si page importante : (ex : modif ou création de qqch) : actualisation même si la dernière était il y a peu de temps.
 	*/
 	liState : function (){
+
+		var date = new Date();
 		AR.GET('api?res=user_connection_state', function (data) {
 			if (data == "Empty") {
 
@@ -289,6 +284,7 @@ var user = {
 					user.mail = d.mail;
 					user.name = d.name;
 					user.firstname = d.firstname;
+					user.liState_ver_date = date.getTime();
 
 				} catch(e) {
 					console.log(e);

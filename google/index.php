@@ -52,7 +52,6 @@ if ($client->getAccessToken()) {
 }
 
 if (isset($authUrl)){
-  echo $authUrl;
   header("Location: " . $authUrl);
 }else{
 	$user_email = $token_data["email"];

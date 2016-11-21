@@ -472,12 +472,26 @@ var view = {
 
 
 			if (project.user_is_manager == true) {
-				open.html("Gérer");
+				open.html("Ouvrir");
 				open.node.href = "#page=project;pid=" + project.id + ';manager=true';
+
+				var modify_btn = btns.child("a");
+				modify_btn.addClass('btn2');
+				modify_btn.html("Gérer");
+				modify_btn.node.href = "#page=modify_project;pid=" + project.id + ';manager=true';
 			}else{
 				open.html("Ouvrir");
 				open.node.href = "#page=project;pid=" + project.id + ';manager=false';
 			}
+		}
+
+		if (user.isConnected == true) {
+			var plus = container.child('button').addClass('btn3').html('&#43;');
+			plus.css('position', "fixed");
+			plus.css('bottom', "15px");
+			plus.css('right', "15px");
+			plus.css('cursor', "pointer");
+			plus.click(function(){window.location.hash = "page=new_project"});
 		}
 	},
 	/*

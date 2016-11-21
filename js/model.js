@@ -250,7 +250,7 @@ var model = {
 			view.load.hide();
 			$("#x_result_div").html("");
 			if (x_response == "Ok"){
-				view.showConfirmationMessage('Les modifications ont été appliquées', $("#x_result_div"));
+				view.showConfirmationMessage('Les modifications ont été appliquées <a href="#page=project;pid=' + pid + ';manager=true">Voir le projet</a>', $("#x_result_div"));
 			}else{
 				$("#x_result_div").showError(x_response);
 			}

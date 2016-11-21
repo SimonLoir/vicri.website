@@ -74,7 +74,7 @@ if (isset($authUrl)){
 
         $_SESSION['user_id'] = $user_infos[0]->id;
 
-        header("Location: ../");
+        header("Location: ../index.html#page=home;action=welcome");
 
     }else{
 

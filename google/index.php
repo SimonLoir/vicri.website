@@ -78,6 +78,7 @@ if (isset($authUrl)){
 
     }
   }else{
+    echo '<meta charset="utf-8">';
     echo "Désolé, cette adresse email n'est pas valide";
   }
 }

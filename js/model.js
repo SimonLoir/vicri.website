@@ -267,6 +267,33 @@ var user = {
 	liState : function (){
 
 		var date = new Date();
+		
+		var date_now = date.getTime();
+
+		var page_target = page.getTarget();
+
+		switch (page_target){
+			case "modify_project" :
+				break;
+			case "account" :
+				break;
+			case "new_project" :
+				break;
+			case "new_event" :
+				break;
+			default:
+				if (this.liState_ver_date != undefined) {
+
+					if (this.liState_ver_date - date_now < 30000) {
+
+						controller.doWork();
+						return false;
+					}
+				}
+		}
+		
+		console.log('Ajax request');
+
 		AR.GET('api?res=user_connection_state', function (data) {
 			if (data == "Empty") {
 

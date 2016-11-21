@@ -14,8 +14,8 @@ Fonctionnement de controller.js
 */
 
 function start() {
-	user.liState();
 	view.load.show('chargement');
+	user.liState();
 }
 
 $(document).ready(start); // Quand tout est chargé

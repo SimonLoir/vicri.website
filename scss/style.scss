@@ -517,6 +517,10 @@ md-input
     background: transparent;
     font-family: "Roboto", sans-serif;
 }
+
+.field textarea{
+    height: 150px;
+}
 .field::after, .field::before{
     content: "";
     height: 2px;

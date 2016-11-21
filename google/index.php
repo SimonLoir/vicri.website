@@ -14,7 +14,7 @@ $client->setScopes('email');
 
 if (isset($_REQUEST['logout'])) {
 
-  unset($_SESSION['id_token_token']);
+  session_destroy();
 
 }
 
@@ -26,16 +26,11 @@ if (isset($_GET['code'])) {
 
   $_SESSION['id_token_token'] = $token;
 
-  header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+  header('Location: index.php#process-end_debug');
 
 }
-if (
 
-  !empty($_SESSION['id_token_token'])
-
-  && isset($_SESSION['id_token_token']['id_token'])
-
-) {
+if (!empty($_SESSION['id_token_token']) && isset($_SESSION['id_token_token']['id_token'])) {
 
   $client->setAccessToken($_SESSION['id_token_token']);
 
@@ -52,7 +47,9 @@ if ($client->getAccessToken()) {
 }
 
 if (isset($authUrl)){
+
   header("Location: " . $authUrl);
+
 }else{
 	$user_email = $token_data["email"];
 

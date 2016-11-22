@@ -32,7 +32,6 @@ var controller = {
 
 		if (page.get('action') == "welcome" && user.isConnected == true) {
 			view.showConfirmationMessage('Vous êtes maintenant connecté. Bienvenue ' + user.firstname + " !");
-			console.log(user)
 		}
 
 		view.addContentToMenu();

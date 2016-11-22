@@ -132,7 +132,7 @@ var model = {
 
 		AR.POST('api/index.php?res=login', {email: email, password: password}, function (data){
 			if (JSON.parse(data) == "ok") {
-
+				user.liState(true);
 				window.location.hash = "page=home;action=welcome";
 			}else{
 				alert('Une erreur est survenue');
@@ -264,7 +264,7 @@ var user = {
 			On stockera dans une variable le timestamp de la dernière actualisation et on fera une vérification de la page : 
 			si page importante : (ex : modif ou création de qqch) : actualisation même si la dernière était il y a peu de temps.
 	*/
-	liState : function (){
+	liState : function (reload){
 
 		var date = new Date();
 		
@@ -272,7 +272,8 @@ var user = {
 
 		var page_target = page.getTarget();
 
-		switch (page_target){
+		if (reload != true) {
+			switch (page_target){
 			case "modify_project" :
 				break;
 			case "account" :
@@ -290,9 +291,8 @@ var user = {
 						return false;
 					}
 				}
+			}
 		}
-		
-		console.log('Ajax request');
 
 		AR.GET('api?res=user_connection_state', function (data) {
 			if (data == "Empty") {

@@ -81,6 +81,17 @@ if ($method == "GET") {
 			"one" => true
 		]);
 
+		if ($project->type == "video") {
+				$video = $db->query('SELECT * FROM videos WHERE id = :project_id', [
+					"class" => "videos",
+					"prepare" => [":project_id" => $_GET['id']]
+				]);
+
+				if ($video != null) {
+					$project->video = $video[0];
+				}
+		}
+
 		exit(json_encode($project->clientFormat()));
 
 

@@ -554,12 +554,28 @@ var view = {
 			image_and_title.createImage(data.name);
 
 			container.child("br");
+
 		var link = container.child('a');
 			link.html('Modifier')
 			link.node.href = "#page=modify_project;pid=" + page.get('pid') + ";manager=true";
 			link.addClass('btn');
-			container.child("br");
-			container.child("br");
+
+		if (data.video == undefined) {
+			var publish_video = container.child('a');
+			publish_video.html('Publier la vidéo');
+			publish_video.addClass('btn');
+		}else{
+			var see_video = container.child('a');
+			see_video.html('Afficher la vidéo');
+			see_video.addClass('btn');
+
+			var reupload_video = container.child('a');
+			reupload_video.html('Publier la vidéo à nouveau');
+			reupload_video.addClass('btn');
+		}
+
+		container.child("br");
+		container.child("br");
 
 		var project_type = container.child("span");
 			project_type.html('Type de projet :' + data.type);

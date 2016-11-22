@@ -259,10 +259,19 @@ var model = {
 }
 
 var user = {
-	/*
-	Note : ici, on va juste faire une vérification de l'état de connexion de l'utilisateur. 
-			On stockera dans une variable le timestamp de la dernière actualisation et on fera une vérification de la page : 
-			si page importante : (ex : modif ou création de qqch) : actualisation même si la dernière était il y a peu de temps.
+	/*	
+		Note : user (this) can be used outside model.js
+		PRE : /
+		POST : 
+			user.isConnected = true if user is connected
+							 = false if not 
+			if user is connected :
+				user.pseudo defined or updated 
+				user.mail defined or updated 
+				user.name defined or updated 
+				user.firstname defined or updated 
+				user.liState_ver_date defined or updated 
+
 	*/
 	liState : function (reload){
 

@@ -79,7 +79,15 @@ var view = {
 
 		var container = $('.content');
 
+		if(user.isConnected == false){
+
+			$('.content').showError('Désolé, nous ne pouvons pas afficher le contenu de cette page car vous n\'êtes pas connecté');
+
+			return false;
+		}
+
 		var e = container.child("div");
+		
 		e.addClass('element').css('position', "relative");
 
 		e.child('h2').html(user.firstname + " " + user.name);

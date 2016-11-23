@@ -264,8 +264,9 @@ var view = {
 			e_calendar_link.node.href = "#page=calendar";
 			e_calendar_link.addClass('btn2');
 			e_calendar_link.html("Accèder au calendrier");
+		}
 
-			var e_accounts = container.child("div");
+		var e_accounts = container.child("div");
 			e_accounts.node.style.display = "inline-block";
 			e_accounts.addClass('grid_element');
 
@@ -273,11 +274,17 @@ var view = {
 
 			e_accounts.child('p').html('Gérez votre compte vicri, modifiez votre pseudo et votre mot de passe. C\'est ici que vous pouvez gérer vos comptes.').addClass('home_e_p');
 
-			var e_account_link = e_accounts.child('a');
-			e_account_link.node.href = "#page=account";
-			e_account_link.addClass('btn2');
-			e_account_link.html("Accèder à mon compte");
-		}
+			if (user.isConnected == true) {
+				var e_account_link = e_accounts.child('a');
+				e_account_link.node.href = "#page=account";
+				e_account_link.addClass('btn2');
+				e_account_link.html("Accèder à mon compte");
+			}else{
+				var e_account_link = e_accounts.child('a');
+				e_account_link.node.href = "#page=login";
+				e_account_link.addClass('btn2');
+				e_account_link.html("Me connecter");
+			}
 
 
 	}

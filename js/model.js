@@ -61,9 +61,6 @@ var page = {
 	}
 }
 
-var objectStorage = {
-
-}
 var model = {
 	/*
 	PRE : /
@@ -101,15 +98,12 @@ var model = {
 	PRE : /
 	POST :
 		+ pdata
-		=> objectStorage.data = pdata
 		=> callback(pdata)
 	*/
 	getProject(callback_manager, callback, dont_user_br){
 		AR.GET('api?res=project&id='  + page.get('pid') + "&manager=" + page.get("manager") + "&mod=" + dont_user_br , function (data){
 
 			var pdata = JSON.parse(data);
-
-			objectStorage.data = pdata;
 
 			// On doit faire une vérification
 

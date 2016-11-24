@@ -550,6 +550,34 @@ var view = {
 	videoShowInformations : function (video){
 		alert('Informations sur la vidéo : \n Titre :' + video.title + "\n Description :" + video.description + "\n Url :" + video.url);
 	}
+	, 
+	publish_video : function () {
+		view.load.hide();
+
+		var container = $(".content").child('div');
+
+		var e = container.child('div').addClass('element');
+
+		e.child('h2').html('Publier une vidéo.');
+
+		e.child('p').html('Pour publier une vidéo depuis YouTube, vous devez recopier son ID dans la zone de texte ci-dessous. <br /> <i>Exemple :</i> https://www.youtube.com/watch?v=oxa581kKBNg -> l\'ID est oxa581kKBNg');
+
+
+
+		var vid = e.input('ID de la vidéo');
+
+		e.child('p').html('Aperçu :')
+
+		var result = e.child('iframe');
+		result.css('height', "200px");
+		result.css('width', "300px");
+
+		vid[0].blur(function () {
+			result.node.src = "https://www.youtube.com/embed/" + $(this).node.value;
+		})
+
+
+	}
 	,
 
 	/*
@@ -582,6 +610,7 @@ var view = {
 				var publish_video = container.child('a');
 				publish_video.html('Publier la vidéo');
 				publish_video.addClass('btn');
+				publish_video.node.href = "#page=upload_video;pid=" + page.get("pid");
 			}else{
 				var see_video = container.child('a');
 				see_video.html('Afficher la vidéo');
@@ -779,9 +808,11 @@ ExtJsPlugIn.input = function (text, value){
 		element_text.html(text);
 		element_text.addClass('top');
 
-		var element_input = element.child("input");
-		element_input.addClass('input');
-		element_input.node.value = value;
+			var element_input = element.child("input");
+			element_input.addClass('input');
+		if(value != undefined){
+			element_input.node.value = value;
+		}
 
 		view.addInputAnimations();
 
@@ -801,7 +832,9 @@ ExtJsPlugIn.textarea = function (text, value){
 
 		var element_input = element.child("textarea");
 		element_input.addClass('input');
-		element_input.node.value = value;
+		if(value != undefined){
+			element_input.node.value = value;
+		}
 
 		view.addInputAnimations();
 

@@ -87,6 +87,14 @@ var controller = {
 
 			view.createNewEventPage(model.newEvent);
 
+		}else if(page.getTarget() == "upload_video") {
+
+			if(page.get('pid') != undefined){
+				view.publish_video(model.publish_video);
+			}else{
+				$(".content").showError('Une erreur est survenue.');
+			}
+
 		}else{
 
 			view.load.hide();

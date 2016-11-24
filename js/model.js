@@ -267,8 +267,7 @@ var user = {
 				user.liState_ver_date defined or updated 
 
 	*/
-	liState : function (reload){
-
+	liState : function (reload, callback){
 		var date = new Date();
 		
 		var date_now = date.getTime();
@@ -290,7 +289,12 @@ var user = {
 
 					if (this.liState_ver_date - date_now < 30000) {
 
-						controller.doWork();
+						if(callback != undefined){
+							callback();
+						}else{
+							controller.doWork();
+						}
+
 						return false;
 					}
 				}
@@ -320,7 +324,12 @@ var user = {
 					console.log(e);
 				}
 			}
-			controller.doWork()
+
+			if(callback != undefined){
+				callback();
+			}else{
+				controller.doWork();
+			}
 		});
 	}
 

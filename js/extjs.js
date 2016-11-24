@@ -114,6 +114,24 @@ function $(element){
 				console.log('leave cant be create')
 			}
 		},
+		blur: function(toDo, element){
+			if (element === undefined) {
+				if (toDo !== undefined) {
+					this.dom.addEventListener("blur", toDo);
+				}
+			}else if (toDo !== undefined){
+				var x = this.dom;
+				this.dom.addEventListener("blur", function(event){
+				if (x.querySelector(element) == event.target) {
+					xe = x.querySelector(element);
+					xe.toDo = toDo;
+					xe.toDo();
+				}
+				});
+			}else{
+				console.log('fatal error')
+			}
+		},
 		html: function(string){
 			if (typeof(string) === "string" || typeof(string) === "number") {
 				this.dom.innerHTML = string;

@@ -28,6 +28,8 @@ var content = $('.content');
 var controller = {
 	doWork : function (){
 
+		document.title = "Vicri - " + page.target;
+
 		$('.content').html("");
 
 		if (page.get('action') == "welcome" && user.isConnected == true) {

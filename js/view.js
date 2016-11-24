@@ -565,6 +565,8 @@ var view = {
 		var container = $('.content').child("div");
 			container.addClass('element');
 
+		document.title = "Vicri - projet : " + data.name;
+
 		var image_and_title = container.child('div');
 			image_and_title.createImage(data.name);
 

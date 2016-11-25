@@ -551,7 +551,7 @@ var view = {
 		alert('Informations sur la vidéo : \n Titre :' + video.title + "\n Description :" + video.description + "\n Url :" + video.url);
 	}
 	, 
-	publish_video : function () {
+	publish_video : function (callback) {
 
 		view.load.hide();
 
@@ -580,6 +580,30 @@ var view = {
 
 		var title = e.input('Titre');
 		var description = e.textarea('Description');
+
+		var send = e.child('button');
+		send.addClass('btn');
+		send.html('Publier');
+		
+		send.click(function(){
+			var vvid = vid[0].node.value.trim();
+			var vti = title[0].node.value.trim();
+			var vde = description[0].node.value.trim();
+
+			if(vid == "" || vti == "" || vde == ""){
+				alert('Merci de remplir tous les champs')
+				return false;
+			}
+
+			view.load.show('Nous publions cette vidéo ... ');
+
+			callback({
+				id : vvid ,
+				title : vti ,
+				description : vde 
+			});
+			
+		});
 
 		vid[0].blur(function () {
 			result.node.src = "https://www.youtube.com/embed/" + $(this).node.value;

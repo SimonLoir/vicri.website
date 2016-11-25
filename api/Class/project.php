@@ -33,9 +33,10 @@ Class project{
 			return "UError";
 
 		}else{
-
-			if (!isset($_GET['mod']) || $_GET['mod'] != "true") {
-				$this->description = nl2br(htmlspecialchars($this->description));
+			if (isset($this->description)) {
+				if (!isset($_GET['mod']) || $_GET['mod'] != "true") {
+					$this->description = nl2br(htmlspecialchars($this->description));
+				}
 			}
 			return $this;
 

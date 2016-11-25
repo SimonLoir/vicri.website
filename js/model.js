@@ -249,6 +249,23 @@ var model = {
 				$("#x_result_div").showError(x_response);
 			}
 		});
+	}, publish_video : function (d) {
+		AR.POST('api/index.php?res=publish_video&pid=' + page.get('pid') + '&manager=true', d, function (data){
+			view.load.hide();
+			try {
+				var server_response = JSON.parse(data);
+				
+				if (server_response == "ok") {
+					alert('ok');
+				}else{
+					alert('Une erreur est survenue du côté du serveur');
+				}
+
+			} catch (error) {
+				alert('Une erreur inconnue est survenue' + error + "\n" + data);
+			}
+			//window.location.href = "#page=project;pid=" + page.get('pid');
+		});
 	}
 }
 

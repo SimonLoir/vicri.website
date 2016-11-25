@@ -283,6 +283,52 @@ if ($method == "POST") {
 			exit(json_encode('Server error'));
 		}
 
+	}elseif($res == "publish_video"){
+		if (!isset($_GET['pid'])) {
+			exit(json_encode('error'));
+		}
+
+		if (!isset($_POST['id']) || empty($_POST['id'])) {
+			exit(json_encode('error'));
+		}
+
+		if (!isset($_POST['title'])  || empty($_POST['title'])) {
+			exit(json_encode('error'));
+		}
+
+		if (!isset($_POST['description'])  || empty($_POST['description'])) {
+			exit(json_encode('error'));
+		}
+
+		$project_id = $_GET['pid'];
+
+		$id = $_POST['id'];
+
+		$title = $_POST['title'];
+
+		$description = $_POST['description'];
+
+		$project = $db->query('SELECT managers FROM projects WHERE id = :project_id', [
+			"class" => "project",
+			"prepare" => [":project_id" => $project_id],
+			"one" => true
+		]);
+
+		if ($project->clientFormat() == "UError") {
+			exit(json_encode('error'));
+		}
+		
+		$video = $db->query('SELECT * FROM videos WHERE id = :project_id', [
+			"class" => "videos",
+			"prepare" => [":project_id" => $project_id]
+		]);
+
+		if ($video != null) {
+			exit(json_encode('fatal error'));
+		}
+
+		exit(json_encode("ok"));
+
 	}
 }
 

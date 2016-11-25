@@ -528,6 +528,7 @@ var view = {
 
 			var iframe  = video_container.child("iframe");
 			iframe.node.src = video.url;
+			iframe.node.setAttribute('allowfullscreen', "");
 
 			var open = video_container.child("a");
 			open.addClass('btn2')
@@ -648,6 +649,25 @@ var view = {
 				var see_video = container.child('a');
 				see_video.html('Afficher la vidéo');
 				see_video.addClass('btn');
+
+				see_video.click(function (){
+					var full_screen_container = container.child('div');
+					full_screen_container.addClass('fs_view');
+
+					var btn_exit = full_screen_container.child('button').html("&#x2715;").addClass('fs_exit');
+
+					btn_exit.click(function() {
+						full_screen_container.removeClass('fs_view_visible');
+						setTimeout(full_screen_container.remove, 2000);
+					});
+
+					var iframe = full_screen_container.child('iframe');
+					iframe.node.src = data.video.url;
+					iframe.node.setAttribute('allowfullscreen', "");
+
+					full_screen_container.addClass('fs_view_visible');
+
+				});
 
 				var reupload_video = container.child('a');
 				reupload_video.html('Publier la vidéo à nouveau');

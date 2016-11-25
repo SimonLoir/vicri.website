@@ -88,7 +88,7 @@ if ($method == "GET") {
 				]);
 
 				if ($video != null) {
-					$project->video = $video[0];
+					$project->video = $video[0]->clientFormat();
 				}
 		}
 

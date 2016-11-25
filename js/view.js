@@ -552,7 +552,13 @@ var view = {
 	}
 	, 
 	publish_video : function () {
+
 		view.load.hide();
+
+		if(user.isConnected != true){
+			$('.content').showError('Vous devez être connecté');
+			return false;
+		}
 
 		var container = $(".content").child('div');
 
@@ -571,6 +577,9 @@ var view = {
 		var result = e.child('iframe');
 		result.css('height', "200px");
 		result.css('width', "300px");
+
+		var title = e.input('Titre');
+		var description = e.textarea('Description');
 
 		vid[0].blur(function () {
 			result.node.src = "https://www.youtube.com/embed/" + $(this).node.value;

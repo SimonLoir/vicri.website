@@ -256,7 +256,7 @@ var model = {
 				var server_response = JSON.parse(data);
 				
 				if (server_response == "ok") {
-					alert('ok');
+					window.location.href = "#page=project;manager=true;pid=" + page.get('pid');
 				}else{
 					alert('Une erreur est survenue du côté du serveur');
 				}
@@ -264,7 +264,7 @@ var model = {
 			} catch (error) {
 				alert('Une erreur inconnue est survenue' + error + "\n" + data);
 			}
-			//window.location.href = "#page=project;pid=" + page.get('pid');
+			//
 		});
 	}
 }

@@ -327,7 +327,19 @@ if ($method == "POST") {
 			exit(json_encode('fatal error'));
 		}
 
-		exit(json_encode("ok"));
+		if($db->query("INSERT INTO videos VALUES (:pid,:id,\"youtube\", :title, :description)", [
+			"prepare" => [
+				":pid" => $project_id,
+				":id" => $id,
+				":title" => $title,
+				":description" => $description
+			],
+			"result" => true
+		])){
+			exit(json_encode("ok"));
+		}else{
+			exit(json_encode("serror"));
+		}
 
 	}
 }

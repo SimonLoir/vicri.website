@@ -266,6 +266,22 @@ var model = {
 			}
 			//
 		});
+	}, delete_video : function (vid) {
+		AR.DELETE("api/index.php?res=video&vid=" + vid, function (data){
+
+			try {
+				var response = JSON.parse(data);
+
+				if (response == "ok") {
+					window.location.reload();
+				}else{
+					alert('Une erreur est survenue au niveau du serveur');
+				}
+			} catch (error) {
+				alert("Erreur inconnue : \n" + error)
+			}
+			
+		});
 	}
 }
 
@@ -300,6 +316,8 @@ var user = {
 			case "new_project" :
 				break;
 			case "new_event" :
+				break;
+			case "upload_video" :
 				break;
 			default:
 				if (this.liState_ver_date != undefined) {

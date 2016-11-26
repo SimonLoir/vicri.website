@@ -669,9 +669,30 @@ var view = {
 
 				});
 
-				var reupload_video = container.child('a');
-				reupload_video.html('Publier la vidéo à nouveau');
-				reupload_video.addClass('btn');
+				var delete_video = container.child('button');
+				delete_video.html('supprimer la vidéo');
+				delete_video.addClass('btn');
+
+				delete_video.click(function () {
+
+					var r = confirm("Supprimer la vidéo ?");
+
+					if (r == true) {
+					   	var r2 = confirm("Êtes vous vraiment sûr de vouloir supprimer cette vidéo?");
+
+						if (r2 == true) {
+					   		
+							model.delete_video(page.get('pid'));
+
+						} else {
+
+						}
+
+					} else {
+
+					}
+
+				});
 			}
 		}
 

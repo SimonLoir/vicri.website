@@ -658,7 +658,9 @@ var view = {
 
 					btn_exit.click(function() {
 						full_screen_container.removeClass('fs_view_visible');
-						setTimeout(full_screen_container.remove, 2000);
+						setTimeout(function() {
+							full_screen_container.remove();
+						}, 2000);
 					});
 
 					var iframe = full_screen_container.child('iframe');

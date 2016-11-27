@@ -278,7 +278,7 @@ var model = {
 					alert('Une erreur est survenue au niveau du serveur');
 				}
 			} catch (error) {
-				alert("Erreur inconnue : \n" + error)
+				alert("Erreur inconnue : \n" + error);
 			}
 			
 		});

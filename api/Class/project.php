@@ -28,7 +28,7 @@ Class project{
 
 		$this->managers = explode(';', $this->managers);
 
-		if ($_GET['manager']  == "true" && (!in_array($_SESSION['user_id'], $this->managers) || !isset($_SESSION['user_id'])) ) {
+		if (isset($_GET['manager']) && $_GET['manager']  == "true" && (!in_array($_SESSION['user_id'], $this->managers) || !isset($_SESSION['user_id'])) ) {
 
 			return "UError";
 

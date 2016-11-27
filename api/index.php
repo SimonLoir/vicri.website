@@ -431,4 +431,32 @@ if ($method == "PUT") {
 
 	}
 }
+
+
+if ($method == "DELETE") {
+	if($res == "video"){
+		$project = $db->query('SELECT managers FROM projects WHERE id = :project_id', [
+			"class" => "project",
+			"prepare" => [":project_id" => $_GET['vid']],
+			"one" => true
+		]);
+
+		if ($project->clientFormat() == "UError") {
+			exit(json_encode('error'));
+		}
+
+		$delete = $db->query('DELETE FROM videos WHERE id = :id', [
+			"prepare" => [
+				":id" => $_GET['vid']
+			], 
+			"result" => true
+		]);
+
+		if ($delete) {
+			exit(json_encode('ok'));
+		}else{
+			exit(json_encode('server error'));
+		}
+	}
+}
  ?>

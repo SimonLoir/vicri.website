@@ -56,6 +56,7 @@ function $(element){
 			if (element === undefined) {
 				if (toDo !== undefined) {
 					this.dom.addEventListener("click", toDo);
+					return this;
 				}else{
 					this.dom.click();
 				}

@@ -226,7 +226,7 @@ var view = {
 
 		e_videos.child('span').html('Vidéos');
 
-		e_videos.child('p').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus minus veniam neque ipsam incidunt harum possimus inventore sapiente, aliquam laboriosam! Vel, eligendi provident nostrum itaque voluptate! Est totam, distinctio! Explicabo. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet alias quos libero aspernatur reiciendis a eius praesentium ab vero laudantium est et eaque, quasi id sed nemo aperiam amet esse.').addClass('home_e_p');
+		e_videos.child('p').html('Vidéos réalisées par le groupe vicri de l\'INDSé 2e&3e degrés').addClass('home_e_p');
 
 		var e_video_link = e_videos.child('a');
 		e_video_link.node.href = "#page=videos";
@@ -243,7 +243,7 @@ var view = {
 
 		e_projects.child('span').html('Projets');
 
-		e_projects.child('p').html('Lorem ipsum dolor sit amendi provident nostrum itaque voluptate! Est totam, distinctio! Explicabo.').addClass('home_e_p');
+		e_projects.child('p').html('[Quand connecté] Liste des projets').addClass('home_e_p');
 
 		var e_project_link = e_projects.child('a');
 		e_project_link.node.href = "#page=projets";
@@ -264,7 +264,7 @@ var view = {
 
 			e_calendars.child('span').html('Calendrier');
 
-			e_calendars.child('p').html('Lorem ipsum dolor sit amendi provident nostrum itaque voluptate! Est totam, distinctio! Explicabo.').addClass('home_e_p');
+			e_calendars.child('p').html('Liste des prochains évènements.').addClass('home_e_p');
 
 			var e_calendar_link = e_calendars.child('a');
 			e_calendar_link.node.href = "#page=calendar";
@@ -278,7 +278,7 @@ var view = {
 
 		e_accounts.child('span').html('Mon compte');
 
-		e_accounts.child('p').html('Gérez votre compte vicri, modifiez votre pseudo et votre mot de passe. C\'est ici que vous pouvez gérer vos comptes.').addClass('home_e_p');
+		e_accounts.child('p').html('Accèder à l\'espace membre.').addClass('home_e_p');
 
 		if (user.isConnected == true) {
 			var e_account_link = e_accounts.child('a');

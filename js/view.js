@@ -2,14 +2,17 @@ var menu;
 var loginInputs;
 var theme = "#3f51b5";
 var view = {
-
-	/*
-	Pre : text != undefined
-	*/
+	/* -------------------------- /*
+			Title creation
+	/* -------------------------- */
 	createTitle: function (text) {
 		var e = $(".content").child("h2");
 		e.html(text);
-	}, createNewEventPage: function (callback) {
+	}, 
+	/* -------------------------- /*
+			Event page creation
+	/* -------------------------- */
+	createNewEventPage: function (callback) {
 
 		var container = $('.content');
 
@@ -67,6 +70,9 @@ var view = {
 		view.load.hide();
 
 	},
+	/* ------------------------------- /*
+		  Show confirmation message
+	/* ------------------------------- */
 	showConfirmationMessage: function (text, attach_to) {
 		if (attach_to == undefined) {
 			$(".content").child('div').html(text).addClass('cNotif');
@@ -74,6 +80,9 @@ var view = {
 			attach_to.child('div').html(text).addClass('cNotif');
 		}
 	},
+	/* ---------------------------------------- /*
+			Account management page creation
+	/* ---------------------------------------- */
 	createAccountPage: function () {
 		view.load.hide();
 
@@ -114,7 +123,12 @@ var view = {
 			window.location.hash = "page=update_password";
 		});
 	}
-	, makeCalendar: function (data, today, days, months) {
+	,
+	
+	/* ---------------------------------------- /*
+				Calendar page creation
+	/* ---------------------------------------- */
+	 makeCalendar: function (data, today, days, months) {
 		view.load.hide();
 
 		var container = $('.content');
@@ -171,6 +185,12 @@ var view = {
 		//alert(today.dayName + " " + today.day + " " + today.monthName.toLowerCase())
 
 	},
+
+	
+	/* --------------------------------------------------------------- /*
+			Project modification page management page creation
+	/* --------------------------------------------------------------- */
+
 	modifyProject: function (data) {
 		var container = $('.content');
 		view.load.hide();
@@ -213,11 +233,15 @@ var view = {
 
 	}
 	,
+	
+	/* ---------------------------------------- /*
+				Home page creation
+	/* ---------------------------------------- */
 	createHomePage: function () {
 		var container = $('.content');
 
 		/*
-		Vidéos
+		-> Vidéos
 		*/
 
 		var e_videos = container.child("div");
@@ -234,7 +258,7 @@ var view = {
 		e_video_link.html("Nos vidéos");
 
 		/*
-		Projets
+		-> Projets
 		*/
 		if (user.isConnected == true) {
 			var e_projects = container.child("div");
@@ -256,7 +280,9 @@ var view = {
 				e_project_new.addClass('btn2');
 				e_project_new.html("Nouveau projet");
 		}
-
+		/*
+		-> Calendar
+		*/
 		if (user.isConnected == true) {
 			var e_calendars = container.child("div");
 			e_calendars.node.style.display = "inline-block";
@@ -271,7 +297,9 @@ var view = {
 			e_calendar_link.addClass('btn2');
 			e_calendar_link.html("Accèder au calendrier");
 		}
-
+		/*
+		-> Account
+		*/
 		var e_accounts = container.child("div");
 		e_accounts.node.style.display = "inline-block";
 		e_accounts.addClass('grid_element');
@@ -295,6 +323,10 @@ var view = {
 
 	}
 	,
+	
+	/* --------------------------------------------- /*
+			Project creation page creation
+	/* --------------------------------------------- */
 	createNewProjectPage: function (callback) {
 
 		view.load.hide();
@@ -351,7 +383,10 @@ var view = {
 		view.addInputAnimations();
 	}
 	,
-
+	
+	/* ---------------------------------------- /*
+			input animations addition
+	/* ---------------------------------------- */
 	addInputAnimations: function () {
 		var all = document.querySelectorAll(".input");
 		for (var i = 0; i < all.length; i++) {
@@ -373,6 +408,10 @@ var view = {
 	}
 
 	,
+	
+	/* ---------------------------------------- /*
+			Login page creation
+	/* ---------------------------------------- */
 	createLoginPage: function (callback) {
 		view.load.hide();
 
@@ -424,31 +463,17 @@ var view = {
 
 			return false;
 		}
-
-        /*e.child("br");
-        var loginWithGoogle = e.child('div');
-		loginWithGoogle.node.id = "loginbutton_google_sign_in_instance";
-		renderButton(loginWithGoogle.node.id);*/
-
 		view.addInputAnimations();
 
 	}
 	,
-	/*
-	Pre :
-		project_list (array)
-		voir documentation (?res=projects)
-		[{id (int), name (string), managers (array), progression (int), pined (int), shortDescription (string), user_is_manager (bool)}, {project}, {project}]
-	POST :
-		+ nodes => HTML , DOM elements
-	*/
+	
+	/* ---------------------------------------- /*
+			All projects page creation
+	/* ---------------------------------------- */
 	createProjectList: function (project_list) {
 		view.load.hide();
 		var container = $(".content").child('div');
-
-		/*
-		Pour tous les projets de la liste de projets
-		*/
 
 		for (var i = 0; i < project_list.length; i++) {
 			var project = project_list[i];
@@ -515,13 +540,10 @@ var view = {
 			plus.click(function () { window.location.hash = "page=new_project" });
 		}
 	},
-	/*
-	Pré :
-		data (array)
-		[{id (int) ,url (string) ,provider (string) ,title (string) ,description (string)} , {video}]
-	Post :
-		Dom elements, HTML
-	*/
+	
+	/* ---------------------------------------- /*
+			All videos page creation
+	/* ---------------------------------------- */
 	createVideoList: function (data) {
 		view.load.hide();
 		var container = $(".content").child('div');
@@ -554,10 +576,18 @@ var view = {
 			information_button.html('<i class="material-icons">info</i> infos');
 		}
 	},
+	
+	/* --------------------------------------------------- /*
+				Show informations about the video
+	/* --------------------------------------------------- */
 	videoShowInformations: function (video) {
 		alert('Informations sur la vidéo : \n Titre :' + video.title + "\n Description :" + video.description + "\n Url :" + video.url);
 	}
 	,
+	
+	/* ---------------------------------------- /*
+			Video publishing page creation
+	/* ---------------------------------------- */
 	publish_video: function (callback) {
 
 		view.load.hide();
@@ -618,16 +648,11 @@ var view = {
 
 
 	}
-	,
-
-	/*
-	Pré :
-		data (array)
-		{id (int) ,name (string) ,managers (array) ,type (string) ,progression (int) ,pined (int) ,description (string) ,shortDescription (string) ,goals (string) ,links (string)}
-	Post :
-		Dom elements, HTML
-	*/
-
+	, 
+	
+	/* ----------------------------------------------------------  /*
+			View project page creation (as project manager)
+	/* ----------------------------------------------------------- */
 	createProjectAsManager: function (data) {
 		view.load.hide();
 		var container = $('.content').child("div");
@@ -723,13 +748,9 @@ var view = {
 
 
 	},
-	/*
-	Pré :
-		data (array)
-		{id (int) ,name (string) ,managers (array) ,type (string) ,progression (int) ,pined (int) ,description (string) ,shortDescription (string) ,goals (string) ,links (string)}
-	Post :
-		Dom elements, HTML
-	*/
+	/* ----------------------------------------------------------  /*
+			View project page creation (as simple user)
+	/* ----------------------------------------------------------- */
 	createProjectAsVisitor: function (data) {
 		view.load.hide();
 		if (data == "UError") {
@@ -755,7 +776,9 @@ var view = {
 		var project_description = container.child("p");
 		project_description.html('Description: ' + data.description);
 	},
-
+	/* ----------------------------------------------------------  /*
+							menu creation
+	/* ----------------------------------------------------------- */
 	createHamburgerAndMenu: function () {
 		menu = document.createElement('div');
 		document.body.appendChild(menu);
@@ -779,6 +802,10 @@ var view = {
 
 		});
 	},
+
+	/* ----------------------------------------------------------  /*
+						Links addition
+	/* ----------------------------------------------------------- */
 
 	addContentToMenu: function () {
 		$(menu).html('');
@@ -807,6 +834,9 @@ var view = {
 
 	,
 
+	/* ----------------------------------------------------------  /*
+						Loader system creation
+	/* ----------------------------------------------------------- */
 
 	load: {
 		element: null,

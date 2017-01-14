@@ -236,25 +236,25 @@ var view = {
 		/*
 		Projets
 		*/
-
-		var e_projects = container.child("div");
-		e_projects.node.style.display = "inline-block";
-		e_projects.addClass('grid_element');
-
-		e_projects.child('span').html('Projets');
-
-		e_projects.child('p').html('[Quand connecté] Liste des projets').addClass('home_e_p');
-
-		var e_project_link = e_projects.child('a');
-		e_project_link.node.href = "#page=projets";
-		e_project_link.addClass('btn2');
-		e_project_link.html("Nos Projets");
-
 		if (user.isConnected == true) {
-			var e_project_new = e_projects.child('a');
-			e_project_new.node.href = "#page=new_project";
-			e_project_new.addClass('btn2');
-			e_project_new.html("Nouveau projet");
+			var e_projects = container.child("div");
+			e_projects.node.style.display = "inline-block";
+			e_projects.addClass('grid_element');
+
+			e_projects.child('span').html('Projets');
+
+			e_projects.child('p').html('Liste des projets').addClass('home_e_p');
+
+			var e_project_link = e_projects.child('a');
+			e_project_link.node.href = "#page=projets";
+			e_project_link.addClass('btn2');
+			e_project_link.html("Nos Projets");
+
+			
+				var e_project_new = e_projects.child('a');
+				e_project_new.node.href = "#page=new_project";
+				e_project_new.addClass('btn2');
+				e_project_new.html("Nouveau projet");
 		}
 
 		if (user.isConnected == true) {

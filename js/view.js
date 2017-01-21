@@ -258,6 +258,49 @@ var view = {
 		e_video_link.html("Nos vidéos");
 
 		/*
+		-> Photos
+		*/
+
+		var e_photos = container.child("div");
+		e_photos.node.style.display = "inline-block";
+		e_photos.addClass('grid_element');
+
+		e_photos.child('span').html('Photos');
+
+		e_photos.child('p').html('Photos réalisées par le groupe vicri de l\'INDSé 2e&3e degrés').addClass('home_e_p');
+
+		var e_photo_link = e_photos.child('a');
+		e_photo_link.node.href = "#page=photos";
+		e_photo_link.addClass('btn2');
+		e_photo_link.html("Nos photos");
+		e_photo_link.click(function (event){
+			event.preventDefault();
+			alert("Cette partie sera bientôt disponible");
+		});
+
+		/*
+		-> others
+		*/
+
+		var e_others = container.child("div");
+		e_others.node.style.display = "inline-block";
+		e_others.addClass('grid_element');
+
+		e_others.child('span').html('Autres');
+
+		e_others.child('p').html('Autres projets réalisées par le groupe vicri de l\'INDSé 2e&3e degrés tels que des modélisations 3d, des jeux, des pages/sites web, etc...').addClass('home_e_p');
+
+		var e_other_link = e_others.child('a');
+		e_other_link.node.href = "#page=others";
+		e_other_link.addClass('btn2');
+		e_other_link.html("Nos autres projets");
+		e_other_link.click(function (event){
+			event.preventDefault();
+			alert("Cette partie sera bientôt disponible");
+		});
+
+
+		/*
 		-> Projets
 		*/
 		if (user.isConnected == true) {

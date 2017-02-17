@@ -282,6 +282,19 @@ var model = {
 			}
 			
 		});
+	}, getAllUsers : function (callback) {
+		
+		AR.GET('api/index.php?res=users', function(data) {
+			try {
+				var response = JSON.parse(data);
+				callback(response);
+			} catch (error) {
+				alert("Erreur inconnue : \n" + error);
+			}
+		}, function (){
+			alert('Une erreur est survenue');
+		})
+
 	}
 }
 

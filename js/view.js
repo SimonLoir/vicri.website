@@ -771,6 +771,61 @@ var view = {
 				});
 			}
 		}
+		var manage_managers = container.child('button');
+			manage_managers.html('Gérer les managers');
+			manage_managers.addClass('btn');
+			manage_managers.click(function() {
+				
+				var full_screen_container = container.child('div');
+					full_screen_container.addClass('fs_view');
+
+					var btn_exit = full_screen_container.child('button').html("&#x2715;").addClass('fs_exit');
+
+					btn_exit.click(function () {
+						full_screen_container.removeClass('fs_view_visible');
+						setTimeout(function () {
+							full_screen_container.remove();
+						}, 2000);
+					});
+
+					full_screen_container.child('h2').html('Gestion des managers');
+					full_screen_container.css('padding', "25px");
+					var wait = full_screen_container.child('div').html('Chargement, merci de patienter.');
+					model.getAllUsers(function (users) {
+						wait.remove();
+						var search = full_screen_container.input('Rechercher')[0];
+						var users_by_id = {};
+						for (var i = 0; i < users.length; i++) {
+							var user = users[i];
+							users_by_id[user.id] = user.mail;
+						}
+						var user_list = full_screen_container.child("div")
+
+						for (var i = 0; i < data.managers.length; i++) {
+							var element = data.managers[i];
+							var user_div = user_list.child('div');
+							user_div.child('span').html(users_by_id[element]);
+							user_div.addClass('element');
+						}
+
+						search.node.onkeyup = function () {
+							user_list.html('');
+							for (var i = 0; i < users.length; i++) {
+								var user = users[i];
+								if(user.mail.indexOf(search.node.value) >= 0){
+									var user_div = user_list.child('div');
+									user_div.child('span').html(user.mail);
+									user_div.addClass('element');
+								}
+							}
+						}
+
+						full_screen_container.addClass('fs_view_visible');
+					});
+					
+
+			});
+			
 
 		container.child("br");
 		container.child("br");

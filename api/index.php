@@ -142,6 +142,11 @@ if ($method == "GET") {
 
 		exit(json_encode($end));
 
+	}elseif($res == "users"){
+
+		$users = $db->query('SELECT id, name, firstname, mail, pseudo FROM users');
+
+		 exit(json_encode($users));
 	}
 
 }

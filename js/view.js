@@ -775,7 +775,7 @@ var view = {
 			manage_managers.html('Gérer les managers');
 			manage_managers.addClass('btn');
 			manage_managers.click(function() {
-				
+				alert('Ce système ne fonctionne pas encore. Cette fonctionnalité est en développement...')
 				var full_screen_container = container.child('div');
 					full_screen_container.addClass('fs_view');
 

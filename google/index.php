@@ -52,8 +52,7 @@ if (isset($authUrl)){
 
 }else{
 	$user_email = $token_data["email"];
-
-  if (strpos($user_email, "@indse.be")) {
+  
     include '../api/Class/db.php';
     /* --- --- --- --- --- --- --- --- --- --- */
     /*  => */include "../../config.php"; /* <= */
@@ -78,13 +77,7 @@ if (isset($authUrl)){
       exit(json_encode("L'utilisateur est introuvable"));
 
     }
-  }else{
-
-    session_destroy();
-    echo '<meta charset="utf-8">';
-    echo "Désolé, cette adresse email n'est pas valide :-( <br /> Vous avez utilisé une adresse autre que @indse.be ";
-    
-  }
+  
 }
 
 ?>

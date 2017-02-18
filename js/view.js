@@ -700,7 +700,8 @@ var view = {
 		view.load.hide();
 		var container = $('.content').child("div");
 		container.addClass('element');
-
+		var result_messages = container.child('div');
+		result_messages.node.id = "x_result_div";
 		document.title = "Vicri - projet : " + data.name;
 
 		var image_and_title = container.child('div');
@@ -775,7 +776,6 @@ var view = {
 			manage_managers.html('Gérer les managers');
 			manage_managers.addClass('btn');
 			manage_managers.click(function() {
-				//alert('Ce système ne fonctionne pas encore. Cette fonctionnalité est en développement...')
 				var full_screen_container = container.child('div');
 					full_screen_container.addClass('fs_view');
 
@@ -829,9 +829,12 @@ var view = {
 										add_user_to_managers_list.css('top', '50%');
 										add_user_to_managers_list.css('right', '5px');
 										add_user_to_managers_list.css('transform', 'translateY(-50%)');
+										add_user_to_managers_list.node.setAttribute('data-id', user.id);
 										add_user_to_managers_list.click(function () {
 											full_screen_container.css('display', "none");
+											
 											view.load.show('Nous tentons d\'ajouter cette personne au projet');
+											model.addManagerTo(data.id, this.getAttribute("data-id"));
 										});
 									}
 								}

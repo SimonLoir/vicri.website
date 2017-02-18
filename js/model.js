@@ -295,6 +295,18 @@ var model = {
 			alert('Une erreur est survenue');
 		})
 
+	}, addManagerTo : function (pid, mid) {
+		AR.PUT("api/index.php?res=managers&manager=true", {pid:pid, mid:mid}, function (data) {
+			if(data == "Ok"){
+				view.showConfirmationMessage('Ok',  $("#x_result_div"));
+				view.load.hide();
+				window.location.reload(true);
+			}else{
+				alert('Erreur:' + data);
+			}
+		}, function () {	
+			alert('Une erreur est survenue. ');
+		});
 	}
 }
 

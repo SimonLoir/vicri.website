@@ -434,6 +434,35 @@ if ($method == "PUT") {
 
 		exit(json_encode("Ok"));
 
+	}elseif($res == "managers"){
+		if (!isset($_POST['pid']) || !isset($_POST['mid'])) {
+			exit("Une erreur est survenue");
+		}
+		
+		$user = $_SESSION['user_id'];
+
+		$project = $db->query('SELECT * FROM projects WHERE id = :project_id', [
+			"class" => "project",
+			"prepare" => [":project_id" => $_POST['pid']],
+			"one" => true
+		]);
+
+		$project->clientFormat();
+
+		if ($project == "UError") {
+			exit("Vous n'avez pas le droit de modifier ce projet");
+		}
+
+		$project->setDb($db);
+
+		$project->addManager($_POST['mid']);
+
+		if ($project->error == true) {
+			exit(json_encode("Une erreur est survenue lors de la modification de votre projet"));
+		}
+
+		exit('Ok');
+
 	}
 }
 

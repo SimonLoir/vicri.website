@@ -168,5 +168,31 @@ Class project{
 		}
 	}
 
+	public function addManager($value)
+	{
+		if (in_array($value, $this->managers)) {
+			exit("User already exists");
+		}
+
+		array_push($this->managers, $value);
+		
+		$final = "";
+
+		for ($i=0; $i < sizeof($this->managers); $i++) { 
+			$final .= $this->managers[$i];
+			if ($i != sizeof($this->managers) - 1) {
+				$final .= ";";
+			}
+		}
+		
+		if ($this->updateDb("managers", $final)) {
+		
+			return true;
+		
+		}
+		
+		$this->error = true;
+	}
+
 
 } ?>

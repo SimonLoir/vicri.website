@@ -812,7 +812,7 @@ var view = {
 							user_list.html('');
 							for (var i = 0; i < users.length; i++) {
 								var user = users[i];
-								if(user.mail.indexOf(search.node.value) >= 0){
+								if(user.mail.replace("@indse.be", "").indexOf(search.node.value) >= 0){
 									var user_div = user_list.child('div');
 									user_div.child('span').html(user.mail);
 									user_div.addClass('element');

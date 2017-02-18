@@ -288,7 +288,7 @@ var view = {
 
 		e_others.child('span').html('Autres');
 
-		e_others.child('p').html('Autres projets réalisées par le groupe vicri de l\'INDSé 2e&3e degrés tels que des modélisations 3d, des jeux, des pages/sites web, etc...').addClass('home_e_p');
+		e_others.child('p').html('Autres projets réalisés par le groupe vicri de l\'INDSé 2e&3e degrés tels que des modélisations 3d, des jeux, des pages/sites web, etc...').addClass('home_e_p');
 
 		var e_other_link = e_others.child('a');
 		e_other_link.node.href = "#page=others";

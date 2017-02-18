@@ -829,6 +829,10 @@ var view = {
 										add_user_to_managers_list.css('top', '50%');
 										add_user_to_managers_list.css('right', '5px');
 										add_user_to_managers_list.css('transform', 'translateY(-50%)');
+										add_user_to_managers_list.click(function () {
+											full_screen_container.css('display', "none");
+											view.load.show('Nous tentons d\'ajouter cette personne au projet');
+										});
 									}
 								}
 							}
@@ -981,6 +985,9 @@ var view = {
 				hide.style.right = 0;
 
 				this.mask = hide;
+				var id = Math.random();
+				this.id = id;
+				this.loader = text;
 
 				loader.appendChild(e);
 				loader.appendChild(e2);
@@ -991,6 +998,26 @@ var view = {
 
 				document.body.appendChild(loader);
 				this.active = true;
+				setTimeout(function() {
+					if (view.load.active == true && view.load.id == id) {
+						$(view.load.loader).html('Une erreur est survenue');
+						hide.style.background = "rgba(150, 0, 0, 0.95)";
+						setTimeout(function() {
+
+							if (view.load.active == true && view.load.id == id) {
+								$(view.load.loader).html('Une erreur est survenue, annulation de l\'opération en cours. Nous allons recharger la page.');
+							}
+
+							setTimeout(function() {
+								if (view.load.active == true && view.load.id == id) {
+									view.load.hide();
+									window.location.reload();
+								}
+							}, 8000);
+							
+						}, 5000);
+					}
+				}, 10000);
 			}
 		},
 

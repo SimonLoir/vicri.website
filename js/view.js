@@ -376,6 +376,10 @@ var view = {
 
 		var container = $(".content").child('div');
 
+		if(user.mail.indexOf("gmail.com") >= 0){
+			$('.content').showError('Votre adresse email n\'est pas éligible à la création de projets');
+			return;
+		}
 
 		var e = container.child('div');
 		e.addClass("element");

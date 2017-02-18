@@ -775,7 +775,7 @@ var view = {
 			manage_managers.html('Gérer les managers');
 			manage_managers.addClass('btn');
 			manage_managers.click(function() {
-				alert('Ce système ne fonctionne pas encore. Cette fonctionnalité est en développement...')
+				//alert('Ce système ne fonctionne pas encore. Cette fonctionnalité est en développement...')
 				var full_screen_container = container.child('div');
 					full_screen_container.addClass('fs_view');
 
@@ -816,6 +816,20 @@ var view = {
 									var user_div = user_list.child('div');
 									user_div.child('span').html(user.mail);
 									user_div.addClass('element');
+									user_div.css('position', "relative");
+									if (data.managers.indexOf(user.id) >= 0) {
+										var already_manager = user_div.child('span').html("Cette personne fait partie du projet");
+										already_manager.css('position', 'absolute');
+										already_manager.css('top', '50%');
+										already_manager.css('right', '15px');
+										already_manager.css('transform', 'translateY(-50%)');
+									}else{
+										var add_user_to_managers_list = user_div.child('button').html("Ajouter au projet").addClass('btn');
+										add_user_to_managers_list.css('position', 'absolute');
+										add_user_to_managers_list.css('top', '50%');
+										add_user_to_managers_list.css('right', '5px');
+										add_user_to_managers_list.css('transform', 'translateY(-50%)');
+									}
 								}
 							}
 						}

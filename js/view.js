@@ -828,18 +828,25 @@ var view = {
 										already_manager.css('right', '15px');
 										already_manager.css('transform', 'translateY(-50%)');
 									}else{
-										var add_user_to_managers_list = user_div.child('button').html("Ajouter au projet").addClass('btn');
-										add_user_to_managers_list.css('position', 'absolute');
-										add_user_to_managers_list.css('top', '50%');
-										add_user_to_managers_list.css('right', '5px');
-										add_user_to_managers_list.css('transform', 'translateY(-50%)');
-										add_user_to_managers_list.node.setAttribute('data-id', user.id);
-										add_user_to_managers_list.click(function () {
-											full_screen_container.css('display', "none");
-											
-											view.load.show('Nous tentons d\'ajouter cette personne au projet');
-											model.addManagerTo(data.id, this.getAttribute("data-id"));
-										});
+										if(user.mail.indexOf('gmail.com')){
+											var wrong_email_adress = user_div.child('span').html("Action impossible");
+											wrong_email_adress.css('position', 'absolute');
+											wrong_email_adress.css('top', '50%');
+											wrong_email_adress.css('right', '15px');
+											wrong_email_adress.css('transform', 'translateY(-50%)');
+										}else{
+											var add_user_to_managers_list = user_div.child('button').html("Ajouter au projet").addClass('btn');
+											add_user_to_managers_list.css('position', 'absolute');
+											add_user_to_managers_list.css('top', '50%');
+											add_user_to_managers_list.css('right', '5px');
+											add_user_to_managers_list.css('transform', 'translateY(-50%)');
+											add_user_to_managers_list.node.setAttribute('data-id', user.id);
+											add_user_to_managers_list.click(function () {
+												full_screen_container.css('display', "none");
+												view.load.show('Nous tentons d\'ajouter cette personne au projet');
+												model.addManagerTo(data.id, this.getAttribute("data-id"));
+											});
+										}
 									}
 								}
 							}

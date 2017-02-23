@@ -154,7 +154,7 @@ if ($method == "GET") {
 if ($method == "POST") {
 	if ($res == "admin::newuser") {
 
-		if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] == 1) {
+		if (isset($_SESSION["user_id"]) && ($_SESSION["user_id"] == 1 || $_SESSION["user_id"] == 2)) {
 
 			if (isset($_POST['name'])&& isset($_POST['firstname'])&& isset($_POST['email'])&& isset($_POST['pseudo'])&& isset($_POST['password'])) {
 

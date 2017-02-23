@@ -15,7 +15,7 @@ if (isset($_GET['logout'])) {
 </head>
 <body>
 <h1>Admin panel</h1>
-	<?php if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] == 1): ?>
+	<?php if (isset($_SESSION["user_id"]) && ($_SESSION["user_id"] == 1 || $_SESSION["user_id"] == 2)): ?>
 		<div class="element">
 			<form method="POST" action="api/index.php?res=admin::newuser">
 				<div class="field">

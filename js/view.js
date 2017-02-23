@@ -828,7 +828,7 @@ var view = {
 										already_manager.css('right', '15px');
 										already_manager.css('transform', 'translateY(-50%)');
 									}else{
-										if(user.mail.indexOf('gmail.com')){
+										if(user.mail.indexOf('gmail.com') >= 0){
 											var wrong_email_adress = user_div.child('span').html("Action impossible");
 											wrong_email_adress.css('position', 'absolute');
 											wrong_email_adress.css('top', '50%');

@@ -1,7 +1,6 @@
 body{
 	background: #EEE;
 	font-size: 18px;
-	font-family: sans-serif;
 }
 .material-icons{
 	font-size: inherit;
@@ -133,8 +132,58 @@ body{
     font-family:"Roboto", sans-serif;
     width: 300px;
     max-width: 90%;
+    max-width: calc(100% - 50px);    
     vertical-align: top;
+    height: 300px;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.35s;
+    & .text-area{
+        transition: 0.75s;
+        position: absolute;
+        top: 58%;
+        right: 0;left: 0;
+        padding: 15px;
+        & .title{
+            color:black;
+            display: block;
+            margin-bottom: 12px;
+        }
+        & .description{
+            color:rgba(0,0,0,0.45);
+            height: 46px;
+            overflow: hidden;
+            white-space: wrap;
+            text-overflow:ellipsis;
+            //background: red;
+        }
+    }
+    & .btn_container{
+        position: absolute;
+        right: 0;left: 0;
+        bottom: 0;
+        padding: 5px;
+    }
     
+    & .img{
+        transition: 0.75s;
+        position: absolute;
+        top: 0;left: 0;right: 0;
+        bottom:42%;
+    }
+
+    &:hover{
+        & .img{
+            bottom: 75%;
+        }
+        & .text-area{
+            top: 25%;
+        }
+        & .description{
+            color:rgba(0,0,0,0.45);
+            height: 140px;
+        }
+    }
 }
 
 .ev_date{

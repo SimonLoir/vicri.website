@@ -914,19 +914,24 @@ var view = {
 			
 			var folder = container.child('div').addClass('img_folder');
 
-			var img = folder.child('div');
-				img.css('background', "url(" + element.cover + ")");
+			var img = folder.child('div').addClass('img');
+				img.css('background', "url(" + element.cover + ") no-repeat");
+				img.css('background-position', "center");
+				img.css('background-size', "cover");
 
 			var text_area = folder.child('div').addClass('text-area');
 
 			text_area.child('span').html(element.title).addClass('title');
 
-			text_area.child('div').html(element.description.substr(0,50)).addClass('description');
+			text_area.child('div').html(element.description.substr(0,200)).addClass('description');
 
-			var open = folder.child("a");
+			var btn_containers = folder.child('div');
+			btn_containers.addClass("btn_container");
+
+			var open = btn_containers.child("a");
 			open.addClass('btn2')
-			//open.node.href = "#page=project;pid=" + video.id + ';manager=false';
 			open.html('Afficher les images');
+			open.node.href = "#page=view_folder;folder_id=" + element.id;
 
 		}
 	},

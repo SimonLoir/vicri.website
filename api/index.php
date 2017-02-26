@@ -147,6 +147,20 @@ if ($method == "GET") {
 		$users = $db->query('SELECT id, name, firstname, mail, pseudo FROM users');
 
 		 exit(json_encode($users));
+	}elseif ($res = "photos_folders"){
+
+		$result = [];
+
+		$folders = $db->query('SELECT * FROM photos_folders', ['class'=> "pfolder"]);
+
+		foreach ($folders as $folder) {
+
+			$result[] = $folder;
+
+		}
+
+		exit(json_encode($result));		
+
 	}
 
 }

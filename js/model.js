@@ -94,6 +94,18 @@ var model = {
 			}
 		});
 	},
+	getAllPhotosFolders : function (callback){
+		AR.GET('api?res=photos_folders', function(data){
+			view.load.hide();
+			$('.content').clear();
+				//alert(data)
+			try{
+				callback(JSON.parse(data));
+			}catch(error){
+				$('.content').html(error.message);
+			}
+		});
+	},
 	/*
 	PRE : /
 	POST :

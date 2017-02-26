@@ -273,10 +273,8 @@ var view = {
 		e_photo_link.node.href = "#page=photos";
 		e_photo_link.addClass('btn2');
 		e_photo_link.html("Nos photos");
-		e_photo_link.click(function (event){
-			event.preventDefault();
-			alert("Cette partie sera bientôt disponible");
-		});
+		e_photo_link.node.href = "#page=photos";
+		
 
 		/*
 		-> others
@@ -905,6 +903,32 @@ var view = {
 
 		var project_description = container.child("p");
 		project_description.html('Description: ' + data.description);
+	},
+
+	createPhotosFoldersList : function (data) {
+
+		var container = $('.content');
+
+		for (var i = 0; i < data.length; i++) {
+			var element = data[i];
+			
+			var folder = container.child('div').addClass('img_folder');
+
+			var img = folder.child('div');
+				img.css('background', "url(" + element.cover + ")");
+
+			var text_area = folder.child('div').addClass('text-area');
+
+			text_area.child('span').html(element.title).addClass('title');
+
+			text_area.child('div').html(element.description.substr(0,50)).addClass('description');
+
+			var open = folder.child("a");
+			open.addClass('btn2')
+			//open.node.href = "#page=project;pid=" + video.id + ';manager=false';
+			open.html('Afficher les images');
+
+		}
 	},
 	/* ----------------------------------------------------------  /*
 							menu creation

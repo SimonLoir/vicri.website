@@ -123,6 +123,20 @@ body{
     font-family:"Roboto", sans-serif;
 }
 
+.img_folder{
+    position: relative;
+    background-color: white;
+    color:rgba(33, 33, 33, 0.7);
+    margin: 15px;
+    padding: 10px;
+    box-shadow: 0px 2px 8px rgba(38,38,38,0.25);
+    font-family:"Roboto", sans-serif;
+    width: 300px;
+    max-width: 90%;
+    vertical-align: top;
+    
+}
+
 .ev_date{
     color:white;
     display: inline-block;

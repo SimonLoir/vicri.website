@@ -147,7 +147,7 @@ if ($method == "GET") {
 		$users = $db->query('SELECT id, name, firstname, mail, pseudo FROM users');
 
 		 exit(json_encode($users));
-	}elseif ($res = "photos_folders"){
+	}elseif ($res == "photos_folders"){
 
 		$result = [];
 
@@ -160,6 +160,18 @@ if ($method == "GET") {
 		}
 
 		exit(json_encode($result));		
+
+	}elseif ($res == "img_folder") {
+		
+		if(!isset($_GET["id"])){
+			exit("id_error");
+		}
+
+		$photos = $db->query('SELECT * FROM photos WHERE folder_id = :project_id', [
+			"prepare" => [":project_id" => $_GET['id']]
+		]);
+
+		exit(json_encode($photos));
 
 	}
 

@@ -59,6 +59,10 @@ var controller = {
 
 			model.getAllPhotosFolders(view.createPhotosFoldersList);
 
+		}else if (page.getTarget() == "view_folder") {
+
+			model.getFolderByID(view.createPhotoFolder);
+
 		}else if(page.getTarget() == "project"){
 
 			model.getProject( view.createProjectAsManager , view.createProjectAsVisitor);

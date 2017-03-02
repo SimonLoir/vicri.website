@@ -145,6 +145,16 @@ var model = {
 			}
 		});
 
+	},getFolderByID : function (callback) {
+		AR.GET('api?res=img_folder&id=' + page.get('folder_id'), function(data){
+			view.load.hide();
+			$('.content').clear();
+			try{
+				callback(JSON.parse(data));
+			}catch(error){
+				$('.content').html(error.message);
+			}
+		});
 	},
 	loginWithGoogle : function (token) {
 

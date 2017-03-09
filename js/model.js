@@ -1,14 +1,14 @@
 /* Une page */
 var page = {
-	url : window.location.href,
-	target : "home",
-	informations : "",
+	url: window.location.href,
+	target: "home",
+	informations: "",
 	/*
 	Pré : window.location.href
 	Post :
 		this.informations = part after the # in window.location
 	*/
-	getInformations : function (){
+	getInformations: function () {
 		this.url = window.location.href;
 
 		var pageInformations = this.url.split('#')[1];
@@ -22,13 +22,13 @@ var page = {
 	Post :
 		this.target = page target (ex : index.html#page=home => target will be equal to home)
 	*/
-	getTarget : function () {
+	getTarget: function () {
 		this.getInformations();
 		if (this.informations != "") {
 			var pagesInformationsArray = this.informations.split(';');
 			for (var i = 0; i < pagesInformationsArray.length; i++) {
 				var info = pagesInformationsArray[i].split('=');
-				if(info[0] == "page"){
+				if (info[0] == "page") {
 					this.target = info[1];
 					return info[1];
 				}
@@ -43,19 +43,19 @@ var page = {
 		output = false : the query can not be found in page.informations or page.informations is empty
 			   = requested information in page.informations
 	*/
-	get : function (query){
+	get: function (query) {
 		this.getInformations();
 		if (this.informations != "") {
 			var pagesInformationsArray = this.informations.split(';');
 			for (var i = 0; i < pagesInformationsArray.length; i++) {
 				var info = pagesInformationsArray[i].split('=');
-				if(info[0] == query){
+				if (info[0] == query) {
 					this.target = info[1];
 					return info[1];
 				}
 			}
 			return false;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -68,12 +68,12 @@ var model = {
 		+ data
 		=> callback(data)
 	*/
-	getAllVideos : function (callback) {
-		AR.GET('api?res=videos', function(data){
+	getAllVideos: function (callback) {
+		AR.GET('api?res=videos', function (data) {
 			$('.content').clear();
-			try{
+			try {
 				callback(JSON.parse(data));
-			}catch(error){
+			} catch (error) {
 				$('.content').html(error.message);
 			}
 		});
@@ -84,24 +84,24 @@ var model = {
 		+ data
 		=> callback(data)
 	*/
-	getAllProjects : function (callback){
-		AR.GET('api?res=projects', function(data){
+	getAllProjects: function (callback) {
+		AR.GET('api?res=projects', function (data) {
 			$('.content').clear();
-			try{
+			try {
 				callback(JSON.parse(data));
-			}catch(error){
+			} catch (error) {
 				$('.content').html(error.message);
 			}
 		});
 	},
-	getAllPhotosFolders : function (callback){
-		AR.GET('api?res=photos_folders', function(data){
+	getAllPhotosFolders: function (callback) {
+		AR.GET('api?res=photos_folders', function (data) {
 			view.load.hide();
 			$('.content').clear();
-				//alert(data)
-			try{
+			//alert(data)
+			try {
 				callback(JSON.parse(data));
-			}catch(error){
+			} catch (error) {
 				$('.content').html(error.message);
 			}
 		});
@@ -112,8 +112,8 @@ var model = {
 		+ pdata
 		=> callback(pdata)
 	*/
-	getProject(callback_manager, callback, dont_user_br){
-		AR.GET('api?res=project&id='  + page.get('pid') + "&manager=" + page.get("manager") + "&mod=" + dont_user_br , function (data){
+	getProject(callback_manager, callback, dont_user_br) {
+		AR.GET('api?res=project&id=' + page.get('pid') + "&manager=" + page.get("manager") + "&mod=" + dont_user_br, function (data) {
 
 			var pdata = JSON.parse(data);
 
@@ -124,9 +124,9 @@ var model = {
 
 				callback_manager(pdata);
 
-			// Pas besoin de vérification : l'utilisateur n'aura pas le droit de modifier le projet.
+				// Pas besoin de vérification : l'utilisateur n'aura pas le droit de modifier le projet.
 
-			}else{
+			} else {
 
 				callback(pdata);
 
@@ -134,38 +134,38 @@ var model = {
 
 		});
 	},
-	login : function ( email, password) {
+	login: function (email, password) {
 
-		AR.POST('api/index.php?res=login', {email: email, password: password}, function (data){
+		AR.POST('api/index.php?res=login', { email: email, password: password }, function (data) {
 			if (JSON.parse(data) == "ok") {
 				user.liState(true);
 				window.location.hash = "page=home;action=welcome";
-			}else{
+			} else {
 				alert('Une erreur est survenue');
 			}
 		});
 
-	},getFolderByID : function (callback) {
-		AR.GET('api?res=img_folder&id=' + page.get('folder_id'), function(data){
+	}, getFolderByID: function (callback) {
+		AR.GET('api?res=img_folder&id=' + page.get('folder_id'), function (data) {
 			view.load.hide();
 			$('.content').clear();
-			try{
+			try {
 				callback(JSON.parse(data));
-			}catch(error){
+			} catch (error) {
 				$('.content').html(error.message);
 			}
 		});
 	},
-	loginWithGoogle : function (token) {
+	loginWithGoogle: function (token) {
 
-		AR.POST('api/googleLogin.php', {token: token}, function (data){
+		AR.POST('api/googleLogin.php', { token: token }, function (data) {
 			$('.content').html(decodeURIComponent(data))
 			if (JSON.parse(data) == "ok") {
 
 				window.location.hash = "page=projets";
 
 				alert('Bienvenue !');
-			}else{
+			} else {
 				alert('Une erreur est survenue');
 			}
 		});
@@ -186,7 +186,7 @@ var model = {
 		}
 		AR.POST('api/index.php?res=new_project', {
 
-			name : project_name, desc : project_short_description
+			name: project_name, desc: project_short_description
 
 		}, function (data) {
 
@@ -194,17 +194,17 @@ var model = {
 				window.location.hash = "page=projets";
 			}
 
-		}, function (){
+		}, function () {
 			alert("Une erreur est survenue, réessayez ultérieurement");
 		});
 
 
-	}, getCalendar : function (callback) {
+	}, getCalendar: function (callback) {
 
 		var d = new Date();
 
 		var weekday = new Array(7);
-		weekday[0]=  "dimanche";
+		weekday[0] = "dimanche";
 		weekday[1] = "lundi";
 		weekday[2] = "mardi";
 		weekday[3] = "mercredi";
@@ -230,10 +230,10 @@ var model = {
 		var m = month[d.getMonth()];
 
 		var today = {
-			dayName : n,
+			dayName: n,
 			day: d.getDate(),
 			monthName: m,
-			month : d.getMonth()
+			month: d.getMonth()
 		};
 
 		AR.GET('api/index.php?res=calendar', function (data) {
@@ -244,42 +244,44 @@ var model = {
 
 
 
-	}, newEvent: function (date, title, desc){
+	}, newEvent: function (date, title, desc) {
 		AR.POST('api/index.php?res=new_event', {
 
-			date: date, title:title, desc: desc
+			date: date, title: title, desc: desc
 
-		}, function (data){ if (JSON.parse(data) == "ok") {
+		}, function (data) {
+			if (JSON.parse(data) == "ok") {
 
-			window.location.hash = "page=calendar;action=created_event"
+				window.location.hash = "page=calendar;action=created_event"
 
-		}else{
+			} else {
 
-			alert('Erreur : le serveur ne peut pas ajouter cet event pour le moment')
+				alert('Erreur : le serveur ne peut pas ajouter cet event pour le moment')
 
-		}});
+			}
+		});
 
 	},
-	updateProject : function(input, short_description, description, progression, goals, links, type, pid){
-		AR.PUT('api/index.php?res=project&manager=' + page.get('manager'), {name: input, short_description: short_description, description: description, progression: progression, goals: goals, links: links, type: type, id:pid}, function (data) {
+	updateProject: function (input, short_description, description, progression, goals, links, type, pid) {
+		AR.PUT('api/index.php?res=project&manager=' + page.get('manager'), { name: input, short_description: short_description, description: description, progression: progression, goals: goals, links: links, type: type, id: pid }, function (data) {
 			var x_response = JSON.parse(data);
 			view.load.hide();
 			$("#x_result_div").html("");
-			if (x_response == "Ok"){
+			if (x_response == "Ok") {
 				view.showConfirmationMessage('Les modifications ont été appliquées <a href="#page=project;pid=' + pid + ';manager=true">Voir le projet</a>', $("#x_result_div"));
-			}else{
+			} else {
 				$("#x_result_div").showError(x_response);
 			}
 		});
-	}, publish_video : function (d) {
-		AR.POST('api/index.php?res=publish_video&pid=' + page.get('pid') + '&manager=true', d, function (data){
+	}, publish_video: function (d) {
+		AR.POST('api/index.php?res=publish_video&pid=' + page.get('pid') + '&manager=true', d, function (data) {
 			view.load.hide();
 			try {
 				var server_response = JSON.parse(data);
-				
+
 				if (server_response == "ok") {
 					window.location.href = "#page=project;manager=true;pid=" + page.get('pid');
-				}else{
+				} else {
 					alert('Une erreur est survenue du côté du serveur');
 				}
 
@@ -288,45 +290,45 @@ var model = {
 			}
 			//
 		});
-	}, delete_video : function (vid) {
-		AR.DELETE("api/index.php?res=video&vid=" + vid, function (data){
+	}, delete_video: function (vid) {
+		AR.DELETE("api/index.php?res=video&vid=" + vid, function (data) {
 
 			try {
 				var response = JSON.parse(data);
 
 				if (response == "ok") {
 					window.location.reload();
-				}else{
+				} else {
 					alert('Une erreur est survenue au niveau du serveur');
 				}
 			} catch (error) {
 				alert("Erreur inconnue : \n" + error);
 			}
-			
+
 		});
-	}, getAllUsers : function (callback) {
-		
-		AR.GET('api/index.php?res=users', function(data) {
+	}, getAllUsers: function (callback) {
+
+		AR.GET('api/index.php?res=users', function (data) {
 			try {
 				var response = JSON.parse(data);
 				callback(response);
 			} catch (error) {
 				alert("Erreur inconnue : \n" + error);
 			}
-		}, function (){
+		}, function () {
 			alert('Une erreur est survenue');
 		})
 
-	}, addManagerTo : function (pid, mid) {
-		AR.PUT("api/index.php?res=managers&manager=true", {pid:pid, mid:mid}, function (data) {
-			if(data == "Ok"){
-				view.showConfirmationMessage('Ok',  $("#x_result_div"));
+	}, addManagerTo: function (pid, mid) {
+		AR.PUT("api/index.php?res=managers&manager=true", { pid: pid, mid: mid }, function (data) {
+			if (data == "Ok") {
+				view.showConfirmationMessage('Ok', $("#x_result_div"));
 				view.load.hide();
 				window.location.reload(true);
-			}else{
+			} else {
 				alert('Erreur:' + data);
 			}
-		}, function () {	
+		}, function () {
 			alert('Une erreur est survenue. ');
 		});
 	}
@@ -347,39 +349,39 @@ var user = {
 				user.liState_ver_date defined or updated 
 
 	*/
-	liState : function (reload, callback){
+	liState: function (reload, callback) {
 		var date = new Date();
-		
+
 		var date_now = date.getTime();
 
 		var page_target = page.getTarget();
 
 		if (reload != true) {
-			switch (page_target){
-			case "modify_project" :
-				break;
-			case "account" :
-				break;
-			case "new_project" :
-				break;
-			case "new_event" :
-				break;
-			case "upload_video" :
-				break;
-			default:
-				if (this.liState_ver_date != undefined) {
+			switch (page_target) {
+				case "modify_project":
+					break;
+				case "account":
+					break;
+				case "new_project":
+					break;
+				case "new_event":
+					break;
+				case "upload_video":
+					break;
+				default:
+					if (this.liState_ver_date != undefined) {
 
-					if (this.liState_ver_date - date_now < 30000) {
+						if (this.liState_ver_date - date_now < 30000) {
 
-						if(callback != undefined){
-							callback();
-						}else{
-							controller.doWork();
+							if (callback != undefined) {
+								callback();
+							} else {
+								controller.doWork();
+							}
+
+							return false;
 						}
-
-						return false;
 					}
-				}
 			}
 		}
 
@@ -388,7 +390,7 @@ var user = {
 
 				user.isConnected = false;
 
-			}else if (data != ""){
+			} else if (data != "") {
 
 				user.isConnected = true;
 
@@ -402,14 +404,14 @@ var user = {
 					user.firstname = d.firstname;
 					user.liState_ver_date = date.getTime();
 
-				} catch(e) {
+				} catch (e) {
 					console.log(e);
 				}
 			}
 
-			if(callback != undefined){
+			if (callback != undefined) {
 				callback();
-			}else{
+			} else {
 				controller.doWork();
 			}
 		});

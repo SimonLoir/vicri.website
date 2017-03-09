@@ -8,7 +8,7 @@ var view = {
 	createTitle: function (text) {
 		var e = $(".content").child("h2");
 		e.html(text);
-	}, 
+	},
 	/* -------------------------- /*
 			Event page creation
 	/* -------------------------- */
@@ -71,45 +71,45 @@ var view = {
 
 	},
 	createPhotoFolder: function (data) {
-		
+
 		var container = $('.content');
 
 		for (var i = 0; i < data.length; i++) {
 			var element = data[i];
-			
+
 			var img = container.child('img');
-				img.node.src = element.path;
-				img.css('max-width', "200px");
-				img.css('max-height', "200px");
-				img.css("margin", "25px");
-				img.css('cursor', "pointer");
-				img.css('vertical-align', "middle");
-				
-				img.click(function () {
-					var full_screen_container = container.child('div');
-					full_screen_container.addClass('fs_view');
+			img.node.src = element.path;
+			img.css('max-width', "200px");
+			img.css('max-height', "200px");
+			img.css("margin", "25px");
+			img.css('cursor', "pointer");
+			img.css('vertical-align', "middle");
 
-					var btn_exit = full_screen_container.child('button').html("&#x2715;").addClass('fs_exit');
+			img.click(function () {
+				var full_screen_container = container.child('div');
+				full_screen_container.addClass('fs_view');
 
-					btn_exit.click(function () {
-						full_screen_container.removeClass('fs_view_visible');
-						setTimeout(function () {
-							full_screen_container.remove();
-						}, 2000);
-					});
+				var btn_exit = full_screen_container.child('button').html("&#x2715;").addClass('fs_exit');
 
-					full_screen_container.addClass('fs_view_visible');
+				btn_exit.click(function () {
+					full_screen_container.removeClass('fs_view_visible');
+					setTimeout(function () {
+						full_screen_container.remove();
+					}, 2000);
+				});
 
-					var img_inside = full_screen_container.child('img');
-						img_inside.node.src = this.src;
-						img_inside.css('position', "absolute");
-						img_inside.css('top', "50%");
-						img_inside.css('left', "50%");
-						img_inside.css('max-width', "90%");
-						img_inside.css('max-height', "90%");
-						img_inside.css('transform', "translateX(-50%) translateY(-50%)");
-						
-				})
+				full_screen_container.addClass('fs_view_visible');
+
+				var img_inside = full_screen_container.child('img');
+				img_inside.node.src = this.src;
+				img_inside.css('position', "absolute");
+				img_inside.css('top', "50%");
+				img_inside.css('left', "50%");
+				img_inside.css('max-width', "90%");
+				img_inside.css('max-height', "90%");
+				img_inside.css('transform', "translateX(-50%) translateY(-50%)");
+
+			})
 		}
 
 	},
@@ -167,11 +167,11 @@ var view = {
 		});
 	}
 	,
-	
+
 	/* ---------------------------------------- /*
 				Calendar page creation
 	/* ---------------------------------------- */
-	 makeCalendar: function (data, today, days, months) {
+	makeCalendar: function (data, today, days, months) {
 		view.load.hide();
 
 		var container = $('.content');
@@ -229,7 +229,7 @@ var view = {
 
 	},
 
-	
+
 	/* --------------------------------------------------------------- /*
 			Project modification page management page creation
 	/* --------------------------------------------------------------- */
@@ -276,7 +276,7 @@ var view = {
 
 	}
 	,
-	
+
 	/* ---------------------------------------- /*
 				Home page creation
 	/* ---------------------------------------- */
@@ -317,7 +317,7 @@ var view = {
 		e_photo_link.addClass('btn2');
 		e_photo_link.html("Nos photos");
 		e_photo_link.node.href = "#page=photos";
-		
+
 
 		/*
 		-> others
@@ -335,7 +335,7 @@ var view = {
 		e_other_link.node.href = "#page=others";
 		e_other_link.addClass('btn2');
 		e_other_link.html("Nos autres projets");
-		e_other_link.click(function (event){
+		e_other_link.click(function (event) {
 			event.preventDefault();
 			alert("Cette partie sera bientôt disponible");
 		});
@@ -358,11 +358,11 @@ var view = {
 			e_project_link.addClass('btn2');
 			e_project_link.html("Nos Projets");
 
-			
-				var e_project_new = e_projects.child('a');
-				e_project_new.node.href = "#page=new_project";
-				e_project_new.addClass('btn2');
-				e_project_new.html("Nouveau projet");
+
+			var e_project_new = e_projects.child('a');
+			e_project_new.node.href = "#page=new_project";
+			e_project_new.addClass('btn2');
+			e_project_new.html("Nouveau projet");
 		}
 		/*
 		-> Calendar
@@ -407,7 +407,7 @@ var view = {
 
 	}
 	,
-	
+
 	/* --------------------------------------------- /*
 			Project creation page creation
 	/* --------------------------------------------- */
@@ -417,7 +417,7 @@ var view = {
 
 		var container = $(".content").child('div');
 
-		if(user.mail.indexOf("gmail.com") >= 0){
+		if (user.mail.indexOf("gmail.com") >= 0) {
 			$('.content').showError('Votre adresse email n\'est pas éligible à la création de projets');
 			return;
 		}
@@ -471,7 +471,7 @@ var view = {
 		view.addInputAnimations();
 	}
 	,
-	
+
 	/* ---------------------------------------- /*
 			input animations addition
 	/* ---------------------------------------- */
@@ -496,7 +496,7 @@ var view = {
 	}
 
 	,
-	
+
 	/* ---------------------------------------- /*
 			Login page creation
 	/* ---------------------------------------- */
@@ -555,7 +555,7 @@ var view = {
 
 	}
 	,
-	
+
 	/* ---------------------------------------- /*
 			All projects page creation
 	/* ---------------------------------------- */
@@ -628,7 +628,7 @@ var view = {
 			plus.click(function () { window.location.hash = "page=new_project" });
 		}
 	},
-	
+
 	/* ---------------------------------------- /*
 			All videos page creation
 	/* ---------------------------------------- */
@@ -664,7 +664,7 @@ var view = {
 			information_button.html('<i class="material-icons">info</i> infos');
 		}
 	},
-	
+
 	/* --------------------------------------------------- /*
 				Show informations about the video
 	/* --------------------------------------------------- */
@@ -672,7 +672,7 @@ var view = {
 		alert('Informations sur la vidéo : \n Titre :' + video.title + "\n Description :" + video.description + "\n Url :" + video.url);
 	}
 	,
-	
+
 	/* ---------------------------------------- /*
 			Video publishing page creation
 	/* ---------------------------------------- */
@@ -736,8 +736,8 @@ var view = {
 
 
 	}
-	, 
-	
+	,
+
 	/* ----------------------------------------------------------  /*
 			View project page creation (as project manager)
 	/* ----------------------------------------------------------- */
@@ -818,87 +818,87 @@ var view = {
 			}
 		}
 		var manage_managers = container.child('button');
-			manage_managers.html('Gérer les managers');
-			manage_managers.addClass('btn');
-			manage_managers.click(function() {
-				var full_screen_container = container.child('div');
-					full_screen_container.addClass('fs_view');
+		manage_managers.html('Gérer les managers');
+		manage_managers.addClass('btn');
+		manage_managers.click(function () {
+			var full_screen_container = container.child('div');
+			full_screen_container.addClass('fs_view');
 
-					var btn_exit = full_screen_container.child('button').html("&#x2715;").addClass('fs_exit');
+			var btn_exit = full_screen_container.child('button').html("&#x2715;").addClass('fs_exit');
 
-					btn_exit.click(function () {
-						full_screen_container.removeClass('fs_view_visible');
-						setTimeout(function () {
-							full_screen_container.remove();
-						}, 2000);
-					});
+			btn_exit.click(function () {
+				full_screen_container.removeClass('fs_view_visible');
+				setTimeout(function () {
+					full_screen_container.remove();
+				}, 2000);
+			});
 
-					full_screen_container.child('h2').html('Gestion des managers');
-					full_screen_container.css('padding', "25px");
-					var wait = full_screen_container.child('div').html('Chargement, merci de patienter.');
-					model.getAllUsers(function (users) {
-						wait.remove();
-						var search = full_screen_container.input('Rechercher')[0];
-						var users_by_id = {};
-						for (var i = 0; i < users.length; i++) {
-							var user = users[i];
-							users_by_id[user.id] = user.mail;
-						}
-						var user_list = full_screen_container.child("div")
+			full_screen_container.child('h2').html('Gestion des managers');
+			full_screen_container.css('padding', "25px");
+			var wait = full_screen_container.child('div').html('Chargement, merci de patienter.');
+			model.getAllUsers(function (users) {
+				wait.remove();
+				var search = full_screen_container.input('Rechercher')[0];
+				var users_by_id = {};
+				for (var i = 0; i < users.length; i++) {
+					var user = users[i];
+					users_by_id[user.id] = user.mail;
+				}
+				var user_list = full_screen_container.child("div")
 
-						for (var i = 0; i < data.managers.length; i++) {
-							var element = data.managers[i];
+				for (var i = 0; i < data.managers.length; i++) {
+					var element = data.managers[i];
+					var user_div = user_list.child('div');
+					user_div.child('span').html(users_by_id[element]);
+					user_div.addClass('element');
+				}
+
+				search.node.onkeyup = function () {
+					user_list.html('');
+					for (var i = 0; i < users.length; i++) {
+						var user = users[i];
+						if (user.mail.replace("@indse.be", "").indexOf(search.node.value) >= 0) {
 							var user_div = user_list.child('div');
-							user_div.child('span').html(users_by_id[element]);
+							user_div.child('span').html(user.mail);
 							user_div.addClass('element');
-						}
-
-						search.node.onkeyup = function () {
-							user_list.html('');
-							for (var i = 0; i < users.length; i++) {
-								var user = users[i];
-								if(user.mail.replace("@indse.be", "").indexOf(search.node.value) >= 0){
-									var user_div = user_list.child('div');
-									user_div.child('span').html(user.mail);
-									user_div.addClass('element');
-									user_div.css('position', "relative");
-									if (data.managers.indexOf(user.id) >= 0) {
-										var already_manager = user_div.child('span').html("Cette personne fait partie du projet");
-										already_manager.css('position', 'absolute');
-										already_manager.css('top', '50%');
-										already_manager.css('right', '15px');
-										already_manager.css('transform', 'translateY(-50%)');
-									}else{
-										if(user.mail.indexOf('gmail.com') >= 0){
-											var wrong_email_adress = user_div.child('span').html("Action impossible");
-											wrong_email_adress.css('position', 'absolute');
-											wrong_email_adress.css('top', '50%');
-											wrong_email_adress.css('right', '15px');
-											wrong_email_adress.css('transform', 'translateY(-50%)');
-										}else{
-											var add_user_to_managers_list = user_div.child('button').html("Ajouter au projet").addClass('btn');
-											add_user_to_managers_list.css('position', 'absolute');
-											add_user_to_managers_list.css('top', '50%');
-											add_user_to_managers_list.css('right', '5px');
-											add_user_to_managers_list.css('transform', 'translateY(-50%)');
-											add_user_to_managers_list.node.setAttribute('data-id', user.id);
-											add_user_to_managers_list.click(function () {
-												full_screen_container.css('display', "none");
-												view.load.show('Nous tentons d\'ajouter cette personne au projet');
-												model.addManagerTo(data.id, this.getAttribute("data-id"));
-											});
-										}
-									}
+							user_div.css('position', "relative");
+							if (data.managers.indexOf(user.id) >= 0) {
+								var already_manager = user_div.child('span').html("Cette personne fait partie du projet");
+								already_manager.css('position', 'absolute');
+								already_manager.css('top', '50%');
+								already_manager.css('right', '15px');
+								already_manager.css('transform', 'translateY(-50%)');
+							} else {
+								if (user.mail.indexOf('gmail.com') >= 0) {
+									var wrong_email_adress = user_div.child('span').html("Action impossible");
+									wrong_email_adress.css('position', 'absolute');
+									wrong_email_adress.css('top', '50%');
+									wrong_email_adress.css('right', '15px');
+									wrong_email_adress.css('transform', 'translateY(-50%)');
+								} else {
+									var add_user_to_managers_list = user_div.child('button').html("Ajouter au projet").addClass('btn');
+									add_user_to_managers_list.css('position', 'absolute');
+									add_user_to_managers_list.css('top', '50%');
+									add_user_to_managers_list.css('right', '5px');
+									add_user_to_managers_list.css('transform', 'translateY(-50%)');
+									add_user_to_managers_list.node.setAttribute('data-id', user.id);
+									add_user_to_managers_list.click(function () {
+										full_screen_container.css('display', "none");
+										view.load.show('Nous tentons d\'ajouter cette personne au projet');
+										model.addManagerTo(data.id, this.getAttribute("data-id"));
+									});
 								}
 							}
 						}
+					}
+				}
 
-						full_screen_container.addClass('fs_view_visible');
-					});
-					
-
+				full_screen_container.addClass('fs_view_visible');
 			});
-			
+
+
+		});
+
 
 		container.child("br");
 		container.child("br");
@@ -948,25 +948,25 @@ var view = {
 		project_description.html('Description: ' + data.description);
 	},
 
-	createPhotosFoldersList : function (data) {
+	createPhotosFoldersList: function (data) {
 
 		var container = $('.content');
 
 		for (var i = 0; i < data.length; i++) {
 			var element = data[i];
-			
+
 			var folder = container.child('div').addClass('img_folder');
 
 			var img = folder.child('div').addClass('img');
-				img.css('background', "url(" + element.cover + ") no-repeat");
-				img.css('background-position', "center");
-				img.css('background-size', "cover");
+			img.css('background', "url(" + element.cover + ") no-repeat");
+			img.css('background-position', "center");
+			img.css('background-size', "cover");
 
 			var text_area = folder.child('div').addClass('text-area');
 
 			text_area.child('span').html(element.title).addClass('title');
 
-			text_area.child('div').html(element.description.substr(0,200)).addClass('description');
+			text_area.child('div').html(element.description.substr(0, 200)).addClass('description');
 
 			var btn_containers = folder.child('div');
 			btn_containers.addClass("btn_container");
@@ -1084,23 +1084,23 @@ var view = {
 
 				document.body.appendChild(loader);
 				this.active = true;
-				setTimeout(function() {
+				setTimeout(function () {
 					if (view.load.active == true && view.load.id == id) {
 						$(view.load.loader).html('Une erreur est survenue');
 						hide.style.background = "rgba(150, 0, 0, 0.95)";
-						setTimeout(function() {
+						setTimeout(function () {
 
 							if (view.load.active == true && view.load.id == id) {
 								$(view.load.loader).html('Une erreur est survenue, annulation de l\'opération en cours. Nous allons recharger la page.');
 							}
 
-							setTimeout(function() {
+							setTimeout(function () {
 								if (view.load.active == true && view.load.id == id) {
 									view.load.hide();
 									window.location.reload();
 								}
 							}, 8000);
-							
+
 						}, 5000);
 					}
 				}, 10000);

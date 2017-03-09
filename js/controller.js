@@ -26,7 +26,7 @@ var content = $('.content');
 
 
 var controller = {
-	doWork : function (){
+	doWork: function () {
 
 		document.title = "Vicri - " + page.target;
 
@@ -37,73 +37,73 @@ var controller = {
 		}
 
 		view.addContentToMenu();
-		
+
 		if (page.getTarget() == "home") {
 			view.load.hide();
 
 			view.createHomePage();
-			
-		}else if (page.getTarget() == "videos") {
+
+		} else if (page.getTarget() == "videos") {
 
 			model.getAllVideos(view.createVideoList);
 
-		}else if (page.getTarget() == "calendar") {
+		} else if (page.getTarget() == "calendar") {
 
 			model.getCalendar(view.makeCalendar);
 
-		}else if (page.getTarget() == "projets") {
+		} else if (page.getTarget() == "projets") {
 
 			model.getAllProjects(view.createProjectList);
 
-		}else if (page.getTarget() == "photos") {
+		} else if (page.getTarget() == "photos") {
 
 			model.getAllPhotosFolders(view.createPhotosFoldersList);
 
-		}else if (page.getTarget() == "view_folder") {
+		} else if (page.getTarget() == "view_folder") {
 
 			model.getFolderByID(view.createPhotoFolder);
 
-		}else if(page.getTarget() == "project"){
+		} else if (page.getTarget() == "project") {
 
-			model.getProject( view.createProjectAsManager , view.createProjectAsVisitor);
+			model.getProject(view.createProjectAsManager, view.createProjectAsVisitor);
 
-		}else if(page.getTarget() == "modify_project"){
+		} else if (page.getTarget() == "modify_project") {
 
-			model.getProject( view.modifyProject , function (data) {
+			model.getProject(view.modifyProject, function (data) {
 				$('.content').showError('Vous ne pouvez pas modifier ce projet');
 				view.load.hide();
 			}, true);
 
-		}else if(page.getTarget() == "login"){
+		} else if (page.getTarget() == "login") {
 
 			view.createLoginPage(model.login);
 
-		}else if(page.getTarget() == "account"){
+		} else if (page.getTarget() == "account") {
 
 			view.createAccountPage();
 
-		}else if(page.getTarget() == "new_project"){
+		} else if (page.getTarget() == "new_project") {
 
 			if (user.isConnected == true) {
 				view.createNewProjectPage(model.newProject);
-			}else{
+			} else {
 				view.load.hide();
 				$('.content').showError('Vous ne pouvez pas accèder à cette partie du site car vous n\'êtes pas connecté<br /><br /><a href="#page=login" style="color:white;text-decoration:none;border:2px solid white; padding:5px;border-radius:3px;">Me connecter</a>')
 			}
 
-		}else if(page.getTarget() == "new_event"){
+		} else if (page.getTarget() == "new_event") {
 
 			view.createNewEventPage(model.newEvent);
 
-		}else if(page.getTarget() == "upload_video") {
+		} else if (page.getTarget() == "upload_video") {
 
-			if(page.get('pid') != undefined){
+			if (page.get('pid') != undefined) {
 				view.publish_video(model.publish_video);
-			}else{
+			} else {
 				$(".content").showError('Une erreur est survenue.');
 			}
 
-		}else{
+		} else {
 
 			view.load.hide();
 

@@ -99,6 +99,7 @@ var view = {
 				});
 
 				full_screen_container.addClass('fs_view_visible');
+				full_screen_container.css("background", "rgba(255,255,255,0.75)");
 
 				var img_inside = full_screen_container.child('img');
 				img_inside.node.src = this.src;
@@ -107,6 +108,8 @@ var view = {
 				img_inside.css('left', "50%");
 				img_inside.css('max-width', "90%");
 				img_inside.css('max-height', "90%");
+				img_inside.css('height', "100%");
+				img_inside.css('box-shadow', "0px 0px 15px rgba(0,0,0,0.54)");				
 				img_inside.css('transform', "translateX(-50%) translateY(-50%)");
 
 			})
@@ -568,6 +571,7 @@ var view = {
 
 			var e = container.child('div');
 			e.addClass("element");
+			e.addClass("project");
 
 			var title = e.child('span');//
 			if (project.pined == true) {
@@ -600,6 +604,7 @@ var view = {
 			var btns = e.child('div');
 			btns.css('display', "block");
 			btns.css('height', "32px");
+			btns.addClass('bottom');
 
 			var open = btns.child("a");
 			open.addClass('btn2');

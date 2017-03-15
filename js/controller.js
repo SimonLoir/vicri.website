@@ -35,6 +35,11 @@ var controller = {
 		if (page.get('action') == "welcome" && user.isConnected == true) {
 			view.showConfirmationMessage('Vous êtes maintenant connecté. Bienvenue ' + user.firstname + " !");
 		}
+		//
+
+		if (page.get('action') == "unf" && page.getTarget() == "login") {
+			content.showError("Erreur: l'utilisateur choisi n'est pas valide. ");
+		}
 
 		view.addContentToMenu();
 

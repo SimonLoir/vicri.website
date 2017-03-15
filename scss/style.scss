@@ -5,6 +5,14 @@ body{
 .material-icons{
 	font-size: inherit;
 }
+button i.material-icons{
+    display: inline-block;
+    height: 100%;
+    font-style: 25px;
+    line-height: 25px;
+    padding-left: 5px;
+}
+
 .edit{
 	background: transparent;
 	font-family: sans-serif;
@@ -193,6 +201,7 @@ body{
     &:hover{
         & .img{
             bottom: 75%;
+            box-shadow: inset 0px 0px 12px rgba(0,0,0,0.25);
         }
         & .text-area{
             top: 25%;
@@ -330,6 +339,10 @@ body{
     position: absolute;
     top:15px;
     right: 15px;
+    padding: 3px;
+    padding-left: 6px;
+    padding-right: 8px;
+    border-radius: 5px;
 }
 
 .btn{

@@ -266,9 +266,9 @@ var view = {
 
 		var type = form.selectArray('Type de projet', values, texts);
 
-		var send = form.child('input');
+		var send = form.child('button');
 		send.node.type = "submit";
-		send.node.value = "Modifier";
+		send.html('Mettre à jour <i class="material-icons">send</i>');
 		send.addClass('btn');
 
 		form.node.onsubmit = function () {
@@ -516,6 +516,8 @@ var view = {
 		form.node.action = "#";
 		form.node.autocomplete = "off";
 
+		form.child('p').html('Pour vous connecter avec votre adresse @indse.be, utilisez le bouton me connecter avec google et ne remplissez pas les champs Email et Password.').css("color", "crimson");
+
 		var username = form.child("div");
 		username.addClass('field');
 
@@ -545,7 +547,9 @@ var view = {
 
 		loginInputs = [username_input, password_input, send];
 
-		form.child('a').html('Me connecter avec Google').node.href = "google";
+		var google_login = form.child('a').html('Me connecter avec Google');
+			google_login.node.href = "google";
+			google_login.addClass('btn');
 
 
 		form.node.onsubmit = function () {
@@ -596,7 +600,6 @@ var view = {
 			}
 
 			progress__style.color = "white";
-			progress__style.padding = "3px";
 
 			var description = e.child('p');
 			description.html(project.shortDescription);
@@ -608,7 +611,6 @@ var view = {
 
 			var open = btns.child("a");
 			open.addClass('btn2');
-
 
 			if (project.user_is_manager == true) {
 				open.html("Ouvrir");
@@ -826,6 +828,7 @@ var view = {
 		manage_managers.html('Gérer les managers');
 		manage_managers.addClass('btn');
 		manage_managers.click(function () {
+			
 			var full_screen_container = container.child('div');
 			full_screen_container.addClass('fs_view');
 
@@ -842,6 +845,7 @@ var view = {
 			full_screen_container.css('padding', "25px");
 			var wait = full_screen_container.child('div').html('Chargement, merci de patienter.');
 			model.getAllUsers(function (users) {
+
 				wait.remove();
 				var search = full_screen_container.input('Rechercher')[0];
 				var users_by_id = {};

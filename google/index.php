@@ -74,7 +74,7 @@ if (isset($authUrl)){
     }else{
 
       session_destroy();
-      header('Location: ../#p=login;action=unf');
+      header('Location: ../#page=login;action=unf');
       exit(json_encode("L'utilisateur est introuvable"));
 
     }

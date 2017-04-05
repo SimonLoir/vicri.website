@@ -639,6 +639,11 @@ var view = {
 	/* ---------------------------------------- /*
 			All videos page creation
 	/* ---------------------------------------- */
+	/**
+	 * Show a list of videos
+	 * @callback model~getVideosCallback
+	 * @param {Array} data list of all the videos that are in the database 
+	 */
 	createVideoList: function (data) {
 		view.load.hide();
 		var container = $(".content").child('div');

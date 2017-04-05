@@ -3,11 +3,9 @@ var page = {
 	url: window.location.href,
 	target: "home",
 	informations: "",
-	/*
-	Pré : window.location.href
-	Post :
-		this.informations = part after the # in window.location
-	*/
+	/**
+	 * Get informations form the page url.
+	 */
 	getInformations: function () {
 		this.url = window.location.href;
 
@@ -17,11 +15,10 @@ var page = {
 			this.informations = pageInformations;
 		}
 	},
-	/*
-	Pré : /
-	Post :
-		this.target = page target (ex : index.html#page=home => target will be equal to home)
-	*/
+	/**
+	 * Get the page name
+	 * @return {String} home or page name
+	 */
 	getTarget: function () {
 		this.getInformations();
 		if (this.informations != "") {
@@ -37,12 +34,10 @@ var page = {
 		this.target = "home";
 		return this.target;
 	},
-	/*
-	Pré : query as string
-	Post :
-		output = false : the query can not be found in page.informations or page.informations is empty
-			   = requested information in page.informations
-	*/
+	/**
+	 * @param {String} query the query string part that we have to find (in window.location.hash)
+	 * @return {Boolean|String} false or the value of the query string part
+	 */
 	get: function (query) {
 		this.getInformations();
 		if (this.informations != "") {
@@ -62,12 +57,10 @@ var page = {
 }
 
 var model = {
-	/*
-	PRE : /
-	POST :
-		+ data
-		=> callback(data)
-	*/
+	/**
+	 * Get all the videos and their informations
+	 * @param {model~getVideosCallback} 
+	 */
 	getAllVideos: function (callback) {
 		AR.GET('api?res=videos', function (data) {
 			$('.content').clear();

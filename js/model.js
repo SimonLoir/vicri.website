@@ -59,7 +59,7 @@ var page = {
 var model = {
 	/**
 	 * Get all the videos and their informations
-	 * @param {model~getVideosCallback} 
+	 * @param {model~getVideosCallback} callback function which is called the list of elements have been loaded
 	 */
 	getAllVideos: function (callback) {
 		AR.GET('api?res=videos', function (data) {
@@ -71,12 +71,10 @@ var model = {
 			}
 		});
 	},
-	/*
-	PRE : /
-	POST :
-		+ data
-		=> callback(data)
-	*/
+	/**
+	 * Get all the projects (minimal version)
+	 * @param {model~getAllProjectsCallback} callback function which is called the list of elements have been loaded
+	 */
 	getAllProjects: function (callback) {
 		AR.GET('api?res=projects', function (data) {
 			$('.content').clear();
@@ -87,6 +85,10 @@ var model = {
 			}
 		});
 	},
+	/**
+	 * Get all the photos folders
+	 * @param {model~getAllPhotosFoldersCallback} callback function which is called the list of elements have been loaded
+	 */
 	getAllPhotosFolders: function (callback) {
 		AR.GET('api?res=photos_folders', function (data) {
 			view.load.hide();
@@ -99,25 +101,20 @@ var model = {
 			}
 		});
 	},
-	/*
-	PRE : /
-	POST :
-		+ pdata
-		=> callback(pdata)
-	*/
+	/**
+	 * Get an entire project
+	 * @param {model~getProjectAsManagerCallback} callback function which is called if the user is a manager 
+	 * @param {model~getProjectAsVisitorCallback} callback function which is called if the user isn't a manager
+	 */
 	getProject(callback_manager, callback, dont_user_br) {
 		AR.GET('api?res=project&id=' + page.get('pid') + "&manager=" + page.get("manager") + "&mod=" + dont_user_br, function (data) {
 
 			var pdata = JSON.parse(data);
 
-			// On doit faire une vérification
-
 			if (page.get("manager") == "true" && pdata != "UError") {
 
 
 				callback_manager(pdata);
-
-				// Pas besoin de vérification : l'utilisateur n'aura pas le droit de modifier le projet.
 
 			} else {
 
@@ -127,6 +124,11 @@ var model = {
 
 		});
 	},
+	/**
+	 * Log the user in
+	 * @param {String} email user's email
+	 * @param {String} password users's password
+	 */
 	login: function (email, password) {
 
 		AR.POST('api/index.php?res=login', { email: email, password: password }, function (data) {
@@ -138,7 +140,12 @@ var model = {
 			}
 		});
 
-	}, getFolderByID: function (callback) {
+	}, 
+	/**
+	 * Get an entire folder of images
+	 * @param {model~getFolderByIDCallback} callback function which is called if the user is a manager 
+	 */
+	getFolderByID: function (callback) {
 		AR.GET('api?res=img_folder&id=' + page.get('folder_id'), function (data) {
 			view.load.hide();
 			$('.content').clear();
@@ -149,21 +156,12 @@ var model = {
 			}
 		});
 	},
-	loginWithGoogle: function (token) {
-
-		AR.POST('api/googleLogin.php', { token: token }, function (data) {
-			$('.content').html(decodeURIComponent(data))
-			if (JSON.parse(data) == "ok") {
-
-				window.location.hash = "page=projets";
-
-				alert('Bienvenue !');
-			} else {
-				alert('Une erreur est survenue');
-			}
-		});
-
-	}, newProject: function (project_name, project_short_description) {
+	/**
+	 * Creates a new project
+	 * @param {String} project_name The name of the projects
+	 * @param {String} project_short_description A short description of the project
+	 */ 
+	newProject: function (project_name, project_short_description) {
 
 		if (project_short_description.length > 200) {
 			alert('Votre description est trop longue. Le maximum autorisé est de 200 \n taille actuelle : ' + project_short_description.length);
@@ -192,7 +190,12 @@ var model = {
 		});
 
 
-	}, getCalendar: function (callback) {
+	}, 
+	/**
+	 * Get the calendar
+	 * @param {model~getCalendarCallback} callback function which is called when the calendar is loaded
+	 */
+	getCalendar: function (callback) {
 
 		var d = new Date();
 
@@ -237,7 +240,14 @@ var model = {
 
 
 
-	}, newEvent: function (date, title, desc) {
+	},
+	/**
+	 * Creates a new event in the calendar
+	 * @param {String} date the date of the event
+	 * @param {String} title the title of the event
+	 * @param {String} desc the description of the event
+	 */
+	 newEvent: function (date, title, desc) {
 		AR.POST('api/index.php?res=new_event', {
 
 			date: date, title: title, desc: desc
@@ -255,6 +265,17 @@ var model = {
 		});
 
 	},
+	/**
+	 * Updates the informations of a project
+	 * @param {String} input the name of the project
+	 * @param {String} short_description a short description of the project
+	 * @param {String} description the description of the project
+	 * @param {String} progression the global progression of the project
+	 * @param {String} goals the goals of the project
+	 * @param {String} links the links of the project
+	 * @param {String} type the type of the project (3D, video, photo, code, ...)
+	 * @param {String} pid the id of the project
+	 */
 	updateProject: function (input, short_description, description, progression, goals, links, type, pid) {
 		AR.PUT('api/index.php?res=project&manager=' + page.get('manager'), { name: input, short_description: short_description, description: description, progression: progression, goals: goals, links: links, type: type, id: pid }, function (data) {
 			var x_response = JSON.parse(data);

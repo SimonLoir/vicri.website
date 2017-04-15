@@ -1,31 +1,23 @@
-/*
-Fonctionnement de controller.js
-
-	Au chargement ou quand on modifie l'url,
-	on execute la methode user.liState() qui va exécuter la fonction du controller doWork()
-	
-		function doWork()
-
-			utilisation de page.getTarget() // exemple : http://vicri.esy.es/vicri#page=home => "home"
-
-			on vérifie si la page existe sinon on affiche une erreur.
-
-			on appelle la méthode correspondante au niveau du model an lui donnant le callback (dans la view) correspondant
-*/
-
+/**
+ * Function that call a loader and user.liSate
+ * @callback {document.ready}
+ * @callback {window.onhashchange} 
+ */
 function start() {
 	view.load.show('chargement');
 	user.liState();
 }
 
-$(document).ready(start); // Quand tout est chargé
-window.onhashchange = start;
-$(document).ready(view.createHamburgerAndMenu);
+$(document).ready(start); // When the page has been loaded
+window.onhashchange = start; // When the part after the # in the url has been changed
+$(document).ready(view.createHamburgerAndMenu); // When the document is ready : we show an hamburger menu
 
 var content = $('.content');
 
-
 var controller = {
+	/**
+	 * Function that load the correct page from the url
+	 */
 	doWork: function () {
 
 		document.title = "Vicri - " + page.target;
@@ -35,7 +27,6 @@ var controller = {
 		if (page.get('action') == "welcome" && user.isConnected == true) {
 			view.showConfirmationMessage('Vous êtes maintenant connecté. Bienvenue ' + user.firstname + " !");
 		}
-		//
 
 		if (page.get('action') == "unf" && page.getTarget() == "login") {
 			content.showError("Erreur: l'utilisateur choisi n'est pas valide. ");

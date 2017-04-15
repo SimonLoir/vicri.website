@@ -287,7 +287,12 @@ var model = {
 				$("#x_result_div").showError(x_response);
 			}
 		});
-	}, publish_video: function (d) {
+	}, 
+	/**
+	 * Publishes a video from YouTube and goes to the project page
+	 * @param {Array} d an array that contains the id(YouTube) of the video, a title and a description.
+	 */
+	publish_video: function (d) {
 		AR.POST('api/index.php?res=publish_video&pid=' + page.get('pid') + '&manager=true', d, function (data) {
 			view.load.hide();
 			try {
@@ -304,7 +309,12 @@ var model = {
 			}
 			//
 		});
-	}, delete_video: function (vid) {
+	}, 
+	/**
+	 * Deletes a video from YouTube and goes to the project page
+	 * @param {Integer} vid the id of the video
+	 */
+	delete_video: function (vid) {
 		AR.DELETE("api/index.php?res=video&vid=" + vid, function (data) {
 
 			try {
@@ -320,7 +330,12 @@ var model = {
 			}
 
 		});
-	}, getAllUsers: function (callback) {
+	}, 
+	/**
+	 * Gets a list of all users that are registered in the website
+	 * @param {Function} callback function that is called the list of all users has been loaded
+	 */
+	getAllUsers: function (callback) {
 
 		AR.GET('api/index.php?res=users', function (data) {
 			try {
@@ -333,7 +348,13 @@ var model = {
 			alert('Une erreur est survenue');
 		})
 
-	}, addManagerTo: function (pid, mid) {
+	}, 
+	/**
+	 * Adds a manager to a project
+	 * @param {Integer} pid the id of the project to which we have to add a manager
+	 * @param {Integer} mid the id of the new manager
+	 */
+	addManagerTo: function (pid, mid) {
 		AR.PUT("api/index.php?res=managers&manager=true", { pid: pid, mid: mid }, function (data) {
 			if (data == "Ok") {
 				view.showConfirmationMessage('Ok', $("#x_result_div"));
@@ -349,20 +370,11 @@ var model = {
 }
 
 var user = {
-	/*	
-		Note : user (this) can be used outside model.js
-		PRE : /
-		POST : 
-			user.isConnected = true if user is connected
-							 = false if not 
-			if user is connected :
-				user.pseudo defined or updated 
-				user.mail defined or updated 
-				user.name defined or updated 
-				user.firstname defined or updated 
-				user.liState_ver_date defined or updated 
-
-	*/
+	/**
+	 * Get the connextion state of the current user from the server and assigns true or false to user.isConnected
+	 * @param {Boolean} reload specifies if we have to reaload the page
+	 * @param {Function} callback function that is called when 
+ 	 */
 	liState: function (reload, callback) {
 		var date = new Date();
 

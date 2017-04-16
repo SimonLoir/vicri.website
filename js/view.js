@@ -2,16 +2,18 @@ var menu;
 var loginInputs;
 var theme = "#3f51b5";
 var view = {
-	/* -------------------------- /*
-			Title creation
-	/* -------------------------- */
+	/**
+	 * Creates an HTML h2 element
+	 * @param {String} text text to put inside the h2
+	 */
 	createTitle: function (text) {
 		var e = $(".content").child("h2");
 		e.html(text);
 	},
-	/* -------------------------- /*
-			Event page creation
-	/* -------------------------- */
+	/**
+	 * Creates a page that allows the user to create a new event in the calendar
+	 * @param {view~createNewEventCallback|Function} callback that is called when the suer submit the form 
+	 */
 	createNewEventPage: function (callback) {
 
 		var container = $('.content');
@@ -70,6 +72,10 @@ var view = {
 		view.load.hide();
 
 	},
+	/**
+	 * Creates a folder of pictures
+	 * @param {Array} data list of images that are into the folder
+	 */
 	createPhotoFolder: function (data) {
 
 		var container = $('.content');
@@ -116,9 +122,10 @@ var view = {
 		}
 
 	},
-	/* ------------------------------- /*
-		  Show confirmation message
-	/* ------------------------------- */
+	/**
+	 * Shows a confirmation message
+	 * //to be continued :-)
+	 */
 	showConfirmationMessage: function (text, attach_to) {
 		if (attach_to == undefined) {
 			$(".content").child('div').html(text).addClass('cNotif');

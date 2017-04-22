@@ -1,8 +1,7 @@
 <?php
 session_start();
-//$_SESSION['user_id'] = 1;
 
-//On récupère la méthode
+
 if (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
 
 	$method = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'];

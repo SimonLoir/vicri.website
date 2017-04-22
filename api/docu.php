@@ -83,6 +83,42 @@
 				</span>
 			</div>
 		</div>
+		<div class="section">
+			<h3 id="doc">?res=doc</h3>
+			<div>
+				<span>Output format: text/html</span>
+				<p>Returns this page</p>
+			</div>
+		</div>
+		<div class="section">
+			<h3 id="logout">?res=logout</h3>
+			<div>
+				<span>Nothing</span>
+				<p>Destroys session</p>
+			</div>
+		</div>
+		<div class="section">
+			<h3 id="calendar">?res=calendar</h3>
+			<div>
+				<span>Output format: JSON</span>
+				<p>Gets the calendar</p>
+				<span>Return => [{id (int), title (string), description (string), date (string), global (int as boolean), project_id (int)}]
+				<br /><b>OR</b><br />
+				[]
+				</span>
+			</div>
+		</div>
+		<div class="section">
+			<h3 id="users">?res=users</h3>
+			<div>
+				<span>Output format: JSON</span>
+				<p>Gets all the users that are registered into the database</p>
+				<span>Return => [{id (int), name (string), firstname (string), mail (string), pseudo (string)}]
+				<br /><b>OR</b><br />
+				[]
+				</span>
+			</div>
+		</div>
 	</div>
 	<h2 class="post_title">POST method</h2>
 	<div class="post">

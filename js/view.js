@@ -979,6 +979,36 @@ var view = {
 		var image_and_title = container.child('div');
 		image_and_title.createImage(data.name);
 
+		if (data.type == "video") {
+			if (data.video != undefined) {
+				var see_video = container.child('a');
+				container.child('br');
+				container.child('br');
+				see_video.html('Afficher la vidéo');
+				see_video.addClass('btn');
+
+				see_video.click(function () {
+					var full_screen_container = container.child('div');
+					full_screen_container.addClass('fs_view');
+
+					var btn_exit = full_screen_container.child('button').html("&#x2715;").addClass('fs_exit');
+
+					btn_exit.click(function () {
+						full_screen_container.removeClass('fs_view_visible');
+						setTimeout(function () {
+							full_screen_container.remove();
+						}, 2000);
+					});
+
+					var iframe = full_screen_container.child('iframe');
+					iframe.node.src = data.video.url;
+					iframe.node.setAttribute('allowfullscreen', "");
+
+					full_screen_container.addClass('fs_view_visible');
+
+				});				
+			}
+		}
 
 		var project_type = container.child("span");
 		project_type.html('Type de projet :' + data.type);

@@ -389,7 +389,7 @@ var view = {
 			var e_calendar_link = e_calendars.child('a');
 			e_calendar_link.node.href = "#page=calendar";
 			e_calendar_link.addClass('btn2');
-			e_calendar_link.html("Accèder au calendrier");
+			e_calendar_link.html("accéder au calendrier");
 		}
 		/*
 		-> Account
@@ -400,13 +400,13 @@ var view = {
 
 		e_accounts.child('span').html('Mon compte');
 
-		e_accounts.child('p').html('Accèder à l\'espace membre.').addClass('home_e_p');
+		e_accounts.child('p').html('accéder à l\'espace membre.').addClass('home_e_p');
 
 		if (user.isConnected == true) {
 			var e_account_link = e_accounts.child('a');
 			e_account_link.node.href = "#page=account";
 			e_account_link.addClass('btn2');
-			e_account_link.html("Accèder à mon compte");
+			e_account_link.html("accéder à mon compte");
 		} else {
 			var e_account_link = e_accounts.child('a');
 			e_account_link.node.href = "#page=login";
@@ -515,17 +515,42 @@ var view = {
 
 		var container = $(".content").child('div');
 
+		
 
 		var e = container.child('div');
 		e.addClass("element");
 
-		var form = e.child("form");
+		e.child('h2').html('Choisir une méthode de connexion')
+		//form.child('p').html('Pour vous connecter avec votre adresse @indse.be, utilisez le bouton me connecter avec google et ne remplissez pas les champs Email et Password.').css("color", "crimson");
+		
+		var google_login = e.child('a').html('Me connecter avec Google');
+			google_login.node.href = "google";
+			google_login.addClass('btn');
+
+		var login_without_google = e.child('button').html('Me connecter avec un autre compte');
+			login_without_google.addClass('btn');
+			
+		
+		var form  = e.child("form");
 		form.node.action = "#";
 		form.node.autocomplete = "off";
+		form.css('display', "none");
 
-		form.child('p').html('Pour vous connecter avec votre adresse @indse.be, utilisez le bouton me connecter avec google et ne remplissez pas les champs Email et Password.').css("color", "crimson");
+		e.child('br');
+		e.css('padding-bottom', "20px");
 
-		var username = form.child("div");
+		login_without_google.click(function (){
+
+			form.css('display', "block");
+			$(this).remove();
+			e.css('padding-bottom', "0px");
+
+		});
+
+
+		var input_group = form.child('div');
+
+		var username = input_group.child("div");
 		username.addClass('field');
 
 		var username_text = username.child('label');
@@ -535,7 +560,7 @@ var view = {
 		var username_input = username.child("input");
 		username_input.addClass('input');
 
-		var password = form.child("div");
+		var password = input_group.child("div");
 		password.addClass('field');
 
 		var password_text = password.child('label');
@@ -547,16 +572,14 @@ var view = {
 		password_input.node.type = "password";
 
 
-		var send = form.child('input');
+		var send = input_group.child('input');
 		send.node.type = "submit";
 		send.node.value = "Me connecter";
 		send.addClass('btn');
 
 		loginInputs = [username_input, password_input, send];
 
-		var google_login = form.child('a').html('Me connecter avec Google');
-			google_login.node.href = "google";
-			google_login.addClass('btn');
+		
 
 
 		form.node.onsubmit = function () {
@@ -668,7 +691,7 @@ var view = {
 			var open = video_container.child("a");
 			open.addClass('btn2')
 			open.node.href = "#page=project;pid=" + video.id + ';manager=false';
-			open.html('Accèder au projet');
+			open.html('accéder au projet');
 
 			var information_button = video_container.child('button');
 			information_button.addClass("btn2");

@@ -858,7 +858,17 @@ var view = {
 
 				});
 			}
+		}else if (data.type == "photo") {
+			if (data.photo_folder == undefined) {
+				var publish_folder = container.child('a');
+				publish_folder.html('Publier les photos');
+				publish_folder.addClass('btn');
+				publish_folder.node.href = "#page=create_photo_folder;pid=" + page.get("pid");
+			} else {
+				
+			}
 		}
+
 		var manage_managers = container.child('button');
 		manage_managers.html('Gérer les managers');
 		manage_managers.addClass('btn');

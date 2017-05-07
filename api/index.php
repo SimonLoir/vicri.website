@@ -89,6 +89,14 @@ if ($method == "GET") {
 				if ($video != null) {
 					$project->video = $video[0]->clientFormat();
 				}
+		}elseif($project->type == "photo"){
+				$folder = $db->query('SELECT * FROM photos_folders WHERE id = :project_id', [
+					"prepare" => [":project_id" => $_GET['id']]
+				]);
+
+				if ($folder != null) {
+					$project->photo_folder = true;
+				}
 		}
 
 		exit(json_encode($project->clientFormat()));

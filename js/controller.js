@@ -99,6 +99,10 @@ var controller = {
 				$(".content").showError('Une erreur est survenue.');
 			}
 
+		} else if (page.getTarget() == "update_account") {
+
+			view.createAccountUpdatePage();
+
 		} else {
 
 			view.load.hide();

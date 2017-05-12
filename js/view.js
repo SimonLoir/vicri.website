@@ -176,8 +176,128 @@ var view = {
 			window.location.hash = "page=update_password";
 		});
 	}
-	,
+	,//createAccountUpdatePage
+	createAccountUpdatePage: function () {
+		view.load.hide();
 
+		var container = $('.content');
+
+		if (user.isConnected == false) {
+
+			$('.content').showError('Désolé, nous ne pouvons pas afficher le contenu de cette page car vous n\'êtes pas connecté');
+
+			return false;
+		}
+
+		var e = container.child("div");
+
+		e.addClass('element').css('position', "relative");
+
+		e.child('h2').html(user.firstname + " " + user.name);
+
+		e.child('p').html('Cette page est réservée aux rhétos. Grâce à celle-ci, ils pourront mettre à jour leur adresse email et ainsi garder un accès (restreint) au site lorsqu\'ils quitteront l\'école');
+
+		e.child('span').html('Email : ' + user.mail);
+
+		var x = e.child("p");
+
+		var modify = x.child('button').addClass('btn').html('Modifier mon adresse email.');
+
+		modify.click(function () {
+
+			var is_rheto = confirm('Êtes vous en 6 ème ?');
+
+			if(is_rheto){
+
+				alert("Attention ! La procédure qui va suivre va vous supprimer l'accès à partir de votre adresse @indse.be et vous ne pourrez vous connecter au site qu'avec l'adresse que vous allez communiquer à l'étape suivante.");
+
+				var none_var = "x~nm";
+
+				var new_email = none_var;
+
+				var new_password = none_var;
+
+				try {
+					var email = prompt('Votre nouvelle adresse email');
+					if(email != null){
+						var email2 = prompt('Votre nouvelle adresse email (répeter)');
+						if(email2 == email){
+
+							if(email.indexOf('@') < 0){
+								alert('format incorrect');
+								throw "canceled";
+							}
+
+							new_email = email;
+
+							var need_password = false; 
+
+							if(email.indexOf('@gmail.com') < 0){
+								alert("Vous utilisez une adresse qui n'appartient pas à google (@gmail.com), vous devrez donc choisir un mot de passe à l'étape suivante");
+								need_password = true;
+							}else{
+								need_password = confirm('Voulez-vous ajouter un mot de passe à votre compte ou voulez vous continuer d\'utiliser la connexion avec google (avec l\'adresse ' + email + ')(cliquez sur oui ou ok pour ajouter un mot de passe)');
+							}
+
+							if(need_password){
+								var password = prompt('Votre mot de passe (attention, votre mot de passe n\'est pas masqué, au moins 6 caractères)', "");
+
+								if(password == null || password.length < 6){
+									throw "canceled";
+								}
+
+								var password2 = prompt('Votre mot de passe (répeter) (attention, votre mot de passe n\'est pas masqué)', "");
+
+								if(password == password2){
+									new_password = password;
+								}else{
+									throw "error";
+								}
+
+							}
+
+							AR.PUT("api/index.php?res=update_account", function () {
+								var array = {};
+								array["email"] = new_email;
+								if(new_password != none_var){
+									array["password"] = new_password;
+								}
+								return array;
+							}(),function (data){
+
+								if(data == "ok"){
+									alert('Merci de vous reconnecter avec vos nouveaux identifiants');
+									window.location.reload(true);
+								}
+
+							});
+
+
+						}else{
+
+							throw "canceled";
+
+						}
+					}else{
+
+						throw "canceled";
+
+					}
+				} catch (error) {
+					alert('Opération annulée avec succès à la suite d\'une action de l\'utilisateur ou suite à une erreur.');
+				}
+
+			}else{
+
+				alert("Vous n'êtes donc pas autorisé à modifier votre adresse email ...");
+
+			}
+
+		});
+
+
+	}
+	,
 	/* ---------------------------------------- /*
 				Calendar page creation
 	/* ---------------------------------------- */

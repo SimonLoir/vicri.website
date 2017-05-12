@@ -496,6 +496,31 @@ if ($method == "PUT") {
 
 		exit('Ok');
 
+	}elseif($res == "update_account"){
+		if(!isset($_SESSION['user_id']) || !isset($_POST["email"])){
+			exit('error');
+		}
+
+		$user = $_SESSION['user_id'];
+
+		$update = $db->query('UPDATE users SET mail = :email WHERE id = :uid', [
+			"prepare" => [":email" => $_POST["email"], ":uid" => $user], "result" => true
+		]);
+		if(!$update){
+			exit('error u');
+		}
+		if(isset($_POST["password"])){
+			$update2 = $db->query('UPDATE users SET password = :password WHERE id = :uid', [
+				"prepare" => [":password" => password_hash($_POST['password'] , PASSWORD_DEFAULT), ":uid" => $user], "result" => true
+			]);
+
+			if(!$update2){
+				exit('error p');
+			}
+		}
+		session_destroy();
+		exit('ok');
+
 	}
 }
 

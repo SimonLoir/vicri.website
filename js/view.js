@@ -768,7 +768,7 @@ var view = {
 
 				var modify_btn = btns.child("a");
 				modify_btn.addClass('btn2');
-				modify_btn.html("Gérer");
+				modify_btn.html("Modifier");
 				modify_btn.node.href = "#page=modify_project;pid=" + project.id + ';manager=true';
 			} else {
 				open.html("Ouvrir");

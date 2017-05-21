@@ -544,10 +544,10 @@ var view = {
 			e.addClass("project");
 
 			var title = e.child('span');//
-				title.html(project.name);
+			title.html(project.name);
 
 			var description = e.child('p');
-			description.html(project.description.substr(0,250));
+			description.html(project.description.substr(0, 250));
 
 			var btns = e.child('div');
 			btns.css('display', "block");
@@ -557,9 +557,9 @@ var view = {
 			var open = btns.child("a");
 			open.addClass('btn2');
 
-				open.html("Accèder aux fichiers");
-				open.node.href = project.link;
-			
+			open.html("Accèder aux fichiers");
+			open.node.href = project.link;
+
 		}
 	}
 
@@ -924,6 +924,65 @@ var view = {
 		})
 
 
+	}, publish_project: function (callback) {
+
+		view.load.hide();
+
+		if (user.isConnected != true) {
+			$('.content').showError('Vous devez être connecté');
+			return false;
+		}
+
+		var container = $(".content").child('div');
+
+		var e = container.child('div').addClass('element');
+
+		e.child('h2').html('Publier un projet.');
+
+		e.child('p').html('Pour publier votre projet, vous devez le mettre en ligne sur une autre plateforme : ex GitHub(code) ou sur un cloud (Dropbox, Google Drive, OneDrive)');
+
+
+
+		var vid = e.input('URL de partage ou URL de votre dépot git');
+
+		e.child('p').html('Aperçu :')
+
+		var result = e.child('iframe');
+		result.css('height', "200px");
+		result.css('width', "300px");
+
+		var title = e.input('Nom du projet');
+		var description = e.textarea('Description du projet');
+
+		var send = e.child('button');
+		send.addClass('btn');
+		send.html('Publier');
+
+		send.click(function () {
+			var vvid = vid[0].node.value.trim();
+			var vti = title[0].node.value.trim();
+			var vde = description[0].node.value.trim();
+
+			if (vid == "" || vti == "" || vde == "") {
+				alert('Merci de remplir tous les champs')
+				return false;
+			}
+
+			view.load.show('Nous publions votre projet');
+
+			callback({
+				id: vvid,
+				title: vti,
+				description: vde
+			});
+
+		});
+
+		vid[0].blur(function () {
+			result.node.src = $(this).node.value;
+		})
+
+
 	}
 	,
 
@@ -1011,8 +1070,13 @@ var view = {
 				publish_folder.html('Publier les photos');
 				publish_folder.addClass('btn');
 				publish_folder.node.href = "#page=create_photo_folder;pid=" + page.get("pid");
-			} else {
-
+			}
+		} else {
+			if (data.other_folder == undefined) {
+				var publish_project = container.child('a');
+				publish_project.html('Publier le projet fini');
+				publish_project.addClass('btn');
+				publish_project.node.href = "#page=create_end_project;pid=" + page.get("pid");
 			}
 		}
 

@@ -103,7 +103,17 @@ if ($method == "GET") {
 				if ($folder != null) {
 					$project->photo_folder = true;
 				}
+		}else {
+				$folder = $db->query('SELECT * FROM other_projects WHERE id = :project_id', [
+					"prepare" => [":project_id" => $_GET['id']]
+				]);
+
+				if ($folder != null) {
+					$project->other_folder = true;
+				}
 		}
+		//other_projects
+
 
 		exit(json_encode($project->clientFormat()));
 
@@ -385,6 +395,62 @@ if ($method == "POST") {
 			exit(json_encode("serror"));
 		}
 
+	}elseif($res == "publish_other"){
+		
+		if (!isset($_GET['pid'])) {
+			exit(json_encode('error'));
+		}
+
+		if (!isset($_POST['id']) || empty($_POST['id'])) {
+			exit(json_encode('error'));
+		}
+
+		if (!isset($_POST['title'])  || empty($_POST['title'])) {
+			exit(json_encode('error'));
+		}
+
+		if (!isset($_POST['description'])  || empty($_POST['description'])) {
+			exit(json_encode('error'));
+		}
+
+		$project_id = $_GET['pid'];
+
+		$id = $_POST['id'];
+
+		$title = $_POST['title'];
+
+		$description = $_POST['description'];
+
+		$project = $db->query('SELECT managers FROM projects WHERE id = :project_id', [
+			"class" => "project",
+			"prepare" => [":project_id" => $project_id],
+			"one" => true
+		]);
+
+		if ($project->clientFormat() == "UError") {
+			exit(json_encode('error'));
+		}
+		
+		$folder = $db->query('SELECT * FROM other_projects WHERE id = :project_id', [
+			"prepare" => [":project_id" => $project_id]
+		]);
+		if ($folder != null) {
+			exit('error');
+		}
+
+		if($db->query("INSERT INTO other_projects VALUES (:pid, :title, :description, :id)", [
+			"prepare" => [
+				":pid" => $project_id,
+				":id" => $id,
+				":title" => $title,
+				":description" => $description
+			],
+			"result" => true
+		])){
+			exit(json_encode("ok"));
+		}else{
+			exit(json_encode("serror"));
+		}
 	}
 }
 

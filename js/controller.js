@@ -107,6 +107,14 @@ var controller = {
 
 			view.createAccountUpdatePage();
 
+		} else if (page.getTarget() == "create_end_project") {
+
+			if (page.get('pid') != undefined) {
+				view.publish_project(model.publish_project);
+			} else {
+				$(".content").showError('Une erreur est survenue.');
+			}
+
 		} else {
 
 			view.load.hide();

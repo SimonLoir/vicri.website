@@ -115,7 +115,7 @@ var view = {
 				img_inside.css('max-width', "90%");
 				img_inside.css('max-height', "90%");
 				img_inside.css('height', "100%");
-				img_inside.css('box-shadow', "0px 0px 15px rgba(0,0,0,0.54)");				
+				img_inside.css('box-shadow', "0px 0px 15px rgba(0,0,0,0.54)");
 				img_inside.css('transform', "translateX(-50%) translateY(-50%)");
 
 			})
@@ -207,7 +207,7 @@ var view = {
 
 			var is_rheto = confirm('Êtes vous en 6 ème ?');
 
-			if(is_rheto){
+			if (is_rheto) {
 
 				alert("Attention ! La procédure qui va suivre va vous supprimer l'accès à partir de votre adresse @indse.be et vous ne pourrez vous connecter au site qu'avec l'adresse que vous allez communiquer à l'étape suivante.");
 
@@ -219,38 +219,38 @@ var view = {
 
 				try {
 					var email = prompt('Votre nouvelle adresse email');
-					if(email != null){
+					if (email != null) {
 						var email2 = prompt('Votre nouvelle adresse email (répeter)');
-						if(email2 == email){
+						if (email2 == email) {
 
-							if(email.indexOf('@') < 0){
+							if (email.indexOf('@') < 0) {
 								alert('format incorrect');
 								throw "canceled";
 							}
 
 							new_email = email;
 
-							var need_password = false; 
+							var need_password = false;
 
-							if(email.indexOf('@gmail.com') < 0){
+							if (email.indexOf('@gmail.com') < 0) {
 								alert("Vous utilisez une adresse qui n'appartient pas à google (@gmail.com), vous devrez donc choisir un mot de passe à l'étape suivante");
 								need_password = true;
-							}else{
+							} else {
 								need_password = confirm('Voulez-vous ajouter un mot de passe à votre compte ou voulez vous continuer d\'utiliser la connexion avec google (avec l\'adresse ' + email + ')(cliquez sur oui ou ok pour ajouter un mot de passe)');
 							}
 
-							if(need_password){
+							if (need_password) {
 								var password = prompt('Votre mot de passe (attention, votre mot de passe n\'est pas masqué, au moins 6 caractères)', "");
 
-								if(password == null || password.length < 6){
+								if (password == null || password.length < 6) {
 									throw "canceled";
 								}
 
 								var password2 = prompt('Votre mot de passe (répeter) (attention, votre mot de passe n\'est pas masqué)', "");
 
-								if(password == password2){
+								if (password == password2) {
 									new_password = password;
-								}else{
+								} else {
 									throw "error";
 								}
 
@@ -259,13 +259,13 @@ var view = {
 							AR.PUT("api/index.php?res=update_account", function () {
 								var array = {};
 								array["email"] = new_email;
-								if(new_password != none_var){
+								if (new_password != none_var) {
 									array["password"] = new_password;
 								}
 								return array;
-							}(),function (data){
+							}(), function (data) {
 
-								if(data == "ok"){
+								if (data == "ok") {
 									alert('Merci de vous reconnecter avec vos nouveaux identifiants');
 									window.location.reload(true);
 								}
@@ -273,12 +273,12 @@ var view = {
 							});
 
 
-						}else{
+						} else {
 
 							throw "canceled";
 
 						}
-					}else{
+					} else {
 
 						throw "canceled";
 
@@ -287,7 +287,7 @@ var view = {
 					alert('Opération annulée avec succès à la suite d\'une action de l\'utilisateur ou suite à une erreur.');
 				}
 
-			}else{
+			} else {
 
 				alert("Vous n'êtes donc pas autorisé à modifier votre adresse email ...");
 
@@ -465,10 +465,6 @@ var view = {
 		e_other_link.node.href = "#page=others";
 		e_other_link.addClass('btn2');
 		e_other_link.html("Nos autres projets");
-		e_other_link.click(function (event) {
-			event.preventDefault();
-			alert("Cette partie sera bientôt disponible");
-		});
 
 
 		/*
@@ -536,6 +532,37 @@ var view = {
 
 
 	}
+	, createOtherProjectsPage: function (data) {
+		var container = $('.content');
+
+
+		for (var i = 0; i < data.length; i++) {
+			var project = data[i];
+			var e = container.child('div');
+
+			e.addClass("element");
+			e.addClass("project");
+
+			var title = e.child('span');//
+				title.html(project.name);
+
+			var description = e.child('p');
+			description.html(project.description.substr(0,250));
+
+			var btns = e.child('div');
+			btns.css('display', "block");
+			btns.css('height', "32px");
+			btns.addClass('bottom');
+
+			var open = btns.child("a");
+			open.addClass('btn2');
+
+				open.html("Accèder aux fichiers");
+				open.node.href = project.link;
+			
+		}
+	}
+
 	,
 
 	/* --------------------------------------------- /*
@@ -635,23 +662,23 @@ var view = {
 
 		var container = $(".content").child('div');
 
-		
+
 
 		var e = container.child('div');
 		e.addClass("element");
 
 		e.child('h2').html('Choisir une méthode de connexion')
 		//form.child('p').html('Pour vous connecter avec votre adresse @indse.be, utilisez le bouton me connecter avec google et ne remplissez pas les champs Email et Password.').css("color", "crimson");
-		
+
 		var google_login = e.child('a').html('Me connecter avec Google');
-			google_login.node.href = "google";
-			google_login.addClass('btn');
+		google_login.node.href = "google";
+		google_login.addClass('btn');
 
 		var login_without_google = e.child('button').html('Me connecter avec un autre compte');
-			login_without_google.addClass('btn');
-			
-		
-		var form  = e.child("form");
+		login_without_google.addClass('btn');
+
+
+		var form = e.child("form");
 		form.node.action = "#";
 		form.node.autocomplete = "off";
 		form.css('display', "none");
@@ -659,7 +686,7 @@ var view = {
 		e.child('br');
 		e.css('padding-bottom', "20px");
 
-		login_without_google.click(function (){
+		login_without_google.click(function () {
 
 			form.css('display', "block");
 			$(this).remove();
@@ -699,7 +726,7 @@ var view = {
 
 		loginInputs = [username_input, password_input, send];
 
-		
+
 
 
 		form.node.onsubmit = function () {
@@ -978,14 +1005,14 @@ var view = {
 
 				});
 			}
-		}else if (data.type == "photo") {
+		} else if (data.type == "photo") {
 			if (data.photo_folder == undefined) {
 				var publish_folder = container.child('a');
 				publish_folder.html('Publier les photos');
 				publish_folder.addClass('btn');
 				publish_folder.node.href = "#page=create_photo_folder;pid=" + page.get("pid");
 			} else {
-				
+
 			}
 		}
 
@@ -993,7 +1020,7 @@ var view = {
 		manage_managers.html('Gérer les managers');
 		manage_managers.addClass('btn');
 		manage_managers.click(function () {
-			
+
 			var full_screen_container = container.child('div');
 			full_screen_container.addClass('fs_view');
 
@@ -1136,7 +1163,7 @@ var view = {
 
 					full_screen_container.addClass('fs_view_visible');
 
-				});				
+				});
 			}
 		}
 

@@ -51,6 +51,10 @@ var controller = {
 
 			model.getAllProjects(view.createProjectList);
 
+		} else if (page.getTarget() == "others") {
+
+			model.getOtherProjects(view.createOtherProjectsPage);
+
 		} else if (page.getTarget() == "photos") {
 
 			model.getAllPhotosFolders(view.createPhotosFoldersList);

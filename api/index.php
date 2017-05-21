@@ -72,6 +72,12 @@ if ($method == "GET") {
 
 		exit(json_encode($result));
 
+	}elseif ($res == "others") {
+		
+		$others = $db->query('SELECT * FROM other_projects');
+
+		exit(json_encode($others));
+
 	}elseif($res == "project"){
 
 		$project = $db->query('SELECT * FROM projects WHERE id = :project_id', [

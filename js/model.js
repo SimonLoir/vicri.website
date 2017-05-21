@@ -366,6 +366,21 @@ var model = {
 		}, function () {
 			alert('Une erreur est survenue. ');
 		});
+	}, 
+	/**
+	 * Get the list of all the projects that aren't videos or photos
+	 * @param {Function} callback function that is called when all the other projects have been loaded
+	 */
+	getOtherProjects : function (callback) {
+		AR.GET('api?res=others', function (data) {
+			view.load.hide();
+			$('.content').clear();
+			try {
+				callback(JSON.parse(data));
+			} catch (error) {
+				$('.content').html(error.message);
+			}
+		});
 	}
 }
 

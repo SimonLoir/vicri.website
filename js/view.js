@@ -205,93 +205,53 @@ var view = {
 
 		modify.click(function () {
 
-			var is_rheto = confirm('Êtes vous en 6 ème ?');
+			var abort = function () {
+				alert("Action annulée");
+			}
 
-			if (is_rheto) {
+			view.newPopup('Votre nouvelle adresse email', "text", function (email) {
 
-				alert("Attention ! La procédure qui va suivre va vous supprimer l'accès à partir de votre adresse @indse.be et vous ne pourrez vous connecter au site qu'avec l'adresse que vous allez communiquer à l'étape suivante.");
+				view.newPopup('Répetez votre adresse email', "text", function (email2) {
 
-				var none_var = "x~nm";
+					if (email != email2 || email2.trim() == "") {
+						alert('Vos adresses doivent être les mêmes et ne peuvent être vides');
+						return abort();
+					}
 
-				var new_email = none_var;
+					view.newPopup('Votre mot de passe', "password", function (password) {
 
-				var new_password = none_var;
+						view.newPopup('Votre mot de passe (répétez)', "password", function (password2) {
 
-				try {
-					var email = prompt('Votre nouvelle adresse email');
-					if (email != null) {
-						var email2 = prompt('Votre nouvelle adresse email (répeter)');
-						if (email2 == email) {
-
-							if (email.indexOf('@') < 0) {
-								alert('format incorrect');
-								throw "canceled";
+							if(password != password2){
+								alert('Vos mots de passe doivent être identiques');
+								return abort();
 							}
 
-							new_email = email;
-
-							var need_password = false;
-
-							if (email.indexOf('@gmail.com') < 0) {
-								alert("Vous utilisez une adresse qui n'appartient pas à google (@gmail.com), vous devrez donc choisir un mot de passe à l'étape suivante");
-								need_password = true;
-							} else {
-								need_password = confirm('Voulez-vous ajouter un mot de passe à votre compte ou voulez vous continuer d\'utiliser la connexion avec google (avec l\'adresse ' + email + ')(cliquez sur oui ou ok pour ajouter un mot de passe)');
+							if(password.length < 6){
+								alert('Un mot de passe sécurisé compte au moins 6 caractères');
+								return abort();								
 							}
 
-							if (need_password) {
-								var password = prompt('Votre mot de passe (attention, votre mot de passe n\'est pas masqué, au moins 6 caractères)', "");
+							AR.PUT('api/index.php?res=update_account', {email: email, password: password}, function (data){
 
-								if (password == null || password.length < 6) {
-									throw "canceled";
-								}
+								if(data == "ok"){
+									alert('Modifié avec suucès.');
+									alert('Reconnectez vous avec vos nouveaux indentifiants');
 
-								var password2 = prompt('Votre mot de passe (répeter) (attention, votre mot de passe n\'est pas masqué)', "");
+									window.location.href= '#page=login';
 
-								if (password == password2) {
-									new_password = password;
-								} else {
-									throw "error";
-								}
-
-							}
-
-							AR.PUT("api/index.php?res=update_account", function () {
-								var array = {};
-								array["email"] = new_email;
-								if (new_password != none_var) {
-									array["password"] = new_password;
-								}
-								return array;
-							}(), function (data) {
-
-								if (data == "ok") {
-									alert('Merci de vous reconnecter avec vos nouveaux identifiants');
-									window.location.reload(true);
 								}
 
 							});
 
+						}, abort);
 
-						} else {
+					}, abort);
 
-							throw "canceled";
 
-						}
-					} else {
+				}, abort);
 
-						throw "canceled";
-
-					}
-				} catch (error) {
-					alert('Opération annulée avec succès à la suite d\'une action de l\'utilisateur ou suite à une erreur.');
-				}
-
-			} else {
-
-				alert("Vous n'êtes donc pas autorisé à modifier votre adresse email ...");
-
-			}
+			}, abort);
 
 		});
 
@@ -1432,7 +1392,7 @@ ExtJsPlugIn.showError = function (text) {
 	this.html('<div class="error">' + text + '</div>' + this.html());
 }
 
-ExtJsPlugIn.input = function (text, value) {
+ExtJsPlugIn.input = function (text, value, type) {
 	var element = this.child("div");
 	element.addClass('field');
 
@@ -1444,6 +1404,9 @@ ExtJsPlugIn.input = function (text, value) {
 	element_input.addClass('input');
 	if (value != undefined) {
 		element_input.node.value = value;
+	}
+	if (type != undefined) {
+		element_input.node.type = type;
 	}
 
 	view.addInputAnimations();
@@ -1531,4 +1494,54 @@ ExtJsPlugIn.selectArray = function (text, array, texts) {
 	element_input.node.blur();
 
 	return [element_input, element];
+}
+
+view.newPopup = function (text, type, callback, abort) {
+
+	var mask = $('body').child('div');
+	mask.css('position', "fixed");
+	mask.css('z-index', "99");
+	mask.css('top', "0");
+	mask.css('left', "0");
+	mask.css("right", "0");
+	mask.css('bottom', "0");
+	mask.css("background", "rgba(0,0,0,0.15)");
+
+	var popup = $("body").child('div');
+	popup.addClass('element')
+	popup.css('position', "fixed");
+	popup.css('z-index', "100");
+	popup.css('top', "50%");
+	popup.css('left', "50%");
+	popup.css('width', "300px");
+	popup.css('height', "110px");
+	popup.css('transform', "translateX(-50%) translateY(-50%)");
+
+	mask.click(function () {
+		mask.remove();
+		popup.remove();
+		abort();
+	});
+
+	var input = popup.input(text, "", type)[0];
+
+	input.node.focus();
+
+	var submit = popup.child('button');
+
+	submit.addClass('btn');
+
+	submit.html('Continuer');
+
+	submit.css('position', "absolute");
+
+	submit.css("right", "5px");
+	submit.css('bottom', "10px");
+
+	submit.click(function () {
+		mask.remove();
+		popup.remove();
+		callback(input.node.value);
+	});
+
 }

@@ -579,7 +579,9 @@ if ($method == "PUT") {
 
 		]);
 
-		if(strpos($user_informations["email"], "@indse.be") === false){
+		
+
+		if(strpos($user_informations[0]->mail, "@indse.be") === false){
 			exit('Update error, invalid email adress');
 		}
 

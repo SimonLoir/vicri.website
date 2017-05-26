@@ -176,7 +176,7 @@ var view = {
 
 			e.child("br");
 
-			e.child('button').addClass('disabled').html('modifier mes informations').click(function () {
+			e.child('button').addClass('btn').html('modifier mes informations').click(function () {
 				window.location.hash = "page=update_account";
 			});
 
@@ -505,7 +505,12 @@ var view = {
 			var e_account_link = e_accounts.child('a');
 			e_account_link.node.href = "#page=account";
 			e_account_link.addClass('btn2');
-			e_account_link.html("accéder à mon compte");
+			e_account_link.html("mon compte");
+
+			var e_account_link_lo = e_accounts.child('a');
+			e_account_link_lo.node.href = "api/index.php?res=logout";
+			e_account_link_lo.addClass('btn2');
+			e_account_link_lo.html("Me déconnecter");
 		} else {
 			var e_account_link = e_accounts.child('a');
 			e_account_link.node.href = "#page=login";
@@ -553,7 +558,7 @@ var view = {
 			var open = btns.child("a");
 			open.addClass('btn2');
 
-			open.html("accéder aux fichiers");
+			open.html("voir le projet");
 			open.node.href = project.link;
 
 		}
@@ -1133,7 +1138,7 @@ var view = {
 								already_manager.css('right', '15px');
 								already_manager.css('transform', 'translateY(-50%)');
 							} else {
-								if (user.mail.indexOf('gmail.com') >= 0) {
+								if (user.mail.indexOf('indse.be') < 0) {
 									var wrong_email_adress = user_div.child('span').html("Action impossible");
 									wrong_email_adress.css('position', 'absolute');
 									wrong_email_adress.css('top', '50%');

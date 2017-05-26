@@ -162,19 +162,26 @@ var view = {
 
 		e.child('br');
 
-		e.child('span').html('Google Sign In : activé, vous pouvez vous connecter avec votre compte INDSé via le menu de connexion (se connecter avec google)');
+		if(user.mail.indexOf("@indse.be") >= 0){
+			e.child('span').html('Google Sign In : activé, vous pouvez vous connecter avec votre compte INDSé via le menu de connexion (se connecter avec google)');
 
-		e.child('br');
+			e.child('br');
 
-		e.child("br");
+			e.child("br");
 
-		e.child('button').addClass('disabled').html('modifier mes informations').click(function () {
-			window.location.hash = "page=update_account";
-		});
+			e.child('button').addClass('disabled').html('modifier mes informations').click(function () {
+				window.location.hash = "page=update_account";
+			});
 
-		e.child('button').addClass('disabled').html('mettre à jour mon mot de passe').click(function () {
-			window.location.hash = "page=update_password";
-		});
+		}else if(user.mail.indexOf("@gmail.com") >= 0){
+			e.child('span').html('Google Sign In : activé, vous pouvez vous connecter avec votre compte GMAIL via le menu de connexion (se connecter avec google)');
+			e.child("br");e.child("br");
+		}else{
+			e.child('span').html('Google Sign In : désactivé, vous devez utiliser une autre méthode de connexion (Me connecter autrement)');
+			e.child("br");e.child("br");
+		}
+
+		
 	}
 	,//createAccountUpdatePage
 	createAccountUpdatePage: function () {
@@ -491,6 +498,19 @@ var view = {
 		}
 
 
+		var e_github = container.child("div");
+		e_github.node.style.display = "inline-block";
+		e_github.addClass('grid_element');
+
+		e_github.child('span').html('Github');
+
+		e_github.child('p').html('Vous pouvez retrouver la totalité du projet vicri.esy.es sur Github, voir son code source, sa documentation, le fonctionnement de son API, etc...').addClass('home_e_p');
+
+		var e_github_link = e_github.child('a');
+		e_github_link.node.href = "https://github.com/SimonLoir/vicri2.0";
+		e_github_link.addClass('btn2');
+		e_github_link.html("Retrouver sur Github");
+
 	}
 	, createOtherProjectsPage: function (data) {
 		var container = $('.content');
@@ -517,7 +537,7 @@ var view = {
 			var open = btns.child("a");
 			open.addClass('btn2');
 
-			open.html("Accèder aux fichiers");
+			open.html("accéder aux fichiers");
 			open.node.href = project.link;
 
 		}
@@ -634,7 +654,7 @@ var view = {
 		google_login.node.href = "google";
 		google_login.addClass('btn');
 
-		var login_without_google = e.child('button').html('Me connecter avec un autre compte');
+		var login_without_google = e.child('button').html('Me connecter autrement');
 		login_without_google.addClass('btn');
 
 
@@ -899,7 +919,7 @@ var view = {
 
 		e.child('h2').html('Publier un projet.');
 
-		e.child('p').html('Pour publier votre projet, vous devez le mettre en ligne sur une autre plateforme : ex GitHub(code) ou sur un cloud (Dropbox, Google Drive, OneDrive)');
+		e.child('p').html('Pour publier votre projet, vous devez le mettre en ligne sur une autre plateforme : ex GitHub(code) ou sur un cloud (Dropbox, Google Drive, OneDrive). Si vous avez créé un projet de type 3D, publiez les fichiers sur un cloud afin que tous puissent y accéder.');
 
 
 
@@ -910,6 +930,9 @@ var view = {
 		var result = e.child('iframe');
 		result.css('height', "200px");
 		result.css('width', "300px");
+
+		var pxx = e.child('p').html('Faites une capture d\'écran de votre projet et mettez la en ligne avec ceci : ' );
+			pxx.child('button').html('Publier une capture d\'écran');
 
 		var title = e.input('Nom du projet');
 		var description = e.textarea('Description du projet');

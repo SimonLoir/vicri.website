@@ -168,7 +168,7 @@ if ($method == "GET") {
 	}elseif($res == "users"){
 
 		$users = $db->query('SELECT id, name, firstname, mail, pseudo FROM users');
-
+		
 		 exit(json_encode($users));
 	}elseif ($res == "photos_folders"){
 
@@ -573,11 +573,22 @@ if ($method == "PUT") {
 			exit('error');
 		}
 
+		$user_informations = $db->query('SELECT mail FROM users WHERE id = :user_id', [
+
+				"prepare" => [":user_id" => $_SESSION['user_id']]
+
+		]);
+
+		if(strpos($user_informations["email"], "@indse.be") === false){
+			exit('Update error, invalid email adress');
+		}
+
 		$user = $_SESSION['user_id'];
 
 		$update = $db->query('UPDATE users SET mail = :email WHERE id = :uid', [
 			"prepare" => [":email" => $_POST["email"], ":uid" => $user], "result" => true
 		]);
+
 		if(!$update){
 			exit('error u');
 		}

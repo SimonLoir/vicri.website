@@ -15,6 +15,7 @@ var view = {
 	 * @param {view~createNewEventCallback|Function} callback that is called when the suer submit the form 
 	 */
 	createNewEventPage: function (callback) {
+		
 
 		var container = $('.content');
 
@@ -22,6 +23,12 @@ var view = {
 			container.showError('Vous devez être connecté !');
 			view.load.hide();
 			return false;
+		}
+
+		if (user.mail.indexOf("indse.be") < 0) {
+			$('.content').showError('Votre adresse email n\'est pas éligible à la création d\'events');
+			view.load.hide();
+			return;
 		}
 
 		var e = container.child("div");
@@ -195,6 +202,15 @@ var view = {
 
 			return false;
 		}
+
+		if (user.mail.indexOf("indse.be") < 0) {
+			$('.content').showError('Vous ne pouvez pas modifier votre adresse email, votre adresse n\'est pas une adresse @indse.be');
+			view.load.hide();
+			return;
+		}
+
+
+		
 
 		var e = container.child("div");
 
@@ -554,7 +570,7 @@ var view = {
 
 		var container = $(".content").child('div');
 
-		if (user.mail.indexOf("gmail.com") >= 0) {
+		if (user.mail.indexOf("indse.be") < 0) {
 			$('.content').showError('Votre adresse email n\'est pas éligible à la création de projets');
 			return;
 		}

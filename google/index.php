@@ -1,5 +1,5 @@
 <?php
-echo "<h1>si vous avez une erreur, rechargez la page, on sait jamais :-)</h1> ";
+echo "<h1>si vous avez une erreur, rechargez la page, on sait jamais :-)</h1> <script>window.location.reload();</script>";
 require 'vendor/autoload.php';
 
 session_start();

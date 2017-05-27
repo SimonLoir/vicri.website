@@ -496,7 +496,6 @@ if ($method == "POST") {
 
 			$extension =  array_reverse(explode( ".", $filename))[0];
 
-			$extension = strtolower($extension);
 
 			if(strtolower($extension)  == "php"){
 				exit("LOL, sérieux là ? Un fichier PHP ...");

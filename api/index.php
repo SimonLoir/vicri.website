@@ -451,6 +451,67 @@ if ($method == "POST") {
 		}else{
 			exit(json_encode("serror"));
 		}
+	}elseif ($res == "img_upload") {
+		if(!empty($_FILES) && isset($_GET["id"])){
+
+			$project = $db->query('SELECT * FROM projects WHERE id = :project_id', [
+				"class" => "project",
+				"prepare" => [":project_id" => $_GET['id']],
+				"one" => true
+			]);
+
+			$project->clientFormat();
+
+			if ($project == "UError") {
+				exit("Vous n'avez pas le droit de publier une image pour ce projet");
+			}
+
+			$file = $_FILES["file"];
+			$filetemp = $file["tmp_name"];
+			$filename = $file["name"];
+			$filesize = $file["size"];
+			$filetype = $file["type"];
+			$error = $file["error"];
+
+			if($error != 0 || !$filetemp){
+
+				echo "Erreur : can't upload";
+				exit();
+
+			}
+
+			$allowed_extensions = [
+				"jpeg",
+				"jpg",
+				"png",
+				"gif"
+			];
+
+			$extension =  array_reverse(explode( ".", $filename))[0];
+			
+			if(strtolower($extension)  == "php"){
+				exit("LOL, sérieux là ? Un fichier PHP ...");
+			}
+
+			if(!in_array(strtolower($extension), $allowed_extensions)){
+				exit("Ce type de fichier n'est pas supporté ..., est-ce une image ?" . $extension . $filename);
+			}
+
+
+			$new_name = "../resources/images/" . "project_image_" . $_GET["id"] . "." . $extension;
+
+			if(is_file($new_name)){
+				exit('Cette image a déjà été uploadée, code erreur à communiquer à votre administrateur: ' . "iu-ced-fae-".$_GET["id"]); //Image Upload Create_End_Project File Already Exists - Project ID
+			}
+
+			if(move_uploaded_file($filetemp, $new_name)){
+				exit('ok');
+			}else{
+				exit("Erreur lors de la mise en ligne de l'image sur le serveur");
+			}
+
+		}
+
 	}
 }
 

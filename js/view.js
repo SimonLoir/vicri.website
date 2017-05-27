@@ -15,7 +15,7 @@ var view = {
 	 * @param {view~createNewEventCallback|Function} callback that is called when the suer submit the form 
 	 */
 	createNewEventPage: function (callback) {
-		
+
 
 		var container = $('.content');
 
@@ -169,7 +169,7 @@ var view = {
 
 		e.child('br');
 
-		if(user.mail.indexOf("@indse.be") >= 0){
+		if (user.mail.indexOf("@indse.be") >= 0) {
 			e.child('span').html('Google Sign In : activé, vous pouvez vous connecter avec votre compte INDSé via le menu de connexion (se connecter avec google)');
 
 			e.child('br');
@@ -180,15 +180,15 @@ var view = {
 				window.location.hash = "page=update_account";
 			});
 
-		}else if(user.mail.indexOf("@gmail.com") >= 0){
+		} else if (user.mail.indexOf("@gmail.com") >= 0) {
 			e.child('span').html('Google Sign In : activé, vous pouvez vous connecter avec votre compte GMAIL via le menu de connexion (se connecter avec google)');
-			e.child("br");e.child("br");
-		}else{
+			e.child("br"); e.child("br");
+		} else {
 			e.child('span').html('Google Sign In : désactivé, vous devez utiliser une autre méthode de connexion (Me connecter autrement)');
-			e.child("br");e.child("br");
+			e.child("br"); e.child("br");
 		}
 
-		
+
 	}
 	,//createAccountUpdatePage
 	createAccountUpdatePage: function () {
@@ -210,7 +210,7 @@ var view = {
 		}
 
 
-		
+
 
 		var e = container.child("div");
 
@@ -245,23 +245,23 @@ var view = {
 
 						view.newPopup('Votre mot de passe (répétez)', "password", function (password2) {
 
-							if(password != password2){
+							if (password != password2) {
 								alert('Vos mots de passe doivent être identiques');
 								return abort();
 							}
 
-							if(password.length < 6){
+							if (password.length < 6) {
 								alert('Un mot de passe sécurisé compte au moins 6 caractères');
-								return abort();								
+								return abort();
 							}
 
-							AR.PUT('api/index.php?res=update_account', {email: email, password: password}, function (data){
+							AR.PUT('api/index.php?res=update_account', { email: email, password: password }, function (data) {
 
-								if(data == "ok"){
+								if (data == "ok") {
 									alert('Modifié avec suucès.');
 									alert('Reconnectez vous avec vos nouveaux indentifiants');
 
-									window.location.href= '#page=login';
+									window.location.href = '#page=login';
 
 								}
 
@@ -952,8 +952,10 @@ var view = {
 		result.css('height', "200px");
 		result.css('width', "300px");
 
-		var pxx = e.child('p').html('Faites une capture d\'écran de votre projet et mettez la en ligne avec ceci : ' );
-			pxx.child('button').html('Publier une capture d\'écran');
+		var pxx = e.child('p').html('Faites une capture d\'écran de votre projet et mettez la en ligne avec ceci : ');
+		var btn_upload = pxx.child('input');
+		btn_upload.node.type = "file";
+
 
 		var title = e.input('Nom du projet');
 		var description = e.textarea('Description du projet');
@@ -972,13 +974,58 @@ var view = {
 				return false;
 			}
 
-			view.load.show('Nous publions votre projet');
+			view.load.show('Publication de l\'image');
 
-			callback({
-				id: vvid,
-				title: vti,
-				description: vde
-			});
+			/* image upload section */
+
+			var file = btn_upload.node.files[0];
+			if(file == null){
+				alert('Erreur, vous devez uploader une capture');
+				view.load.hide();
+				return;
+			}
+
+			var data = new FormData();
+			data.append("file", file);
+
+			var a = new XMLHttpRequest();
+			a.upload.addEventListener('progress', function (event) {
+				view.load.hide();
+				view.load.show(event.loaded + ' bytes loaded');
+			}, false);
+			a.addEventListener('load', function (event) {
+				if (event.target.responseText == "ok") {
+					view.load.hide();
+
+					view.load.show('Publication de votre projet');
+
+					callback({
+						id: vvid,
+						title: vti,
+						description: vde
+					});
+				}else{
+					alert('Le serveur a retourné une erreur : ' + event.target.responseText);
+					view.load.hide();
+					
+				}
+			}, false);
+			a.addEventListener('error', function () {
+
+			}, false);
+			a.addEventListener('abort', function () {
+
+			}, false);
+
+			a.open('POST', "api/index.php?res=img_upload&id=" + page.get('pid'));
+
+			a.send(data);
+
+
+			/* image upload section end */
+
+
+
 
 		});
 

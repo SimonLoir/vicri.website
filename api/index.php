@@ -413,6 +413,10 @@ if ($method == "POST") {
 			exit(json_encode('error'));
 		}
 
+		if (!isset($_POST['capture'])  || empty($_POST['capture'])) {
+			exit(json_encode('error'));
+		}
+
 		$project_id = $_GET['pid'];
 
 		$id = $_POST['id'];
@@ -420,6 +424,8 @@ if ($method == "POST") {
 		$title = $_POST['title'];
 
 		$description = $_POST['description'];
+
+		$capture = $_POST['capture'];
 
 		$project = $db->query('SELECT managers FROM projects WHERE id = :project_id', [
 			"class" => "project",
@@ -438,12 +444,13 @@ if ($method == "POST") {
 			exit('error');
 		}
 
-		if($db->query("INSERT INTO other_projects VALUES (:pid, :title, :description, :id)", [
+		if($db->query("INSERT INTO other_projects VALUES (:pid, :title, :description, :id, :capture)", [
 			"prepare" => [
 				":pid" => $project_id,
 				":id" => $id,
 				":title" => $title,
-				":description" => $description
+				":description" => $description,
+				":capture" => $capture
 			],
 			"result" => true
 		])){
@@ -488,7 +495,9 @@ if ($method == "POST") {
 			];
 
 			$extension =  array_reverse(explode( ".", $filename))[0];
-			
+
+			$extension = strtolower($extension);
+
 			if(strtolower($extension)  == "php"){
 				exit("LOL, sérieux là ? Un fichier PHP ...");
 			}

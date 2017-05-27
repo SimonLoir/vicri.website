@@ -538,28 +538,29 @@ var view = {
 
 
 		for (var i = 0; i < data.length; i++) {
-			var project = data[i];
-			var e = container.child('div');
+			var element = data[i];
 
-			e.addClass("element");
-			e.addClass("project");
+			var folder = container.child('div').addClass('img_folder');
+			folder.css('display', "inline-block");
 
-			var title = e.child('span');//
-			title.html(project.name);
+			var img = folder.child('div').addClass('img');
+			img.css('background', "url(resources/images/" + element.image + ") no-repeat");
+			img.css('background-position', "center");
+			img.css('background-size', "cover");
 
-			var description = e.child('p');
-			description.html(project.description.substr(0, 250));
+			var text_area = folder.child('div').addClass('text-area');
 
-			var btns = e.child('div');
-			btns.css('display', "block");
-			btns.css('height', "32px");
-			btns.addClass('bottom');
+			text_area.child('span').html(element.name).addClass('title');
 
-			var open = btns.child("a");
-			open.addClass('btn2');
+			text_area.child('div').html(element.description.substr(0, 200)).addClass('description');
 
-			open.html("voir le projet");
-			open.node.href = project.link;
+			var btn_containers = folder.child('div');
+			btn_containers.addClass("btn_container");
+
+			var open = btn_containers.child("a");
+			open.addClass('btn2')
+			open.html('Voir plus');
+			open.node.href = element.link;
 
 		}
 	}
@@ -1002,7 +1003,8 @@ var view = {
 					callback({
 						id: vvid,
 						title: vti,
-						description: vde
+						description: vde,
+						capture: "project_image_" + page.get('pid') + "." + file.name.split('.').reverse()[0]
 					});
 				}else{
 					alert('Le serveur a retourné une erreur : ' + event.target.responseText);

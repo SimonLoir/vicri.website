@@ -97,7 +97,7 @@ var controller = {
 
 		} else if (page.getTarget() == "upload_video") {
 
-			if (page.get('pid') != undefined) {
+			if (page.get('pid') != "") {
 				view.publish_video(model.publish_video);
 			} else {
 				$(".content").showError('Une erreur est survenue.');
@@ -109,8 +109,16 @@ var controller = {
 
 		} else if (page.getTarget() == "create_end_project") {
 
-			if (page.get('pid') != undefined) {
+			if (page.get('pid') != "") {
 				view.publish_project(model.publish_project);
+			} else {
+				$(".content").showError('Une erreur est survenue.');
+			}
+
+		} else if (page.getTarget() == "create_photo_folder") {
+
+			if (page.get('pid') != "") {
+				view.publish_photos(model.publish_photos);
 			} else {
 				$(".content").showError('Une erreur est survenue.');
 			}

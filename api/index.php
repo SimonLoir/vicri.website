@@ -482,7 +482,8 @@ if ($method == "POST") {
 
 			if($error != 0 || !$filetemp){
 
-				echo "Erreur : can't upload";
+				echo "Erreur : can't upload" . $error;
+				echo json_encode($file);
 				exit();
 
 			}
@@ -506,7 +507,11 @@ if ($method == "POST") {
 			}
 
 
-			$new_name = "../resources/images/" . "project_image_" . $_GET["id"] . "." . $extension;
+			if(!isset($_GET["folder"])){
+				$new_name = "../resources/images/" . "project_image_" . $_GET["id"] . "." . $extension;
+			}else{
+				$new_name = "../resources/images/" . "folder_" . $_GET["id"] . "." . $extension;				
+			}
 
 			if(is_file($new_name)){
 				exit('Cette image a déjà été uploadée, code erreur à communiquer à votre administrateur: ' . "iu-ced-fae-".$_GET["id"]); //Image Upload Create_End_Project File Already Exists - Project ID

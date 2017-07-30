@@ -119,6 +119,16 @@
 				</span>
 			</div>
 		</div>
+		<div class="section">
+			<h3 id="calendar">?res=calendar</h3>
+			<div>
+				<p>Gets all the events that are into the calendar</p>
+				<span>Return => [{id (int), name (string), firstname (string), mail (string), pseudo (string)}]
+				<br /><b>OR</b><br />
+				[{id (int), title (string), description (string), date (string), global (bool - 0 or 1)}, {event}]
+				</span>
+			</div>
+		</div>
 	</div>
 	<h2 class="post_title">POST method</h2>
 	<div class="post">

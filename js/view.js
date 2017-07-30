@@ -1038,6 +1038,100 @@ var view = {
 
 	}
 	,
+	publish_photos : function ( ) {
+		view.load.hide();
+
+		if (user.isConnected != true) {
+			$('.content').showError('Vous devez être connecté');
+			return false;
+		}
+
+		var container = $(".content").child('div');
+
+		var e = container.child('div').addClass('element');
+
+		e.child('h2').html('Publier un projet de type photo.');
+
+		var pxx = e.child('p').html('Publiez votre projet ici : ');
+		var btn_upload = pxx.child('input');
+		btn_upload.node.type = "file";
+
+
+		var title = e.input('Nom du projet');
+		var description = e.textarea('Description du projet');
+
+		var send = e.child('button');
+		send.addClass('btn');
+		send.html('Publier');
+		
+		view.addInputAnimations();
+
+		send.click(function () {
+			var folder_title = title[0].node.value.trim();
+			var folder_description = description[0].node.value.trim();
+
+			if (folder_title == "" ||  folder_description == "") {
+				alert('Merci de remplir tous les champs')
+				return false;
+			}
+
+			view.load.show('Publication de l\'image');
+
+			/* image upload section */
+
+			var file = btn_upload.node.files[0];
+			if(file == null){
+				alert('Erreur, vous devez uploader une image');
+				view.load.hide();
+				return;
+			}
+
+			var data = new FormData();
+			data.append("file", file);
+
+			var a = new XMLHttpRequest();
+			a.upload.addEventListener('progress', function (event) {
+				view.load.hide();
+				view.load.show(event.loaded + ' bytes loaded');
+			}, false);
+			a.addEventListener('load', function (event) {
+				if (event.target.responseText == "ok") {
+					view.load.hide();
+
+					view.load.show('Publication de votre projet');
+
+					/*callback({
+						id: vvid,
+						title: vti,
+						description: vde,
+						capture: "project_image_" + page.get('pid') + "." + file.name.split('.').reverse()[0]
+					});*/
+					alert('Fonctionnalité non implémentée');
+				}else{
+					alert('Le serveur a retourné une erreur : ' + event.target.responseText);
+					view.load.hide();
+					
+				}
+			}, false);
+			a.addEventListener('error', function () {
+
+			}, false);
+			a.addEventListener('abort', function () {
+
+			}, false);
+
+			a.open('POST', "api/index.php?res=img_upload&id=" + page.get('pid') + "&folder");
+
+			a.send(data);
+
+
+			/* image upload section end */
+
+
+
+
+		});
+	},
 
 	/* ----------------------------------------------------------  /*
 			View project page creation (as project manager)

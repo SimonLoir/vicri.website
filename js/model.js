@@ -310,8 +310,12 @@ var model = {
 			//
 		});
 	},
-	publish_project : function (d){
-		AR.POST('api/index.php?res=publish_other&pid=' + page.get('pid') + '&manager=true', d, function (data) {
+
+	/**
+	 * publish_photos
+	 */
+	publish_photos : function (d){
+		AR.POST('api/index.php?res=publish_folder&pid=' + page.get('pid') + '&manager=true', d, function (data) {
 			view.load.hide();
 			try {
 				var server_response = JSON.parse(data);

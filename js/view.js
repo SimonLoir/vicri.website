@@ -1038,7 +1038,7 @@ var view = {
 
 	}
 	,
-	publish_photos : function ( ) {
+	publish_photos : function ( callback ) {
 		view.load.hide();
 
 		if (user.isConnected != true) {
@@ -1100,13 +1100,12 @@ var view = {
 
 					view.load.show('Publication de votre projet');
 
-					/*callback({
-						id: vvid,
-						title: vti,
-						description: vde,
-						capture: "project_image_" + page.get('pid') + "." + file.name.split('.').reverse()[0]
-					});*/
-					alert('Fonctionnalité non implémentée');
+					callback({
+						title: folder_title,
+						description: folder_description,
+						capture: "folder_" + page.get('pid') + "." + file.name.split('.').reverse()[0]
+					});
+					console.log(callback);
 				}else{
 					alert('Le serveur a retourné une erreur : ' + event.target.responseText);
 					view.load.hide();
@@ -1398,9 +1397,10 @@ var view = {
 			var element = data[i];
 
 			var folder = container.child('div').addClass('img_folder');
+				folder.css('display', "inline-block");
 
 			var img = folder.child('div').addClass('img');
-			img.css('background', "url(" + element.cover + ") no-repeat");
+			img.css('background', "url(resources/images/" + element.cover + ") no-repeat");
 			img.css('background-position', "center");
 			img.css('background-size', "cover");
 
@@ -1408,15 +1408,23 @@ var view = {
 
 			text_area.child('span').html(element.title).addClass('title');
 
-			text_area.child('div').html(element.description.substr(0, 200)).addClass('description');
+			text_area.child('div').html(element.description.substr(0, 300)).addClass('description');
 
 			var btn_containers = folder.child('div');
 			btn_containers.addClass("btn_container");
 
-			var open = btn_containers.child("a");
+			/*var open = btn_containers.child("a");
 			open.addClass('btn2')
 			open.html('Afficher les images');
-			open.node.href = "#page=view_folder;folder_id=" + element.id;
+			open.node.href = "#page=view_folder;folder_id=" + element.id;*/
+
+			var see_full_description = btn_containers.child("a");
+			see_full_description.addClass('btn2')
+			see_full_description.html('Description complète');
+			see_full_description.node.setAttribute("id", i);
+			see_full_description.click(function () { 
+				alert(data[$(this).node.getAttribute("id")].description);
+			});
 
 		}
 	},

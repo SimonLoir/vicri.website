@@ -458,6 +458,63 @@ if ($method == "POST") {
 		}else{
 			exit(json_encode("serror"));
 		}
+	}elseif($res == "publish_folder"){
+
+		if (!isset($_GET['pid'])) {
+			exit(json_encode('error'));
+		}
+
+		if (!isset($_POST['title'])  || empty($_POST['title'])) {
+			exit(json_encode('error'));
+		}
+
+		if (!isset($_POST['description'])  || empty($_POST['description'])) {
+			exit(json_encode('error'));
+		}
+
+		if (!isset($_POST['capture'])  || empty($_POST['capture'])) {
+			exit(json_encode('error'));
+		}
+
+		$project_id = $_GET['pid'];
+
+		$title = $_POST['title'];
+
+		$description = $_POST['description'];
+
+		$capture = $_POST['capture'];
+
+		$project = $db->query('SELECT managers FROM projects WHERE id = :project_id', [
+			"class" => "project",
+			"prepare" => [":project_id" => $project_id],
+			"one" => true
+		]);
+
+		if ($project->clientFormat() == "UError") {
+			exit(json_encode('error'));
+		}
+		
+		$folder = $db->query('SELECT * FROM photos_folders WHERE id = :project_id', [
+			"prepare" => [":project_id" => $project_id]
+		]);
+		if ($folder != null) {
+			exit('error');
+		}
+
+		if($db->query("INSERT INTO photos_folders VALUES (:pid, :title, :description, :capture)", [
+			"prepare" => [
+				":pid" => $project_id,
+				":title" => $title,
+				":description" => $description,
+				":capture" => $capture
+			],
+			"result" => true
+		])){
+			exit(json_encode("ok"));
+		}else{
+			exit(json_encode("serror"));
+		}
+
 	}elseif ($res == "img_upload") {
 		if(!empty($_FILES) && isset($_GET["id"])){
 

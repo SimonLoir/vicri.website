@@ -10,7 +10,15 @@ if (isset($_SESSION['user_id'])) {
 
 $client = new Google_Client();
 $client->setAuthConfigFile('client_secret.json');
-$client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'].'/vicri/google');
+if($_SERVER['HTTP_HOST'] == "simonloir.be"){
+  $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'].'/vicri/google');
+}elseif($_SERVER['HTTP_HOST'] == "vicri.simonloir.be"){
+  $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'].'/google');
+}elseif($_SERVER['HTTP_HOST'] == "localhost"){
+    $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'].'/vicri/vicri2.0/google');
+}else{
+    $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'].'/vicri/google');
+}
 $client->setScopes('email');
 
 if (isset($_REQUEST['logout'])) {

@@ -5,90 +5,102 @@
 	<title>Document</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="js/extjs.js"></script>
+	<style>
+	b{
+		color:red;
+	}	
+	body{
+		font-family: sans-serif;
+	}
+	</style>
 </head>
 <body>
-	
+	<div class="logs">
 
+	</div>
 </body>
 <script>
-ExtJsPlugIn.htm = function (html) {
-	this.html(this.html() +"<br />" +  html);
-}
 
-ExtJsPlugIn.undefined = function (res) {
-	let html = "<p><b style=\"color:crimson;\"> => Alert : </b> " + res + " is undefined</p>"
-	this.html(this.html() +  html);
-}
-		AR.GET('api?res=projects', function (string) {
-			var test = $("body").child('div');
-			try {
-    			var data = JSON.parse(string);
-    			var error = false;
+	try_api('api?res=projects', "GET", {
+		for:0,
+		try: [
+			"id", "name", "managers", "progression", "pined", "shortDescription", "user_is_manager"
+		]
+	});
 
-    			test.html('<h2>?res=projects<h2>');
+	try_api('api?res=project&id=1', "GET", {
+		try: [
+			"error", "id", "name", "managers","type", "progression", "pined", "description","shortDescription", "goals", "links"
+		]
+	});
 
-    			if (data[0] == undefined) {
-    				test.undefined("data[0]")
-    			}else{
-    				test.htm("Ok : data[0] is defined => " + JSON.stringify(data[0]));
-    			}
+	try_api('api?res=videos', "GET", {
+		for: 0 ,
+		try: [
+			"id", "url", "provider", "title",  "description" 
+		]
+	});
 
-    			var x = data[0];
+	function try_api( url , method , options, xhttp_otions) {
+		if(xhttp_otions == undefined){
+			AR[method]( url , function(data) {
+				result(data, options, url);
+			});
+		}else{
+			AR[method]( url , xhttp_otions ,  function(data) {
+				result(data, options, url);
+			});			
+		}
+	}
 
-    			if (x.id == undefined) {
-    				test.undefined("data[0].id");error = true;
-    			}else{
-    				test.htm("Ok : data[0].id is defined => " + JSON.stringify(data[0].id));
-    			}
+	function echo (text){
+		$('.logs').html($('.logs').html() + text + '<br />');
+	}
 
-    			if (x.progression == undefined) {
-    				test.undefined("data[0].progression");error = true;
-    			}else{
-    				test.htm("Ok : data[0].progression is defined => " + JSON.stringify(data[0].progression));
-    			}
+	function result ( data , options , url) {
 
-    			if (x.pined == undefined) {
-    				test.undefined("data[0].pined");error = true;
-    			}else{
-    				test.htm("Ok : data[0].pined is defined => " + JSON.stringify(data[0].pined));
-    			}
+			echo ( "For " + url );
+			
 
-    			if (x.managers == undefined) {
-    				test.undefined("data[0].managers");error = true;
-    			}else{
-    				test.htm("Ok : data[0].managers is defined => " + JSON.stringify(data[0].managers));
-    			}
+			var data = JSON.parse(data);
 
-    			if (x.user_is_manager == undefined) {
-    				test.undefined("data[0].user_is_manager");error = true;
-    			}else{
-    				test.htm("Ok : data[0].user_is_manager is defined => " + JSON.stringify(data[0].user_is_manager));
-    				if (typeof(data[0].user_is_manager) == "boolean") {
-    					test.htm("           => Ok : typeof -> data[0].user_is_manager => boolean");
-    				}else{
-    					test.htm("           => Alert : typeof -> data[0].user_is_manager => <b>!= boolean</b>");
-    				}
-    			}
+			if( options != undefined ){
+				
+				if( options.for != undefined ){
 
-    			if (x.name == undefined) {
-    				test.undefined("data[0].name");error = true;
-    			}else{
-    				test.htm("Ok : data[0].name is defined => " + JSON.stringify(data[0].name));
-    			}
+					try {
+						data = data[options.for];
+					} catch (error) {
+						echo ( "<b>Options error : index" + options.for + " is undefined in api response</b>" );
+					}
 
+				}
 
+				for (var i = 0; i < options.try.length; i++) {
 
-    			if (error == true) {
-    				test.htm('<b style="color:crimson;">{<br />=>  An error occurred  <=<br />}</b><hr />')
-    			}else{
-    				test.htm('<b style="color:green;">{<br />=>  OK (0 error)  <=<br />}</b><hr />')
-    			}
+					var e = options.try[i];
 
-			}catch(err) {
-    			test.html('error')
+					if( data[e] != undefined ){
+
+						echo ( "<i>Index " + e + " is defined : " + data[e] + "</i>");
+
+					}else{
+						echo ( "<b>Fatal error : index " + e +  " is undefined</b>" );
+					}
+				}
+
+				if(options.try.length == Object.keys(data).length){
+					echo ( "<i>length : ok</i>" );
+				}else{
+					echo ( "<b>error : elements missing, you can ignore this warning if api call is equal to project</b>" );
+					echo ( JSON.stringify(Object.keys(data)) + " != " + JSON.stringify(options.try) );
+				}
+
+			}else{
+				echo ("<b>" + url + " can't try : try_api options are undefined" + "</b>");
 			}
-		});
-
-
+		echo ('');
+		echo ('');
+	}
 </script>
 </html>

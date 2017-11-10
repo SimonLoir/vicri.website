@@ -1052,9 +1052,10 @@ var view = {
 
 		e.child('h2').html('Publier un projet de type photo.');
 
-		var pxx = e.child('p').html('Publiez votre projet ici : ');
+		var pxx = e.child('p').html('Publiez la photo de couverture ici : ');
 		var btn_upload = pxx.child('input');
 		btn_upload.node.type = "file";
+		pxx.child('span').html(' Vous pourrez uploader le reste des images via le paneau de getsion du projet.')
 
 
 		var title = e.input('Nom du projet');

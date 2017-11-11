@@ -571,7 +571,8 @@ if ($method == "POST") {
 			}
 
 			if(is_file($new_name)){
-				exit('Cette image a déjà été uploadée, code erreur à communiquer à votre administrateur: ' . "iu-ced-fae-".$_GET["id"]); //Image Upload Create_End_Project File Already Exists - Project ID
+				unlink($new_name);
+				exit('Cette image a déjà été uploadée, elle vient d\'être supprimée du serveur. Réuploadez votre image. '); //Image Upload Create_End_Project File Already Exists - Project ID
 			}
 
 			if(move_uploaded_file($filetemp, $new_name)){

@@ -941,11 +941,16 @@ var view = {
 
 		e.child('h2').html('Publier un projet.');
 
-		e.child('p').html('Pour publier votre projet, vous devez le mettre en ligne sur une autre plateforme : ex GitHub(code) ou sur un cloud (Dropbox, Google Drive, OneDrive). Si vous avez créé un projet de type 3D, publiez les fichiers sur un cloud afin que tous puissent y accéder.');
+		e.child('p').html('Pour publier votre projet, vous devez le mettre en ligne sur une autre plateforme : ex GitHub(code) ou sur un cloud (Dropbox, Google Drive, OneDrive). Si vous avez créé un projet de type 3D, laissez le texte par défaut pour le champ url. Vous pourrez mettre le fichier 3d de votre projet ainsi que ces textures directement sur le site vicri.');
 
 
 
 		var vid = e.input('URL de partage ou URL de votre dépot git');
+		if(page.get("type") == "3d"){
+			vid[0].node.value = "3d?model=none"
+			view.addInputAnimations();
+			vid[0].node.focus();
+		}
 
 		e.child('p').html('Aperçu :')
 
@@ -1034,7 +1039,6 @@ var view = {
 		vid[0].blur(function () {
 			result.node.src = $(this).node.value;
 		})
-
 
 	}
 	,
@@ -1228,7 +1232,7 @@ var view = {
 				var publish_project = container.child('a');
 				publish_project.html('Publier le projet fini');
 				publish_project.addClass('btn');
-				publish_project.node.href = "#page=create_end_project;pid=" + page.get("pid");
+				publish_project.node.href = "#page=create_end_project;pid=" + page.get("pid") + ";type=" + data.type;
 			}
 		}
 

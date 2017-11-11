@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>vicri object viewer</title>
     <script src="three.js"></script>
 
     <script src="js/loaders/ColladaLoader.js"></script>
@@ -80,7 +80,7 @@
             // collada
 
             var loader = new THREE.ColladaLoader(loadingManager);
-            loader.load('model.dae', function (collada) {
+            loader.load('<?= (isset($_GET["model"]) ? $_GET["model"] : "") ?>', function (collada) {
 
                 object = collada.scene;
 

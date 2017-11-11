@@ -321,7 +321,11 @@ var model = {
 				var server_response = JSON.parse(data);
 
 				if (server_response == "ok") {
-					window.location.href = "#page=project;manager=true;pid=" + page.get('pid');
+					if(confirm('Uploader le reste des images ? OK pour uploader, ANNULER pour accéder au dossier')){
+						window.location.href = "#page=project;manager=true;pid=" + page.get('pid');						
+					}else{
+						window.location.href = "#page=photos";
+					}
 				} else {
 					alert('Une erreur est survenue du côté du serveur');
 				}

@@ -1217,6 +1217,11 @@ var view = {
 				publish_folder.html('Publier les photos');
 				publish_folder.addClass('btn');
 				publish_folder.node.href = "#page=create_photo_folder;pid=" + page.get("pid");
+			}else{
+				var modify_or_upload = container.child('a');
+				modify_or_upload.html('Gérer / uploader les photos');
+				modify_or_upload.addClass('btn');
+				modify_or_upload.node.href = "#page=photos_updater;pid=" + page.get("pid");
 			}
 		} else {
 			if (data.other_folder == undefined) {

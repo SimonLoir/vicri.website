@@ -1059,7 +1059,7 @@ var view = {
 		var pxx = e.child('p').html('Publiez la photo de couverture ici : ');
 		var btn_upload = pxx.child('input');
 		btn_upload.node.type = "file";
-		pxx.child('span').html(' Vous pourrez uploader le reste des images via le paneau de getsion du projet.')
+		pxx.child('span').html(' Vous pourrez uploader le reste des images via le paneau de gestion du projet.')
 
 
 		var title = e.input('Nom du projet');
@@ -1233,6 +1233,11 @@ var view = {
 				publish_project.html('Publier le projet fini');
 				publish_project.addClass('btn');
 				publish_project.node.href = "#page=create_end_project;pid=" + page.get("pid") + ";type=" + data.type;
+			}else if(data.type == "3d"){
+				var publish_3d_files = container.child('a');
+				publish_3d_files.html('Publier les fichiers 3d (.dae)');
+				publish_3d_files.addClass('btn');
+				//publish_3d_files.node.href = "#page=create_end_project;pid=" + page.get("pid") + ";type=" + data.type;
 			}
 		}
 

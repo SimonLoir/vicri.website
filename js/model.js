@@ -408,6 +408,23 @@ var model = {
 				$('.content').html(error.message);
 			}
 		});
+	}, publish_project : function (d) {
+		AR.POST('api/index.php?res=publish_other&pid=' + page.get('pid') + '&manager=true', d, function (data) {
+			view.load.hide();
+			try {
+				var server_response = JSON.parse(data);
+
+				if (server_response == "ok") {
+						window.location.href = "#page=project;manager=true;pid=" + page.get('pid');	
+				} else {
+					alert('Une erreur est survenue du côté du serveur');
+				}
+
+			} catch (error) {
+				alert('Une erreur inconnue est survenue' + error + "\n" + data);
+			}
+			//
+		});
 	}
 }
 

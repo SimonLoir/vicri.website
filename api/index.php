@@ -122,6 +122,10 @@ if ($method == "GET") {
 
 		include 'docu.php';
 
+	}elseif ($res == "unzip") {
+		$zip = new zip();
+
+		$zip->unzip("test.zip", "more", false, false);
 	}elseif ($res == "user_connection_state"){
 
 		if (isset($_SESSION["user_id"])) {

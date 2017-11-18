@@ -74,6 +74,10 @@ var controller = {
 				view.load.hide();
 			}, true);
 
+		} else if(page.getTarget() == "publish_3d_files"){
+
+			view.createPublish3dFilesPage(model.sendZipFile)
+
 		} else if (page.getTarget() == "login") {
 
 			view.createLoginPage(model.login);

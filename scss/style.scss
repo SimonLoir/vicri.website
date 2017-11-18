@@ -72,7 +72,7 @@ body{
     left:0;
     right: 0;
     background: #3f51b5;
-    box-shadow: 0 2px 10px rgba(52, 52, 52, 0.8);
+    box-shadow: 0px 2px 15px rgba(0,0,0,0.55);//0.4
     color: white;
     z-index: 95;
 }
@@ -128,14 +128,18 @@ body{
     padding: 10px;
     box-shadow: 0px 2px 8px rgba(38,38,38,0.25);
     font-family:"Roboto", sans-serif;
+
     &.project{
         width: 300px;height: 250px;
         @media(max-width:600px){
             height: auto;
             margin: 0;
             width: calc(100% - 20px);
-            margin-bottom: 5px;
+            margin-top: -12px;
+            margin-bottom: 14px;
             padding-bottom: 25px;
+            box-shadow: 0px 2px 8px rgba(38,38,38,0.055);
+    
         }
         display: inline-block;
         vertical-align: bottom;
@@ -287,7 +291,18 @@ body{
 
 .element:nth-child(1){
     margin-top: 3px;
+    &.project{
+        margin-top: -10px;
+    }
 }
+
+.element.full-view{
+    position: relative;
+    margin-top: -12px;
+    padding: 25px;
+    min-height: calc(100vh - 112px);
+}
+
 .element .section_title{
     font-family: "Roboto";
     color:#212121;

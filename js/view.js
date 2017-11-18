@@ -32,7 +32,7 @@ var view = {
 		}
 
 		var e = container.child("div");
-		e.addClass('element');
+		e.addClass('element');e.addClass("full-view")
 
 		var form = e.child('form');
 		form.node.autocomplete = "off";
@@ -44,6 +44,7 @@ var view = {
 		var date = new Date();
 
 		var day = form.selectMinMax('Jour', 1, 31);
+		day[1].node.style.marginLeft = "2px"
 
 		var month = form.selectMinMax('Mois', 1, 12);
 
@@ -157,6 +158,8 @@ var view = {
 
 		var e = container.child("div");
 
+		e.addClass("full-view");
+
 		e.addClass('element').css('position', "relative");
 
 		e.child('h2').html(user.firstname + " " + user.name);
@@ -213,6 +216,8 @@ var view = {
 
 
 		var e = container.child("div");
+
+		e.addClass("full-view");
 
 		e.addClass('element').css('position', "relative");
 
@@ -290,6 +295,7 @@ var view = {
 		var container = $('.content');
 
 		var e = container.child("div");
+		e.addClass("full-view")
 		e.addClass('element').css('position', "relative");
 
 		e.child('div').html(today.day).addClass('dayNumber').child('span').html(today.dayName + " " + today.day + " " + today.monthName.toLowerCase()).addClass('plain_text_date');
@@ -353,6 +359,7 @@ var view = {
 
 		var e = container.child("div");
 		e.addClass('element');
+		e.addClass('full-view')
 
 		var result_messages = e.child('div');
 		result_messages.node.id = "x_result_div";
@@ -378,7 +385,7 @@ var view = {
 
 		var send = form.child('button');
 		send.node.type = "submit";
-		send.html('Mettre à jour <i class="material-icons">send</i>');
+		send.html('Mettre à jour');
 		send.addClass('btn');
 
 		form.node.onsubmit = function () {
@@ -878,7 +885,7 @@ var view = {
 
 		var container = $(".content").child('div');
 
-		var e = container.child('div').addClass('element');
+		var e = container.child('div').addClass('element').addClass("full-view")
 
 		e.child('h2').html('Publier une vidéo.');
 
@@ -937,7 +944,7 @@ var view = {
 
 		var container = $(".content").child('div');
 
-		var e = container.child('div').addClass('element');
+		var e = container.child('div').addClass('element').addClass("full-view");
 
 		e.child('h2').html('Publier un projet.');
 
@@ -1052,7 +1059,7 @@ var view = {
 
 		var container = $(".content").child('div');
 
-		var e = container.child('div').addClass('element');
+		var e = container.child('div').addClass('element').addClass("full-view");
 
 		e.child('h2').html('Publier un projet de type photo.');
 
@@ -1143,7 +1150,7 @@ var view = {
 	createProjectAsManager: function (data) {
 		view.load.hide();
 		var container = $('.content').child("div");
-		container.addClass('element');
+		container.addClass('element');container.addClass('full-view');
 		var result_messages = container.child('div');
 		result_messages.node.id = "x_result_div";
 		document.title = "Vicri - projet : " + data.name;
@@ -1237,7 +1244,7 @@ var view = {
 				var publish_3d_files = container.child('a');
 				publish_3d_files.html('Publier les fichiers 3d (.dae)');
 				publish_3d_files.addClass('btn');
-				//publish_3d_files.node.href = "#page=create_end_project;pid=" + page.get("pid") + ";type=" + data.type;
+				publish_3d_files.node.href = "#page=publish_3d_files;pid=" + page.get("pid");
 			}
 		}
 
@@ -1326,22 +1333,39 @@ var view = {
 		});
 
 
-		container.child("br");
-		container.child("br");
+
+		container.child('h2').html('Fiche du projet')		
+
+		console.log(data)
 
 		var project_type = container.child("span");
-		project_type.html('Type de projet :' + data.type);
+		project_type.html('Type de projet : ' + data.type);
 
+		container.child("br");
 		container.child("br");
 
 		var project_progression = container.child("span");
-		project_progression.html('Progression :' + data.progression + " %");
+		project_progression.html('Progression : ' + data.progression + " %");
 
 		var project_short_description = container.child("p");
 		project_short_description.html('Description courte : ' + data.shortDescription);
 
 		var project_description = container.child("p");
-		project_description.html('Description: ' + data.description);
+		project_description.html('Description : ' + data.description);
+
+		var project_goals = container.child("p");
+		project_goals.html('Objectifs : ' + data.goals);
+
+
+	},
+	createPublish3dFilesPage: function () {
+		view.load.hide();
+		var container = $('.content').child("div");
+		container.addClass('element');container.addClass('full-view');
+
+		container.child("h2").html('Uploader un objet 3D');
+
+		container.child('p').html("L'upload d'objet 3D se fait via l'envoi d'un zip. Ce zip doit contenir le modèle 3d au format dae. Ainsi que les différentes textures si elles existent (elles sont souvent dans le même dossier que l'objet 3d). ");
 
 
 	},
@@ -1356,7 +1380,7 @@ var view = {
 		}
 
 		var container = $('.content').child("div");
-		container.addClass('element');
+		container.addClass('element');container.addClass('full-view');
 
 		var image_and_title = container.child('div');
 		image_and_title.createImage(data.name);
@@ -1392,16 +1416,23 @@ var view = {
 			}
 		}
 
-		var project_type = container.child("span");
-		project_type.html('Type de projet :' + data.type);
+		container.child('h2').html('Fiche du projet')
 
+		var project_type = container.child("span");
+		project_type.html('Type de projet : ' + data.type);
+
+		container.child("br"); // On ne le conserve pas dans une variable
 		container.child("br"); // On ne le conserve pas dans une variable
 
 		var project_progression = container.child("span");
-		project_progression.html('Progression :' + data.progression + " %");
+		project_progression.html('Progression : ' + data.progression + " %");
 
 		var project_description = container.child("p");
-		project_description.html('Description: ' + data.description);
+		if(data.description != "/"){
+			project_description.html('Description: ' + data.description);
+		}else{
+			project_description.html('Description: ' + data.shortDescription);
+		}
 	},
 
 	createPhotosFoldersList: function (data) {
@@ -1592,7 +1623,7 @@ var view = {
 
 ExtJsPlugIn.createImage = function (text) {
 	var img = document.createElement("img");
-	img.src = "https://api.fnkr.net/testimg/" + Math.floor(this.node.offsetWidth) + "x200/ffffff/a1a1a1/?text=" + text;
+	img.src = "https://api.fnkr.net/testimg/" + Math.floor(this.node.offsetWidth) + "x" + Math.floor(window.innerHeight / 2) + "/ffffff/a1a1a1/?text=" + text;
 	img.style.width = "100%";
 	this.node.appendChild(img);
 	return img;

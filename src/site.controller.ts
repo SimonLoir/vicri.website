@@ -26,12 +26,13 @@ class Controller {
     public loadPage() {
         console.log(this)
         console.log(this._page)
+        this._view.clear();
         switch (this._page.name) {
             case "home":
                 this._view.buildHomePage();
                 break;
             default:
-                this._view.clear();
+                this._view.build404Page();
                 break;
         }
     }

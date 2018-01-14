@@ -33,6 +33,12 @@ export class View {
         this.buildFooter();
     }
 
+    public build404Page() {
+        let content = this._c;
+        content.html('<div class="scms-basics-404-image" style="background:url(\'./res/404-rail.jpg\') no-repeat;background-position:center;background-size:cover;"><link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"><span class="inside-scms-basics-404-span">404</span><span class="inside-scms-basics-404-span-2">You\'re lost !</span><a href="home" class="go-home-button"><button class="scms-simple-action-button" >HOME PAGE</button></a><span class="powered-by-scms">Powered by SCMS</span></div>')
+        this.buildFooter();
+    }
+
     private buildFooter() {
 
         function ChangeUrl(page: string, url: string) {

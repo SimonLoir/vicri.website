@@ -4,4 +4,5 @@ RewriteRule ^home$ index.php [L]
 RewriteRule ^logout$ index.php?p=logout [L]
 RewriteCond %{REQUEST_URI} ^/(.+)$
 RewriteCond %{DOCUMENT_ROOT}/%1 !-f
+RewriteCond %{DOCUMENT_ROOT}/%1 !-d
 RewriteRule ^ index.php?p=404 [L]

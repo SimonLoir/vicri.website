@@ -1,7 +1,7 @@
 RewriteEngine On
+RewriteRule ^$ index.php [L]
 RewriteRule ^home$ index.php [L]
-RewriteRule ^login$ index.php?p=login [L]
 RewriteRule ^logout$ index.php?p=logout [L]
 RewriteCond %{REQUEST_URI} ^/(.+)$
 RewriteCond %{DOCUMENT_ROOT}/%1 !-f
-RewriteRule ^ index.php?p=404
+RewriteRule ^ index.php?p=404 [L]

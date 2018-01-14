@@ -1,4 +1,4 @@
-class IndexOutOfArrayExecption{
+export class IndexOutOfArrayExecption{
     public message:string;
     public name:string;
     constructor (message:string){
@@ -7,7 +7,7 @@ class IndexOutOfArrayExecption{
     }
 }
 
-class ExtJsObject {
+export class ExtJsObject {
 
     private node: Array<any>;
 

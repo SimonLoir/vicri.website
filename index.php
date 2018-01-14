@@ -34,12 +34,14 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
             <span class="scms-header-title desktop">Groupe Vicri</span>
             <span class="scms-header-title mobile">Vicri</span>
             <div class="scms-header-actions">
-                <a class="scms-header-actions-link" href="#p=home">Vidéos</a>
-                <a class="scms-header-actions-link" href="#p=realisations">Photos</a>
-                <a class="scms-header-actions-link" href="#p=tools">Autres</a>
-                <a class="scms-header-actions-link" href="#p=login" id="menu-login">Connexion</a>
+                <a class="scms-header-actions-link" data-internal="true" href="home">Home</a>
+                <a class="scms-header-actions-link" data-internal="true" href="projects">Projets</a>
+                <a class="scms-header-actions-link" data-internal="true" href="videos">Vidéos</a>
+                <a class="scms-header-actions-link" data-internal="true" href="photos">Photos</a>
+                <a class="scms-header-actions-link" data-internal="true" href="others">Autres</a>
+                <a class="scms-header-actions-link" href="login">Connexion</a>
                 <a class="scms-header-actions-link hidden" href="dashboard.php">Dashboard</a>
-                <a class="scms-header-actions-link hidden" href="#p=logout" id="menu-logout">Déconnexion</a>
+                <a class="scms-header-actions-link hidden" data-internal="true" href="logout" id="menu-logout">Déconnexion</a>
             </div>
         </div>
     </div>

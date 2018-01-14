@@ -126,6 +126,15 @@ if ($method == "GET") {
 		$zip = new zip();
 
 		$zip->unzip("test.zip", "more", false, false);
+	}elseif($res == "getPhotosByID"){
+
+		if(is_dir('../resources/images/project.' . $_GET["id"])) {
+
+		}else{
+			//if(is_file('../resources/folder_' . $_GET["id"]))
+			return json_encode("Directory not found");
+		}
+
 	}elseif ($res == "user_connection_state"){
 
 		if (isset($_SESSION["user_id"])) {

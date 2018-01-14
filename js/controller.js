@@ -78,6 +78,10 @@ var controller = {
 
 			view.createPublish3dFilesPage(model.sendZipFile)
 
+		}else if(page.getTarget() == "photos_updater"){
+
+			view.createManagePhotosPage(model.getPhotosForID, model.sendZipFile);
+
 		} else if (page.getTarget() == "login") {
 
 			view.createLoginPage(model.login);

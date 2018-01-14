@@ -425,8 +425,20 @@ var model = {
 			}
 			//
 		});
-	}, sendZipFile : function (d) {
+	}, sendZipFile: function (d) {
 
+	}, 
+	getPhotosForID: function (callback){
+		//callback();
+		AR.GET('api?res=getPhotosByID&id=' + page.get("pid"), function (data) {
+			try {
+				callback(JSON.parse(data));
+			} catch (error) {
+				callback(undefined);
+			}
+		}, function() {
+			callback(undefined);
+		});
 	}
 }
 

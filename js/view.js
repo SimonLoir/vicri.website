@@ -129,6 +129,19 @@ var view = {
 			})
 		}
 
+	},createManagePhotosPage : function (getter, uploader) {
+		getter(function (data) {
+			view.load.hide();
+
+			if(data == undefined){
+				alert('une erreur est survenue de notre côté ...');
+				return;
+			}
+
+
+			console.log(data);
+
+		});
 	},
 	/**
 	 * Shows a confirmation message

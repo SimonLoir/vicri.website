@@ -44,6 +44,22 @@ export class Page{
         }
     }
 
+    changeUrl(page: string, url: string) {
+        if (typeof (history.pushState) != "undefined") {
+            var obj = { Page: page, Url: url };
+            history.pushState(obj, obj.Page, obj.Url);
+        } else {
+            window.location.href = "home";
+        }
+    }
+
+    setHash(x_url: string) {
+        var split = x_url.split("/");
+        x_url = split[split.length - 1];
+
+        return "p=" + x_url;
+    }
+
     /**** Some getters and setters ****/
 
     public set hash(hash:string){

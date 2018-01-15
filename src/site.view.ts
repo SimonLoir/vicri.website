@@ -107,22 +107,6 @@ export class View {
 
     private buildFooter() {
 
-        function ChangeUrl(page: string, url: string) {
-            if (typeof (history.pushState) != "undefined") {
-                var obj = { Page: page, Url: url };
-                history.pushState(obj, obj.Page, obj.Url);
-            } else {
-                window.location.href = "home";
-            }
-        }
-
-        function setHash(x_url: string) {
-            var split = x_url.split("/");
-            x_url = split[split.length - 1];
-
-            return "p=" + x_url;
-        }
-
         this._c.child('div').addClass('scms-footer').html("Groupe vicri");
 
         var all = document.querySelectorAll('[data-internal=true]');
@@ -134,10 +118,10 @@ export class View {
             element.onclick = (e: MouseEvent) => {
 
                 //@ts-ignore
-                this._page.hash = setHash(e.target.href);
+                this._page.hash = this._page.setHash(e.target.href);
 
                 //@ts-ignore
-                ChangeUrl("Groupe vicri", e.target.href);
+                this._page.changeUrl("Groupe vicri", e.target.href);
 
                 //@ts-ignore
                 window.onhashchange();

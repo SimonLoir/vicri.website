@@ -71,6 +71,12 @@ $(document).ready(() => {
     // Setting page
     view.page = controller.page;
 
+    window.onpopstate = function(event) {
+        controller.page.hash = controller.page.setHash(document.location.href);
+        //@ts-ignore
+        window.onhashchange();
+    };
+
     window.onhashchange = function (){
         controller.loadPage();
     };

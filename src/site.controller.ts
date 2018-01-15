@@ -71,16 +71,19 @@ $(document).ready(() => {
     // Setting page
     view.page = controller.page;
 
+    // When the url changes without reloading the page
     window.onpopstate = function(event) {
         controller.page.hash = controller.page.setHash(document.location.href);
         //@ts-ignore
         window.onhashchange();
     };
 
+    // When the part after the #changes
     window.onhashchange = function (){
         controller.loadPage();
     };
 
+    // Hamburger menu system
     let menu = $('.scms-header-actions');
     $('.hamburger').click(function() {
         if (this.classList.contains('clicked')) {

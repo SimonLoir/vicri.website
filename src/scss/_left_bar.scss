@@ -1,0 +1,37 @@
+.left_panel{
+    background:rgb(29,41,57);
+    position: fixed;
+    top:0;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    & .title {
+        background:rgb(0, 162,211);
+        color:white;
+        position: absolute;
+        top:0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        line-height: 70px;
+        padding-left: 15px;
+    }
+    & .content{
+        position: absolute;
+        top: 70px;
+        bottom:0;
+        left: 0;
+        right: 0;
+        padding: 0;
+        & div{
+            color:white;
+            padding: 15px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            &:hover {
+                background:rgb(51,54,69);
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -2,6 +2,7 @@ RewriteEngine On
 RewriteRule ^$ index.php [L]
 RewriteRule ^home$ index.php [L]
 RewriteRule ^logout$ index.php?p=logout [L]
+RewriteRule ^dashboard-(.+)$ dashboard.php?p=$1 [L]
 RewriteCond %{REQUEST_URI} ^/(.+)$
 RewriteCond %{DOCUMENT_ROOT}/%1 !-f
 RewriteCond %{DOCUMENT_ROOT}/%1 !-d

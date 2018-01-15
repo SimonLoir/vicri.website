@@ -1,0 +1,23 @@
+body{
+
+    background:rgb(249, 249,249);
+    font-family: sans-serif;    
+
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid lighten(#dddddd, 5%);
+    text-align: left;
+    padding: 8px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: lighten(#dddddd, 5%);
+}
+

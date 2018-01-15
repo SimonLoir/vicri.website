@@ -6,13 +6,13 @@ export class View {
     private _c: ExtJsObject;
     private _page: Page;
 
-    public clear(){this._c.html("")};
+    public clear() { this._c.html("") };
 
     public buildHomePage() {
 
         let container: ExtJsObject = this._c;
 
-        container.html('<div class="scms-landing-image" style="height:400px;background:url(vicri.png) no-repeat;background-position:center;background-size:cover;position:relative;"></div>');
+        container.html('<div class="scms-landing-image" style="height:600px;background:url(vicri.jpg) no-repeat;background-position:center;background-size:cover;position:relative;"></div>');
 
         let welcome_block: ExtJsObject = container
             .child('div')
@@ -28,7 +28,72 @@ export class View {
         welcome_block
             .child('p')
             .addClass('scms-content-block-paragraph')
-            .html("Bienvenue sur notre site ! Ici, vous trouverez les différents projets terminés et en cours du groupe vicri de l'INDSé 2e&3e degrés. Ce site web est un des projets du groupe et son code source est disponible gratuitement sur github :-)");
+            .html(
+                "Bienvenue sur notre site ! Ici, vous trouverez les différents projets terminés et en cours du groupe vicri de l'INDSé 2e&3e degrés. Ce site web est un des projets du groupe et son code source est disponible gratuitement sur github :-)"
+                + " Les projets terminés sont rangés dans les différentes catégories : Vidéos, Photos et Autres. Les projets en cours se trouvent dans la partie Projets."
+            );
+
+        //<div class="scms-landing-image" style="height:400px;background:url(vicri.png) no-repeat;background-position:center;background-size:cover;position:relative;"></div>
+        container
+            .child('div')
+            .addClass('scms-landing-image')
+            .css('height', "250px")
+            .css('background', "url(res/photos.jpg) no-repeat")
+            .css('background-size', "cover")
+            .css('background-position', "center");
+            
+        let photos_block: ExtJsObject = container
+            .child('div')
+            .addClass('scms-content-block')
+            .child('div')
+            .addClass('scms-centred-element');
+
+        photos_block
+            .child('h2')
+            .html("Nos photos")
+            .addClass('scms-content-block-title');
+
+        photos_block
+            .child('p')
+            .addClass('scms-content-block-paragraph')
+            .html("Vous retrouverez, ici, organisées par dossier triés par date, toutes les photos réalisées par le groupe vicri de l'INDSé 2e&3e degrés.");
+
+        photos_block
+            .child('a')
+            .addClass('scms-simple-action-button')
+            .html('Voir les photos')
+            .get(0).href = "photos";
+
+        container
+            .child('div')
+            .addClass('scms-landing-image')
+            .css('height', "250px")
+            .css('background', "url(res/videos.jpg) no-repeat")
+            .css('background-size', "cover")
+            .css('background-position', "center");
+
+        let videos_block: ExtJsObject = container
+            .child('div')
+            .addClass('scms-content-block')
+            .child('div')
+            .addClass('scms-centred-element');
+
+        videos_block
+            .child('h2')
+            .html("Nos vidéos")
+            .addClass('scms-content-block-title');
+
+        videos_block
+            .child('p')
+            .addClass('scms-content-block-paragraph')
+            .html("Vous retrouverez, ici, toutes les vidéos réalisées par le groupe vicri de l'INDSé 2e&3e degrés qui ont été uploadées sur YouTube");
+
+        videos_block
+            .child('a')
+            .addClass('scms-simple-action-button')
+            .html('Voir les vidéos')
+            .get(0).href = "photos";
+
 
         this.buildFooter();
     }
@@ -50,11 +115,11 @@ export class View {
             }
         }
 
-        function setHash(x_url:string) {
+        function setHash(x_url: string) {
             var split = x_url.split("/");
             x_url = split[split.length - 1];
-            
-            return"p=" + x_url;
+
+            return "p=" + x_url;
         }
 
         this._c.child('div').addClass('scms-footer').html("Groupe vicri");
@@ -69,7 +134,7 @@ export class View {
 
                 //@ts-ignore
                 this._page.hash = setHash(e.target.href);
-                
+
                 //@ts-ignore
                 ChangeUrl("Groupe vicri", e.target.href);
 

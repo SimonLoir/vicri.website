@@ -12,7 +12,7 @@ export class View {
 
         let container: ExtJsObject = this._c;
 
-        container.html('<div class="scms-landing-image" style="height:400px;background:url(vicri.jpg) no-repeat;background-position:center;background-size:cover;position:relative;"></div>');
+        container.html('<div class="scms-landing-image" style="height:400px;background:url(vicri.png) no-repeat;background-position:center;background-size:cover;position:relative;"></div>');
 
         let welcome_block: ExtJsObject = container
             .child('div')

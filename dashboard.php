@@ -23,6 +23,9 @@
             <div>
                 Mes projets
             </div>
+            <div>
+                <a href="home" style="color:inherit;text-decoration:none;">Retour au site</a>
+            </div>
         </div>
     </div>
     <div class="body">

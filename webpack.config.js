@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
     entry: {
         site: './src/site.controller.ts', 
-        dashboard: './src/dashboard.controller.ts'
+        dashboard: './src/dashboard.controller.ts',
+        login: "./src/login.ts"
     },
     module: {
         rules: [

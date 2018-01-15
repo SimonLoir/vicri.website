@@ -33,7 +33,6 @@ export class View {
                 + " Les projets terminés sont rangés dans les différentes catégories : Vidéos, Photos et Autres. Les projets en cours se trouvent dans la partie Projets."
             );
 
-        //<div class="scms-landing-image" style="height:400px;background:url(vicri.png) no-repeat;background-position:center;background-size:cover;position:relative;"></div>
         container
             .child('div')
             .addClass('scms-landing-image')
@@ -62,6 +61,7 @@ export class View {
             .child('a')
             .addClass('scms-simple-action-button')
             .html('Voir les photos')
+            .attr('data-internal', true)
             .get(0).href = "photos";
 
         container
@@ -92,6 +92,7 @@ export class View {
             .child('a')
             .addClass('scms-simple-action-button')
             .html('Voir les vidéos')
+            .attr('data-internal', true)
             .get(0).href = "photos";
 
 

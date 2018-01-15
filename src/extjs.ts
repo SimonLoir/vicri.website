@@ -236,6 +236,31 @@ export class ExtJsObject {
             return this;
         }
     }
+
+    /**
+     * @param attr The attribute that we want to modify
+     * @param value The value that we want to assign to that atribute 
+     * @param i the index of the element (optional)
+     */
+    attr(attr: string, value: string, i?:any) {
+        var y = i;
+        if (i == undefined) {
+            i = 0;
+        }
+        if (value == undefined) {
+            return this.node[i].getAttribute(attr);
+        } else if (y != undefined) {
+            this.node[i].style[attr] = value;
+            return this;
+        } else {
+            for (let i = 0; i < this.node.length; i++) {
+                var e = this.node[i];
+                e.setAttribute(attr,value)
+            }
+            return this;
+        }
+    }
+    
     /**
      * Returns the nearest parent of the element's
      * @param selector The selector of the nearest parent

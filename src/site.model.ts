@@ -1,4 +1,4 @@
-import SharedModel from "./shared.model";
+import {SharedModel} from "./shared.model";
 export class Page{
 
     private _hash:string;

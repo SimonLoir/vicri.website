@@ -11,16 +11,10 @@
         <div>
             <img src="vicri.png" alt="">
         </div>
-        <?php
-            if(isset($_POST["send"])){
-                //user login
-            }
-        ?>
-        <form action="" method="post">
-            <p><input type="text" name="user" placeholder="Nom d'utilisateur"></p>
-            <p><input type="password" name="password" placeholder="Mot de passe"></p>
-            <a href="../google/index.php">Me connecter avec Google</a><button name="send">Me connecter</button>
-        </form>
+        <p><input type="text" id="user" placeholder="Nom d'utilisateur"></p>
+        <p><input type="password" id="password" placeholder="Mot de passe"></p>
+        <a href="../google/index.php">Me connecter avec Google</a>
+        <button id="send">Me connecter</button>
     </div>
     <script src="../dist/login.bundle.js"></script>
 </body>

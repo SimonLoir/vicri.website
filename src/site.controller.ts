@@ -75,4 +75,17 @@ $(document).ready(() => {
         controller.loadPage();
     };
 
+    let menu = $('.scms-header-actions');
+    $('.hamburger').click(function() {
+        if (this.classList.contains('clicked')) {
+            $(this).removeClass('clicked');
+            $(this).addClass('none');
+            menu.removeClass('open');
+        } else {
+            $(this).removeClass('none');
+            $(this).addClass('clicked');
+            menu.addClass('open');
+        };
+    });
+
 });

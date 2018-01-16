@@ -4,6 +4,7 @@
 import {View} from './site.view';
 import {Page, Model} from './site.model';
 import {$, AR} from './extjs';
+import {ConnectionState} from "./shared.model";
 
 /**
  * The controller is the link between the view and the model
@@ -24,8 +25,11 @@ class Controller {
      * Loads the page from this._page.name
      */
     public loadPage() {
-        console.log(this)
-        console.log(this._page)
+        this._model.login(undefined, this.choosePage.bind(this), this.choosePage.bind(this));
+    }
+
+    private choosePage(state:ConnectionState){
+        this._view.manageMenu(state);
         this._view.clear();
         switch (this._page.name) {
             case "home":
@@ -58,12 +62,16 @@ $(document).ready(() => {
     
     // Getting workspace ready
     view.container = $('.dynamic-content');
+    
+    //Getting the model ready by defining the api directory
+    model.api_url = "";
 
     // Creating a new controller object
     let controller = new Controller(page, model, view);
     
     //@ts-ignore Getting the page ready
     controller.page.hash = window_hash; // This variable is defined via PHP
+
 
     // Loading the page
     controller.loadPage();

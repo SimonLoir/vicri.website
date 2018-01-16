@@ -1,4 +1,4 @@
-<?php include "global.php"; ?>
+<?php include "global.php"; (!isset($_SESSION["user"])) ? header("Location: login"): $user = $_SESSION["user"];?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,7 +10,7 @@
 <body>
     <div class="header">
         <span class="title"></span>
-        <span class="user">Vicri username <span class="acccount-manager">&#9207;</span> </span>
+        <span class="user"><?= $user ?> <span class="acccount-manager">&#9207;</span> </span>
     </div>
     <div class="left_panel">
         <div class="title">

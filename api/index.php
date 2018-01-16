@@ -35,7 +35,11 @@ if ($method == "GET"){
                 ]));
 		    }
             break;
-        
+            
+        case "logout"
+            session_destroy();
+            break;
+
         default:
             exit('error');
             break;

@@ -24,7 +24,7 @@ export class SharedModel {
      * @param callback Success callback
      * @param error_callback Error callback
      */
-    public login(credentials: UserCredentials | undefined, callback: (data: ConnectionState) => void, error_callback?: () => void) {
+    public login(credentials: UserCredentials | undefined, callback: (data: ConnectionState) => void, error_callback?: (data?: ConnectionState) => void) {
 
         if (credentials == undefined) {
             
@@ -40,7 +40,7 @@ export class SharedModel {
                             callback(d);
                         }
                     } else if (error_callback != undefined) {
-                        error_callback();
+                        error_callback(d);
                     }
                 });
             

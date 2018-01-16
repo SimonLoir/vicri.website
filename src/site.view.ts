@@ -1,12 +1,25 @@
 import "./scss/site.style.scss";
 import { $, ExtJsObject } from "./extjs";
 import { Page } from "./site.model";
+import { ConnectionState } from "./shared.model";
 export class View {
 
     private _c: ExtJsObject;
     private _page: Page;
 
     public clear() { this._c.html("") };
+
+    public manageMenu(state:ConnectionState){
+        if(state.isConnected == true){
+            $('#menu-login').addClass('hidden');
+            $('#menu-db').removeClass('hidden');
+            $('#menu-logout').removeClass('hidden');
+        }else{
+            $('#menu-login').removeClass('hidden');
+            $('#menu-db').addClass('hidden');
+            $('#menu-logout').addClass('hidden');
+        }
+    }
 
     public buildHomePage() {
 

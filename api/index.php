@@ -36,7 +36,7 @@ if ($method == "GET"){
 		    }
             break;
             
-        case "logout"
+        case "logout":
             session_destroy();
             break;
 

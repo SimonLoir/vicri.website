@@ -23,17 +23,32 @@ $db = new db($db__base, $db__user , $db__pass, $db__host);
 
 // Default errors
 $user_login_error = json_encode(["isConnected" => false]);
+$user_must_be_logged_in = json_encode(["type" => "error", "user must be logged in"]);
 
 if ($method == "GET"){
     switch ($res) {
-        case 'login':
+        case "login":
             if(isset($_SESSION['id'])){
 		    	exit(json_encode([
                     "isConnected" => true,
                     "name" => $_SESSION['user'],
                     "email" => $_SESSION["email"]
                 ]));
-		    }
+            }
+            break;
+
+        case "user-projects":
+
+            if(!isset($_SESSION["id"])){exit($user_must_be_logged_in);}
+            
+            $projects = $db->query('SELECT * FROM projects WHERE managers LIKE :id', [
+                "prepare" => [
+                    ":id" => "%" . $_SESSION["id"] . "%"
+                ]
+            ]);
+
+            exit(json_encode($projects));
+
             break;
             
         case "logout":

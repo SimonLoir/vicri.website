@@ -32,6 +32,11 @@ class Controller {
             case "home":
                 this._view.buildHomePage();
                 break;
+            
+            case "my-projects":
+                this._model.getUsersProject(this._view.buildMyProjectsPage.bind(this._view));
+                break;
+
             default:
                 break;
         }

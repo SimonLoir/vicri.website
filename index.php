@@ -19,7 +19,7 @@
                 <a class="scms-header-actions-link" data-internal="true" href="photos">Photos</a>
                 <a class="scms-header-actions-link" data-internal="true" href="others">Autres</a>
                 <a class="scms-header-actions-link" href="login" id="menu-login">Connexion</a>
-                <a class="scms-header-actions-link hidden" href="dashboard.php" id="menu-db">Dashboard</a>
+                <a class="scms-header-actions-link hidden" href="dashboard-home" id="menu-db">Dashboard</a>
                 <a class="scms-header-actions-link hidden" data-internal="true" href="logout" id="menu-logout">Déconnexion</a>
             </div>
         </div>

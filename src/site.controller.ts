@@ -35,6 +35,7 @@ class Controller {
             case "home":
                 this._view.buildHomePage();
                 break;
+
             default:
                 this._view.build404Page();
                 break;

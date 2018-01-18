@@ -5,6 +5,10 @@
     left: 0;
     bottom: 0;
     width: 300px;
+    & a {
+        color:inherit;
+        text-decoration:none;
+    }
     & .title {
         background:rgb(0, 162,211);
         color:white;
@@ -23,11 +27,12 @@
         left: 0;
         right: 0;
         padding: 0;
-        & div{
+        & div, & a{
             color:white;
             padding: 15px;
             padding-top: 20px;
             padding-bottom: 20px;
+            display: block;
             &:hover {
                 background:rgb(51,54,69);
                 cursor: pointer;

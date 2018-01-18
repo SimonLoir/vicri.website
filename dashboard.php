@@ -17,15 +17,18 @@
             Vicri Dashboard
         </div>
         <div class="content">
-            <div>
+            <a href="dashboard-home" data-internal="true">
+                Accueil Dashboard
+            </a>
+            <a href="dashboard-calendar" data-internal="true">
                 Calendrier
-            </div>
-            <div>
+            </a>
+            <a href="dashboard-my-projects" data-internal="true">
                 Mes projets
-            </div>
-            <div>
-                <a href="home" style="color:inherit;text-decoration:none;">Retour au site</a>
-            </div>
+            </a>
+            <a href="home">
+                Retour au site
+            </a>
         </div>
     </div>
     <div class="body">

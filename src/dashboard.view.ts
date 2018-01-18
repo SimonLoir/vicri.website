@@ -34,12 +34,16 @@ export class View {
             .html('Bienvenue sur votre tableau de bord ;-). Ici, vous retrouverez toutes les fonctions présentes sur la version précédente du site et plus encore :-).');
 
         welcome
-            .child('button')
-            .html('Découvrir les projets');
+            .child('a')
+            .addClass('button')
+            .html('Découvrir les projets')
+            .attr("data-internal", true).get(0).href = "dashboard-discover-projects";
 
         welcome
-            .child('button')
-            .html('Créer un projet');
+            .child('a')
+            .addClass('button')
+            .html('Créer un projet')
+            .attr("data-internal", true).get(0).href = "dashboard-new-project";
 
         let news = e
             .child('div')
@@ -57,10 +61,16 @@ export class View {
         
         news
             .child('p')
-            .html('<b>Simon Loir</b> a publié <a href="">le PV</a> de la réunion du 18/01/2019')
+            .html('<b>Simon Loir</b> a publié <a href="">le PV</a> de la réunion du 18/01/2019');
         
         news
             .child('p')
             .html('<b>François Schoubben</b> a créé l\'évènement réunion du 18/01/2019 avec la note <i>Venez avec vos projets finis !</i>')  
+        
+        news
+            .child('p')
+            .html('<b>Simon Loir</b> a publié une mise à jour dans <i>vicri.esy.es</i>');
+        
+        this.page.addUrlSwitcher();
     }
 }

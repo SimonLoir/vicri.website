@@ -59,8 +59,11 @@ $(document).ready(() => {
     // Getting workspace ready
     view.container = $('.body');
     
-    //Getting the model ready by defining the api directory
+    // Getting the model ready by defining the api directory
     model.api_url = "";
+
+    // Url system
+    page.isDb = true;
 
     // Creating a new controller object
     let controller = new Controller(page, model, view);

@@ -82,6 +82,7 @@ export class SharedModel {
 export class P{
 
     private _hash:string;
+    public isDb:Boolean = false;
 
     /**
      * Gets the value associated with a key (needle) in a query string
@@ -130,15 +131,49 @@ export class P{
             var obj = { Page: page, Url: url };
             history.pushState(obj, obj.Page, obj.Url);
         } else {
-            window.location.href = "home";
+            window.location.href = page;
         }
     }
 
     setHash(x_url: string) {
-        var split = x_url.split("/");
-        x_url = split[split.length - 1];
+        if(this.isDb == true){
+            var split = x_url.split("/");
+            x_url = split[split.length - 1];
+            if(x_url == "dashboard.php"){
+                x_url = "home";
+            }
+            x_url = x_url.replace('dashboard-', "");
+            return "p=" + x_url;
+        }else{
+            var split = x_url.split("/");
+            x_url = split[split.length - 1];
+    
+            return "p=" + x_url;
+        }
+    }
 
-        return "p=" + x_url;
+    addUrlSwitcher(){
+
+        var all = document.querySelectorAll('[data-internal=true]');
+
+        for (var i = 0; i < all.length; i++) {
+
+            var element: any = all[i];
+
+            element.onclick = (e: MouseEvent) => {
+
+                //@ts-ignore
+                this.hash = this.setHash(e.target.href);
+
+                //@ts-ignore
+                this.changeUrl("Groupe vicri", e.target.href);
+
+                //@ts-ignore
+                window.onhashchange();
+
+                return false;
+            }
+        }
     }
 
     /**** Some getters and setters ****/

@@ -34,7 +34,9 @@
             color:hsla(0, 0%, 0%, 0.87);
         }
 
-        & button{
+        & button, & .button{
+            display:inline-block;
+            text-decoration: none;
             background:rgb(68,184,175);
             padding: 7px 12px;
             border-radius: 4px;

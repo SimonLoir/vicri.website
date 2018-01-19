@@ -38,8 +38,6 @@ class project_list{
             $this->projects[$i]->managers = $users->getUsersNamesFromArray($users_id);
         }
         
-        /*
-        $user->getUserInfos()*/
     }
 
     public function export() {

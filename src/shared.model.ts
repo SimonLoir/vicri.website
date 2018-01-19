@@ -9,7 +9,8 @@ export interface UserCredentials {
 export interface ConnectionState {
     isConnected: boolean,
     name?: string,
-    email?: string
+    email?: string,
+    isINDSEUser?:boolean
 }
 
 const c_error = "Erreur de communication avec le serveur";

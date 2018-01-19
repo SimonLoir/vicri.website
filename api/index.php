@@ -35,6 +35,8 @@ if ($method == "GET"){
                     "email" => $_SESSION["email"],
                     "isINDSEUser" => ( strstr( $_SESSION["email"], "@indse.be" ) ) ? true : false
                 ]));
+            }else{
+                exit($user_login_error);
             }
             break;
 

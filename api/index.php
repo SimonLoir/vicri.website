@@ -32,7 +32,8 @@ if ($method == "GET"){
 		    	exit(json_encode([
                     "isConnected" => true,
                     "name" => $_SESSION['user'],
-                    "email" => $_SESSION["email"]
+                    "email" => $_SESSION["email"],
+                    "isINDSEUser" => ( strstr( $_SESSION["email"], "@indse.be" ) ) ? true : false
                 ]));
             }
             break;
@@ -41,13 +42,13 @@ if ($method == "GET"){
 
             if(!isset($_SESSION["id"])){exit($user_must_be_logged_in);}
             
-            $projects = $db->query('SELECT * FROM projects WHERE managers LIKE :id', [
-                "prepare" => [
-                    ":id" => "%" . $_SESSION["id"] . "%"
-                ]
-            ]);
+            $projects = new project_list($db);
+        
+            $projects->getProjectsForUser($_SESSION["id"]);
 
-            exit(json_encode($projects));
+            $projects->convertManagersIDArrayToNamesArray();
+
+            exit(json_encode($projects->export()));
 
             break;
             
@@ -87,7 +88,8 @@ if ($method == "GET"){
                 exit(json_encode([
                     "isConnected" => true,
                     "name" => $_SESSION['user'],
-                    "email" => $_SESSION["email"]
+                    "email" => $_SESSION["email"],
+                    "isINDSEUser" => (strstr($_SESSION["email"], "@indse.be")) ? true : false
                 ]));
         
             }else{

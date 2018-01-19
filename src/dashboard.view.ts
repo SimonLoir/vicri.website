@@ -120,11 +120,19 @@ export class View {
             .child('th').html('Actions')
 
         projects.forEach((project) => {
+            
             let tr = table.child('tr');
                 tr.child('td').html(project.name);
-                tr.child('td').html(project.managers);
+            
+            let managers = tr
+                .child('td');
+
+            project.managers.forEach((manager:string) => {
+                managers.child('span').html(manager + '<br />');
+            });
             
             let tools = tr.child('td')
+
             tools
                 .child('a')
                 .addClass('button')

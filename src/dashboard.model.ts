@@ -16,6 +16,20 @@ export class Model extends SharedModel {
             }
         });
     }
+
+    public getProjectById(id:string, callback: (data: Project)  => void){
+        AR.GET(this.api_url + "api?res=project&id=" + id, (data) => {
+            try {
+
+                let d: Project = JSON.parse(data);
+
+                callback(d);
+
+            } catch (error) {
+                console.log(error)
+            }
+        });
+    }
 };
 
 export interface Project {

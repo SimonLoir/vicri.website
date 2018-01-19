@@ -144,7 +144,11 @@ export class P{
                 x_url = "home";
             }
             x_url = x_url.replace('dashboard-', "");
-            return "p=" + x_url;
+            if(x_url.indexOf('manage-project-') >= 0){
+                return "p=manage-project;id=" + x_url.replace('manage-project-', "");
+            }else{
+                return "p=" + x_url;
+            }
         }else{
             var split = x_url.split("/");
             x_url = split[split.length - 1];

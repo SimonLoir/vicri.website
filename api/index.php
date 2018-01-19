@@ -53,7 +53,21 @@ if ($method == "GET"){
             exit(json_encode($projects->export()));
 
             break;
+        
+        case "project":
+            if(!isset($_GET["id"])){exit("error : missing query string id");}
+            if(!isset($_SESSION["id"])){exit($user_must_be_logged_in);}
             
+            $id = $_GET["id"];
+
+            $project = new project($db, $id);
+
+            $project->convertManagersIDArrayToNamesArray();
+
+            exit(json_encode($project->export()));
+
+            break;
+
         case "logout":
             session_destroy();
             break;

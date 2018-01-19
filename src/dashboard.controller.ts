@@ -37,6 +37,13 @@ class Controller {
                 this._model.getUsersProject(this._view.buildMyProjectsPage.bind(this._view));
                 break;
 
+            case "manage-project":
+                let project_id = this._page.get('id');
+                this._model.getProjectById(project_id, (data) => {
+                    console.log(data);
+                });
+                break;
+
             default:
                 break;
         }

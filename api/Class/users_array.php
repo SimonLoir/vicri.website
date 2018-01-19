@@ -39,7 +39,7 @@ class users_array{
         $user_infos = $this->getUserInfosFromID($id);
 
         if($user_infos != null){
-            return $user_infos->firstname . " " .  $user_infos->name;
+            return ucwords($user_infos->firstname . " " .  $user_infos->name);
         }else{
             return null;
         }

@@ -12,12 +12,20 @@ class project_list{
         $this->db = $db;
     }
 
-    function getProjectsForUser($user){
+    public function getProjectsForUser($user){
         $projects = $this->db->query('SELECT * FROM projects WHERE managers LIKE :id', [
             "prepare" => [
                 ":id" => "%" . $user . "%"
             ]
         ]);
+
+        foreach ($projects as $key => $project) {
+            $managers = explode(";", $project->managers);
+            if(!in_array("" . $user, $managers)){
+                unset($projects[$key]);
+            }
+        }
+
         $this->setProjects($projects);
     }
 

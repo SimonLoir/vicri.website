@@ -45,6 +45,10 @@ class Controller {
                 break;
 
             default:
+                this._view.buildErrorPage({
+                    type: "error",
+                    message:"Erreur 404 : cette page est introuvable"
+                });
                 break;
         }
     }

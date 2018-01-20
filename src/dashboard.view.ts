@@ -74,7 +74,7 @@ export class View {
         this.page.addUrlSwitcher();
     }
 
-    public buildErrorPage(error: Project){
+    public buildErrorPage(error: Error){
         
         $(".header .title").html("Erreur");
 
@@ -175,4 +175,9 @@ export class View {
 
         this.page.addUrlSwitcher();
     }
+}
+
+interface Error{
+    type: string,
+    message:string
 }

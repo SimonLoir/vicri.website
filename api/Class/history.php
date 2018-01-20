@@ -11,7 +11,7 @@ class history{
 
         $this->db = $db;
 
-        $this->history = $this->db->query('SELECT * FROM history WHERE project_id = :id', [
+        $this->history = $this->db->query('SELECT * FROM history WHERE project_id = :id ORDER BY id DESC LIMIT 25', [
             "prepare" => [
                 ":id" => $id
             ]

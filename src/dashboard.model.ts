@@ -17,13 +17,20 @@ export class Model extends SharedModel {
         });
     }
 
-    public getProjectById(id:string, callback: (data: Project)  => void){
-        AR.GET(this.api_url + "api?res=project&id=" + id, (data) => {
+    public getProjectById(id:string, callback: (data: Project)  => void, onErrorCallback?:(data: Project) => void){
+        AR.GET(this.api_url + "api?res=project&manager&id=" + id, (data) => {
             try {
 
                 let d: Project = JSON.parse(data);
 
-                callback(d);
+                if(d.type != "error" && d.message == undefined){
+                    callback(d);
+                }else{
+                    if(onErrorCallback != undefined){
+                        onErrorCallback(d);
+                    }
+                }
+
 
             } catch (error) {
                 console.log(error)
@@ -42,5 +49,6 @@ export interface Project {
     description: string
     shortDescription: string
     goals: string
-    links: string
+    links: string,
+    message?: string
 }

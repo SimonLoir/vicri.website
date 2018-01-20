@@ -74,6 +74,34 @@ export class View {
         this.page.addUrlSwitcher();
     }
 
+    public buildErrorPage(error: Project){
+        
+        $(".header .title").html("Erreur");
+
+        let error_page = this
+            .container
+            .addClass('panel')
+            .addClass('padding')
+            .child('div')
+            .addClass('error_container')
+        
+        let error_zone = error_page
+            .child('div')
+            .addClass('error_zone');
+
+        let error_svg = error_zone
+            .child('img')
+            .get(0).src = "res/error.svg";
+        
+        error_zone
+            .child('h1')
+            .html('Une erreur est survenue');
+        
+        error_zone
+            .child('p')
+            .html(error.message);
+    }
+
     public buildMyProjectsPage(projects:Array<Project>){
         console.log(projects)
 
@@ -111,13 +139,16 @@ export class View {
             .child('tr');
         
         head
-            .child("th").html('Nom du projet');
+            .child("th")
+            .html('Nom du projet');
         
         head
-            .child("th").html('Managers');
+            .child("th")
+            .html('Managers');
 
         head
-            .child('th').html('Actions')
+            .child('th')
+            .html('Actions')
 
         projects.forEach((project) => {
             
@@ -128,7 +159,9 @@ export class View {
                 .child('td');
 
             project.managers.forEach((manager:string) => {
-                managers.child('span').html(manager + '<br />');
+                managers
+                    .child('span')
+                    .html(manager + '<br />');
             });
             
             let tools = tr.child('td')

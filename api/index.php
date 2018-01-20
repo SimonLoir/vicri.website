@@ -23,7 +23,7 @@ $db = new db($db__base, $db__user , $db__pass, $db__host);
 
 // Default errors
 $user_login_error = json_encode(["isConnected" => false]);
-$user_must_be_logged_in = json_encode(["type" => "error", "user must be logged in"]);
+$user_must_be_logged_in = json_encode(["type" => "error", "message" => "user must be logged in"]);
 
 if ($method == "GET"){
     switch ($res) {
@@ -60,7 +60,7 @@ if ($method == "GET"){
             
             $id = $_GET["id"];
 
-            $project = new project($db, $id);
+            $project = new project($db, $id, isset($_GET["manager"]));
 
             $project->convertManagersIDArrayToNamesArray();
 

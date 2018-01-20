@@ -47,4 +47,27 @@
         }
     }
 
+    & .error_container{
+            display:inline-block;
+            vertical-align:top;
+            max-width:100%;
+            background:rgb(226,116,125);
+            height:calc(100% - 30px);
+            border-radius:10px;
+            width:calc(100% - 30px);
+            & .error_zone{
+                position:absolute;
+                text-align:center;
+                top:50%;
+                left:50%;
+                max-width:50%;
+                transform:translate(-50%, -50%);
+                color:white;
+                & img{
+                    max-width:calc(50% - 25px);
+                    max-height:calc(50% - 25px);
+                }
+            }
+    }
+
 }

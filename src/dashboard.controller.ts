@@ -41,7 +41,7 @@ class Controller {
                 let project_id = this._page.get('id');
                 this._model.getProjectById(project_id, (data) => {
                     console.log(data);
-                });
+                }, this._view.buildErrorPage.bind(this._view));
                 break;
 
             default:

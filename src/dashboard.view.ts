@@ -1,5 +1,5 @@
 import { $, ExtJsObject } from "./extjs";
-import { Page, Project } from "./dashboard.model";
+import { Page, Project, historyEntry } from "./dashboard.model";
 
 export class View {
 
@@ -9,7 +9,7 @@ export class View {
 
     public page: Page;
 
-    public buildHomePage() {
+    public buildHomePage(getHistory: (id: string, callback: (data: Array<historyEntry>) => void) => void) {
 
         let e = this.container;
 
@@ -59,19 +59,31 @@ export class View {
             .html('Quoi de neuf ?')
             .addClass("title");
 
-        news
-            .child('p')
-            .html('<b>Simon Loir</b> a publié <a href="">le PV</a> de la réunion du 18/01/2019');
+        getHistory("-1", (data: Array<historyEntry>) => {
 
-        news
-            .child('p')
-            .html('<b>François Schoubben</b> a créé l\'évènement réunion du 18/01/2019 avec la note <i>Venez avec vos projets finis !</i>')
+            data.forEach(entry => {
 
-        news
-            .child('p')
-            .html('<b>Simon Loir</b> a publié une mise à jour dans <i>vicri.esy.es</i>');
+                let container = news.child('p');
+
+                this.buildHistory(container, entry);
+
+            });
+
+        });
 
         this.page.addUrlSwitcher();
+    }
+
+    public buildHistory(container:ExtJsObject, entry:historyEntry) {
+        container.child('i').html(entry.content.date + " - ");
+
+        if (entry.type == "test") {
+
+            container.child('b').html(entry.content.user + " ");
+
+            container.child('span').html(" a créé une entrée dans l'historique du site vicri");
+
+        }
     }
 
     public buildErrorPage(error: Error) {
@@ -102,8 +114,8 @@ export class View {
             .html(error.message);
     }
 
-    public buildInput(parent: ExtJsObject, label_text: string, type: string, default_value?:string): ExtJsObject {
-        
+    public buildInput(parent: ExtJsObject, label_text: string, type: string, default_value?: string): ExtJsObject {
+
         let input_types = ["text", "password", "number", "range"];
         let other_types = ["textarea", "select"];
 
@@ -116,16 +128,16 @@ export class View {
             .addClass('top')
             .html(label_text);
 
-        let input:ExtJsObject;
+        let input: ExtJsObject;
 
-        if(input_types.indexOf(type) >= 0){
+        if (input_types.indexOf(type) >= 0) {
             input = div
                 .child('input')
                 .addClass('input');
             input
                 .get(0)
                 .type = type;
-        }else{
+        } else {
             input = div
                 .child(type)
                 .addClass('input')
@@ -148,7 +160,7 @@ export class View {
             }
         }
 
-        if(default_value)
+        if (default_value)
             input.value(default_value);
 
         i.onfocus();
@@ -157,7 +169,8 @@ export class View {
         return input;
     }
 
-    public buildManageProjectPage(project: Project) {
+    public buildManageProjectPage(project: Project, getHistory:any) {
+
         let e = this.container;
 
         $(".header .title").html("Gestion du projet");
@@ -178,22 +191,22 @@ export class View {
 
         let project_name = this
             .buildInput(project_infos, "Nom du projet", "text", project.name);
-        
+
         let progression = this
-            .buildInput(project_infos, "Progression du projet (en %)", "text", project.progression.toString());
-        
+            .buildInput(project_infos, "Progression du projet (en %)", "number", project.progression.toString());
+
         let description = this
             .buildInput(project_infos, "Description du projet", "textarea", project.description);
-        
+
         let short_description = this
             .buildInput(project_infos, "Description résumée du projet", "textarea", project.shortDescription);
-        
+
         let goals = this
             .buildInput(project_infos, "Objectifs du projet", "textarea", project.goals);
-        
+
         let links = this
             .buildInput(project_infos, "Liens utiles (séparés par un retour à la ligne)", "textarea", project.links);
-        
+
         project_infos
             .child('button')
             .addClass('button')
@@ -212,7 +225,7 @@ export class View {
             .child('div')
             .html('Divers')
             .addClass("title");
-        
+
         misc
             .child('p')
             .html("Ce projet n'est pas publié ")
@@ -220,21 +233,20 @@ export class View {
             .addClass('button')
             .html('publier');
 
-        misc
-            .child('p')
-            .html('<i>20/01/2018</i> - <b>Simon Loir</b> a mis à jour le nom du projet');
-        
-        misc
-            .child('p')
-            .html('<i>10/01/2018</i> - <b>Simon Loir</b> a ajouté 2 managers');
-        
-        misc
-            .child('p')
-            .html('<i>10/01/2018</i> - <b>Simon Loir</b> a créé le projet');
+        getHistory(project.id, (data: Array<historyEntry>) => {
+
+            data.forEach(entry => {
+
+                let container = misc.child('p');
+
+                this.buildHistory(container, entry);
+
+            });
+
+        });
     }
 
     public buildMyProjectsPage(projects: Array<Project>) {
-        console.log(projects)
 
         let e = this.container;
 

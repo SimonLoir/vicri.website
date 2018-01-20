@@ -28,16 +28,20 @@ $user_must_be_logged_in = json_encode(["type" => "error", "message" => "user mus
 if ($method == "GET"){
     switch ($res) {
         case "login":
+            
             if(isset($_SESSION['id'])){
-		    	exit(json_encode([
+            
+                exit(json_encode([
                     "isConnected" => true,
                     "name" => $_SESSION['user'],
                     "email" => $_SESSION["email"],
                     "isINDSEUser" => ( strstr( $_SESSION["email"], "@indse.be" ) ) ? true : false
                 ]));
+                
             }else{
                 exit($user_login_error);
             }
+
             break;
 
         case "user-projects":
@@ -50,12 +54,14 @@ if ($method == "GET"){
 
             $projects->convertManagersIDArrayToNamesArray();
 
-            exit(json_encode($projects->export()));
+            exit($projects->export());
 
             break;
         
         case "project":
+            
             if(!isset($_GET["id"])){exit("error : missing query string id");}
+            
             if(!isset($_SESSION["id"])){exit($user_must_be_logged_in);}
             
             $id = $_GET["id"];
@@ -64,16 +70,30 @@ if ($method == "GET"){
 
             $project->convertManagersIDArrayToNamesArray();
 
-            exit(json_encode($project->export()));
+            exit($project->export());
+
+            break;
+
+        case "history":
+            
+            if(!isset($_GET["id"])){exit("error : missing query string id");}
+            
+            $project_history = new history($db, $_GET["id"]);
+            
+            exit($project_history->export());
 
             break;
 
         case "logout":
+
             session_destroy();
+        
             break;
 
         default:
+        
             exit('error');
+            
             break;
     }
 }else if ($method == "POST"){

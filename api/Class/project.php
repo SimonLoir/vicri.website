@@ -66,7 +66,7 @@ class project{
     }
 
     public function export(){
-        return $this->project;
+        return json_encode($this->project);
     }
 }
 ?>

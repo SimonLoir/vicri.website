@@ -28,6 +28,12 @@ Table events
     - global
     - project_id
 
+Table history
+    - id
+    - type
+    - content
+    - project_id (-1 if global)
+
 ## API
 
 Method GET

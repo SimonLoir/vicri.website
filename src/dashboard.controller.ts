@@ -30,7 +30,7 @@ class Controller {
         this._view.clear();
         switch (this._page.name) {
             case "home":
-                this._view.buildHomePage();
+                this._view.buildHomePage(this._model.getHistory.bind(this._model));
                 break;
             
             case "my-projects":
@@ -39,7 +39,12 @@ class Controller {
 
             case "manage-project":
                 let project_id = this._page.get('id');
-                this._model.getProjectById(project_id, this._view.buildManageProjectPage.bind(this._view), this._view.buildErrorPage.bind(this._view));
+                this._model.getProjectById(
+                    project_id, 
+                    this._view.buildManageProjectPage.bind(this._view), 
+                    this._view.buildErrorPage.bind(this._view), 
+                    this._model.getHistory.bind(this._model)
+                );
                 break;
 
             default:

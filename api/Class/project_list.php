@@ -41,7 +41,7 @@ class project_list{
     }
 
     public function export() {
-        return $this->projects;
+        return json_encode($this->projects);
     }
 }
 ?>

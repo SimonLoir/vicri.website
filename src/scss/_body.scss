@@ -1,73 +1,130 @@
-.body{
+.body {
     position: fixed;
-    top: 73px;right: 0;left: 300px;bottom: 0;
+    top: 73px;
+    right: 0;
+    left: 300px;
+    bottom: 0;
     overflow: auto;
     padding: 15px;
-    & .panel{
+    & .panel {
         word-wrap: break-word;
-        background:white;
-        margin:0;
-        margin-bottom:15px;
+        background: white;
+        margin: 0;
+        margin-bottom: 15px;
         position: relative;
-        border:1px solid rgb(237,237,237);
-        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-        border:5px;
-        &.col2{
-            width:calc(50% - 15px);
-            max-width:calc(50% - 15px);
-            &.right{
-                float:right;
+        border: 1px solid rgb(237, 237, 237);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        border: 5px;
+        &.col2 {
+            width: calc(50% - 15px);
+            max-width: calc(50% - 15px);
+            &.right {
+                float: right;
             }
-            &.padding{
+            &.padding {
                 max-width: calc(50% - 45px);
             }
-
             min-height: calc(40vh - 30px);
-
         }
-        &.padding{
+        &.padding {
             padding: 15px;
         }
         color:gray;
-        & .title{
+        & .title {
             font-size: 22px;
-            color:hsla(0, 0%, 0%, 0.87);
+            color: hsla(0, 0%, 0%, 0.87);
         }
-
-        & button, & .button{
-            display:inline-block;
+        & button,
+        & .button {
+            display: inline-block;
             text-decoration: none;
-            background:rgb(68,184,175);
+            background: rgb(68, 184, 175);
             padding: 7px 12px;
             border-radius: 4px;
-            border:none;
-            color:white;
+            border: none;
+            color: white;
             cursor: pointer;
             margin-right: 5px;
         }
     }
-
-    & .error_container{
-            display:inline-block;
-            vertical-align:top;
-            max-width:100%;
-            background:rgb(226,116,125);
-            height:calc(100% - 30px);
-            border-radius:10px;
-            width:calc(100% - 30px);
-            & .error_zone{
-                position:absolute;
-                text-align:center;
-                top:50%;
-                left:50%;
-                max-width:50%;
-                transform:translate(-50%, -50%);
-                color:white;
-                & img{
-                    max-width:calc(50% - 25px);
-                    max-height:calc(50% - 25px);
-                }
+    & .error_container {
+        display: inline-block;
+        vertical-align: top;
+        max-width: 100%;
+        background: rgb(226, 116, 125);
+        height: calc(100% - 30px);
+        border-radius: 10px;
+        width: calc(100% - 30px);
+        & .error_zone {
+            position: absolute;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            max-width: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            & img {
+                max-width: calc(50% - 25px);
+                max-height: calc(50% - 25px);
             }
+        }
     }
-
+    & .field {
+        position: relative;
+        margin: 16px 0;
+        margin-top: 24px;
+        padding: 4px;
+        & .top {
+            display: block;
+            position: absolute;
+            top: 10px;
+            left: 2px;
+            color: #6f6f6f;
+            transition: 0.29s;
+            transform-origin: left;
+        }
+        &.focus .top,
+        &.notempty .top {
+            position: absolute;
+            top: 2px;
+            transform: translateY(-75%) scale(0.75);
+        }
+        &.focus .top {
+            color: #2474d1;
+        }
+        & input,
+        & textarea,
+        & select {
+            position: relative;
+            display: block;
+            padding: 8px;
+            padding-left: 2px;
+            border: none;
+            width: 100%;
+            outline: none;
+            background: transparent;
+            font-family: "Roboto", sans-serif;
+        }
+        & textarea {
+            height: 100px;
+        }
+        &::after,
+        &::before {
+            content: "";
+            height: 2px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #cccccc;
+        }
+        &::after {
+            background: #2474d1;
+            transform: scaleX(0);
+            transition: 0.29s;
+        }
+        &.focus::after {
+            transform: scaleX(1);
+        }
+    }
 }

@@ -66,8 +66,9 @@ Class db{
 
 			}else{
 				if (isset($options['one']) && $options['one'] == true) {
-					if(isset($request->fetchAll(PDO::FETCH_OBJ)[0])){
-						return $request->fetchAll(PDO::FETCH_OBJ)[0];
+					$fetched = $request->fetchAll(PDO::FETCH_OBJ);
+					if(isset($fetched[0]) && $fetched != null){
+						return $fetched[0];
 					}else{
 						return false;
 					}

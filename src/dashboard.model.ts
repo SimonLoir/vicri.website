@@ -71,6 +71,29 @@ export interface historyEntry{
     message?: string
 }
 
+export interface PublishedVideoProject{
+    id: Number
+    url: string
+    provider: string
+    title: string
+    description: string
+}
+
+export interface PublishedPhotoProject{
+    id: Number
+    title: string
+    cover: string
+    description: string
+}
+
+export interface PublishedOtherProject{
+    id: Number
+    link: string
+    name: string
+    image: string
+    description: string
+}
+
 export interface Project {
     id: number
     name: string
@@ -82,5 +105,9 @@ export interface Project {
     shortDescription: string
     goals: string
     links: string,
-    message?: string
+    message?: string, 
+    video?:PublishedVideoProject
+    other?:PublishedPhotoProject
+    photo?:PublishedOtherProject
+    isPublished?:boolean
 }

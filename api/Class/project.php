@@ -40,6 +40,33 @@ class project{
                 ":id" => $this->id
             ]
         ])[0];
+
+        $this->project->video = $this->db->query('SELECT * FROM videos WHERE id = :id', [
+            "prepare" => [
+                ":id" => $this->id
+            ],
+            "one" => true
+        ]);
+
+        $this->project->other = $this->db->query('SELECT * FROM other_projects WHERE id = :id', [
+            "prepare" => [
+                ":id" => $this->id
+            ],
+            "one" => true
+        ]);
+        
+        $this->project->photo = $this->db->query('SELECT * FROM photos_folders WHERE id = :id', [
+            "prepare" => [
+                ":id" => $this->id
+            ],
+            "one" => true
+        ]);
+        
+        if($this->project->video || $this->project->other || $this->project->photo){
+            $this->project->isPublished = true;
+        }else{
+            $this->project->isPublished = false;
+        }
     }
 
     private function isManager(){

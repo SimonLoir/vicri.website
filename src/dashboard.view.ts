@@ -195,6 +195,15 @@ export class View {
         let progression = this
             .buildInput(project_infos, "Progression du projet (en %)", "number", project.progression.toString());
 
+        let p:HTMLInputElement = progression.get(0);
+            p.max = "100";
+            p.min = "0";
+
+        let type = this
+            .buildInput(project_infos, "Type de projet", "select", project.progression.toString());
+
+        let t:HTMLSelectElement = type.get(0);
+        
         let description = this
             .buildInput(project_infos, "Description du projet", "textarea", project.description);
 
@@ -226,12 +235,26 @@ export class View {
             .html('Divers')
             .addClass("title");
 
-        misc
-            .child('p')
-            .html("Ce projet n'est pas publié ")
-            .child('button')
-            .addClass('button')
-            .html('publier');
+        if(project.isPublished == true){
+            misc
+                .child('p')
+                .html("Ce projet est publié !");
+            
+            if(project.video){
+                console.log("e")
+            }else if(project.photo){
+                console.log("e1")
+            }else if(project.other){
+                console.log("e2")
+            }
+        }else{
+            misc
+                .child('p')
+                .html("Ce projet n'est pas publié ")
+                .child('button')
+                .addClass('button')
+                .html('publier');
+        }
 
         getHistory(project.id, (data: Array<historyEntry>) => {
 
@@ -244,6 +267,16 @@ export class View {
             });
 
         });
+
+        let types = [project.type, "video", "photo", "code", "3d", "jeu"];
+        types.forEach((type:string) => {
+            let option = document.createElement('option');
+            option.value = type;
+            option.text = type;
+            t.add(option);
+        });
+        //@ts-ignore
+        t.onblur();
     }
 
     public buildMyProjectsPage(projects: Array<Project>) {

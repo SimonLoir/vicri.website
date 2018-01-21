@@ -5,10 +5,16 @@ export class View {
 
     public container: ExtJsObject;
 
-    public clear() { this.container.html(''); }
-
     public page: Page;
 
+    /**
+     * Function called to clear the view
+     */
+    public clear() { this.container.html(''); }
+    /**
+     * Builds the home page
+     * @param getHistory Gets the history of teh website
+     */
     public buildHomePage(getHistory: (id: string, callback: (data: Array<historyEntry>) => void) => void) {
 
         let e = this.container;
@@ -73,7 +79,11 @@ export class View {
 
         this.page.addUrlSwitcher();
     }
-
+    /**
+     * Builds an history with an entry
+     * @param container the element in which we want to build the history
+     * @param entry the entry in question
+     */
     public buildHistory(container:ExtJsObject, entry:historyEntry) {
         container.child('i').html(entry.content.date + " - ");
 
@@ -93,7 +103,10 @@ export class View {
 
         }
     }
-
+    /**
+     * Builds an error page from an error object
+     * @param error.message the message of the error 
+     */
     public buildErrorPage(error: Error) {
 
         $(".header .title").html("Erreur");
@@ -121,7 +134,13 @@ export class View {
             .child('p')
             .html(error.message);
     }
-
+    /**
+     * Creates an input (material design)
+     * @param parent the parent container
+     * @param label_text the placeholder
+     * @param type the type of the input
+     * @param default_value the default value
+     */
     public buildInput(parent: ExtJsObject, label_text: string, type: string, default_value?: string): ExtJsObject {
 
         let input_types = ["text", "password", "number", "range"];
@@ -176,7 +195,12 @@ export class View {
 
         return input;
     }
-
+    /**
+     * Makes a project maangement page
+     * @param project the informations of the project
+     * @param getHistory gets the history of te project
+     * @param updateProject upadtes te project
+     */
     public buildManageProjectPage(project: Project, getHistory:any, updateProject:(data:Project) => void) {
 
         let e = this.container;
@@ -299,7 +323,10 @@ export class View {
             });
         });
     }
-
+    /**
+     * Builds a page that lists all the projects of an user
+     * @param projects a list of projects
+     */
     public buildMyProjectsPage(projects: Array<Project>) {
 
         let e = this.container;

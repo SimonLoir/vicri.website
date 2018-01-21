@@ -13,6 +13,12 @@ class Controller {
     private _model:Model;
     private _view:View;
 
+    /**
+     * Creates a new controller
+     * @param page the page object
+     * @param model the model used by the controller
+     * @param view the view used by te controller
+     */
     constructor (page:Page, model:Model, view:View) {
         this._page = page;
         this._model = model;
@@ -26,6 +32,10 @@ class Controller {
         this._model.login(undefined, this.choosePage.bind(this), this.choosePage.bind(this));
     }
 
+    /**
+     * Choose the right page
+     * @param state the connection state of the user
+     */
     private choosePage(state:ConnectionState){
         this._view.clear();
         switch (this._page.name) {

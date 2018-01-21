@@ -3,6 +3,10 @@ import { AR } from "./extjs";
 
 export class Page extends P {};
 export class Model extends SharedModel {
+    /**
+     * Gets the user's projects
+     * @param callback function to call when everythong has been loaded
+     */
     public getUsersProject(callback: (data: Array<Project>) => void) {
         AR.GET(this.api_url + "api?res=user-projects", (data) => {
             try {
@@ -16,7 +20,14 @@ export class Model extends SharedModel {
             }
         });
     }
-
+    /**
+     * Gets the informations of a project via it's id
+     * @param id the id of the project
+     * @param callback function to call when * is ok
+     * @param onErrorCallback function to call if something went wrong
+     * @param othercallback function passed to callback
+     * @param second_other_callback function passed to callback
+     */
     public getProjectById(id:string, callback: (data: Project, other?:any, second_other?:any)  => void, onErrorCallback:(data: Project) => void, othercallback?:any, second_other_callback?:any){
         AR.GET(this.api_url + "api?res=project&manager&id=" + id, (data) => {
             try {
@@ -41,7 +52,10 @@ export class Model extends SharedModel {
             }
         });
     }
-
+    /**
+     * Updates the project with the new valmues of the project object
+     * @param project the object that contains all the new values 
+     */
     public updateProject(project:Project){
 
         let keys = Object.keys(project);
@@ -81,7 +95,11 @@ export class Model extends SharedModel {
         }
 
     }
-
+    /**
+     * Gets the history of the project
+     * @param id id of the project (-1 if global)
+     * @param callback function to call when * has been loaded
+     */
     public getHistory(id:string, callback:(data:Array<historyEntry>) => void){
         AR.GET(this.api_url + "api?res=history&id=" + id, (data) => {
             try {

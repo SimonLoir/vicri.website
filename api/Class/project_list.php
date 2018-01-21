@@ -12,6 +12,10 @@ class project_list{
         $this->db = $db;
     }
 
+    public function getAll(){
+        $this->setProjects($this->db->query('SELECT id, name, managers, shortDescription, progression, pined FROM projects ORDER BY pined DESC, id DESC'));
+    }
+
     public function getProjectsForUser($user){
         $projects = $this->db->query('SELECT * FROM projects WHERE managers LIKE :id', [
             "prepare" => [
@@ -19,6 +23,7 @@ class project_list{
             ]
         ]);
 
+        
         foreach ($projects as $key => $project) {
             $managers = explode(";", $project->managers);
             if(!in_array("" . $user, $managers)){
@@ -33,15 +38,20 @@ class project_list{
         
         $users = new users_array($this->db);
 
-        for ($i=0; $i < sizeof($this->projects); $i++) { 
-            $users_id = explode(";", $this->projects[$i]->managers);
+        foreach ($this->projects as $i => $project) {
+            $users_id = explode(";", $project->managers);
             $this->projects[$i]->managers = $users->getUsersNamesFromArray($users_id);
         }
+
+        /*for ($i=0; $i < sizeof($this->projects); $i++) { 
+            
+        }*/
+
         
     }
 
     public function export() {
-        return json_encode($this->projects);
+        return json_encode(array_values($this->projects));
     }
 }
 ?>

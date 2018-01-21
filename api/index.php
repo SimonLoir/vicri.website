@@ -74,6 +74,19 @@ if ($method == "GET"){
 
             break;
 
+        case "projects":
+
+            
+            $projects = new project_list($db);
+            
+            $projects->getAll();
+
+            $projects->convertManagersIDArrayToNamesArray();
+
+            exit($projects->export());
+
+            break;
+
         case "history":
             
             if(!isset($_GET["id"])){exit("error : missing query string id");}
@@ -91,7 +104,9 @@ if ($method == "GET"){
             break;
 
         default:
-        
+            
+            http_response_code(500);
+
             exit('error');
             
             break;
@@ -132,6 +147,16 @@ if ($method == "GET"){
                 exit($user_login_error);
             }
             break;
+
+        default:
+
+            http_response_code(500);
+
+            exit('error');
+            break;
+    }
+}else if ($method == "PUT"){
+    switch ($res) {
         
         case "project":
 
@@ -142,8 +167,10 @@ if ($method == "GET"){
             $project->update($_POST);
 
             break;
-
+            
         default:
+            http_response_code(500);
+
             exit('error');
             break;
     }

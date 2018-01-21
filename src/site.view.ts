@@ -1,6 +1,6 @@
 import "./scss/site.style.scss";
 import { $, ExtJsObject } from "./extjs";
-import { Page } from "./site.model";
+import { Page, Project } from "./site.model";
 import { ConnectionState } from "./shared.model";
 export class View {
 
@@ -142,6 +142,63 @@ export class View {
                 return false;
             }
         }
+    }
+
+    public buildProjectsPage(getProjects: (callback:(projects?: Array<Project>) => void) => void){
+
+        let container: ExtJsObject = this._c;
+
+        container.html('<div class="scms-landing-image" style="height:400px;background:url(./res/projects.jpg) no-repeat;background-position:center;background-size:cover;position:relative;"></div>');
+
+        let project_block: ExtJsObject = container
+            .child('div')
+            .addClass('scms-content-block')
+            .child('div')
+            .addClass('scms-centred-element')
+            .css('background', "#fcfcfc");
+
+        project_block
+            .child('h2')
+            .html("Bienvenue sur notre page projets ! ")
+            .addClass('scms-content-block-title');
+
+        project_block
+            .child('p')
+            .addClass('scms-content-block-paragraph')
+            .css('text-align', "center")
+            .html(
+                "Ici, vous trouverez les différents projets réalisés par notre groupe qu'ils soient terminés ou non."
+            );
+        
+        let wrapper = project_block
+            .child('div')
+            .addClass('wrapper');
+
+        getProjects((projects) => {
+            projects.forEach((project) => {
+                
+                function nl2br (str:string, is_xhtml:boolean) {
+                    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+                    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+                }
+
+                let pb = wrapper
+                    .child('div')
+                    .addClass('project')
+                
+                pb
+                    .child('div')
+                    .addClass('img')
+                    .html(project.name);
+                
+                pb
+                    .child('p')
+                    .html(nl2br(project.shortDescription, false));
+
+            });
+        });
+
+        this.buildFooter();
     }
 
     public set container(c: ExtJsObject) { this._c = c; }

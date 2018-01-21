@@ -67,7 +67,7 @@ export class Model extends SharedModel {
         
         if(ask == true){
 
-            AR.POST(this.api_url + "api/index.php?res=project", project, (data) => {
+            AR.PUT(this.api_url + "api/index.php?res=project", project, (data) => {
 
                 if(data != "ok"){
                     alert('Le serveur a rencontré une erreur inconnue : ' + data);

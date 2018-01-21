@@ -36,6 +36,10 @@ class Controller {
                 this._view.buildHomePage();
                 break;
 
+            case "projects":
+                this._view.buildProjectsPage(this._model.getProjects.bind(this._model));
+                break;
+
             default:
                 this._view.build404Page();
                 break;
@@ -65,7 +69,7 @@ $(document).ready(() => {
     view.container = $('.dynamic-content');
     
     //Getting the model ready by defining the api directory
-    model.api_url = "";
+    model.api_url = "./";
 
     // Creating a new controller object
     let controller = new Controller(page, model, view);

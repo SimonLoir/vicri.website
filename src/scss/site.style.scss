@@ -110,6 +110,36 @@ body .scms-content-block, .style-simple-band{
                 }
             }
         }
+        & .wrapper{
+            margin-top: 25px;
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            & .project{
+                overflow: hidden;
+                background: white;
+                border:1px solid rgb(221, 223, 226);
+                border-radius: 5px;
+                width: calc(50% - 25px);
+                margin-bottom: 25px;
+                & .img{
+                    height: 300px;
+                    background: linear-gradient(to right top, rgb(142, 171, 221), #437ADC);
+                    color:white;
+                    line-height: 300px;
+                    font-size: 45px;
+                }
+                & p{
+                    display: block;
+                    word-break: break-word;
+                    padding-left: 25px;
+                    padding-right: 25px;
+                    line-height: 100%;
+                }
+            }
+        }
 
     }
     &:nth-child(odd){

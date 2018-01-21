@@ -17,28 +17,73 @@ class project{
      * @param id the id of the project to get
      * @param must_be_manager specifies wether or not the user must be a manager
      */
-    function __construct($db, $id, $must_be_manager = false) {
+    function __construct($db, $id = null, $must_be_manager = false) {
         
         $this->db = $db;
         
-        $this->id = $id;
-
-        $this->getProjectFromDB();
-
-        $this->users = new users_array($this->db);
-        
-        $this->errors = [
-            "user_must_be_logged_in" => json_encode(["type" => "error", "message" => "Cette partie est réservée aux managers du projet"])
-        ];
-
-        if($must_be_manager){
-            if(!$this->isManager()){
-                exit($this->errors["user_must_be_logged_in"]);
+        if($id != null){
+            
+            $this->id = $id;
+    
+            $this->getProjectFromDB();
+    
+            $this->users = new users_array($this->db);
+            
+            $this->errors = [
+                "user_must_be_logged_in" => json_encode(["type" => "error", "message" => "Cette partie est réservée aux managers du projet"])
+            ];
+    
+            if($must_be_manager){
+                if(!$this->isManager()){
+                    exit($this->errors["user_must_be_logged_in"]);
+                }
             }
         }
 
+    }
+
+    /**
+     * Creates a project from data
+     * @param the informations about the project
+     */
+    public function create($data){
+
+        if(!isset($_SESSION["id"])){exit('E_CON');}
+
+        if(!isset($data["name"])){exit('E_NAME');}
+
+        if(!isset($data["shortDescription"])){exit('E_DESC');}
+
+        if(!isset($data["type"])){exit('E_TYPE');}
+
+        $ok = $this->db->query('INSERT INTO projects VALUES(NULL, :name, :user_id , :xtype, 0, 0, "/", :descri, "/", "/")', [
+			"result" => true,
+			"prepare" => [
+                ":user_id" => $_SESSION['id'],
+                ":xtype" => $data["type"],
+				":name" => $data['name'],
+				":descri" => $data['shortDescription']
+				]
+        ]);
+        
+        if($ok){
+            $this->db->query('INSERT INTO history VALUES (NULL, "project_created", :c, :id)', [
+                "prepare" => [
+                    ":c" => json_encode([
+                        "user" => "$" ."{user." . $_SESSION["id"] . "}",
+                        "name" => $data["name"],
+                        "date" => date('d/m/Y')
+                    ]), 
+                    ":id" => -1
+                ]
+            ]);
+            exit('ok');
+        }else{
+            exit('fatal error');
+        }
 
     }
+
     /**
      * Gets the project from the database. It also checks if the project has been published or not.
      */

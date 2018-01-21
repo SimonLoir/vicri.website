@@ -147,6 +147,14 @@ if ($method == "GET"){
                 exit($user_login_error);
             }
             break;
+        
+        case "project":
+            
+            $project = new project($db);
+
+            $project->create($_POST);
+
+            break;
 
         default:
 

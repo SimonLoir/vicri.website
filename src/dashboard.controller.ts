@@ -57,6 +57,9 @@ class Controller {
                     this._model.updateProject.bind(this._model)
                 );
                 break;
+            case "new-project":
+                this._view.buildNewProjectPage(this._model.createProject.bind(this._model));
+                break;
 
             default:
                 this._view.buildErrorPage({

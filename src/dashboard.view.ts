@@ -84,7 +84,7 @@ export class View {
      * @param container the element in which we want to build the history
      * @param entry the entry in question
      */
-    public buildHistory(container:ExtJsObject, entry:historyEntry) {
+    public buildHistory(container: ExtJsObject, entry: historyEntry) {
         container.child('i').html(entry.content.date + " - ");
 
         if (entry.type == "test") {
@@ -93,13 +93,18 @@ export class View {
 
             container.child('span').html(" a créé une entrée dans l'historique du site vicri");
 
-        }else if(entry.type == 'project_update'){
+        } else if (entry.type == 'project_update') {
 
             container.child('b').html(entry.content.user + " ");
 
-            
-
             container.child('span').html(" a mis à jour le(s) champ(s) " + entry.content.props.toString() + " de ce projet");
+
+        }else if(entry.type == "project_created"){
+
+            container.child('b').html(entry.content.user + " ");
+
+            container.child('span').html(" a créé le projet " + entry.content.name);
+
 
         }
     }
@@ -201,7 +206,7 @@ export class View {
      * @param getHistory gets the history of te project
      * @param updateProject upadtes te project
      */
-    public buildManageProjectPage(project: Project, getHistory:any, updateProject:(data:Project) => void) {
+    public buildManageProjectPage(project: Project, getHistory: any, updateProject: (data: Project) => void) {
 
         let e = this.container;
 
@@ -227,15 +232,15 @@ export class View {
         let progression = this
             .buildInput(project_infos, "Progression du projet (en %)", "number", project.progression.toString());
 
-        let p:HTMLInputElement = progression.get(0);
-            p.max = "100";
-            p.min = "0";
+        let p: HTMLInputElement = progression.get(0);
+        p.max = "100";
+        p.min = "0";
 
         let type = this
-            .buildInput(project_infos, "Type de projet", "select", project.progression.toString());
+            .buildInput(project_infos, "Type de projet", "select");
 
-        let t:HTMLSelectElement = type.get(0);
-        
+        let t: HTMLSelectElement = type.get(0);
+
         let description = this
             .buildInput(project_infos, "Description du projet", "textarea", project.description);
 
@@ -267,19 +272,19 @@ export class View {
             .html('Divers')
             .addClass("title");
 
-        if(project.isPublished == true){
+        if (project.isPublished == true) {
             misc
                 .child('p')
                 .html("Ce projet est publié !");
-            
-            if(project.video){
+
+            if (project.video) {
                 console.log("e")
-            }else if(project.photo){
+            } else if (project.photo) {
                 console.log("e1")
-            }else if(project.other){
+            } else if (project.other) {
                 console.log("e2")
             }
-        }else{
+        } else {
             misc
                 .child('p')
                 .html("Ce projet n'est pas publié ")
@@ -301,7 +306,7 @@ export class View {
         });
 
         let types = [project.type, "video", "photo", "code", "3d", "jeu"];
-        types.forEach((type:string) => {
+        types.forEach((type: string) => {
             let option = document.createElement('option');
             option.value = type;
             option.text = type;
@@ -312,7 +317,7 @@ export class View {
 
         update.click(() => {
             updateProject({
-                id:project.id,
+                id: project.id,
                 name: name.value(),
                 progression: progression.value(),
                 description: description.value(),
@@ -398,6 +403,66 @@ export class View {
         });
 
         this.page.addUrlSwitcher();
+    }
+
+    /**
+     * buildNewProjectPage
+     * @param createProject the function to call in order to create the project
+     */
+    public buildNewProjectPage(createProject: (project: Project) => void) {
+        let e = this.container;
+
+        $(".header .title").html("Créer un projet");
+
+        let project = e
+            .child('div')
+            .css('display', "inline-block")
+            .css('vertical-align', "top")
+            .addClass('panel')
+            .addClass('padding')
+            .css('max-width', "100%")
+            .css('width', "calc(100% - 30px)");
+
+        project
+            .child('div')
+            .html('Créer un projet')
+            .addClass("title");
+
+        let name = this
+            .buildInput(project, "Nom du projet", "text");
+
+        let description = this
+            .buildInput(project, "Donnez une courte description de votre projet", "textarea");
+
+        let type = this
+            .buildInput(project, "Type de projet", "select");
+
+        let t: HTMLSelectElement = type.get(0);
+
+        let types = ["video", "photo", "code", "3d", "jeu"];
+        
+        types.forEach((type: string) => {
+            let option = document.createElement('option');
+            option.value = type;
+            option.text = type;
+            t.add(option);
+        });
+        
+        //@ts-ignore
+        t.onblur();
+
+        project
+            .child('button')
+            .click(() => {
+                createProject({
+                    name: name.value(),
+                    shortDescription: description.value(),
+                    type:type.value()
+                });
+            })
+            .addClass('button')
+            .html('Confirmer et créer')
+            .attr("data-internal", true).get(0).href = "dashboard-new-project";
     }
 }
 

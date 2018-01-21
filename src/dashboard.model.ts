@@ -113,6 +113,45 @@ export class Model extends SharedModel {
             }
         });
     }
+    /**
+     * Creates a project with the project given
+     * @param project project object used to create the project
+     */
+    public createProject(project:Project){
+
+        if(["video", "photo", "code", "3d", "jeu"].indexOf(project.type) < 0){
+            alert(`Le type ${project.type} n'existe pas`);
+            return false;
+        }
+
+        if(project.name.trim().length < 10){
+            alert('Donnez un nom plus grand');
+            return;
+        }
+
+        if(project.shortDescription.length > 250){
+            alert('Cette description est trop grande');
+            return false;
+        }
+
+        if(project.shortDescription.length < 50){
+            alert('Cette description est trop petite (entre 80 et 250 caractères)');
+            return false;
+        }
+
+        AR.POST(this.api_url + "api/index.php?res=project", project, (data) => {
+
+            if(data.indexOf("ok") != 0){
+                alert('Le serveur a rencontré une erreur inconnue : ' + data);
+            }else{
+                alert('Projet créé');
+                window.location.href = "dashboard-my-projects";
+            }
+
+        }, () => {
+            alert("Erreur 500 : internal server error");
+        });
+    }
 };
 
 interface historyEntryContent{
@@ -120,6 +159,7 @@ interface historyEntryContent{
     user?: string
     resource_url?: string
     props?: Array<string>
+    name?:string
 }
 
 export interface historyEntry{
@@ -156,12 +196,12 @@ export interface PublishedOtherProject{
 export interface Project{
     name: string
     type: any
-    progression: number
-    description: string
     shortDescription: string
-    goals: string
-    links: string,
+    goals?: string
+    links?: string,
     id?: number
+    progression?: number
+    description?: string
     managers?: any
     pined?: number
     message?: string

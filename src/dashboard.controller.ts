@@ -43,7 +43,8 @@ class Controller {
                     project_id, 
                     this._view.buildManageProjectPage.bind(this._view), 
                     this._view.buildErrorPage.bind(this._view), 
-                    this._model.getHistory.bind(this._model)
+                    this._model.getHistory.bind(this._model),
+                    this._model.updateProject.bind(this._model)
                 );
                 break;
 

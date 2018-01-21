@@ -17,15 +17,15 @@ export class Model extends SharedModel {
         });
     }
 
-    public getProjectById(id:string, callback: (data: Project, other?:any)  => void, onErrorCallback:(data: Project) => void, othercallback?:any){
+    public getProjectById(id:string, callback: (data: Project, other?:any, second_other?:any)  => void, onErrorCallback:(data: Project) => void, othercallback?:any, second_other_callback?:any){
         AR.GET(this.api_url + "api?res=project&manager&id=" + id, (data) => {
             try {
 
                 let d: Project = JSON.parse(data);
 
                 if(d.type != "error" && d.message == undefined){
-                    if(othercallback != undefined){
-                        callback(d, othercallback);                        
+                    if(othercallback != undefined && second_other_callback != undefined){
+                        callback(d, othercallback, second_other_callback);                        
                     }else{
                         callback(d);
                     }
@@ -40,6 +40,46 @@ export class Model extends SharedModel {
                 console.log(error)
             }
         });
+    }
+
+    public updateProject(project:Project){
+
+        let keys = Object.keys(project);
+
+        keys.forEach((key:string, index:number) => {
+
+            //@ts-ignore
+            let value:string = project[key];
+
+            if(value.trim() == ""){
+                alert(`Paramètre ${keys} ne peut pas être vide !`);
+                return false;
+            }
+
+        });
+
+        if(["video", "photo", "code", "3d", "jeu"].indexOf(project.type) < 0){
+            alert(`Le type ${project.type} n'existe pas`);
+            return false;
+        }
+        
+        let ask = confirm('Cette modification est irréversible, continuer ?');
+        
+        if(ask == true){
+
+            AR.POST(this.api_url + "api/index.php?res=project", project, (data) => {
+
+                if(data != "ok"){
+                    alert('Le serveur a rencontré une erreur inconnue : ' + data);
+                }else{
+                    alert('Projet mis à jour');
+                    window.location.reload();
+                }
+
+            });
+
+        }
+
     }
 
     public getHistory(id:string, callback:(data:Array<historyEntry>) => void){
@@ -94,18 +134,18 @@ export interface PublishedOtherProject{
     description: string
 }
 
-export interface Project {
-    id: number
+export interface Project{
     name: string
-    managers: any
     type: any
     progression: number
-    pined: number
     description: string
     shortDescription: string
     goals: string
     links: string,
-    message?: string, 
+    id?: number
+    managers?: any
+    pined?: number
+    message?: string
     video?:PublishedVideoProject
     other?:PublishedPhotoProject
     photo?:PublishedOtherProject

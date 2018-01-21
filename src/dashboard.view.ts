@@ -169,7 +169,7 @@ export class View {
         return input;
     }
 
-    public buildManageProjectPage(project: Project, getHistory:any) {
+    public buildManageProjectPage(project: Project, getHistory:any, updateProject:(data:Project) => void) {
 
         let e = this.container;
 
@@ -189,7 +189,7 @@ export class View {
             .html('Gestion du projet')
             .addClass("title");
 
-        let project_name = this
+        let name = this
             .buildInput(project_infos, "Nom du projet", "text", project.name);
 
         let progression = this
@@ -216,7 +216,7 @@ export class View {
         let links = this
             .buildInput(project_infos, "Liens utiles (séparés par un retour à la ligne)", "textarea", project.links);
 
-        project_infos
+        let update = project_infos
             .child('button')
             .addClass('button')
             .html('Modifier');
@@ -277,6 +277,19 @@ export class View {
         });
         //@ts-ignore
         t.onblur();
+
+        update.click(() => {
+            updateProject({
+                id:project.id,
+                name: name.value(),
+                progression: progression.value(),
+                description: description.value(),
+                shortDescription: short_description.value(),
+                type: type.value(),
+                goals: goals.value(),
+                links: links.value()
+            });
+        });
     }
 
     public buildMyProjectsPage(projects: Array<Project>) {

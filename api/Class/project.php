@@ -92,6 +92,40 @@ class project{
         
     }
 
+    public function update($e){
+        
+        $keys = ["id","name","progression","description","shortDescription","type","goals","links"];
+
+        unset($e["id"]);
+
+        $error = false;
+
+        foreach ($e as $key => $value) {
+
+            if($value != $this->project->$key && in_array($key, $keys)){
+                if($this->db->query('UPDATE projects SET ' . $key .' = :v WHERE id = :id', [
+                    "prepare" => [
+                        ":v" => $value,
+                        ":id" => $this->id
+                    ],
+                    "result" => true
+                ])){
+
+                }else{
+                    $error = true;
+                }
+            }
+
+        }
+
+        if(!$error){
+            exit("ok");
+        }else{
+            exit('impossible de mettre à jour une partie du projet');
+        }
+
+    }
+
     public function export(){
         return json_encode($this->project);
     }

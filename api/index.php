@@ -133,7 +133,18 @@ if ($method == "GET"){
             }
             break;
         
+        case "project":
+
+            if(!isset($_POST["id"])){exit('error : missing query string id');}
+
+            $project = new project($db, $_POST["id"], true);
+
+            $project->update($_POST);
+
+            break;
+
         default:
+            exit('error');
             break;
     }
 }

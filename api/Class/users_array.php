@@ -7,6 +7,10 @@ class users_array{
 
     private $_cache = [];
 
+    /**
+     * Creates an array of users
+     * @param db the database to use
+     */
     function __construct($db){
         
         $this->db = $db;
@@ -14,7 +18,9 @@ class users_array{
         $this->all_users = $this->db->query('SELECT id, name, firstname, mail, pseudo FROM users');
 
     }
-
+    /**
+     * Gets the names of the user that have the ids that are in users_id
+     */
     public function getUsersNamesFromArray($users_id){
 
         $result = [];
@@ -33,7 +39,9 @@ class users_array{
         return $result;
 
     }
-
+    /**
+     * Gets the username of an user via his id
+     */
     public function getUserNameFromID($id){
         
         $user_infos = $this->getUserInfosFromID($id);
@@ -45,7 +53,9 @@ class users_array{
         }
 
     }
-
+    /**
+     * Gets the informations of an user via his id
+     */
     public function getUserInfosFromID($id){
         
         if(isset($this->_cache[$id])){

@@ -11,6 +11,12 @@ class project{
 
     private $errors;
     
+    /**
+     * Creates a new instance of the project object. 
+     * @param db the database to use
+     * @param id the id of the project to get
+     * @param must_be_manager specifies wether or not the user must be a manager
+     */
     function __construct($db, $id, $must_be_manager = false) {
         
         $this->db = $db;
@@ -33,7 +39,9 @@ class project{
 
 
     }
-    
+    /**
+     * Gets the project from the database. It also checks if the project has been published or not.
+     */
     private function getProjectFromDB(){
         $this->project = $this->db->query('SELECT * FROM projects WHERE id = :id', [
             "prepare" => [
@@ -68,7 +76,9 @@ class project{
             $this->project->isPublished = false;
         }
     }
-
+    /**
+     * Checks if the user is manager of the project
+     */
     private function isManager(){
         
         $users_id = explode(";", $this->project->managers);
@@ -81,7 +91,9 @@ class project{
         
         return $this->project->isManager;
     }
-
+    /**
+     * Converts an array of manager's ids into an array of manager's names.
+     */
     public function convertManagersIDArrayToNamesArray(){
         
         $users_id = explode(";", $this->project->managers);
@@ -91,7 +103,10 @@ class project{
         $this->project->managers = $this->users->getUsersNamesFromArray($users_id);
         
     }
-
+    /**
+     * Updates a project with the given associative array
+     * @param e An associative array which keys are cells to update in the database and values are values to set in the cells.
+     */
     public function update($e){
         
         $keys = ["id","name","progression","description","shortDescription","type","goals","links"];
@@ -148,7 +163,9 @@ class project{
         }
 
     }
-
+    /**
+     * Exports the project as a json object
+     */
     public function export(){
         return json_encode($this->project);
     }

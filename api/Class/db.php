@@ -2,20 +2,36 @@
 Class db{
 
 	private $db_name;
+	
 	private $db_user;
+	
 	private $db_pass;
+	
 	private $db_host;
+	
 	private $pdo;
 
+	/**
+	 * Creates a new database object
+	 * @param db_name the name of the database
+	 * @param db_user the username (default is root)
+	 * @param db_pass the password (default is "")
+	 * @param db_host the host (default is localhost)
+	 */
 	public function __construct($db_name, $db_user = "root", $db_pass = "", $db_host = "localhost"){
 
 		$this->db_name = $db_name;
+
 		$this->db_user = $db_user;
+
 		$this->db_pass = $db_pass;
+
 		$this->db_host = $db_host;
 
 	}
-
+	/**
+	 * Creates a new database connection or use the one that has already been initialized
+	 */
 	private function getPDO(){
 
 		if ($this->pdo === null) {
@@ -25,7 +41,11 @@ Class db{
 		return $this->pdo;
 
 	}
-
+	/**
+	 * Performs a sql query
+	 * @param statement the sql statement to execute
+	 * @param options the options
+	 */
 	public function query($statement, $options = null){
 
 		if ($options == null) {

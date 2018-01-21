@@ -1,9 +1,7 @@
 <?php 
-/*
-* ACTION : charge les classes utilisées
-*/
-
-
+/**
+ * This is an autoloader which means that is main goal is to load object without having to laod the files manually.
+ */
 Class autoloader{
 
 	static function load($class){

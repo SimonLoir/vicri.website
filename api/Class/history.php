@@ -7,6 +7,11 @@ class history{
 
     private $users;
 
+    /**
+     * Creates a new instance of the history object and gets the history of the project
+     * @param db the database to use
+     * @param id the id of the project (-1 for global)
+     */
     function __construct($db, $id) {
 
         $this->db = $db;
@@ -22,7 +27,9 @@ class history{
         $this->contentStringToArray();
 
     }
-
+    /**
+     * Converts the content field (json) into an array
+     */
     public function contentStringToArray(){
         
         foreach ($this->history as $key => $entry) {
@@ -48,7 +55,9 @@ class history{
         }
 
     }
-
+    /**
+     * Exports the history to json
+     */
     public function export(){
 
         return json_encode($this->history);

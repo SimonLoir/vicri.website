@@ -101,6 +101,7 @@ interface historyEntryContent{
     date: string
     user?: string
     resource_url?: string
+    props?: Array<string>
 }
 
 export interface historyEntry{

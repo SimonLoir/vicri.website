@@ -83,6 +83,14 @@ export class View {
 
             container.child('span').html(" a créé une entrée dans l'historique du site vicri");
 
+        }else if(entry.type == 'project_update'){
+
+            container.child('b').html(entry.content.user + " ");
+
+            
+
+            container.child('span').html(" a mis à jour le(s) champ(s) " + entry.content.props.toString() + " de ce projet");
+
         }
     }
 

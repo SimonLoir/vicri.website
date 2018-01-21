@@ -100,9 +100,16 @@ class project{
 
         $error = false;
 
+        $props = [];
+
+        $count = 0;
+
         foreach ($e as $key => $value) {
 
             if($value != $this->project->$key && in_array($key, $keys)){
+
+                $count++;
+
                 if($this->db->query('UPDATE projects SET ' . $key .' = :v WHERE id = :id', [
                     "prepare" => [
                         ":v" => $value,
@@ -111,15 +118,31 @@ class project{
                     "result" => true
                 ])){
 
+                    $props[] = $key;
+                
                 }else{
+                
                     $error = true;
+                
                 }
             }
 
         }
 
-        if(!$error){
+        if(!$error && $count != 0){
+            $this->db->query('INSERT INTO history VALUES (NULL, "project_update", :c, :id)', [
+                "prepare" => [
+                    ":c" => json_encode([
+                        "user" => "$" ."{user." . $_SESSION["id"] . "}",
+                        "date" => date('d/m/Y'),
+                        "props" => $props
+                    ]), 
+                    ":id" => $this->id
+                ]
+            ]);
             exit("ok");
+        }else if($count == 0){
+            exit('ok');
         }else{
             exit('impossible de mettre à jour une partie du projet');
         }

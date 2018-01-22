@@ -4,7 +4,8 @@ module.exports = {
     entry: {
         site: './src/site.controller.ts', 
         dashboard: './src/dashboard.controller.ts',
-        login: "./src/login.ts"
+        login: "./src/login.ts",
+        test: "./tests/index.ts"
     },
     module: {
         rules: [

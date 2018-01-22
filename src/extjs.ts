@@ -242,7 +242,7 @@ export class ExtJsObject {
      * @param value The value that we want to assign to that atribute 
      * @param i the index of the element (optional)
      */
-    attr(attr: string, value: string, i?:any) {
+    attr(attr: string, value?: string, i?:any) {
         var y = i;
         if (i == undefined) {
             i = 0;
@@ -441,6 +441,15 @@ export class ExtJsObject {
         }
 
         return $(siblings);
+    }
+
+    /**
+     * Calls a callback for each element
+     */
+    forEach(callback: () => void){
+        this.node.forEach(element => {
+            callback.bind(element)();
+        });
     }
 
 }

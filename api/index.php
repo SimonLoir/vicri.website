@@ -62,8 +62,6 @@ if ($method == "GET"){
             
             if(!isset($_GET["id"])){exit("error : missing query string id");}
             
-            if(!isset($_SESSION["id"])){exit($user_must_be_logged_in);}
-            
             $id = $_GET["id"];
 
             $project = new project($db, $id, isset($_GET["manager"]));

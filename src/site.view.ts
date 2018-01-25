@@ -186,11 +186,22 @@ export class View {
                     .child('div')
                     .addClass('project')
                 
-                pb
+                let pbc:ExtJsObject = pb
                     .child('div')
                     .addClass('img')
+
+                pbc
+                    .child('div')
+                    .css('background', "url(https://picsum.photos/450/300?random#" + Math.random() + ") no-repeat")
+                    .css('background-position', "center")
+                    .css('background-size', "cover")
+                    .addClass('rimg')
+
+                pbc
+                    .child('div')
+                    .addClass('text')
                     .html(project.name);
-                
+
                 pb
                     .child('p')
                     .html(nl2br(project.shortDescription, false));

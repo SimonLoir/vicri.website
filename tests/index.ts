@@ -45,7 +45,7 @@ $('.test').forEach(function () {
                         result += `<br><span style="color:red"> <h3> >>>>>>> Test failed for ${p} @ ${test_url} <<<<<<< </h3> </span> `;
                     } else {
 
-                        result += `<br><span style="color:rgba(100,255,100, 0.3)"> >> Test passed for ${p}</span>`;
+                        result += `<br><span style="color:green"> >> Test passed for ${p}</span>`;
 
                     }
 

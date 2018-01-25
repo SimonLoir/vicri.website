@@ -65,6 +65,20 @@ body{
     right: 0;
 }
 
+.clearfix{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    & button, & .button{
+        flex-grow:1;
+        background: transparent;
+        color:orange;
+        padding: 12px;
+        box-shadow: none;
+        border:none;
+        cursor: pointer;
+    }
+}
 
 .scms-footer{
     background: rgb(45,45,45);
@@ -124,11 +138,11 @@ body .scms-content-block, .style-simple-band{
                 border-radius: 5px;
                 width: calc(50% - 25px);
                 margin-bottom: 25px;
+                text-align: center;
                 & .img{
                     position: relative;
                     height: 300px;
                     background: linear-gradient(to right top, #FF8D48, #FFDA2E);
-                    //background: linear-gradient(to right top, #CA3058, #FF9A48);
                     color:white;
                     & .rimg {
                         position: absolute;

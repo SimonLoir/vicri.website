@@ -122,6 +122,11 @@ export class View {
 
         this._c.child('div').addClass('scms-footer').html("Groupe vicri");
 
+        this.buildLinks();
+
+    }
+
+    private buildLinks() {
         var all = document.querySelectorAll('[data-internal=true]');
 
         for (var i = 0; i < all.length; i++) {
@@ -143,6 +148,7 @@ export class View {
             }
         }
     }
+
 
     public buildProjectsPage(getProjects: (callback:(projects?: Array<Project>) => void) => void){
 
@@ -205,7 +211,27 @@ export class View {
                 pb
                     .child('p')
                     .html(nl2br(project.shortDescription, false));
+                
+                pb
+                    .child('div')
+                    .css('border-top', "1px solid lightgray")
+                    .css('width', "calc(100% - 12px)")
+                    .css('margin', "auto")
 
+                let cf = pb
+                    .child('div')
+                    .addClass('clearfix')
+                
+                cf
+                    .child('a')
+                    .addClass("button")
+                    .html('Voir le projet')
+                    .css('text-decoration', "none")
+                    .attr('data-internal', true)
+                    .get(0)
+                    .href = "project-" + project.id
+
+                    this.buildLinks();
             });
         });
 

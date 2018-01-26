@@ -1,5 +1,5 @@
 import { $, ExtJsObject } from "./extjs";
-import { Page, Project, historyEntry } from "./dashboard.model";
+import { Page, Project, historyEntry, User } from "./dashboard.model";
 
 export class View {
 
@@ -50,6 +50,12 @@ export class View {
             .addClass('button')
             .html('Créer un projet')
             .attr("data-internal", true).get(0).href = "dashboard-new-project";
+
+        welcome
+            .child('a')
+            .addClass('button')
+            .html('PV des réunions')
+            .attr("data-internal", true).get(0).href = "dashboard-pv";
 
         let news = e
             .child('div')
@@ -200,13 +206,55 @@ export class View {
 
         return input;
     }
+    public createModalDialog(title: string) {
+
+        let mask = $("body")
+            .child('div')
+            .addClass('mask');
+
+        let modal = mask
+            .child('div')
+            .addClass('modal');
+
+        let t = modal
+            .child('span')
+            .html(title)
+            .addClass("title");
+
+        let cross = modal
+            .child('span')
+            .addClass('cross')
+            .html('×');
+
+
+        mask.click((e) => {
+            if (e.target == mask.get(0) || e.target == null) {
+                mask.addClass('hidden');
+                setTimeout(() => {
+                    mask.remove();
+                }, 1000);
+            }
+        })
+
+        cross.click(() => {
+            mask.click();
+        });
+
+        return modal;
+
+    }
+
     /**
      * Makes a project maangement page
      * @param project the informations of the project
      * @param getHistory gets the history of te project
      * @param updateProject upadtes te project
      */
-    public buildManageProjectPage(project: Project, getHistory: any, updateProject: (data: Project) => void) {
+    public buildManageProjectPage(
+        project: Project,
+        getHistory: any,
+        updateProject: (data: Project) => void,
+        managers: [(func: (data: Array<User>) => void) => void]) {
 
         let e = this.container;
 
@@ -271,6 +319,53 @@ export class View {
             .child('div')
             .html('Divers')
             .addClass("title");
+
+        let users = "";
+
+        project.managers.forEach(
+            (manager: string, index: number) => users += manager + ((index + 1 == project.managers.length) ? "" : ((index + 2 == project.managers.length) ? " et " : ", "))
+        );
+
+        misc
+            .child('p')
+            .html('Managers : ' + users + "  ")
+            .child("a")
+            .html('[ + ]')
+            .click((event: MouseEvent) => {
+
+                event.preventDefault();
+
+                managers[0]((data) => {
+
+                    let dialog = this.createModalDialog("Gestion des managers");
+
+                    let table = dialog.child('table');
+
+                    data.forEach((e: User) => {
+
+                        let row = table.child("tr");
+
+                        row.child('td').html(e.firstname + " " + e.name);
+
+                        if (project.managers_id.indexOf(e.id) >= 0) {
+                            let del: ExtJsObject = row.child('td').child('button').html('Supprimer').addClass('button').addClass('danger');
+
+                            del
+                                .click(() => {
+
+                                });
+
+                        } else {
+                            let add: ExtJsObject = row.child('td').child('button').html('Ajouter').addClass('button');
+                        }
+
+                    });
+
+                });
+
+            })
+            .css('text-decoration', "none")
+            .get(0).href = "#ee";
 
         if (project.isPublished == true) {
             misc
@@ -479,7 +574,7 @@ export class View {
             .addClass('padding')
             .css('max-width', "100%")
             .css('width', "calc(100% - 30px)");
-        
+
         panel
             .child('div')
             .html('PV des réunions')

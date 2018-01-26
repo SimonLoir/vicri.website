@@ -3,6 +3,27 @@ import { AR } from "./extjs";
 
 export class Page extends P {};
 export class Model extends SharedModel {
+
+    /**
+     * Gets a list of all the usres of the site
+     * @param callback function walled when the list of all the users as been downloaded
+     */
+    public getAllUsers(callback: (data: Array<User>) => void) {
+        AR.GET(this.api_url + "api?res=users", (data) => {
+            try {
+
+                let d: Array<User> = JSON.parse(data);
+
+                callback(d);
+
+            } catch (error) {
+                console.log(error)
+            }
+        }, () => {
+            console.log('Fatal error 500');
+        });
+    }
+
     /**
      * Gets the user's projects
      * @param callback function to call when everythong has been loaded
@@ -28,15 +49,15 @@ export class Model extends SharedModel {
      * @param othercallback function passed to callback
      * @param second_other_callback function passed to callback
      */
-    public getProjectById(id:string, callback: (data: Project, other?:any, second_other?:any)  => void, onErrorCallback:(data: Project) => void, othercallback?:any, second_other_callback?:any){
+    public getProjectById(id:string, callback: (data: Project, other?:any, second_other?:any, third_other_callback?:any)  => void, onErrorCallback:(data: Project) => void, othercallback?:any, second_other_callback?:any, third_other_callback?:any){
         AR.GET(this.api_url + "api?res=project&manager&id=" + id, (data) => {
             try {
 
                 let d: Project = JSON.parse(data);
 
                 if(d.type != "error" && d.message == undefined){
-                    if(othercallback != undefined && second_other_callback != undefined){
-                        callback(d, othercallback, second_other_callback);                        
+                    if(othercallback != undefined && second_other_callback != undefined && third_other_callback != undefined){
+                        callback(d, othercallback, second_other_callback, third_other_callback);                        
                     }else{
                         callback(d);
                     }
@@ -226,5 +247,14 @@ export interface Project{
     video?:PublishedVideoProject
     other?:PublishedPhotoProject
     photo?:PublishedOtherProject
-    isPublished?:boolean
+    isPublished?:boolean,
+    managers_id?: Array<Number>
+}
+
+export interface User{
+    firstname: string,
+    mail:string,
+    name:string,
+    pseudo:string,
+    id:Number 
 }

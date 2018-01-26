@@ -70,5 +70,12 @@ class users_array{
         }
 
     }
+
+    /**
+     * Exports an array with all the users that are registered
+     */
+    public function export() {
+        return json_encode($this->all_users);
+    }
 }
 ?>

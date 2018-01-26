@@ -84,6 +84,14 @@ if ($method == "GET"){
             exit($projects->export());
 
             break;
+        
+        case "users":
+            
+            $users = new users_array($db);
+
+            exit($users->export());
+
+            break;
 
         case "history":
             

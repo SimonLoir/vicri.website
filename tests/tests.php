@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,15 +21,26 @@
     <span class="test" data-url="res=projects" data-expected="[] => id, name, managers, shortDescription, progression, pined" data-format="json"></span>
     
     <span class="test" data-url="res=project&id=1" data-expected="{} => id, name, managers, shortDescription, progression, pined, type, progression, description, goals, links, video, photo, other, isPublished, managers_id" data-format="json"></span>
+
+    <span class="test" data-url="res=users" data-expected="[] => id, name, firstname, mail, pseudo" data-format="json"></span>
     
 
     <span class="test" data-url="res=login" data-expected="{} => isConnected" data-format="json"></span>
 
     <h1>Error messages</h1>
     
-    <span class="test" data-url="res=project&id=1&manager" data-expected="{} => type, message" data-format="json"></span>
+    <?php
+    if(!isset($_SESSION["id"])){
+    ?>
+        <span class="test" data-url="res=project&id=1&manager" data-expected="{} => type, message" data-format="json"></span>
     
-    <span class="test" data-url="res=user-projects" data-expected="{} => type, message" data-format="json"></span>
+        <span class="test" data-url="res=user-projects" data-expected="{} => type, message" data-format="json"></span>
+
+    <?php
+    }else{
+        echo "<h2>Tests can't all be done because the user is logged in. </h2>";
+    }
+    ?>
 
     <script src="../dist/test.bundle.js"></script>
 </body>

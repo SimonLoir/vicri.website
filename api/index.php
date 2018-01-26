@@ -101,6 +101,14 @@ if ($method == "GET"){
         
             break;
 
+        case "pv":
+            
+            $pvs = new pv_list();
+
+            exit($pvs->export());
+
+            break;
+
         default:
             
             http_response_code(500);

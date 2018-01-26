@@ -152,6 +152,24 @@ export class Model extends SharedModel {
             alert("Erreur 500 : internal server error");
         });
     }
+
+    /**
+     * Gets all the reports of the last meetings
+     * @param callback Function that is called when all the reports have been loaded
+     */
+    getAllMeetingReports(callback : (data:Array<string>) => void){
+        AR.GET(this.api_url + "api?res=pv", (data) => {
+            try {
+
+                let d: Array<string> = JSON.parse(data);
+
+                callback(d);
+
+            } catch (error) {
+                console.log(error)
+            }
+        });
+    }
 };
 
 interface historyEntryContent{

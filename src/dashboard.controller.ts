@@ -61,6 +61,12 @@ class Controller {
                 this._view.buildNewProjectPage(this._model.createProject.bind(this._model));
                 break;
 
+            case "pv":
+                
+                this._model.getAllMeetingReports(this._view.buildPVPage.bind(this._view));
+
+                break;
+
             default:
                 this._view.buildErrorPage({
                     type: "error",

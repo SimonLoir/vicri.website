@@ -99,7 +99,7 @@ export class View {
 
             container.child('span').html(" a mis à jour le(s) champ(s) " + entry.content.props.toString() + " de ce projet");
 
-        }else if(entry.type == "project_created"){
+        } else if (entry.type == "project_created") {
 
             container.child('b').html(entry.content.user + " ");
 
@@ -440,14 +440,14 @@ export class View {
         let t: HTMLSelectElement = type.get(0);
 
         let types = ["video", "photo", "code", "3d", "jeu"];
-        
+
         types.forEach((type: string) => {
             let option = document.createElement('option');
             option.value = type;
             option.text = type;
             t.add(option);
         });
-        
+
         //@ts-ignore
         t.onblur();
 
@@ -457,12 +457,47 @@ export class View {
                 createProject({
                     name: name.value(),
                     shortDescription: description.value(),
-                    type:type.value()
+                    type: type.value()
                 });
             })
             .addClass('button')
             .html('Confirmer et créer')
             .attr("data-internal", true).get(0).href = "dashboard-new-project";
+    }
+
+    public buildPVPage(data: Array<string>) {
+
+        let e = this.container;
+
+        $(".header .title").html("PV des réunions");
+
+        let panel = e
+            .child('div')
+            .css('display', "inline-block")
+            .css('vertical-align', "top")
+            .addClass('panel')
+            .addClass('padding')
+            .css('max-width', "100%")
+            .css('width', "calc(100% - 30px)");
+        
+        panel
+            .child('div')
+            .html('PV des réunions')
+            .addClass("title");
+
+        data.forEach((report_url) => {
+
+            panel
+                .child('p')
+                .child('a')
+                .html(report_url)
+                .get(0)
+                .href = report_url
+        });
+
+
+        this.page.addUrlSwitcher();
+
     }
 }
 

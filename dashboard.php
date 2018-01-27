@@ -12,6 +12,7 @@
         <span class="title"></span>
         <span class="user"><?= $user ?> <span class="acccount-manager">&#9207;</span> </span>
     </div>
+    <div class="hamburger none"><span></span><svg x="0" y="0" width="54px" height="54px" viewBox="0 0 54 54"> <circle cx="27" cy="27" r="26"></circle> </svg> </div>
     <div class="left_panel">
         <div class="title">
             Vicri Dashboard

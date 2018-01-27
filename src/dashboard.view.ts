@@ -7,6 +7,12 @@ export class View {
 
     public page: Page;
 
+    public restoreMenu(){
+        if(document.querySelector('.hamburger').classList.contains('clicked')){
+            $('.hamburger').click();
+        }
+    }
+
     /**
      * Function called to clear the view
      */

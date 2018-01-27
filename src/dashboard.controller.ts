@@ -30,6 +30,7 @@ class Controller {
      */
     public loadPage() {
         this._model.login(undefined, this.choosePage.bind(this), this.choosePage.bind(this));
+        this._view.restoreMenu();
     }
 
     /**
@@ -131,7 +132,7 @@ $(document).ready(() => {
     };
 
     // Hamburger menu system
-    let menu = $('.scms-header-actions');
+    let menu = $('.left_panel');
     $('.hamburger').click(function() {
         if (this.classList.contains('clicked')) {
             $(this).removeClass('clicked');

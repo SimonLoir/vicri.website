@@ -7,6 +7,9 @@ export class View {
 
     public page: Page;
 
+    /**
+     * Sets the menu to it's default state
+     */
     public restoreMenu(){
         if(document.querySelector('.hamburger').classList.contains('clicked')){
             $('.hamburger').click();

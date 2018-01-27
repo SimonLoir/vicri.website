@@ -65,7 +65,7 @@ $button-color:rgb(68, 184, 175);
         background: rgb(226, 116, 125);
         height: calc(100% - 30px);
         border-radius: 10px;
-        width: calc(100% - 30px);
+        width: 100%;
         & .error_zone {
             position: absolute;
             text-align: center;

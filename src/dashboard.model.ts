@@ -1,13 +1,19 @@
 import { P, SharedModel } from "./shared.model";
 import { AR } from "./extjs";
-
 //@ts-ignore
 const getYouTubeID = require("get-youtube-id");
 
 //console.log(getYouTubeID("https://youtu.be/wpyk2fr9aIc"));
 
-export class Page extends P {};
+export class Page extends P { };
 export class Model extends SharedModel {
+
+    public async addUserToProject(data: addUserToProjectData) {
+        return new Promise((resolve: any, reject:any) => {
+            let d:Promise<any> = AR.POST(this.api_url + "api/index.php?res=user", data).then(resolve).catch(reject);
+        });
+
+    }
 
     /**
      * Gets a list of all the usres of the site
@@ -54,20 +60,20 @@ export class Model extends SharedModel {
      * @param othercallback function passed to callback
      * @param second_other_callback function passed to callback
      */
-    public getProjectById(id:string, callback: (data: Project, other?:any, second_other?:any, third_other_callback?:any)  => void, onErrorCallback:(data: Project) => void, othercallback?:any, second_other_callback?:any, third_other_callback?:any){
+    public getProjectById(id: string, callback: (data: Project, other?: any, second_other?: any, third_other_callback?: any) => void, onErrorCallback: (data: Project) => void, othercallback?: any, second_other_callback?: any, third_other_callback?: any) {
         AR.GET(this.api_url + "api?res=project&manager&id=" + id, (data) => {
             try {
 
                 let d: Project = JSON.parse(data);
 
-                if(d.type != "error" && d.message == undefined){
-                    if(othercallback != undefined && second_other_callback != undefined && third_other_callback != undefined){
-                        callback(d, othercallback, second_other_callback, third_other_callback);                        
-                    }else{
+                if (d.type != "error" && d.message == undefined) {
+                    if (othercallback != undefined && second_other_callback != undefined && third_other_callback != undefined) {
+                        callback(d, othercallback, second_other_callback, third_other_callback);
+                    } else {
                         callback(d);
                     }
-                }else{
-                    if(onErrorCallback != undefined){
+                } else {
+                    if (onErrorCallback != undefined) {
                         onErrorCallback(d);
                     }
                 }
@@ -82,36 +88,36 @@ export class Model extends SharedModel {
      * Updates the project with the new valmues of the project object
      * @param project the object that contains all the new values 
      */
-    public updateProject(project:Project){
+    public updateProject(project: Project) {
 
         let keys = Object.keys(project);
 
-        keys.forEach((key:string, index:number) => {
+        keys.forEach((key: string, index: number) => {
 
             //@ts-ignore
-            let value:string = project[key];
+            let value: string = project[key];
 
-            if(value.trim() == ""){
+            if (value.trim() == "") {
                 alert(`Paramètre ${keys} ne peut pas être vide !`);
                 return false;
             }
 
         });
 
-        if(["video", "photo", "code", "3d", "jeu"].indexOf(project.type) < 0){
+        if (["video", "photo", "code", "3d", "jeu"].indexOf(project.type) < 0) {
             alert(`Le type ${project.type} n'existe pas`);
             return false;
         }
-        
+
         let ask = confirm('Cette modification est irréversible, continuer ?');
-        
-        if(ask == true){
+
+        if (ask == true) {
 
             AR.PUT(this.api_url + "api/index.php?res=project", project, (data) => {
 
-                if(data != "ok"){
+                if (data != "ok") {
                     alert('Le serveur a rencontré une erreur inconnue : ' + data);
-                }else{
+                } else {
                     alert('Projet mis à jour');
                     window.location.reload();
                 }
@@ -126,12 +132,12 @@ export class Model extends SharedModel {
      * @param id id of the project (-1 if global)
      * @param callback function to call when * has been loaded
      */
-    public getHistory(id:string, callback:(data:Array<historyEntry>) => void){
+    public getHistory(id: string, callback: (data: Array<historyEntry>) => void) {
         AR.GET(this.api_url + "api?res=history&id=" + id, (data) => {
             try {
 
-                let d:Array<historyEntry> = JSON.parse(data);
-                
+                let d: Array<historyEntry> = JSON.parse(data);
+
                 callback(d);
 
             } catch (error) {
@@ -143,33 +149,33 @@ export class Model extends SharedModel {
      * Creates a project with the project given
      * @param project project object used to create the project
      */
-    public createProject(project:Project){
+    public createProject(project: Project) {
 
-        if(["video", "photo", "code", "3d", "jeu"].indexOf(project.type) < 0){
+        if (["video", "photo", "code", "3d", "jeu"].indexOf(project.type) < 0) {
             alert(`Le type ${project.type} n'existe pas`);
             return false;
         }
 
-        if(project.name.trim().length < 10){
+        if (project.name.trim().length < 10) {
             alert('Donnez un nom plus grand');
             return;
         }
 
-        if(project.shortDescription.length > 250){
+        if (project.shortDescription.length > 250) {
             alert('Cette description est trop grande');
             return false;
         }
 
-        if(project.shortDescription.length < 50){
+        if (project.shortDescription.length < 50) {
             alert('Cette description est trop petite (entre 80 et 250 caractères)');
             return false;
         }
 
         AR.POST(this.api_url + "api/index.php?res=project", project, (data) => {
 
-            if(data.indexOf("ok") != 0){
+            if (data.indexOf("ok") != 0) {
                 alert('Le serveur a rencontré une erreur inconnue : ' + data);
-            }else{
+            } else {
                 alert('Projet créé');
                 window.location.href = "dashboard-my-projects";
             }
@@ -183,7 +189,7 @@ export class Model extends SharedModel {
      * Gets all the reports of the last meetings
      * @param callback Function that is called when all the reports have been loaded
      */
-    getAllMeetingReports(callback : (data:Array<string>) => void){
+    getAllMeetingReports(callback: (data: Array<string>) => void) {
         AR.GET(this.api_url + "api?res=pv", (data) => {
             try {
 
@@ -198,23 +204,23 @@ export class Model extends SharedModel {
     }
 };
 
-interface historyEntryContent{
+interface historyEntryContent {
     date: string
     user?: string
     resource_url?: string
     props?: Array<string>
-    name?:string
+    name?: string
 }
 
-export interface historyEntry{
+export interface historyEntry {
     type: string
-    content:historyEntryContent
+    content: historyEntryContent
     project_id: Number
-    id:Number
+    id: Number
     message?: string
 }
 
-export interface PublishedVideoProject{
+export interface PublishedVideoProject {
     id: Number
     url: string
     provider: string
@@ -222,14 +228,14 @@ export interface PublishedVideoProject{
     description: string
 }
 
-export interface PublishedPhotoProject{
+export interface PublishedPhotoProject {
     id: Number
     title: string
     cover: string
     description: string
 }
 
-export interface PublishedOtherProject{
+export interface PublishedOtherProject {
     id: Number
     link: string
     name: string
@@ -237,7 +243,7 @@ export interface PublishedOtherProject{
     description: string
 }
 
-export interface Project{
+export interface Project {
     name: string
     type: any
     shortDescription: string
@@ -249,17 +255,21 @@ export interface Project{
     managers?: any
     pined?: number
     message?: string
-    video?:PublishedVideoProject
-    other?:PublishedPhotoProject
-    photo?:PublishedOtherProject
-    isPublished?:boolean,
+    video?: PublishedVideoProject
+    other?: PublishedPhotoProject
+    photo?: PublishedOtherProject
+    isPublished?: boolean,
     managers_id?: Array<Number>
 }
 
-export interface User{
+export interface User {
     firstname: string,
-    mail:string,
-    name:string,
-    pseudo:string,
-    id:Number 
+    mail: string,
+    name: string,
+    pseudo: string,
+    id: Number
+}
+export interface addUserToProjectData {
+    project_id: string,
+    user_id: string
 }

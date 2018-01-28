@@ -1,7 +1,7 @@
-export class IndexOutOfArrayExecption{
-    public message:string;
-    public name:string;
-    constructor (message:string){
+export class IndexOutOfArrayExecption {
+    public message: string;
+    public name: string;
+    constructor(message: string) {
         this.message = message;
         this.name = "IndexOutOfArrayException";
     }
@@ -13,9 +13,9 @@ export class ExtJsObject {
 
     public type: string;
 
-    public ready: (toDo:any) => void;
+    public ready: (toDo: any) => void;
 
-    constructor(element?:any, e_index?:any) {
+    constructor(element?: any, e_index?: any) {
         var re;
 
         if (typeof (element) === "string") {
@@ -54,16 +54,16 @@ export class ExtJsObject {
      * @return {String|Object} HTML that is inside the first element or the current instance.
      */
     html(html?: string) {
-        if(html != undefined){
+        if (html != undefined) {
             for (var i = 0; i < this.node.length; i++) {
                 var e = this.node[i];
-    
+
                 if (typeof (html) === "string" || typeof (html) === "number") {
                     e.innerHTML = html;
                 }
             }
             return this;
-        }else{
+        } else {
             return this.node[0].innerHTML;
         }
     }
@@ -73,16 +73,16 @@ export class ExtJsObject {
      * @return {String|Object} text that is inside the first element or the current instance.
      */
     text(text?: string) {
-        if(text != undefined){
+        if (text != undefined) {
             for (var i = 0; i < this.node.length; i++) {
                 var e = this.node[i];
-    
+
                 if (typeof (text) === "string" || typeof (text) === "number") {
                     e.innerText = text;
                 }
             }
             return this;
-        }else{
+        } else {
             return this.node[0].innerText;
         }
     }
@@ -91,7 +91,7 @@ export class ExtJsObject {
      * @param {Function|Undefined} toDo function that is called when somebody clicks on the element  or undefined or nothing
      * @param {String|Undefined} element specifies the element on which we are going to listen the click.
      */
-    click(toDo?: (event?:Event) => void, element?: string) {
+    click(toDo?: (event?: Event) => void, element?: string) {
 
         for (var i = 0; i < this.node.length; i++) {
             var e = this.node[i];
@@ -104,7 +104,7 @@ export class ExtJsObject {
                 }
             } else if (toDo !== undefined) {
                 var x = e;
-                e.addEventListener("click", function (event:MouseEvent) {
+                e.addEventListener("click", function (event: MouseEvent) {
                     if (x.querySelector(element) == event.target) {
                         let xe: any = x.querySelector(element);
                         xe.prototype.toDo = toDo;
@@ -125,7 +125,7 @@ export class ExtJsObject {
      * @param index index of the element or undefined or nothing
      * @return {Object} a DOM element
      */
-    get(index: any):any{
+    get(index: any): any {
         if (index != undefined) {
             if (this.node[index] == undefined) throw new IndexOutOfArrayExecption("ExtJsObject.get undefined index node[" + index + "]");
             return this.node[index];
@@ -138,7 +138,7 @@ export class ExtJsObject {
      * @param value the height of the element (and units (em / px / cm, etc)) or undefined or nothing
      * @return {Object|Number} Object if value != undefined and Number if value == undefined
      */
-    height(value?:string) {
+    height(value?: string) {
         for (var i = 0; i < this.node.length; i++) {
             var e = this.node[i];
             if (value !== undefined) {
@@ -153,7 +153,7 @@ export class ExtJsObject {
      * @param value the width of the element (and units (em / px / cm, etc)) or undefined or nothing
      * @return {Object|Number} Object if value != undefined and Number if value == undefined
      */
-    width(value?:string) {
+    width(value?: string) {
         for (var i = 0; i < this.node.length; i++) {
             var e = this.node[i];
             if (value !== undefined) {
@@ -218,7 +218,7 @@ export class ExtJsObject {
      * @param value The value that we want to assign to that property 
      * @param i the index of the element (optional)
      */
-    css(prop: string, value: string, i?:any) {
+    css(prop: string, value: string, i?: any) {
         var y = i;
         if (i == undefined) {
             i = 0;
@@ -242,7 +242,7 @@ export class ExtJsObject {
      * @param value The value that we want to assign to that atribute 
      * @param i the index of the element (optional)
      */
-    attr(attr: string, value?: string, i?:any) {
+    attr(attr: string, value?: string, i?: any) {
         var y = i;
         if (i == undefined) {
             i = 0;
@@ -255,24 +255,24 @@ export class ExtJsObject {
         } else {
             for (let i = 0; i < this.node.length; i++) {
                 var e = this.node[i];
-                e.setAttribute(attr,value)
+                e.setAttribute(attr, value)
             }
             return this;
         }
     }
-    
+
     /**
      * Returns the nearest parent of the element's
      * @param selector The selector of the nearest parent
      */
-    parent(selector:string) {
+    parent(selector: string) {
         var parents = [];
 
         for (var i = 0; i < this.node.length; i++) {
-            var e = this.node[i]; 
+            var e = this.node[i];
             if (selector == undefined) {
                 parents.push(e.parentElement);
-            }else{
+            } else {
                 parents.push(e.closest(selector));
             }
         }
@@ -284,17 +284,17 @@ export class ExtJsObject {
      * @return {String|Object} Text that is inside the first element or the current instance.
      */
     value(text?: string) {
-        if(text != undefined){
+        if (text != undefined) {
             for (var i = 0; i < this.node.length; i++) {
-                var e:HTMLTextAreaElement = this.node[i];
-    
+                var e: HTMLTextAreaElement = this.node[i];
+
                 if (typeof (text) === "string" || typeof (text) === "number") {
                     e.value = text;
                 }
             }
             return this;
-        }else{
-            let node:HTMLTextAreaElement = this.node[0];
+        } else {
+            let node: HTMLTextAreaElement = this.node[0];
             return this.node[0].value;
         }
     }
@@ -303,7 +303,7 @@ export class ExtJsObject {
      * @param {Function|Undefined} toDo function that is called when somebody keypress on the element  or undefined or nothing
      * @param {String|Undefined} element specifies the element on which we are going to listen the keypress.
      */
-    keypress(toDo?: (event?:Event) => void, element?: string) {
+    keypress(toDo?: (event?: Event) => void, element?: string) {
 
         for (var i = 0; i < this.node.length; i++) {
             var e = this.node[i];
@@ -314,7 +314,7 @@ export class ExtJsObject {
                 }
             } else if (toDo !== undefined) {
                 var x = e;
-                e.addEventListener("keypress", function (event:KeyboardEvent) {
+                e.addEventListener("keypress", function (event: KeyboardEvent) {
                     if (x.querySelector(element) == event.target) {
                         let xe: any = x.querySelector(element);
                         xe.prototype.toDo = toDo;
@@ -331,7 +331,7 @@ export class ExtJsObject {
      * @param {Function|Undefined} toDo function that is called when somebody input on the element  or undefined or nothing
      * @param {String|Undefined} element specifies the element on which we are going to listen the input.
      */
-    input(toDo?: (event?:Event) => void, element?: string) {
+    input(toDo?: (event?: Event) => void, element?: string) {
 
         for (var i = 0; i < this.node.length; i++) {
             var e = this.node[i];
@@ -342,7 +342,7 @@ export class ExtJsObject {
                 }
             } else if (toDo !== undefined) {
                 var x = e;
-                e.addEventListener("input", function (event:KeyboardEvent) {
+                e.addEventListener("input", function (event: KeyboardEvent) {
                     if (x.querySelector(element) == event.target) {
                         let xe: any = x.querySelector(element);
                         xe.prototype.toDo = toDo;
@@ -359,7 +359,7 @@ export class ExtJsObject {
      * @param {Function|Undefined} toDo function that is called when somebody keydown on the element  or undefined or nothing
      * @param {String|Undefined} element specifies the element on which we are going to listen the keydown.
      */
-    keydown(toDo?: (event?:Event) => void, element?: string) {
+    keydown(toDo?: (event?: Event) => void, element?: string) {
 
         for (var i = 0; i < this.node.length; i++) {
             var e = this.node[i];
@@ -370,7 +370,7 @@ export class ExtJsObject {
                 }
             } else if (toDo !== undefined) {
                 var x = e;
-                e.addEventListener("keydown", function (event:KeyboardEvent) {
+                e.addEventListener("keydown", function (event: KeyboardEvent) {
                     if (x.querySelector(element) == event.target) {
                         let xe: any = x.querySelector(element);
                         xe.prototype.toDo = toDo;
@@ -387,7 +387,7 @@ export class ExtJsObject {
      * @param {Function|Undefined} toDo function that is called when somebody keyup on the element  or undefined or nothing
      * @param {String|Undefined} element specifies the element on which we are going to listen the keyup.
      */
-    keyup(toDo?: (event?:Event) => void, element?: string) {
+    keyup(toDo?: (event?: Event) => void, element?: string) {
 
         for (var i = 0; i < this.node.length; i++) {
             var e = this.node[i];
@@ -398,7 +398,7 @@ export class ExtJsObject {
                 }
             } else if (toDo !== undefined) {
                 var x = e;
-                e.addEventListener("keyup", function (event:KeyboardEvent) {
+                e.addEventListener("keyup", function (event: KeyboardEvent) {
                     if (x.querySelector(element) == event.target) {
                         let xe: any = x.querySelector(element);
                         xe.prototype.toDo = toDo;
@@ -414,11 +414,11 @@ export class ExtJsObject {
     /**
      * Returns the previous sibling of an element or a set of elements
      */
-    prevSibling(){
+    prevSibling() {
         let siblings = [];
 
         for (var i = 0; i < this.node.length; i++) {
-            var e:HTMLElement = this.node[i];
+            var e: HTMLElement = this.node[i];
 
             siblings.push(e.previousSibling);
 
@@ -430,11 +430,11 @@ export class ExtJsObject {
     /**
      * Returns the next sibling of an element or a set of elements
      */
-    nextSibling(){
+    nextSibling() {
         let siblings = [];
 
         for (var i = 0; i < this.node.length; i++) {
-            var e:HTMLElement = this.node[i];
+            var e: HTMLElement = this.node[i];
 
             siblings.push(e.nextSibling);
 
@@ -446,7 +446,7 @@ export class ExtJsObject {
     /**
      * Calls a callback for each element
      */
-    forEach(callback: () => void){
+    forEach(callback: () => void) {
         this.node.forEach(element => {
             callback.bind(element)();
         });
@@ -460,88 +460,65 @@ class AjaxRequest {
     * @param {Function} callback function which is called when the request has been performed correctly
     * @param {Function} error_callback function which is called when the request has not been performed correctly
     */
-    public GET(url: string, callback: (data: string) => void, error_callback?: () => void){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                callback(xhttp.responseText);
-            } else if (xhttp.readyState == 4) {
-
-                if (error_callback != undefined) {
-                    try {
-                        error_callback();
-                    } catch (e) {
-
+    public GET(url: string, callback?: (data: string) => void, error_callback?: () => void) {
+        return new Promise((resolve: any, reject: any) => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    if (callback != undefined) {
+                        callback(xhttp.responseText);
+                    } else {
+                        resolve(xhttp.responseText);
                     }
-                }
+                } else if (xhttp.readyState == 4) {
 
+                    if (error_callback != undefined) {
+                        try {
+                            error_callback();
+                        } catch (e) {
+
+                        }
+                    }
+
+                }
             }
-        }
-        xhttp.open("GET", url, true);
-        xhttp.send();
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        });
     }
     /**
     * @param {String} url URL of the resource
     * @param {Function} callback function which is called when the request has been performed correctly
     * @param {Function} error_callback function which is called when the request has not been performed correctly
     */
-    public DELETE(url: string, callback: (data: string) => void, error_callback?: () => void){
-        var xhttp = new XMLHttpRequest();
+    public DELETE(url: string, callback?: (data: string) => void, error_callback?: () => void) {
+        return new Promise((resolve: any, reject: any) => {
+            var xhttp = new XMLHttpRequest();
 
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                callback(xhttp.responseText);
-            } else if (xhttp.readyState == 4) {
-
-                if (error_callback != undefined) {
-                    try {
-                        error_callback();
-                    } catch (e) {
-
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    if (callback != undefined) {
+                        callback(xhttp.responseText);
+                    } else {
+                        resolve(xhttp.responseText);
                     }
-                }
+                } else if (xhttp.readyState == 4) {
 
-            }
-        }
-        xhttp.open("GET", url, true);
-        xhttp.setRequestHeader("x-http-method-override", "DELETE");
+                    if (error_callback != undefined) {
+                        try {
+                            error_callback();
+                        } catch (e) {
 
-        xhttp.send();
-    }
-    /**
-    * @param {String} url URL of the resource
-    * @param {Array} data assoc array with the data that will be sent
-    * @param {Function} callback function which is called when the request has been performed correctly
-    * @param {Function} error_callback function which is called when the request has not been performed correctly
-    */
-    public POST(url: string, data: any, callback: (data: string) => void, error_callback?: () => void){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                callback(xhttp.responseText);
-            } else if (xhttp.readyState == 4) {
-
-                if (error_callback != undefined) {
-                    try {
-                        error_callback();
-                    } catch (e) {
-
+                        }
                     }
-                }
 
+                }
             }
-        }
-        xhttp.open("POST", url, true);
-        var keys = Object.keys(data);
-        var d = "";
-        for (var i = 0; i < keys.length; i++) {
-            if (i !== 0) {
-                d = d + "&";
-            }
-            d = d + keys[i] + "=" + data[keys[i]];
-        }
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(d);
+            xhttp.open("GET", url, true);
+            xhttp.setRequestHeader("x-http-method-override", "DELETE");
+
+            xhttp.send();
+        });
     }
     /**
     * @param {String} url URL of the resource
@@ -549,35 +526,82 @@ class AjaxRequest {
     * @param {Function} callback function which is called when the request has been performed correctly
     * @param {Function} error_callback function which is called when the request has not been performed correctly
     */
-    public PUT(url: string, data: any, callback: (data: string) => void, error_callback?: () => void){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                callback(xhttp.responseText);
-            } else if (xhttp.readyState == 4) {
-
-                if (error_callback != undefined) {
-                    try {
-                        error_callback();
-                    } catch (e) {
-
+    public POST(url: string, data: any, callback?: (data: string) => void, error_callback?: () => void) {
+        return new Promise((resolve: any, reject: any) => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    if (callback != undefined) {
+                        callback(xhttp.responseText);
+                    } else {
+                        resolve(xhttp.responseText);
                     }
-                }
+                } else if (xhttp.readyState == 4) {
 
+                    if (error_callback != undefined) {
+                        try {
+                            error_callback();
+                        } catch (e) {
+
+                        }
+                    }
+
+                }
             }
-        }
-        xhttp.open("POST", url, true);
-        var keys = Object.keys(data);
-        var d = "";
-        for (var i = 0; i < keys.length; i++) {
-            if (i !== 0) {
-                d = d + "&";
+            xhttp.open("POST", url, true);
+            var keys = Object.keys(data);
+            var d = "";
+            for (var i = 0; i < keys.length; i++) {
+                if (i !== 0) {
+                    d = d + "&";
+                }
+                d = d + keys[i] + "=" + data[keys[i]];
             }
-            d = d + keys[i] + "=" + data[keys[i]];
-        }
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.setRequestHeader("x-http-method-override", "PUT");
-        xhttp.send(d);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(d);
+        });
+    }
+    /**
+    * @param {String} url URL of the resource
+    * @param {Array} data assoc array with the data that will be sent
+    * @param {Function} callback function which is called when the request has been performed correctly
+    * @param {Function} error_callback function which is called when the request has not been performed correctly
+    */
+    public PUT(url: string, data: any, callback: (data: string) => void, error_callback?: () => void) {
+        return new Promise((resolve: any, reject: any) => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    if (callback != undefined) {
+                        callback(xhttp.responseText);
+                    } else {
+                        resolve(xhttp.responseText);
+                    }
+                } else if (xhttp.readyState == 4) {
+
+                    if (error_callback != undefined) {
+                        try {
+                            error_callback();
+                        } catch (e) {
+
+                        }
+                    }
+
+                }
+            }
+            xhttp.open("POST", url, true);
+            var keys = Object.keys(data);
+            var d = "";
+            for (var i = 0; i < keys.length; i++) {
+                if (i !== 0) {
+                    d = d + "&";
+                }
+                d = d + keys[i] + "=" + data[keys[i]];
+            }
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.setRequestHeader("x-http-method-override", "PUT");
+            xhttp.send(d);
+        });
     }
 }
 export var AR = new AjaxRequest();
@@ -586,7 +610,7 @@ export var AR = new AjaxRequest();
  * @param {String|Object|Array} e 
  * @param {Number} index 
  */
-export function $(e?:any, index?:any): ExtJsObject {
+export function $(e?: any, index?: any): ExtJsObject {
     if (e != undefined) {
         return new ExtJsObject(e, index);
     } else {

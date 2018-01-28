@@ -1,5 +1,5 @@
 import { $, ExtJsObject } from "./extjs";
-import { Page, Project, historyEntry, User } from "./dashboard.model";
+import { Page, Project, historyEntry, User, addUserToProjectData } from "./dashboard.model";
 //@ts-ignore
 const Cookie = require('js-cookie')
 
@@ -294,7 +294,10 @@ export class View {
         project: Project,
         getHistory: any,
         updateProject: (data: Project) => void,
-        managers: [(func: (data: Array<User>) => void) => void]) {
+        managers: [
+            (func: (data: Array<User>) => void) => void,
+            (data: addUserToProjectData) => Promise<any>
+        ]) {
 
         let e = this.container;
 
@@ -392,11 +395,21 @@ export class View {
 
                             del
                                 .click(() => {
-
+                                    
                                 });
 
                         } else {
                             let add: ExtJsObject = row.child('td').child('button').html('Ajouter').addClass('button');
+                        
+                            add
+                                .click(() => {
+                                    managers[1]({
+                                        project_id: project.id.toString(),
+                                        user_id: e.id.toString()
+                                    }).then((data) => {
+                                        
+                                    })
+                                })
                         }
 
                     });

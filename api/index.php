@@ -162,6 +162,10 @@ if ($method == "GET"){
             }
             break;
         
+        case "user":
+            exit('it works');
+            break;
+
         case "project":
             
             $project = new project($db);

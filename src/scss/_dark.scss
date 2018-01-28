@@ -57,6 +57,16 @@ body.dark{
         }
         & .button,& button{
             background:rgb(0, 129, 213);
+            &.danger{
+                background:#e92f2f;
+            }
+        }
+    }
+    & .left_panel{
+        background:#2B2E3D;
+        & .title{
+            background:#2B2E3D;
+            color:#0c98f5;
         }
     }
 }

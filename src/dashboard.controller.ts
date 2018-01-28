@@ -48,11 +48,13 @@ class Controller {
                 break;
 
             case "dark":
-                this._view.setDarkTheme();                
+                this._view.setDarkTheme();
+                this._view.buildHomePage(this._model.getHistory.bind(this._model));              
                 break;
 
             case "light":
-                this._view.setLightTheme();                
+                this._view.setLightTheme();
+                this._view.buildHomePage(this._model.getHistory.bind(this._model));                
                 break;
 
             case "my-projects":
@@ -67,7 +69,10 @@ class Controller {
                     this._view.buildErrorPage.bind(this._view), 
                     this._model.getHistory.bind(this._model),
                     this._model.updateProject.bind(this._model),
-                    [this._model.getAllUsers.bind(this._model)]
+                    [
+                        this._model.getAllUsers.bind(this._model),
+                        this._model.addUserToProject.bind(this._model)
+                    ]
                 );
                 break;
             case "new-project":

@@ -6,10 +6,12 @@
     bottom: 0;
     width: 300px;
     @media(max-width:1216px){
-        transition: 0.25s;
+        transition: 0.45s;
         transform: translateX(calc(100vw + 300px));
         z-index: 99;
+        opacity: 0;
         &.open{
+            opacity: 1;            
             transform:translateX(0);
             width: 100%;
         }

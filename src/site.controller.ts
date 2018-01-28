@@ -40,6 +40,12 @@ class Controller {
                 this._view.buildProjectsPage(this._model.getProjects.bind(this._model));
                 break;
 
+            case "project":
+
+                this._view.buildProjectPage(this._model.getProjectById.bind(this._model), this._page.get('id'))
+
+                break;
+
             default:
                 this._view.build404Page();
                 break;

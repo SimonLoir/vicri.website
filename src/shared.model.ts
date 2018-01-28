@@ -152,7 +152,11 @@ export class P{
         }else{
             var split = x_url.split("/");
             x_url = split[split.length - 1];
-    
+            
+            if(x_url.indexOf('project-') == 0){
+                return `p=project;id=${x_url.replace('project-', "")}`;
+            }
+
             return "p=" + x_url;
         }
     }

@@ -9,12 +9,12 @@ export class View {
 
     public clear() { this._c.html("") };
 
-    public manageMenu(state:ConnectionState){
-        if(state.isConnected == true){
+    public manageMenu(state: ConnectionState) {
+        if (state.isConnected == true) {
             $('#menu-login').addClass('hidden');
             $('#menu-db').removeClass('hidden');
             $('#menu-logout').removeClass('hidden');
-        }else{
+        } else {
             $('#menu-login').removeClass('hidden');
             $('#menu-db').addClass('hidden');
             $('#menu-logout').addClass('hidden');
@@ -42,8 +42,8 @@ export class View {
             .child('p')
             .addClass('scms-content-block-paragraph')
             .html(
-                "Bienvenue sur notre site ! Ici, vous trouverez les différents projets terminés et en cours du groupe vicri de l'INDSé 2e&3e degrés. Ce site web est un des projets du groupe et son code source est disponible gratuitement sur github :-)"
-                + " Les projets terminés sont rangés dans les différentes catégories : Vidéos, Photos et Autres. Les projets en cours se trouvent dans la partie Projets."
+            "Bienvenue sur notre site ! Ici, vous trouverez les différents projets terminés et en cours du groupe vicri de l'INDSé 2e&3e degrés. Ce site web est un des projets du groupe et son code source est disponible gratuitement sur github :-)"
+            + " Les projets terminés sont rangés dans les différentes catégories : Vidéos, Photos et Autres. Les projets en cours se trouvent dans la partie Projets."
             );
 
         container
@@ -53,7 +53,7 @@ export class View {
             .css('background', "url(res/photos.jpg) no-repeat")
             .css('background-size', "cover")
             .css('background-position', "center");
-            
+
         let photos_block: ExtJsObject = container
             .child('div')
             .addClass('scms-content-block')
@@ -150,7 +150,7 @@ export class View {
     }
 
 
-    public buildProjectsPage(getProjects: (callback:(projects?: Array<Project>) => void) => void){
+    public buildProjectsPage(getProjects: (callback: (projects?: Array<Project>) => void) => void) {
 
         let container: ExtJsObject = this._c;
 
@@ -173,17 +173,17 @@ export class View {
             .addClass('scms-content-block-paragraph')
             .css('text-align', "center")
             .html(
-                "Ici, vous trouverez les différents projets réalisés par notre groupe qu'ils soient terminés ou non."
+            "Ici, vous trouverez les différents projets réalisés par notre groupe qu'ils soient terminés ou non."
             );
-        
+
         let wrapper = project_block
             .child('div')
             .addClass('wrapper');
 
         getProjects((projects) => {
             projects.forEach((project) => {
-                
-                function nl2br (str:string, is_xhtml:boolean) {
+
+                function nl2br(str: string, is_xhtml: boolean) {
                     var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
                     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
                 }
@@ -191,8 +191,8 @@ export class View {
                 let pb = wrapper
                     .child('div')
                     .addClass('project')
-                
-                let pbc:ExtJsObject = pb
+
+                let pbc: ExtJsObject = pb
                     .child('div')
                     .addClass('img')
 
@@ -215,7 +215,7 @@ export class View {
                 let cf = pb
                     .child('div')
                     .addClass('clearfix')
-                
+
                 let cf_h = pb.child("div")
                 cf_h
                     .addClass('cf-hover')
@@ -227,11 +227,73 @@ export class View {
                     .get(0)
                     .href = "project-" + project.id
 
-                    this.buildLinks();
+                this.buildLinks();
             });
         });
 
         this.buildFooter();
+    }
+
+    public buildProjectPage(getProject: (id: string, callback: (data: Project) => void, error: (error: Project) => void) => void, id: string) {
+
+        let container: ExtJsObject = this._c;
+
+        let project_block: ExtJsObject = container
+            .child('div')
+            .addClass('scms-content-block')
+            .child('div')
+            .addClass('scms-centred-element')
+            .css('background', "#fcfcfc");
+
+        getProject(id, project => {
+
+            let managers = "";
+
+            project.managers.forEach(
+                (manager: string, index: number) => managers += manager + ((index + 1 == project.managers.length) ? "" : ((index + 2 == project.managers.length) ? " et " : ", "))
+            );
+
+            project_block
+                .child('h2')
+                .html(project.name)
+                .addClass('scms-content-block-title');
+
+            project_block
+                .child('p')
+                .addClass('scms-content-block-paragraph')
+                .html(`Type de projet : ${project.type}`);
+
+            project_block
+                .child('p')
+                .addClass('scms-content-block-paragraph')
+                .html(`Manager(s) : ${managers}`);
+
+            project_block
+                .child('p')
+                .addClass('scms-content-block-paragraph')
+                .html(`Résumé : ${project.shortDescription}`);
+
+            project_block
+                .child('p')
+                .addClass('scms-content-block-paragraph')
+                .html(`Description : ${project.description}`);
+            
+            if (project.isPublished == true) {
+                project_block
+                    .child('p')
+                    .addClass('scms-content-block-paragraph')
+                    .html(`Ce projet est publié`);
+            }                
+
+        }, (error) => {
+
+            project_block
+                .html(`Une erreur est survenue : il se peut que le projet n'existe pas<br /> ${error.message}`);
+
+        });
+
+        this.buildFooter();
+
     }
 
     public set container(c: ExtJsObject) { this._c = c; }

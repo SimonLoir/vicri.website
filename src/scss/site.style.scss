@@ -65,20 +65,7 @@ body{
     right: 0;
 }
 
-.clearfix{
-    display: flex;
-    text-align: center;
-    align-items: center;
-    & button, & .button{
-        flex-grow:1;
-        background: transparent;
-        color:orange;
-        padding: 12px;
-        box-shadow: none;
-        border:none;
-        cursor: pointer;
-    }
-}
+
 
 .scms-footer{
     background: rgb(45,45,45);
@@ -132,6 +119,7 @@ body .scms-content-block, .style-simple-band{
             justify-content: space-around;
             flex-wrap: wrap;
             & .project{
+                position: relative;
                 overflow: hidden;
                 background: white;
                 border:1px solid rgb(221, 223, 226);
@@ -142,7 +130,7 @@ body .scms-content-block, .style-simple-band{
                 & .img{
                     position: relative;
                     height: 300px;
-                    background: linear-gradient(to right top, #FF8D48, #FFDA2E);
+                    background: linear-gradient(to right top, #0082D5, #A234D5);
                     color:white;
                     & .rimg {
                         position: absolute;
@@ -168,6 +156,36 @@ body .scms-content-block, .style-simple-band{
                     padding-left: 25px;
                     padding-right: 25px;
                     line-height: 100%;
+                }
+                $cf-height:40px;
+                & .clearfix{
+                    height: $cf-height;
+                }
+                /*
+                pb
+                    .child('div')
+                    .css('border-top', "1px solid lightgray")
+                    .css('width', "calc(100% - 12px)")
+                    .css('margin', "auto")
+                */
+                & .cf-hover{
+                    position: absolute;
+                    border-top:1px solid lightgray;
+                    bottom: 0;right: 8px;left: 8px;
+                    width:calc(100% - 16px);
+                    display: flex;
+                    text-align: center;
+                    align-items: center;
+                    height: $cf-height;                    
+                    & button, & .button{
+                        flex-grow:1;
+                        background: transparent;
+                        color:#0082D5;
+                        padding: 12px;
+                        box-shadow: none;
+                        border:none;
+                        cursor: pointer;
+                    }
                 }
             }
         }

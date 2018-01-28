@@ -154,7 +154,7 @@ export class View {
 
         let container: ExtJsObject = this._c;
 
-        container.html('<div class="scms-landing-image" style="height:400px;background:url(./res/projects.jpg) no-repeat;background-position:center;background-size:cover;position:relative;"></div>');
+        container.html('<div class="scms-landing-image" style="height:600px;max-height:calc(100vh - 60px);background:url(./res/projects.jpg) no-repeat;background-position:center;background-size:cover;position:relative;"></div>');
 
         let project_block: ExtJsObject = container
             .child('div')
@@ -211,18 +211,14 @@ export class View {
                 pb
                     .child('p')
                     .html(nl2br(project.shortDescription, false));
-                
-                pb
-                    .child('div')
-                    .css('border-top', "1px solid lightgray")
-                    .css('width', "calc(100% - 12px)")
-                    .css('margin', "auto")
 
                 let cf = pb
                     .child('div')
                     .addClass('clearfix')
                 
-                cf
+                let cf_h = pb.child("div")
+                cf_h
+                    .addClass('cf-hover')
                     .child('a')
                     .addClass("button")
                     .html('Voir le projet')

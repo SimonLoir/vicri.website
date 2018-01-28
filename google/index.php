@@ -1,93 +1,88 @@
 <?php
-echo "<h1>si vous avez une erreur, rechargez la page, on sait jamais :-)</h1> <script>window.location.reload();</script>";
-require 'vendor/autoload.php';
-
 session_start();
 
-if (isset($_SESSION['user_id'])) {
-  exit("déjà connecté"); 
+require 'vendor/autoload.php';
+
+if (isset($_SESSION['id'])) {
+    header('Location: ../dashboard-home');
+    exit("déjà connecté");
 }
 
 $client = new Google_Client();
 $client->setAuthConfigFile('client_secret.json');
-if($_SERVER['HTTP_HOST'] == "simonloir.be"){
-  $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'].'/vicri/google');
-}elseif($_SERVER['HTTP_HOST'] == "vicri.simonloir.be"){
-  $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'].'/google');
-}elseif($_SERVER['HTTP_HOST'] == "localhost"){
-    $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'].'/vicri/vicri2.0/google');
-}else{
-    $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'].'/vicri/google');
+if ($_SERVER['HTTP_HOST'] == "simonloir.be") {
+    $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'] . '/vicri/google');
+} elseif ($_SERVER['HTTP_HOST'] == "vicri.simonloir.be") {
+    $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'] . '/google');
+} elseif ($_SERVER['HTTP_HOST'] == "localhost") {
+    $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/vicri/vicri2.0/google');
+} else {
+    $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/vicri/google');
 }
 $client->setScopes('email');
 
 if (isset($_REQUEST['logout'])) {
 
-  session_destroy();
+    session_destroy();
 
 }
 
 if (isset($_GET['code'])) {
 
-  $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
 
-  $client->setAccessToken($token);
+    $client->setAccessToken($token);
 
-  $_SESSION['id_token_token'] = $token;
+    var_dump($_SESSION["id_token_token"]);
 
-  header('Location: index.php#process-end_debug');
+    $client->setAccessToken($token);
 
-}
+    if ($client->getAccessToken()) {
 
-if (!empty($_SESSION['id_token_token']) && isset($_SESSION['id_token_token']['id_token'])) {
+        $token_data = $client->verifyIdToken();
+    
+    }
 
-  $client->setAccessToken($_SESSION['id_token_token']);
+    $user_email = $token_data["email"];
 
-} else {
+    var_dump($user_email);
 
-  $authUrl = $client->createAuthUrl();
-
-}
-
-if ($client->getAccessToken()) {
-
-  $token_data = $client->verifyIdToken();
-
-}
-
-if (isset($authUrl)){
-
-  header("Location: " . $authUrl);
-
-}else{
-	$user_email = $token_data["email"];
-  
     include '../api/Class/db.php';
     /* --- --- --- --- --- --- --- --- --- --- */
-    /*  => */include "../../config.php"; /* <= */
+    /*  => */ include "../api/config.php"; /* <= */
     /* --- --- --- --- --- --- --- --- --- --- */
-    $db = new db($db__base, $db__user , $db__pass, $db__host);
+    $db = new db($db__base, $db__user, $db__pass, $db__host);
 
     $user_infos = $db->query('SELECT * FROM users WHERE mail = :email', [
 
-      "prepare" => [":email" => $user_email]
+        "prepare" => [":email" => $user_email]
 
     ]);
 
     if ($user_infos != null) {
 
-        $_SESSION['user_id'] = $user_infos[0]->id;
+        $user = $user_infos[0];
 
-        header("Location: ../index.html#page=home;action=welcome");
+        $_SESSION['user'] = $user->firstname . " " .$user->name;
+        $_SESSION['id'] = $user->id;
+        $_SESSION['email'] = $user->mail;
 
-    }else{
+        header('Location: ../dashboard-home');
 
-      session_destroy();
-      header('Location: ../#page=login;action=unf');
-      exit(json_encode("L'utilisateur est introuvable"));
+    } else {
+
+        session_destroy();
+        header('Location: ../#page=login;action=unf');
+        exit(json_encode("L'utilisateur est introuvable"));
 
     }
-  
+
+}else{
+
+    $authUrl = $client->createAuthUrl();
+    
+    header("Location: " . $authUrl);
+
 }
 
 ?>

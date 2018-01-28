@@ -1,0 +1,62 @@
+body.dark{
+
+    background:rgb(43,51,63);
+    & .header{
+        background:rgb(55,67,85);
+        color:white;
+    }
+    & .body{
+        background:rgb(43,51,63);
+        & .panel{
+            & .title{
+                color:white;
+            }
+            background:rgb(61,77,101);
+            color:white;
+            & .button,& button{
+                background:rgb(0, 129, 213);
+            }
+            & a{
+                color:white;
+            }
+        }
+    }
+
+    $color:rgba(255,255,255,0.1);
+
+    table {
+        color:white;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+    }
+    
+    td, th {
+        border: 1px solid darken($color, 100%);
+        text-align: left;
+        padding: 8px;
+        text-align: center;
+    }
+    
+    tr:nth-child(even) {
+        background-color: $color;
+    }
+
+    & .field .top{
+        color:white;
+    }
+
+    & .field input,& .field textarea, & .field select{
+        color:white;
+    }
+    & .modal {
+        background: rgb(61,77,101);
+        border:none;
+        & .title {
+            background:rgb(55,67,85);
+            color:white;
+        }
+        & .button,& button{
+            background:rgb(0, 129, 213);
+        }
+    }
+}

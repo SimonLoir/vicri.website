@@ -10,6 +10,7 @@
   "dependencies": {
     "css-loader": "^0.28.9",
     "get-youtube-id": "^1.0.0",
+    "js-cookie": "^2.2.0",
     "node-sass": "^4.7.2",
     "postcss-modules-extract-imports": "^1.2.0",
     "sass-loader": "^6.0.6",

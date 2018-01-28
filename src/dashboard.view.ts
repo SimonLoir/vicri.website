@@ -1,5 +1,7 @@
 import { $, ExtJsObject } from "./extjs";
 import { Page, Project, historyEntry, User } from "./dashboard.model";
+//@ts-ignore
+const Cookie = require('js-cookie')
 
 export class View {
 
@@ -14,6 +16,35 @@ export class View {
         if(document.querySelector('.hamburger').classList.contains('clicked')){
             $('.hamburger').click();
         }
+    }
+
+    /**
+     * Applies the theme to the website
+     */
+    public applyTheme(){
+        if(Cookie.get("theme") == "dark"){
+            this.setDarkTheme();
+        }else{
+            this.setLightTheme();
+        }
+    }
+
+    /**
+     * Sets the global theme to dark
+     */
+    public setDarkTheme(){
+        $('body').addClass('dark');
+        Cookie.set("theme", "dark", { expires: 60 });
+        this.page.addUrlSwitcher();
+    }
+
+    /**
+     * Sets the global theme to light
+     */
+    public setLightTheme(){
+        $('body').removeClass('dark');
+        Cookie.set("theme", "light", { expires: 60 });
+        this.page.addUrlSwitcher();
     }
 
     /**

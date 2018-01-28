@@ -38,12 +38,23 @@ class Controller {
      * @param state the connection state of the user
      */
     private choosePage(state:ConnectionState){
+        
         this._view.clear();
+        this._view.applyTheme();
+
         switch (this._page.name) {
             case "home":
                 this._view.buildHomePage(this._model.getHistory.bind(this._model));
                 break;
-            
+
+            case "dark":
+                this._view.setDarkTheme();                
+                break;
+
+            case "light":
+                this._view.setLightTheme();                
+                break;
+
             case "my-projects":
                 this._model.getUsersProject(this._view.buildMyProjectsPage.bind(this._view));
                 break;

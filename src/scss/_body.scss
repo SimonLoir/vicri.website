@@ -8,6 +8,7 @@ $button-color:rgb(68, 184, 175);
     overflow: auto;
     padding: 15px;
     //transition: 0.75s;
+    background: #F6F6F4;
     @media(max-width:1216px){
         left:0;
     }
@@ -20,6 +21,7 @@ $button-color:rgb(68, 184, 175);
         border: 1px solid rgb(237, 237, 237);
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
         border: 5px;
+        border-radius: 3px;
         &.col2 {
             width: calc(50% - 15px);
             max-width: calc(50% - 15px);
@@ -175,6 +177,7 @@ $button-color:rgb(68, 184, 175);
     min-height: 300px;
     max-height: calc(100% - 100px);
     transform: translate(-50%, -50%);
+    overflow: hidden;
     & .cross {
         font-size: 18px;
         position: absolute;

@@ -1,6 +1,11 @@
 import { P, SharedModel } from "./shared.model";
 import { AR } from "./extjs";
 
+//@ts-ignore
+const getYouTubeID = require("get-youtube-id");
+
+//console.log(getYouTubeID("https://youtu.be/wpyk2fr9aIc"));
+
 export class Page extends P {};
 export class Model extends SharedModel {
 

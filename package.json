@@ -1,0 +1,35 @@
+{
+  "name": "vicri.website",
+  "version": "1.0.0",
+  "description": "The vicri group website",
+  "main": "webpack.config.js",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "dependencies": {
+    "css-loader": "^0.28.9",
+    "get-youtube-id": "^1.0.0",
+    "node-sass": "^4.7.2",
+    "postcss-modules-extract-imports": "^1.2.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "ts-loader": "^3.3.1",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimonLoir/vicri.website.git"
+  },
+  "author": "Vicri",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SimonLoir/vicri.website/issues"
+  },
+  "homepage": "https://github.com/SimonLoir/vicri.website#readme"
+}

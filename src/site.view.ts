@@ -227,6 +227,12 @@ export class View {
                     .get(0)
                     .href = "project-" + project.id
 
+                pb.click(() => {
+
+                    cf_h.get(0).querySelector('a').click();
+
+                });
+
                 this.buildLinks();
             });
         });

@@ -7,7 +7,7 @@
     width: 300px;
     transition: 0.75s;
     @media(max-width:1216px){
-        transform: translateX(-100%);
+        transform: translateX(calc(100vw + 300px));
         z-index: 99;
         &.open{
             transform:translateX(0);

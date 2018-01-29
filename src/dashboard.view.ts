@@ -296,7 +296,8 @@ export class View {
         updateProject: (data: Project) => void,
         managers: [
             (func: (data: Array<User>) => void) => void,
-            (data: addUserToProjectData) => Promise<any>
+            (data: addUserToProjectData, callback:(data?:string) => void) => void, 
+            (data: addUserToProjectData, callback:(data?:string) => void) => void
         ]) {
 
         let e = this.container;
@@ -395,7 +396,19 @@ export class View {
 
                             del
                                 .click(() => {
-                                    
+                                    managers[2](
+                                        { user_id:e.id.toString() , project_id:project.id.toString() }, 
+                                        (d:string) => {
+                                            if(d){
+                                                alert(d);
+                                            }else{
+                                                project.managers_id.push(e.id);
+                                                let parent = del.parent("td");
+                                                parent.child('span').html('Supprimé !')
+                                                del.remove();
+                                            }
+                                        }
+                                    );
                                 });
 
                         } else {
@@ -403,7 +416,19 @@ export class View {
                         
                             add
                                 .click(() => {
-                                    alert('non implémenté ')
+                                    managers[1](
+                                        { user_id:e.id.toString() , project_id:project.id.toString() }, 
+                                        (d:string) => {
+                                            if(d){
+                                                alert(d);
+                                            }else{
+                                                project.managers_id.push(e.id);
+                                                let parent = add.parent("td");
+                                                parent.child('span').html('Ajouté !')
+                                                add.remove();
+                                            }
+                                        }
+                                    );
                                 })
                         }
 

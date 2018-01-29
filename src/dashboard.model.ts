@@ -8,9 +8,29 @@ const getYouTubeID = require("get-youtube-id");
 export class Page extends P { };
 export class Model extends SharedModel {
 
-    public async addUserToProject(data: addUserToProjectData) {
+    public removeUserFromProject(data: addUserToProjectData, callback:(data?:any) => void){
+        AR.DELETE(this.api_url + `api/index.php?res=user&user_id=${data.user_id}&project_id=${data.project_id}`, (data:string) => {
 
-        //error
+            if(data == "ok"){
+                callback();
+            }else{
+                callback(data);
+            }
+
+        });
+    }
+
+    public addUserToProject(data: addUserToProjectData, callback:(data?: any) => void) {
+
+        AR.POST(this.api_url + "api/index.php?res=user", data, (data:string) => {
+
+            if(data == "ok"){
+                callback();
+            }else{
+                callback(data);
+            }
+
+        });
 
     }
 

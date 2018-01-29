@@ -163,7 +163,13 @@ if ($method == "GET"){
             break;
         
         case "user":
-            exit('it works');
+            
+            $project = new project($db, $_POST["project_id"], true);
+
+            $project->addManager($_POST["user_id"]);
+
+            exit("e");
+
             break;
 
         case "project":
@@ -198,6 +204,18 @@ if ($method == "GET"){
             http_response_code(500);
 
             exit('error');
+            break;
+    }
+}else if( $method == "DELETE" ){
+    switch ($res){
+        case "user":
+            
+            $project = new project($db, $_GET["project_id"], true);
+
+            $project->removeManager($_GET["user_id"]);
+
+            exit("e");
+
             break;
     }
 }

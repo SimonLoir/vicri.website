@@ -71,7 +71,8 @@ class Controller {
                     this._model.updateProject.bind(this._model),
                     [
                         this._model.getAllUsers.bind(this._model),
-                        this._model.addUserToProject.bind(this._model)
+                        this._model.addUserToProject.bind(this._model),
+                        this._model.removeUserFromProject.bind(this._model)
                     ]
                 );
                 break;

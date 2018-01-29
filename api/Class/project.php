@@ -43,6 +43,54 @@ class project{
     }
 
     /**
+     * Adds a manager to a project
+     */
+    public function addManager($id){
+
+        $this->convertManagersIDArrayToNamesArray();
+
+        if(in_array($id, $this->project->managers_id)){
+            exit('Error : user is already in project');
+        }
+
+
+        array_push($this->project->managers_id, $id);
+
+        $this->update(['managers' => implode(";", $this->project->managers_id)]);
+
+        exit();
+
+    }
+
+
+    /**
+     * removes a manager to a project
+     */
+    public function removeManager($id){
+
+        $this->convertManagersIDArrayToNamesArray();
+
+        if(!in_array($id, $this->project->managers_id)){
+            exit('Error : user is not in the project');
+        }
+
+        $index = array_search($id, $this->project->managers_id);
+
+        if($index !== false){
+            unset($this->project->managers_id[$index]);
+        }
+
+        if($this->project->managers_id == null){
+            exit('Impossible de supprimer le manager unique du projet');
+        }
+
+        $this->update(['managers' => implode(";", $this->project->managers_id)]);
+
+        exit();
+
+    }
+
+    /**
      * Creates a project from data
      * @param the informations about the project
      */
@@ -154,7 +202,7 @@ class project{
      */
     public function update($e){
         
-        $keys = ["id","name","progression","description","shortDescription","type","goals","links"];
+        $keys = ["id","name","progression","description","shortDescription","type","goals","links", "managers"];
 
         unset($e["id"]);
 

@@ -453,72 +453,59 @@ export class ExtJsObject {
     }
 
 }
-
 class AjaxRequest {
     /**
     * @param {String} url URL of the resource
     * @param {Function} callback function which is called when the request has been performed correctly
     * @param {Function} error_callback function which is called when the request has not been performed correctly
     */
-    public GET(url: string, callback?: (data: string) => void, error_callback?: () => void) {
-        return new Promise((resolve: any, reject: any) => {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (xhttp.readyState == 4 && xhttp.status == 200) {
-                    if (callback != undefined) {
-                        callback(xhttp.responseText);
-                    } else {
-                        resolve(xhttp.responseText);
+    public GET(url: string, callback: (data: string) => void, error_callback?: () => void){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                callback(xhttp.responseText);
+            } else if (xhttp.readyState == 4) {
+
+                if (error_callback != undefined) {
+                    try {
+                        error_callback();
+                    } catch (e) {
+
                     }
-                } else if (xhttp.readyState == 4) {
-
-                    if (error_callback != undefined) {
-                        try {
-                            error_callback();
-                        } catch (e) {
-
-                        }
-                    }
-
                 }
+
             }
-            xhttp.open("GET", url, true);
-            xhttp.send();
-        });
+        }
+        xhttp.open("GET", url, true);
+        xhttp.send();
     }
     /**
     * @param {String} url URL of the resource
     * @param {Function} callback function which is called when the request has been performed correctly
     * @param {Function} error_callback function which is called when the request has not been performed correctly
     */
-    public DELETE(url: string, callback?: (data: string) => void, error_callback?: () => void) {
-        return new Promise((resolve: any, reject: any) => {
-            var xhttp = new XMLHttpRequest();
+    public DELETE(url: string, callback: (data: string) => void, error_callback?: () => void){
+        var xhttp = new XMLHttpRequest();
 
-            xhttp.onreadystatechange = function () {
-                if (xhttp.readyState == 4 && xhttp.status == 200) {
-                    if (callback != undefined) {
-                        callback(xhttp.responseText);
-                    } else {
-                        resolve(xhttp.responseText);
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                callback(xhttp.responseText);
+            } else if (xhttp.readyState == 4) {
+
+                if (error_callback != undefined) {
+                    try {
+                        error_callback();
+                    } catch (e) {
+
                     }
-                } else if (xhttp.readyState == 4) {
-
-                    if (error_callback != undefined) {
-                        try {
-                            error_callback();
-                        } catch (e) {
-
-                        }
-                    }
-
                 }
-            }
-            xhttp.open("GET", url, true);
-            xhttp.setRequestHeader("x-http-method-override", "DELETE");
 
-            xhttp.send();
-        });
+            }
+        }
+        xhttp.open("GET", url, true);
+        xhttp.setRequestHeader("x-http-method-override", "DELETE");
+
+        xhttp.send();
     }
     /**
     * @param {String} url URL of the resource
@@ -526,40 +513,34 @@ class AjaxRequest {
     * @param {Function} callback function which is called when the request has been performed correctly
     * @param {Function} error_callback function which is called when the request has not been performed correctly
     */
-    public POST(url: string, data: any, callback?: (data: string) => void, error_callback?: () => void) {
-        return new Promise((resolve: any, reject: any) => {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (xhttp.readyState == 4 && xhttp.status == 200) {
-                    if (callback != undefined) {
-                        callback(xhttp.responseText);
-                    } else {
-                        resolve(xhttp.responseText);
+    public POST(url: string, data: any, callback: (data: string) => void, error_callback?: () => void){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                callback(xhttp.responseText);
+            } else if (xhttp.readyState == 4) {
+
+                if (error_callback != undefined) {
+                    try {
+                        error_callback();
+                    } catch (e) {
+
                     }
-                } else if (xhttp.readyState == 4) {
-
-                    if (error_callback != undefined) {
-                        try {
-                            error_callback();
-                        } catch (e) {
-
-                        }
-                    }
-
                 }
+
             }
-            xhttp.open("POST", url, true);
-            var keys = Object.keys(data);
-            var d = "";
-            for (var i = 0; i < keys.length; i++) {
-                if (i !== 0) {
-                    d = d + "&";
-                }
-                d = d + keys[i] + "=" + data[keys[i]];
+        }
+        xhttp.open("POST", url, true);
+        var keys = Object.keys(data);
+        var d = "";
+        for (var i = 0; i < keys.length; i++) {
+            if (i !== 0) {
+                d = d + "&";
             }
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(d);
-        });
+            d = d + keys[i] + "=" + data[keys[i]];
+        }
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(d);
     }
     /**
     * @param {String} url URL of the resource
@@ -567,41 +548,35 @@ class AjaxRequest {
     * @param {Function} callback function which is called when the request has been performed correctly
     * @param {Function} error_callback function which is called when the request has not been performed correctly
     */
-    public PUT(url: string, data: any, callback: (data: string) => void, error_callback?: () => void) {
-        return new Promise((resolve: any, reject: any) => {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (xhttp.readyState == 4 && xhttp.status == 200) {
-                    if (callback != undefined) {
-                        callback(xhttp.responseText);
-                    } else {
-                        resolve(xhttp.responseText);
+    public PUT(url: string, data: any, callback: (data: string) => void, error_callback?: () => void){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                callback(xhttp.responseText);
+            } else if (xhttp.readyState == 4) {
+
+                if (error_callback != undefined) {
+                    try {
+                        error_callback();
+                    } catch (e) {
+
                     }
-                } else if (xhttp.readyState == 4) {
-
-                    if (error_callback != undefined) {
-                        try {
-                            error_callback();
-                        } catch (e) {
-
-                        }
-                    }
-
                 }
+
             }
-            xhttp.open("POST", url, true);
-            var keys = Object.keys(data);
-            var d = "";
-            for (var i = 0; i < keys.length; i++) {
-                if (i !== 0) {
-                    d = d + "&";
-                }
-                d = d + keys[i] + "=" + data[keys[i]];
+        }
+        xhttp.open("POST", url, true);
+        var keys = Object.keys(data);
+        var d = "";
+        for (var i = 0; i < keys.length; i++) {
+            if (i !== 0) {
+                d = d + "&";
             }
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.setRequestHeader("x-http-method-override", "PUT");
-            xhttp.send(d);
-        });
+            d = d + keys[i] + "=" + data[keys[i]];
+        }
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.setRequestHeader("x-http-method-override", "PUT");
+        xhttp.send(d);
     }
 }
 export var AR = new AjaxRequest();
@@ -610,11 +585,10 @@ export var AR = new AjaxRequest();
  * @param {String|Object|Array} e 
  * @param {Number} index 
  */
-export function $(e?: any, index?: any): ExtJsObject {
+export function $(e?:any, index?:any): ExtJsObject {
     if (e != undefined) {
         return new ExtJsObject(e, index);
     } else {
         return this;
     }
 }
-

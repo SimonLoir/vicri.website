@@ -403,12 +403,7 @@ export class View {
                         
                             add
                                 .click(() => {
-                                    managers[1]({
-                                        project_id: project.id.toString(),
-                                        user_id: e.id.toString()
-                                    }).then((data) => {
-                                        
-                                    })
+                                    alert('non implémenté ')
                                 })
                         }
 

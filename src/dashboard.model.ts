@@ -9,9 +9,8 @@ export class Page extends P { };
 export class Model extends SharedModel {
 
     public async addUserToProject(data: addUserToProjectData) {
-        return new Promise((resolve: any, reject:any) => {
-            let d:Promise<any> = AR.POST(this.api_url + "api/index.php?res=user", data).then(resolve).catch(reject);
-        });
+
+        //error
 
     }
 

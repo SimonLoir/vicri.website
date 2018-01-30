@@ -12,8 +12,8 @@ export class View {
     /**
      * Sets the menu to it's default state
      */
-    public restoreMenu(){
-        if(document.querySelector('.hamburger').classList.contains('clicked')){
+    public restoreMenu() {
+        if (document.querySelector('.hamburger').classList.contains('clicked')) {
             $('.hamburger').click();
         }
     }
@@ -21,10 +21,10 @@ export class View {
     /**
      * Applies the theme to the website
      */
-    public applyTheme(){
-        if(Cookie.get("theme") == "dark"){
+    public applyTheme() {
+        if (Cookie.get("theme") == "dark") {
             this.setDarkTheme();
-        }else{
+        } else {
             this.setLightTheme();
         }
     }
@@ -32,7 +32,7 @@ export class View {
     /**
      * Sets the global theme to dark
      */
-    public setDarkTheme(){
+    public setDarkTheme() {
         $('body').addClass('dark');
         Cookie.set("theme", "dark", { expires: 60 });
         this.page.addUrlSwitcher();
@@ -41,7 +41,7 @@ export class View {
     /**
      * Sets the global theme to light
      */
-    public setLightTheme(){
+    public setLightTheme() {
         $('body').removeClass('dark');
         Cookie.set("theme", "light", { expires: 60 });
         this.page.addUrlSwitcher();
@@ -83,7 +83,7 @@ export class View {
             .child('a')
             .addClass('button')
             .html('Découvrir les projets')
-            .attr("data-internal", true).get(0).href = "dashboard-discover-projects";
+            .get(0).href = "projects";
 
         welcome
             .child('a')
@@ -296,8 +296,8 @@ export class View {
         updateProject: (data: Project) => void,
         managers: [
             (func: (data: Array<User>) => void) => void,
-            (data: addUserToProjectData, callback:(data?:string) => void) => void, 
-            (data: addUserToProjectData, callback:(data?:string) => void) => void
+            (data: addUserToProjectData, callback: (data?: string) => void) => void,
+            (data: addUserToProjectData, callback: (data?: string) => void) => void
         ]) {
 
         let e = this.container;
@@ -383,57 +383,71 @@ export class View {
 
                     let dialog = this.createModalDialog("Gestion des managers");
 
+                    let input = dialog.child('input');
+
                     let table = dialog.child('table');
 
-                    data.forEach((e: User) => {
+                    input.get(0).oninput = () => {
 
-                        let row = table.child("tr");
+                        table.html('');
 
-                        row.child('td').html(e.firstname + " " + e.name);
+                        data.forEach((e: User) => {
 
-                        if (project.managers_id.indexOf(e.id) >= 0) {
-                            let del: ExtJsObject = row.child('td').child('button').html('Supprimer').addClass('button').addClass('danger');
+                            let real_name = e.firstname + " " + e.name;
 
-                            del
-                                .click(() => {
-                                    managers[2](
-                                        { user_id:e.id.toString() , project_id:project.id.toString() }, 
-                                        (d:string) => {
-                                            if(d){
-                                                alert(d);
-                                            }else{
-                                                project.managers_id.push(e.id);
-                                                let parent = del.parent("td");
-                                                parent.child('span').html('Supprimé !')
-                                                del.remove();
+                            if(real_name.toLowerCase().indexOf(input.get(0).value.toLowerCase()) < 0){
+                                return;
+                            }
+
+                            let row = table.child("tr");
+
+                            row.child('td').html(real_name);
+
+                            if (project.managers_id.indexOf(e.id) >= 0) {
+                                let del: ExtJsObject = row.child('td').child('button').html('Supprimer').addClass('button').addClass('danger');
+
+                                del
+                                    .click(() => {
+                                        managers[2](
+                                            { user_id: e.id.toString(), project_id: project.id.toString() },
+                                            (d: string) => {
+                                                if (d) {
+                                                    alert(d);
+                                                } else {
+                                                    project.managers_id.push(e.id);
+                                                    let parent = del.parent("td");
+                                                    parent.child('span').html('Supprimé !')
+                                                    del.remove();
+                                                }
                                             }
-                                        }
-                                    );
-                                });
+                                        );
+                                    });
 
-                        } else {
-                            let add: ExtJsObject = row.child('td').child('button').html('Ajouter').addClass('button');
-                        
-                            add
-                                .click(() => {
-                                    managers[1](
-                                        { user_id:e.id.toString() , project_id:project.id.toString() }, 
-                                        (d:string) => {
-                                            if(d){
-                                                alert(d);
-                                            }else{
-                                                project.managers_id.push(e.id);
-                                                let parent = add.parent("td");
-                                                parent.child('span').html('Ajouté !')
-                                                add.remove();
+                            } else {
+                                let add: ExtJsObject = row.child('td').child('button').html('Ajouter').addClass('button');
+
+                                add
+                                    .click(() => {
+                                        managers[1](
+                                            { user_id: e.id.toString(), project_id: project.id.toString() },
+                                            (d: string) => {
+                                                if (d) {
+                                                    alert(d);
+                                                } else {
+                                                    project.managers_id.push(e.id);
+                                                    let parent = add.parent("td");
+                                                    parent.child('span').html('Ajouté !')
+                                                    add.remove();
+                                                }
                                             }
-                                        }
-                                    );
-                                })
-                        }
+                                        );
+                                    })
+                            }
 
-                    });
+                        });
 
+                    };
+                    input.get(0).oninput();
                 });
 
             })

@@ -76,6 +76,19 @@ class Controller {
                     ]
                 );
                 break;
+
+            case "admin":
+                
+                if(state.isAdmin == true){
+
+                    
+
+                }else{
+                    alert('Vous ne possèdez pas les autorisations nécessaires');
+                }
+
+                break;
+
             case "new-project":
                 this._view.buildNewProjectPage(this._model.createProject.bind(this._model));
                 break;

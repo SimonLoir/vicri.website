@@ -30,6 +30,9 @@
             <a href="home">
                 Retour au site
             </a>
+            <a href="dashboard-admin" data-internal="true">
+                Admins
+            </a>
         </div>
     </div>
     <div class="body">

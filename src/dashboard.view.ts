@@ -51,6 +51,7 @@ export class View {
      * Function called to clear the view
      */
     public clear() { this.container.html(''); }
+
     /**
      * Builds the home page
      * @param getHistory Gets the history of teh website
@@ -125,6 +126,7 @@ export class View {
 
         this.page.addUrlSwitcher();
     }
+
     /**
      * Builds an history with an entry
      * @param container the element in which we want to build the history
@@ -154,6 +156,7 @@ export class View {
 
         }
     }
+
     /**
      * Builds an error page from an error object
      * @param error.message the message of the error 
@@ -185,6 +188,7 @@ export class View {
             .child('p')
             .html(error.message);
     }
+
     /**
      * Creates an input (material design)
      * @param parent the parent container
@@ -246,6 +250,7 @@ export class View {
 
         return input;
     }
+    
     public createModalDialog(title: string) {
 
         let mask = $("body")

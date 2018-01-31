@@ -10,7 +10,8 @@ export interface ConnectionState {
     isConnected: boolean,
     name?: string,
     email?: string,
-    isINDSEUser?:boolean
+    isINDSEUser?:boolean,
+    isAdmin?:boolean
 }
 
 const c_error = "Erreur de communication avec le serveur";

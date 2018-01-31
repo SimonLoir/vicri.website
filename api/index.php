@@ -29,18 +29,15 @@ if ($method == "GET"){
     switch ($res) {
         case "login":
             
-            if(isset($_SESSION['id'])){
+            if ( isset( $_SESSION['id'] ) ):
             
-                exit(json_encode([
-                    "isConnected" => true,
-                    "name" => $_SESSION['user'],
-                    "email" => $_SESSION["email"],
-                    "isINDSEUser" => ( strstr( $_SESSION["email"], "@indse.be" ) ) ? true : false
-                ]));
+                exit(user::export());
                 
-            }else{
+            else:
+            
                 exit($user_login_error);
-            }
+            
+            endif;
 
             break;
 
@@ -74,7 +71,6 @@ if ($method == "GET"){
 
         case "projects":
 
-            
             $projects = new project_list($db);
             
             $projects->getAll();
@@ -128,38 +124,9 @@ if ($method == "GET"){
 }else if ($method == "POST"){
     switch ($res) {
         case 'login':
-            if (!isset($_POST['user_email'])) {
-                exit($user_login_error);
-            }
-        
-            if (!isset($_POST['user_password'])) {
-                exit($user_login_error);
-            }
-            
-            $user = $db->query('SELECT * FROM users WHERE mail = :mail', [
-                "prepare" => [":mail" => $_POST['user_email']]
-            ])[0];
-        
-            if (!$user) {
-                exit($user_login_error);
-            }
-        
-            if (password_verify($_POST['user_password'],$user->password)) {
-        
-                $_SESSION['user'] = $user->firstname . " " .$user->name;
-                $_SESSION['id'] = $user->id;
-                $_SESSION['email'] = $user->mail;
 
-                exit(json_encode([
-                    "isConnected" => true,
-                    "name" => $_SESSION['user'],
-                    "email" => $_SESSION["email"],
-                    "isINDSEUser" => (strstr($_SESSION["email"], "@indse.be")) ? true : false
-                ]));
-        
-            }else{
-                exit($user_login_error);
-            }
+            user::login($db, $_POST);
+
             break;
         
         case "user":

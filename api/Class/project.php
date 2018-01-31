@@ -44,6 +44,7 @@ class project{
 
     /**
      * Adds a manager to a project
+     * @param id, the id of the manager
      */
     public function addManager($id){
 
@@ -65,6 +66,7 @@ class project{
 
     /**
      * removes a manager to a project
+     * @param id, the id of teh manager
      */
     public function removeManager($id){
 
@@ -92,7 +94,10 @@ class project{
 
     /**
      * Creates a project from data
-     * @param the informations about the project
+     * @param data the informations about the project must contains 
+     * @param data.name
+     * @param data.shortDescription
+     * @param data.type
      */
     public function create($data){
 

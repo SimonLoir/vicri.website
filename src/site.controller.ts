@@ -46,6 +46,10 @@ class Controller {
 
                 break;
 
+            case "logout":
+
+                this._model.logout();
+
             default:
                 this._view.build404Page();
                 break;

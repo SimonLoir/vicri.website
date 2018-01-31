@@ -107,7 +107,7 @@ if ($method == "GET") {
 
         case "logout":
 
-            session_destroy();
+            user::logout();
 
             break;
 

@@ -21,6 +21,13 @@ export class SharedModel {
     public api_url: string = "api";
 
     /**
+     * Logs the user out.
+     */
+    public logout() {
+        AR.GET(this.api_url + 'api?res=logout', d => window.location.href = "login");
+    }
+
+    /**
      * Logs the user in or checks if the user is logged in.
      * @param credentials User's credentials
      * @param callback Success callback

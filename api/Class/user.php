@@ -42,6 +42,15 @@ class User{
     }
 
     /**
+     * Logs the user out
+     */
+    public static function logout(){
+
+        session_destroy();
+
+    }
+
+    /**
      * Exports the connection state of the current user
      */
     public static function export(){

@@ -6,9 +6,9 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 
 // Request method
 if (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
-	$method = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'];
-}else{
-	$method = $_SERVER['REQUEST_METHOD'];
+    $method = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'];
+} else {
+    $method = $_SERVER['REQUEST_METHOD'];
 }
 
 $res = $_GET["res"];
@@ -19,34 +19,36 @@ include 'Class/autoloader.php';
 
 spl_autoload_register(["autoloader", "load"]);
 
-$db = new db($db__base, $db__user , $db__pass, $db__host);
+$db = new db($db__base, $db__user, $db__pass, $db__host);
 
 // Default errors
 $user_login_error = json_encode(["isConnected" => false]);
 $user_must_be_logged_in = json_encode(["type" => "error", "message" => "user must be logged in"]);
 
-if ($method == "GET"){
+if ($method == "GET") {
     switch ($res) {
         case "login":
-            
-            if ( isset( $_SESSION['id'] ) ):
-            
+
+            if (isset($_SESSION['id'])) :
+
                 exit(user::export());
-                
-            else:
-            
+
+            else :
+
                 exit($user_login_error);
-            
+
             endif;
 
             break;
 
         case "user-projects":
 
-            if(!isset($_SESSION["id"])){exit($user_must_be_logged_in);}
-            
+            if (!isset($_SESSION["id"])) {
+                exit($user_must_be_logged_in);
+            }
+
             $projects = new project_list($db);
-        
+
             $projects->getProjectsForUser($_SESSION["id"]);
 
             $projects->convertManagersIDArrayToNamesArray();
@@ -54,11 +56,13 @@ if ($method == "GET"){
             exit($projects->export());
 
             break;
-        
+
         case "project":
-            
-            if(!isset($_GET["id"])){exit("error : missing query string id");}
-            
+
+            if (!isset($_GET["id"])) {
+                exit("error : missing query string id");
+            }
+
             $id = $_GET["id"];
 
             $project = new project($db, $id, isset($_GET["manager"]));
@@ -72,7 +76,7 @@ if ($method == "GET"){
         case "projects":
 
             $projects = new project_list($db);
-            
+
             $projects->getAll();
 
             $projects->convertManagersIDArrayToNamesArray();
@@ -80,9 +84,9 @@ if ($method == "GET"){
             exit($projects->export());
 
             break;
-        
+
         case "users":
-            
+
             $users = new users_array($db);
 
             exit($users->export());
@@ -90,11 +94,13 @@ if ($method == "GET"){
             break;
 
         case "history":
-            
-            if(!isset($_GET["id"])){exit("error : missing query string id");}
-            
+
+            if (!isset($_GET["id"])) {
+                exit("error : missing query string id");
+            }
+
             $project_history = new history($db, $_GET["id"]);
-            
+
             exit($project_history->export());
 
             break;
@@ -102,11 +108,11 @@ if ($method == "GET"){
         case "logout":
 
             session_destroy();
-        
+
             break;
 
         case "pv":
-            
+
             $pvs = new pv_list();
 
             exit($pvs->export());
@@ -114,23 +120,23 @@ if ($method == "GET"){
             break;
 
         default:
-            
+
             http_response_code(500);
 
             exit('error');
-            
+
             break;
     }
-}else if ($method == "POST"){
+} else if ($method == "POST") {
     switch ($res) {
         case 'login':
 
             user::login($db, $_POST);
 
             break;
-        
+
         case "user":
-            
+
             $project = new project($db, $_POST["project_id"], true);
 
             $project->addManager($_POST["user_id"]);
@@ -140,7 +146,7 @@ if ($method == "GET"){
             break;
 
         case "project":
-            
+
             $project = new project($db);
 
             $project->create($_POST);
@@ -154,29 +160,31 @@ if ($method == "GET"){
             exit('error');
             break;
     }
-}else if ($method == "PUT"){
+} else if ($method == "PUT") {
     switch ($res) {
-        
+
         case "project":
 
-            if(!isset($_POST["id"])){exit('error : missing query string id');}
+            if (!isset($_POST["id"])) {
+                exit('error : missing query string id');
+            }
 
             $project = new project($db, $_POST["id"], true);
 
             $project->update($_POST);
 
             break;
-            
+
         default:
             http_response_code(500);
 
             exit('error');
             break;
     }
-}else if( $method == "DELETE" ){
-    switch ($res){
+} else if ($method == "DELETE") {
+    switch ($res) {
         case "user":
-            
+
             $project = new project($db, $_GET["project_id"], true);
 
             $project->removeManager($_GET["user_id"]);

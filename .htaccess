@@ -3,6 +3,7 @@ RewriteRule ^$ index.php [L]
 RewriteRule ^home$ index.php [L]
 RewriteRule ^logout$ index.php?p=logout [L]
 RewriteRule ^dashboard-manage-project-(.+)$ dashboard.php?p=manage-project&id=$1 [L]
+RewriteRule ^dashboard-publish-project-(.+)$ dashboard.php?p=publish-project&id=$1 [L]
 RewriteRule ^dashboard-(.+)$ dashboard.php?p=$1 [L]
 RewriteRule ^project-(.+)$ index.php?p=project&id=$1 [L]
 RewriteCond %{REQUEST_URI} ^/(.+)$

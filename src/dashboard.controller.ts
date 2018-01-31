@@ -77,6 +77,17 @@ class Controller {
                 );
                 break;
 
+            case "publish-project":
+                let pid = this._page.get('id');
+                
+                this._model.getProjectById(
+                    pid, 
+                    this._view.buildPublishProjectPage.bind(this._view), 
+                    this._view.buildErrorPage.bind(this._view)
+                );
+
+                break;
+
             case "admin":
                 
                 if(state.isAdmin == true){

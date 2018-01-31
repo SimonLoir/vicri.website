@@ -154,6 +154,8 @@ export class P{
             x_url = x_url.replace('dashboard-', "");
             if(x_url.indexOf('manage-project-') >= 0){
                 return "p=manage-project;id=" + x_url.replace('manage-project-', "");
+            }else if(x_url.indexOf('publish-project-') >= 0){
+                return "p=publish-project;id=" + x_url.replace('publish-project-', "");
             }else{
                 return "p=" + x_url;
             }

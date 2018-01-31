@@ -1,9 +1,5 @@
 import { P, SharedModel } from "./shared.model";
 import { AR } from "./extjs";
-//@ts-ignore
-const getYouTubeID = require("get-youtube-id");
-
-//console.log(getYouTubeID("https://youtu.be/wpyk2fr9aIc"));
 
 export class Page extends P { };
 export class Model extends SharedModel {
@@ -88,7 +84,9 @@ export class Model extends SharedModel {
                 if (d.type != "error" && d.message == undefined) {
                     if (othercallback != undefined && second_other_callback != undefined && third_other_callback != undefined) {
                         callback(d, othercallback, second_other_callback, third_other_callback);
-                    } else {
+                    } else if (othercallback != undefined ) {
+                        callback(d, othercallback);
+                    }  else {
                         callback(d);
                     }
                 } else {
@@ -99,7 +97,7 @@ export class Model extends SharedModel {
 
 
             } catch (error) {
-                console.log(error)
+                //console.log(error)
             }
         });
     }

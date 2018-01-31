@@ -2,6 +2,8 @@ import { $, ExtJsObject } from "./extjs";
 import { Page, Project, historyEntry, User, addUserToProjectData } from "./dashboard.model";
 //@ts-ignore
 const Cookie = require('js-cookie')
+//@ts-ignore
+const getYouTubeID = require("get-youtube-id");
 
 export class View {
 
@@ -289,6 +291,60 @@ export class View {
 
     }
 
+    public buildPublishProjectPage(project: Project,upload: any) {
+        
+        $(".header .title").html("Publier un projet");        
+
+        let e = this.container;        
+
+        let project_infos = e
+            .child('div')
+            .css('display', "inline-block")
+            .css('vertical-align', "top")
+            .addClass('panel')
+            .addClass('padding')
+            .css('width', "calc(100% - 30px)")
+            .addClass('left');
+
+        project_infos
+            .child('div')
+            .html('Assistant de publication')
+            .addClass("title");
+
+        project_infos.child('b').html('<br />Type de projet : ' + project.type);
+
+        let title = this
+            .buildInput(project_infos, "Titre", "text", project.name);
+
+        let short_description = this
+            .buildInput(project_infos, "Description résumée du projet", "textarea", project.shortDescription);
+
+        let url:ExtJsObject;
+
+        switch (project.type) {
+            case "video":
+                
+                url = this
+                    .buildInput(project_infos, "URL de la vidéo sur YouTube", "text", "");
+
+                url.input(() => {
+                    if(!getYouTubeID(url.value())){
+                        url.css('color', "red");
+                    }else{
+                        url.css('color', "");                        
+                    }
+                });
+
+
+                break;
+        
+            default:
+                break;
+        }
+
+    }
+
+
     /**
      * Makes a project maangement page
      * @param project the informations of the project
@@ -475,9 +531,10 @@ export class View {
             misc
                 .child('p')
                 .html("Ce projet n'est pas publié ")
-                .child('button')
+                .child('a')
+                .attr('data-internal', true)
                 .addClass('button')
-                .html('publier');
+                .html('publier').get(0).href = "dashboard-publish-project-" + project.id;
         }
 
         getHistory(project.id, (data: Array<historyEntry>) => {
@@ -514,6 +571,8 @@ export class View {
                 links: links.value()
             });
         });
+
+        this.page.addUrlSwitcher();
     }
     /**
      * Builds a page that lists all the projects of an user

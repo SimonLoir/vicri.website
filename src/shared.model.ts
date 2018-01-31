@@ -24,7 +24,7 @@ export class SharedModel {
      * Logs the user out.
      */
     public logout() {
-        AR.GET(this.api_url + 'api?res=logout', d => window.location.href = "login");
+        AR.GET(this.api_url + 'api?res=logout', () => window.location.href = "login", () => alert(c_error));
     }
 
     /**

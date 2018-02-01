@@ -261,6 +261,36 @@ class project{
         }
 
     }
+
+    /**
+     * Publishes the final result of a video project
+     */
+    public function publishVideo($data) {
+
+        if(!isset($data["project_id"])){ exit("missing project_id"); }
+        if(!isset($data["url"])){ exit("missing url"); }
+        if(!isset($data["title"])){ exit("missing title"); }
+        if(!isset($data["description"])){ exit("missing description"); }
+
+        if($this->project->isPublished == false){
+            if($this->db->query("INSERT INTO videos VALUES (:pid,:id,\"youtube\", :title, :description)", [
+                "prepare" => [
+                    ":pid" => $data["project_id"],
+                    ":id" => $data["url"],
+                    ":title" => $data["title"],
+                    ":description" => $data["description"]
+                ],
+                "result" => true
+            ])){
+                exit( "ok" );
+            }else{
+                exit( "error" );
+            }
+        }else{
+            exit('Projet déjà publié');
+        }
+    }
+
     /**
      * Exports the project as a json object
      */

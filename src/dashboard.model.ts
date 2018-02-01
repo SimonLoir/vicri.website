@@ -4,6 +4,20 @@ import { AR } from "./extjs";
 export class Page extends P { };
 export class Model extends SharedModel {
 
+    /**
+     * Uploads a video fro a project
+     * @param data 
+     */
+    public uploadVideoProject(data: any, callback: (data:any) => void) {
+        AR.POST(this.api_url + "api/index.php?res=video", data, callback, () => {
+            callback("e:r");
+        });
+    }
+    /**
+     * Removes an user from the project
+     * @param data 
+     * @param callback 
+     */
     public removeUserFromProject(data: addUserToProjectData, callback:(data?:any) => void){
         AR.DELETE(this.api_url + `api/index.php?res=user&user_id=${data.user_id}&project_id=${data.project_id}`, (data:string) => {
 
@@ -15,7 +29,11 @@ export class Model extends SharedModel {
 
         });
     }
-
+    /**
+     * Adds an user to the project
+     * @param data 
+     * @param callback 
+     */
     public addUserToProject(data: addUserToProjectData, callback:(data?: any) => void) {
 
         AR.POST(this.api_url + "api/index.php?res=user", data, (data:string) => {

@@ -153,6 +153,16 @@ if ($method == "GET") {
 
             break;
 
+        case "video":
+
+            $id = $_POST["project_id"];
+
+            $project = new project($db, $id, true);
+
+            $project->publishVideo($_POST);
+
+            break;
+
         default:
 
             http_response_code(500);

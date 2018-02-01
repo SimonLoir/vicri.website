@@ -5,6 +5,12 @@ const Cookie = require('js-cookie')
 //@ts-ignore
 const getYouTubeID = require("get-youtube-id");
 
+export interface uploadMethods{
+    video: (data:any, callback: (data:any) => void) => void
+    photo: (data:any, callback: (data:any) => void) => void
+    other: (data:any, callback: (data:any) => void) => void
+}
+
 export class View {
 
     public container: ExtJsObject;
@@ -291,8 +297,16 @@ export class View {
 
     }
 
-    public buildPublishProjectPage(project: Project,upload: any) {
+    public buildPublishProjectPage(project: Project,upload: uploadMethods) {
         
+        if(project.isPublished == true){
+            this.buildErrorPage({
+                type: "error",
+                message:"Ce projet est déjà publié"
+            })
+            return;
+        }
+
         $(".header .title").html("Publier un projet");        
 
         let e = this.container;        
@@ -321,6 +335,8 @@ export class View {
 
         let url:ExtJsObject;
 
+        let publish:ExtJsObject; 
+
         switch (project.type) {
             case "video":
                 
@@ -335,6 +351,34 @@ export class View {
                     }
                 });
 
+                publish = project_infos
+                    .child('button')
+                    .html('Publier la vidéo')
+                    .click(() => {
+                        project_infos.css('display', "none")
+                        if(!getYouTubeID(url.value())){
+                            project_infos.css('display', "block")
+                            alert("L'url fournie n'est pas valide");
+                        }else{
+                            upload.video({
+                                project_id:project.id, 
+                                title: title.value(),
+                                description: short_description.value(),
+                                url: getYouTubeID( url.value() )
+                            }, (data) => {
+                                //https://www.youtube.com/watch?v=iWsRKejJCCw
+                                project_infos.css('display', "block");                                
+                                if(data == "e:r"){
+                                    alert('Une erreur est survenue lors de la communication avec le serveur');
+                                }else if(data == "ok"){
+                                    //redirect
+                                }else{
+                                    alert(data);
+                                }
+                            });
+                        }
+
+                    });
 
                 break;
         
@@ -537,13 +581,45 @@ export class View {
                 .html('publier').get(0).href = "dashboard-publish-project-" + project.id;
         }
 
+        let more:ExtJsObject
+
         getHistory(project.id, (data: Array<historyEntry>) => {
 
-            data.forEach(entry => {
+            data.forEach((entry, i) => {
 
-                let container = misc.child('p');
+                let container:ExtJsObject;
 
+                if(i == 6){
+                    let show_more = misc
+                        .child('div')
+                        .css("text-align", "center")
+                        .child('button')
+                        .html('Afficher plus')
+                    
+                    more = misc
+                        .child('p')
+                        .css('display', "none");
+                
+                    show_more.click(() => {
+
+                        show_more
+                            .remove();
+
+                        more
+                            .css('display', "block");
+                    
+                    });
+                }
+
+                if(i < 6){
+                    container = misc.child('p');
+
+                }else{
+                    container = more.child('p');
+                }
+                
                 this.buildHistory(container, entry);
+                
 
             });
 

@@ -83,7 +83,10 @@ class Controller {
                 this._model.getProjectById(
                     pid, 
                     this._view.buildPublishProjectPage.bind(this._view), 
-                    this._view.buildErrorPage.bind(this._view)
+                    this._view.buildErrorPage.bind(this._view),
+                    {
+                        video: this._model.uploadVideoProject.bind(this._model)
+                    }
                 );
 
                 break;

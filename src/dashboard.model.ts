@@ -4,11 +4,44 @@ import { AR } from "./extjs";
 export class Page extends P { };
 export class Model extends SharedModel {
 
+    public uploadImage(file: any, onprogress: (event:ProgressEvent) => void, onuploaded: (path:string) => void) {
+        if (file == null) {
+            alert('Erreur, vous devez uploader une capture');
+            return;
+        }
+
+        var data = new FormData();
+        data.append("file", file);
+
+        var a = new XMLHttpRequest();
+        a.upload.addEventListener('progress', onprogress, false);
+        a.addEventListener('load', function (event) {
+            // @ts-ignore
+            let val = event.target.responseText;       
+            if (val.indexOf('file:') == 0) {
+                onuploaded(val.replace('file:', ""));
+            } else {
+                // @ts-ignore
+                alert('Le serveur a retourné une erreur : ' + event.target.responseText);
+            }
+        }, false);
+        a.addEventListener('error', function () {
+
+        }, false);
+        a.addEventListener('abort', function () {
+
+        }, false);
+
+        a.open('POST', "api/index.php?res=img_upload&id=" + page.get('pid'));
+
+        a.send(data);
+    }
+
     /**
      * Uploads a video fro a project
      * @param data 
      */
-    public uploadVideoProject(data: any, callback: (data:any) => void) {
+    public uploadVideoProject(data: any, callback: (data: any) => void) {
         AR.POST(this.api_url + "api/index.php?res=video", data, callback, () => {
             callback("e:r");
         });
@@ -18,12 +51,12 @@ export class Model extends SharedModel {
      * @param data 
      * @param callback 
      */
-    public removeUserFromProject(data: addUserToProjectData, callback:(data?:any) => void){
-        AR.DELETE(this.api_url + `api/index.php?res=user&user_id=${data.user_id}&project_id=${data.project_id}`, (data:string) => {
+    public removeUserFromProject(data: addUserToProjectData, callback: (data?: any) => void) {
+        AR.DELETE(this.api_url + `api/index.php?res=user&user_id=${data.user_id}&project_id=${data.project_id}`, (data: string) => {
 
-            if(data == "ok"){
+            if (data == "ok") {
                 callback();
-            }else{
+            } else {
                 callback(data);
             }
 
@@ -34,13 +67,13 @@ export class Model extends SharedModel {
      * @param data 
      * @param callback 
      */
-    public addUserToProject(data: addUserToProjectData, callback:(data?: any) => void) {
+    public addUserToProject(data: addUserToProjectData, callback: (data?: any) => void) {
 
-        AR.POST(this.api_url + "api/index.php?res=user", data, (data:string) => {
+        AR.POST(this.api_url + "api/index.php?res=user", data, (data: string) => {
 
-            if(data == "ok"){
+            if (data == "ok") {
                 callback();
-            }else{
+            } else {
                 callback(data);
             }
 
@@ -102,9 +135,9 @@ export class Model extends SharedModel {
                 if (d.type != "error" && d.message == undefined) {
                     if (othercallback != undefined && second_other_callback != undefined && third_other_callback != undefined) {
                         callback(d, othercallback, second_other_callback, third_other_callback);
-                    } else if (othercallback != undefined ) {
+                    } else if (othercallback != undefined) {
                         callback(d, othercallback);
-                    }  else {
+                    } else {
                         callback(d);
                     }
                 } else {

@@ -381,8 +381,19 @@ export class View {
                     });
 
                 break;
-        
+
             default:
+                
+                let upload_result:ExtJsObject;
+                let upload_cover = project_infos
+                    .child('input')
+                    .attr('type', "file")
+                    .addClass('button');
+                
+                upload_result = project_infos.child('span').html('Uploadez une image de couverture')
+                
+                
+
                 break;
         }
 

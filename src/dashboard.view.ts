@@ -5,10 +5,11 @@ const Cookie = require('js-cookie')
 //@ts-ignore
 const getYouTubeID = require("get-youtube-id");
 
-export interface uploadMethods{
-    video: (data:any, callback: (data:any) => void) => void
-    photo: (data:any, callback: (data:any) => void) => void
-    other: (data:any, callback: (data:any) => void) => void
+export interface uploadMethods {
+    video: (data: any, callback: (data: any) => void) => void
+    photo: (data: any, callback: (data: any) => void) => void
+    other: (data: any, callback: (data: any) => void) => void
+    img_uploader: (data: any, progressHandler: (data: any) => void, completeHandler: (data: any) => void) => void
 }
 
 export class View {
@@ -258,7 +259,7 @@ export class View {
 
         return input;
     }
-    
+
     public createModalDialog(title: string) {
 
         let mask = $("body")
@@ -297,19 +298,19 @@ export class View {
 
     }
 
-    public buildPublishProjectPage(project: Project,upload: uploadMethods) {
-        
-        if(project.isPublished == true){
+    public buildPublishProjectPage(project: Project, upload: uploadMethods) {
+
+        if (project.isPublished == true) {
             this.buildErrorPage({
                 type: "error",
-                message:"Ce projet est déjà publié"
+                message: "Ce projet est déjà publié"
             })
             return;
         }
 
-        $(".header .title").html("Publier un projet");        
+        $(".header .title").html("Publier un projet");
 
-        let e = this.container;        
+        let e = this.container;
 
         let project_infos = e
             .child('div')
@@ -327,27 +328,33 @@ export class View {
 
         project_infos.child('b').html('<br />Type de projet : ' + project.type);
 
+        if(project.type == "photo"){
+            project_infos.child('p').html('Vous pourrez uploader toutes les photos sur la page suivante. Pour le moment, choisissez une photo de couverture.')
+        }
+
         let title = this
             .buildInput(project_infos, "Titre", "text", project.name);
 
         let short_description = this
             .buildInput(project_infos, "Description résumée du projet", "textarea", project.shortDescription);
 
-        let url:ExtJsObject;
+        let url: ExtJsObject;
 
-        let publish:ExtJsObject; 
+        let publish: ExtJsObject;
+
+        let image_link: string;
 
         switch (project.type) {
             case "video":
-                
+
                 url = this
                     .buildInput(project_infos, "URL de la vidéo sur YouTube", "text", "");
 
                 url.input(() => {
-                    if(!getYouTubeID(url.value())){
+                    if (!getYouTubeID(url.value())) {
                         url.css('color', "red");
-                    }else{
-                        url.css('color', "");                        
+                    } else {
+                        url.css('color', "");
                     }
                 });
 
@@ -356,23 +363,23 @@ export class View {
                     .html('Publier la vidéo')
                     .click(() => {
                         project_infos.css('display', "none")
-                        if(!getYouTubeID(url.value())){
+                        if (!getYouTubeID(url.value())) {
                             project_infos.css('display', "block")
                             alert("L'url fournie n'est pas valide");
-                        }else{
+                        } else {
                             upload.video({
-                                project_id:project.id, 
+                                project_id: project.id,
                                 title: title.value(),
                                 description: short_description.value(),
-                                url: getYouTubeID( url.value() )
+                                url: getYouTubeID(url.value())
                             }, (data) => {
                                 //https://www.youtube.com/watch?v=iWsRKejJCCw
-                                project_infos.css('display', "block");                                
-                                if(data == "e:r"){
+                                project_infos.css('display', "block");
+                                if (data == "e:r") {
                                     alert('Une erreur est survenue lors de la communication avec le serveur');
-                                }else if(data == "ok"){
+                                } else if (data == "ok") {
                                     //redirect
-                                }else{
+                                } else {
                                     alert(data);
                                 }
                             });
@@ -383,16 +390,72 @@ export class View {
                 break;
 
             default:
-                
-                let upload_result:ExtJsObject;
+
+                let upload_result: ExtJsObject;
                 let upload_cover = project_infos
                     .child('input')
                     .attr('type', "file")
-                    .addClass('button');
-                
+                    .addClass('button')
+                    .change(() => {
+                        publish
+                            .attr("disabled", "true")
+                            .css('opacity', "0.2");
+
+                        upload.img_uploader(upload_cover.get(0).files[0],
+                            (progress:ProgressEvent) => {
+                                upload_result.html("En cours : " + (100 * progress.loaded / progress.total) + "%")
+                            }, 
+                            (link:string) => {
+                                if(link != undefined){
+                                    upload_result.html(`Uploadé ! <br /><img style="height:150px;" src="${link}"><br />`);
+                                    image_link = link
+                                    publish
+                                        .css('opacity', "1")
+                                        .get(0).disabled = false
+                                }else{
+                                    upload_result.html('Erreur !');
+                                                                     
+                                }
+                            });
+                    });
+
                 upload_result = project_infos.child('span').html('Uploadez une image de couverture')
-                
-                
+
+                project_infos
+                    .child('br');
+
+                publish = project_infos
+                    .child('button')
+                    .html('Publier le projet')
+                    .click(() => {
+                        publish
+                            .attr("disabled", "true")
+                            .css('opacity', "0.2");
+                        
+                        if(!image_link){
+                            alert('Uploadez une image de couverture pour illustrer le projet.')
+                            return false;
+                        }
+
+                        if(project.type == "photo"){
+
+                            upload.photo({
+                                
+                            }, () => {
+
+                            });
+
+                        }else{
+
+                            upload.other({
+                                
+                            }, () => {
+
+                            });
+
+                        }
+
+                    });
 
                 break;
         }
@@ -511,7 +574,7 @@ export class View {
 
                             let real_name = e.firstname + " " + e.name;
 
-                            if(real_name.toLowerCase().indexOf(input.get(0).value.toLowerCase()) < 0){
+                            if (real_name.toLowerCase().indexOf(input.get(0).value.toLowerCase()) < 0) {
                                 return;
                             }
 
@@ -592,25 +655,25 @@ export class View {
                 .html('publier').get(0).href = "dashboard-publish-project-" + project.id;
         }
 
-        let more:ExtJsObject
+        let more: ExtJsObject
 
         getHistory(project.id, (data: Array<historyEntry>) => {
 
             data.forEach((entry, i) => {
 
-                let container:ExtJsObject;
+                let container: ExtJsObject;
 
-                if(i == 6){
+                if (i == 6) {
                     let show_more = misc
                         .child('div')
                         .css("text-align", "center")
                         .child('button')
                         .html('Afficher plus')
-                    
+
                     more = misc
                         .child('p')
                         .css('display', "none");
-                
+
                     show_more.click(() => {
 
                         show_more
@@ -618,19 +681,19 @@ export class View {
 
                         more
                             .css('display', "block");
-                    
+
                     });
                 }
 
-                if(i < 6){
+                if (i < 6) {
                     container = misc.child('p');
 
-                }else{
+                } else {
                     container = more.child('p');
                 }
-                
+
                 this.buildHistory(container, entry);
-                
+
 
             });
 

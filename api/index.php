@@ -163,6 +163,14 @@ if ($method == "GET") {
 
             break;
 
+        case "image":
+
+            $fs = new file_manager();
+
+            $fs->uploadImage($_FILES["file"], "../res/uploads/");
+
+            break;    
+
         default:
 
             http_response_code(500);

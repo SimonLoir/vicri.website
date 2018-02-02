@@ -18,11 +18,11 @@ export class Model extends SharedModel {
         a.addEventListener('load', function (event) {
             // @ts-ignore
             let val = event.target.responseText;       
-            if (val.indexOf('file:') == 0) {
-                onuploaded(val.replace('file:', ""));
+            if (val.indexOf('file:../') == 0) {
+                onuploaded(val.replace('file:../', ""));
             } else {
-                // @ts-ignore
-                alert('Le serveur a retourné une erreur : ' + event.target.responseText);
+                alert(val);
+                onuploaded(undefined);
             }
         }, false);
         a.addEventListener('error', function () {
@@ -32,7 +32,7 @@ export class Model extends SharedModel {
 
         }, false);
 
-        a.open('POST', "api/index.php?res=img_upload&id=" + page.get('pid'));
+        a.open('POST', "api/index.php?res=image");
 
         a.send(data);
     }

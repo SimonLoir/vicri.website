@@ -384,6 +384,34 @@ export class ExtJsObject {
     }
 
     /**
+     * @param {Function|Undefined} toDo function that is called when somebody change on the element  or undefined or nothing
+     * @param {String|Undefined} element specifies the element on which we are going to listen the change.
+     */
+    change(toDo?: (event?: Event) => void, element?: string) {
+
+        for (var i = 0; i < this.node.length; i++) {
+            var e = this.node[i];
+
+            if (element === undefined) {
+                if (toDo !== undefined) {
+                    e.addEventListener("change", toDo);
+                }
+            } else if (toDo !== undefined) {
+                var x = e;
+                e.addEventListener("change", function (event: KeyboardEvent) {
+                    if (x.querySelector(element) == event.target) {
+                        let xe: any = x.querySelector(element);
+                        xe.prototype.toDo = toDo;
+                        xe.toDo();
+                    }
+                });
+            }
+
+        }
+        return this;
+    }
+
+    /**
      * @param {Function|Undefined} toDo function that is called when somebody keyup on the element  or undefined or nothing
      * @param {String|Undefined} element specifies the element on which we are going to listen the keyup.
      */

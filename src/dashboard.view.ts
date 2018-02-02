@@ -373,7 +373,6 @@ export class View {
                                 description: short_description.value(),
                                 url: getYouTubeID(url.value())
                             }, (data) => {
-                                //https://www.youtube.com/watch?v=iWsRKejJCCw
                                 project_infos.css('display', "block");
                                 if (data == "e:r") {
                                     alert('Une erreur est survenue lors de la communication avec le serveur');
@@ -440,9 +439,22 @@ export class View {
                         if(project.type == "photo"){
 
                             upload.photo({
-                                
-                            }, () => {
+                                project_id: project.id,
+                                title: title.value(),
+                                description: short_description.value(),
+                                cover:image_link
+                            }, (data) => {
+                                publish
+                                    .css('opacity', "1")
+                                    .get(0).disabled = false
 
+                                if(data == "e:r")
+                                    return alert('Une erreur est survenue lors de la communication avec le serveur');
+                                
+                                if(data == "ok")
+                                    window.location.href = "dashboard-manage-images-" + project.id;
+                                else
+                                    alert(data);
                             });
 
                         }else{

@@ -86,7 +86,8 @@ class Controller {
                     this._view.buildErrorPage.bind(this._view),
                     {
                         video: this._model.uploadVideoProject.bind(this._model),
-                        img_uploader: this._model.uploadImage.bind(this._model)
+                        img_uploader: this._model.uploadImage.bind(this._model),
+                        photo: this._model.uploadPhotoProject.bind(this._model)
                     }
                 );
 

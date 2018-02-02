@@ -4,6 +4,21 @@ import { AR } from "./extjs";
 export class Page extends P { };
 export class Model extends SharedModel {
 
+    /**
+     * Uploads a photo project final result
+     */
+    public uploadPhotoProject(data: any, callback: (data: any) => void) {
+        AR.POST(this.api_url + "api/index.php?res=photo", data, callback, () => {
+            callback("e:r");
+        });
+    }
+
+    /**
+     * Uploads an image to the server
+     * @param file 
+     * @param onprogress 
+     * @param onuploaded 
+     */
     public uploadImage(file: any, onprogress: (event:ProgressEvent) => void, onuploaded: (path:string) => void) {
         if (file == null) {
             alert('Erreur, vous devez uploader une capture');
@@ -38,7 +53,7 @@ export class Model extends SharedModel {
     }
 
     /**
-     * Uploads a video fro a project
+     * Uploads a video for a project
      * @param data 
      */
     public uploadVideoProject(data: any, callback: (data: any) => void) {

@@ -292,6 +292,34 @@ class project{
     }
 
     /**
+     * Publishes a folder of photos
+     */
+    public function publishPhotoFolder($data){
+        if(!isset($data["project_id"])){ exit("missing project_id"); }
+        if(!isset($data["title"])){ exit("missing title"); }
+        if(!isset($data["description"])){ exit("missing description"); }
+        if(!isset($data["cover"])){ exit("missing cover"); }
+
+        if($this->project->isPublished == false){
+            if($this->db->query("INSERT INTO photos_folders VALUES (:pid,:title, :description, :cover)", [
+                "prepare" => [
+                    ":pid" => $data["project_id"],
+                    ":cover" => $data["cover"],
+                    ":title" => $data["title"],
+                    ":description" => $data["description"]
+                ],
+                "result" => true
+            ])){
+                exit( "ok" );
+            }else{
+                exit( "error" );
+            }
+        }else{
+            exit('Projet déjà publié');
+        }
+    }
+
+    /**
      * Exports the project as a json object
      */
     public function export(){

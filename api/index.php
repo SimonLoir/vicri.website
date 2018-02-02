@@ -163,6 +163,16 @@ if ($method == "GET") {
 
             break;
 
+        case "photo":
+
+            $id = $_POST["project_id"];
+
+            $project = new project($db, $id, true);
+
+            $project->publishPhotoFolder($_POST);
+
+            break;
+
         case "image":
 
             $fs = new file_manager();

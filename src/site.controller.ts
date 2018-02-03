@@ -46,6 +46,12 @@ class Controller {
 
                 break;
 
+            case "videos":
+
+                this._view.buildVideosPage(this._model.getVideos.bind(this._model));                
+
+                break;
+
             case "logout":
 
                 this._model.logout();

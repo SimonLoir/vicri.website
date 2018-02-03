@@ -84,6 +84,16 @@ if ($method == "GET") {
             exit($projects->export());
 
             break;
+        
+        case "videos":
+
+            $videos = new video_list($db);
+
+            $videos->getAll();
+
+            exit($videos->export());
+
+            break;
 
         case "users":
 

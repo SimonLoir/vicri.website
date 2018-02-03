@@ -227,11 +227,88 @@ export class View {
                     .get(0)
                     .href = "project-" + project.id
 
-                pb.click(() => {
+                this.buildLinks();
+            });
+        });
 
-                    cf_h.get(0).querySelector('a').click();
+        this.buildFooter();
+    }
 
-                });
+    public buildVideosPage(getProjects: (callback: (projects?: Array<any>) => void) => void) {
+
+        let container: ExtJsObject = this._c;
+
+        container.html('<div class="scms-landing-image" style="height:600px;max-height:calc(100vh - 60px);background:url(./res/our_videos.jpg) no-repeat;background-position:center;background-size:cover;position:relative;"></div>');
+
+        let project_block: ExtJsObject = container
+            .child('div')
+            .addClass('scms-content-block')
+            .child('div')
+            .addClass('scms-centred-element')
+            .css('background', "#fcfcfc");
+
+        project_block
+            .child('h2')
+            .html("Bienvenue sur notre page videos ! ")
+            .addClass('scms-content-block-title');
+
+        project_block
+            .child('p')
+            .addClass('scms-content-block-paragraph')
+            .css('text-align', "center")
+            .html(
+            "Ici, vous trouverez les vidéos réalisées par les membres du groupe vicri"
+            );
+
+        let wrapper = project_block
+            .child('div')
+            .addClass('wrapper');
+
+        getProjects((projects) => {
+            projects.forEach((project) => {
+
+                function nl2br(str: string, is_xhtml: boolean) {
+                    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+                    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+                }
+
+                let pb = wrapper
+                    .child('div')
+                    .addClass('project')
+
+                let pbc: ExtJsObject = pb
+                    .child('div')
+                    .addClass('img')
+
+                pbc
+                    .child('div')
+                    .css('background-position', "center")
+                    .css('background-size', "cover")
+                    .addClass('rimg')
+                    .css('opacity', "1")
+                    .html(`
+                        <iframe style="width:100%;height:100%" src="https://www.youtube.com/embed/${project.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    `);
+
+
+                pb
+                    .child('p')
+                    .html(`<b>${project.title}</b><br /><div style="height:5px;"></div>${nl2br(project.description, false)}`);
+
+                let cf = pb
+                    .child('div')
+                    .addClass('clearfix')
+
+                let cf_h = pb.child("div")
+                cf_h
+                    .addClass('cf-hover')
+                    .child('a')
+                    .addClass("button")
+                    .html('Voir le projet')
+                    .css('text-decoration', "none")
+                    .attr('data-internal', true)
+                    .get(0)
+                    .href = "project-" + project.id
 
                 this.buildLinks();
             });

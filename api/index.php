@@ -95,6 +95,16 @@ if ($method == "GET") {
 
             break;
 
+        case "photos":
+
+            $photos = new photo_list($db);
+
+            $photos->getAll();
+
+            exit($photos->export());
+
+            break;
+
         case "users":
 
             $users = new users_array($db);

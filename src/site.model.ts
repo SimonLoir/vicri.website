@@ -4,6 +4,22 @@ import { AR } from "./extjs";
 export class Model extends SharedModel {
 
     /**
+     * Gets a list of all the photos that are on the site
+     * @param callback function that is called once all the photos have been gotten
+     */
+    getPhotos(callback: (d: any[]) => void) {
+        console.log(this)
+        AR.GET(this.api_url + 'api/index.php?res=photos', (data) => {
+
+            let d: Array<any> = JSON.parse(data);
+
+            callback(d)
+        }, () => {
+            alert('Une erreur est survenue');
+        });
+    }
+
+    /**
      * Gets a list of all the videos that are on the site
      * @param callback function that is called once all the videos have been gotten
      */

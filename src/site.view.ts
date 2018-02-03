@@ -317,6 +317,103 @@ export class View {
         this.buildFooter();
     }
 
+    public buildPhotosPage(getProjects: (callback: (projects?: Array<any>) => void) => void) {
+
+        let container: ExtJsObject = this._c;
+
+        container.html('<div class="scms-landing-image" style="height:600px;max-height:calc(100vh - 60px);background:url(./res/our_photos.jpg) no-repeat;background-position:center;background-size:cover;position:relative;"></div>');
+
+        let project_block: ExtJsObject = container
+            .child('div')
+            .addClass('scms-content-block')
+            .child('div')
+            .addClass('scms-centred-element')
+            .css('background', "#fcfcfc");
+
+        project_block
+            .child('h2')
+            .html("Bienvenue sur notre page photos ! ")
+            .addClass('scms-content-block-title');
+
+        project_block
+            .child('p')
+            .addClass('scms-content-block-paragraph')
+            .css('text-align', "center")
+            .html(
+            "Ici, vous trouverez les photos réalisées par les membres du groupe vicri"
+            );
+
+        let wrapper = project_block
+            .child('div')
+            .addClass('wrapper');
+
+        getProjects((projects) => {
+            projects.forEach((project) => {
+
+                function nl2br(str: string, is_xhtml: boolean) {
+                    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+                    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+                }
+
+                let pb = wrapper
+                    .child('div')
+                    .addClass('project')
+
+                let pbc: ExtJsObject = pb
+                    .child('div')
+                    .addClass('img')
+
+                pbc
+                    .child('div')
+                    .css('background', `url(${project.cover}) no-repeat`)
+                    .css('background-position', "center")
+                    .css('background-size', "cover")
+                    .css('opacity', "1")
+                    .addClass('rimg')
+
+                pbc
+                    .child('div')
+                    .css('background-position', "center")
+                    .css('background-size', "cover")
+                    .addClass('rimg');
+
+
+                pb
+                    .child('p')
+                    .html(`<b>${project.title}</b><br /><div style="height:5px;"></div>${nl2br(project.description, false)}`);
+
+                let cf = pb
+                    .child('div')
+                    .addClass('clearfix')
+
+                let cf_h = pb.child("div")
+                cf_h
+                    .addClass('cf-hover')
+                    .child('a')
+                    .addClass("button")
+                    .html('Voir le projet')
+                    .css('text-decoration', "none")
+                    .attr('data-internal', true)
+                    .get(0)
+                    .href = "project-" + project.id
+                
+                cf_h
+                    .addClass('cf-hover')
+                    .child('a')
+                    .addClass("button")
+                    .html('Voir les photos')
+                    .css('text-decoration', "none")
+                    .attr('data-internal', true)
+                    .get(0)
+                    .href = "photos-" + project.id
+
+                this.buildLinks();
+            });
+        });
+
+        this.buildFooter();
+    }
+
     public buildProjectPage(getProject: (id: string, callback: (data: Project) => void, error: (error: Project) => void) => void, id: string) {
 
         let container: ExtJsObject = this._c;

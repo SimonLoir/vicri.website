@@ -46,9 +46,15 @@ class Controller {
 
                 break;
 
-            case "videos":
+                case "videos":
 
                 this._view.buildVideosPage(this._model.getVideos.bind(this._model));                
+
+                break;
+            
+            case "photos":
+
+                this._view.buildPhotosPage(this._model.getPhotos.bind(this._model));                
 
                 break;
 

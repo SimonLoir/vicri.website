@@ -103,7 +103,7 @@ export class View {
             .click(() => {
                 panel_users.css('display', "inline-block")
                 admins.remove();
-            }).click();
+            });
     }
 
     /**

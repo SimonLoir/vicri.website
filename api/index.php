@@ -149,7 +149,7 @@ if ($method == "GET") {
     }
 } else if ($method == "POST") {
     switch ($res) {
-        case 'user':
+        case 'new_user':
 
             ( $_SESSION['status'] != "admin" ) ? exit( "user must be an admin" ): '';
             

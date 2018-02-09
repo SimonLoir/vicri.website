@@ -184,7 +184,11 @@ class project{
         if(isset($_SESSION["id"]) && in_array($_SESSION["id"], $users_id)){
             $this->project->isManager = true;
         }else{
-            $this->project->isManager = false;            
+            if($_SESSION["status"] == "admin"){
+                $this->project->isManager = true;            
+            }else{
+                $this->project->isManager = false;
+            }
         }
         
         return $this->project->isManager;

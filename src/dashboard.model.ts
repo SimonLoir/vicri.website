@@ -10,7 +10,7 @@ export class Model extends SharedModel {
      * @param callback 
      */
     public createUser(data:User, callback:(data:any) => void){
-        AR.POST(this.api_url + "api/index.php?res=user", data, callback, () => {
+        AR.POST(this.api_url + "api/index.php?res=new_user", data, callback, () => {
             callback("e:r");
         });
     }

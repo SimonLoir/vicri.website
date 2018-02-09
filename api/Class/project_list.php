@@ -30,16 +30,23 @@ class project_list{
      * @param user the user for which we have to get the projects
      */
     public function getProjectsForUser($user){
-        $projects = $this->db->query('SELECT * FROM projects WHERE managers LIKE :id', [
-            "prepare" => [
-                ":id" => "%" . $user . "%"
-            ]
-        ]);
+
+        if($_SESSION["status"] != "admin"){
+            $projects = $this->db->query('SELECT * FROM projects WHERE managers LIKE :id', [
+                "prepare" => [
+                    ":id" => "%" . $user . "%"
+                ]
+            ]);
+        }else{
+            $projects = $this->db->query('SELECT * FROM projects');
+        }
+ 
+        
 
         
         foreach ($projects as $key => $project) {
             $managers = explode(";", $project->managers);
-            if(!in_array("" . $user, $managers)){
+            if(!in_array("" . $user, $managers) && $_SESSION["status"] != "admin"){
                 unset($projects[$key]);
             }
         }

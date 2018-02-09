@@ -66,6 +66,7 @@ if (isset($_GET['code'])) {
         $_SESSION['user'] = $user->firstname . " " .$user->name;
         $_SESSION['id'] = $user->id;
         $_SESSION['email'] = $user->mail;
+        $_SESSION['status'] = $user->status;
 
         header('Location: ../dashboard-home');
 

@@ -18,6 +18,57 @@ export class View {
 
     public page: Page;
 
+    public buildAdminPage() {
+        let e = this.container;
+
+        $(".header .title").html("Admins");
+
+        let admins = e
+            .child('div')
+            .css('display', "inline-block")
+            .css('vertical-align', "top")
+            .addClass('panel')
+            .addClass('padding')
+            .css('width', "calc(100% - 30px)")
+            .addClass('left');
+
+        admins
+            .child('div')
+            .html('Admin Panel')
+            .addClass("title");
+
+        admins
+            .child('p')
+            .html(`
+                <b>Vous recevez de grands pouvoirs mais aussi de grandes responsabilités : </b><br />
+                1) Toutes vos actions doivent être réalisées dans le respect de la vie privée d'autrui<br />
+                2) Toutes vos actions ont des conséquences : réfléchissez avant d'agir !
+            `);
+        
+        let panel_users = e
+            .child('div')
+            .css('display', "none")
+            .css('vertical-align', "top")
+            .addClass('panel')
+            .addClass('padding')
+            .css('width', "calc(100% - 30px)")
+            .addClass('left');
+
+        panel_users
+            .child('div')
+            .html('Gestion des utilisateurs')
+            .addClass("title");
+
+        admins
+            .child('button')
+            .addClass('button')
+            .html('Compris, continuer')
+            .click(() => {
+                panel_users.css('display', "inline-block")
+                admins.remove();
+            });
+    }
+
     /**
      * Sets the menu to it's default state
      */
@@ -298,6 +349,11 @@ export class View {
 
     }
 
+    /**
+     * Builds a project publication dialog
+     * @param project 
+     * @param upload 
+     */
     public buildPublishProjectPage(project: Project, upload: uploadMethods) {
 
         if (project.isPublished == true) {
@@ -377,7 +433,9 @@ export class View {
                                 if (data == "e:r") {
                                     alert('Une erreur est survenue lors de la communication avec le serveur');
                                 } else if (data == "ok") {
-                                    //redirect
+                                    alert('Votre vidéo a été publiée sur le site :-)')
+                                    //@ts-ignore
+                                    window.location.href = "videos"
                                 } else {
                                     alert(data);
                                 }
@@ -553,7 +611,7 @@ export class View {
 
         misc
             .child('div')
-            .html('Divers')
+            .html('Historique et publication')
             .addClass("title");
 
         let users = "";

@@ -97,7 +97,7 @@ class Controller {
                 
                 if(state.isAdmin == true){
 
-                    
+                    this._view.buildAdminPage();
 
                 }else{
                     this._view.buildErrorPage({

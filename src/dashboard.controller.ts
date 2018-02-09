@@ -100,7 +100,10 @@ class Controller {
                     
 
                 }else{
-                    alert('Vous ne possèdez pas les autorisations nécessaires');
+                    this._view.buildErrorPage({
+                        type: "error",
+                        message:"Vous ne possèdez pas les autorisations nécessaires. Cette partie est réservée aux admins."
+                    });
                 }
 
                 break;
@@ -155,7 +158,7 @@ $(document).ready(() => {
     // Creating a new controller object
     let controller = new Controller(page, model, view);
     
-    //@ts-ignore Getting the page ready
+    // @ts-ignore Getting the page ready
     controller.page.hash = window_hash; // This variable is defined via PHP
 
 
@@ -166,13 +169,15 @@ $(document).ready(() => {
     view.page = controller.page;
 
     // When the url changes without reloading the page
-    window.onpopstate = function(event) {
+    // @ts-ignore
+    window.onpopstate = function(event:PopStateEvent) {
         controller.page.hash = controller.page.setHash(document.location.href);
-        //@ts-ignore
+        // @ts-ignore
         window.onhashchange();
     };
 
     // When the part after the #changes
+    // @ts-ignore
     window.onhashchange = function (){
         controller.loadPage();
     };

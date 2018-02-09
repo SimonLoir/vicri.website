@@ -6,6 +6,7 @@ let model = new SharedModel();
 model.api_url = "../";
 
 function redirect() {
+    //@ts-ignore
     window.location.href = "../dashboard-home";
 }
 

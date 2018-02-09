@@ -24,6 +24,7 @@ export class SharedModel {
      * Logs the user out.
      */
     public logout() {
+        //@ts-ignore
         AR.GET(this.api_url + 'api?res=logout', () => window.location.href = "login", () => alert(c_error));
     }
 
@@ -140,6 +141,7 @@ export class P{
             var obj = { Page: page, Url: url };
             history.pushState(obj, obj.Page, obj.Url);
         } else {
+            //@ts-ignore
             window.location.href = page;
         }
     }

@@ -18,9 +18,9 @@
     "postcss-modules-extract-imports": "^1.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
-    "ts-loader": "^3.3.1",
+    "ts-loader": "^3.5.0",
     "typescript": "^2.7.1",
-    "uglify-js": "^3.3.9",
+    "uglify-js": "^3.3.10",
     "webpack": "^3.10.0"
   },
   "devDependencies": {},

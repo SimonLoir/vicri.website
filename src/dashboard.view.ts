@@ -452,6 +452,7 @@ export class View {
                                     return alert('Une erreur est survenue lors de la communication avec le serveur');
                                 
                                 if(data == "ok")
+                                    //@ts-ignore
                                     window.location.href = "dashboard-manage-images-" + project.id;
                                 else
                                     alert(data);

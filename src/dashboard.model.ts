@@ -19,7 +19,7 @@ export class Model extends SharedModel {
      * @param onprogress 
      * @param onuploaded 
      */
-    public uploadImage(file: any, onprogress: (event:ProgressEvent) => void, onuploaded: (path:string) => void) {
+    public uploadImage(file: any, onprogress: (event: ProgressEvent) => void, onuploaded: (path: string) => void) {
         if (file == null) {
             alert('Erreur, vous devez uploader une capture');
             return;
@@ -32,7 +32,7 @@ export class Model extends SharedModel {
         a.upload.addEventListener('progress', onprogress, false);
         a.addEventListener('load', function (event) {
             // @ts-ignore
-            let val = event.target.responseText;       
+            let val = event.target.responseText;
             if (val.indexOf('file:../') == 0) {
                 onuploaded(val.replace('file:../', ""));
             } else {
@@ -177,7 +177,7 @@ export class Model extends SharedModel {
 
         keys.forEach((key: string, index: number) => {
 
-            //@ts-ignore
+            // @ts-ignore
             let value: string = project[key];
 
             if (value.trim() == "") {
@@ -202,6 +202,7 @@ export class Model extends SharedModel {
                     alert('Le serveur a rencontré une erreur inconnue : ' + data);
                 } else {
                     alert('Projet mis à jour');
+                    //@ts-ignore
                     window.location.reload();
                 }
 
@@ -260,6 +261,7 @@ export class Model extends SharedModel {
                 alert('Le serveur a rencontré une erreur inconnue : ' + data);
             } else {
                 alert('Projet créé');
+                // @ts-ignore
                 window.location.href = "dashboard-my-projects";
             }
 

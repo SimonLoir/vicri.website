@@ -107,13 +107,15 @@ $(document).ready(() => {
     view.page = controller.page;
 
     // When the url changes without reloading the page
-    window.onpopstate = function(event) {
+    //@ts-ignore
+    window.onpopstate = function(event:PopStateEvent) {
         controller.page.hash = controller.page.setHash(document.location.href);
         //@ts-ignore
         window.onhashchange();
     };
 
     // When the part after the #changes
+    //@ts-ignore
     window.onhashchange = function (){
         controller.loadPage();
     };

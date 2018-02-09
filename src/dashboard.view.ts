@@ -18,7 +18,7 @@ export class View {
 
     public page: Page;
 
-    public buildAdminPage() {
+    public buildAdminPage(createUser:(data: User, callback: (result:string) => void) => void) {
         let e = this.container;
 
         $(".header .title").html("Admins");
@@ -42,7 +42,7 @@ export class View {
             .html(`
                 <b>Vous recevez de grands pouvoirs mais aussi de grandes responsabilités : </b><br />
                 1) Toutes vos actions doivent être réalisées dans le respect de la vie privée d'autrui<br />
-                2) Toutes vos actions ont des conséquences : réfléchissez avant d'agir !
+                2) Toutes vos actions ont des conséquences : réfléchissez avant d'agir ! (et pas l'inverse)
             `);
         
         let panel_users = e
@@ -59,6 +59,43 @@ export class View {
             .html('Gestion des utilisateurs')
             .addClass("title");
 
+        panel_users
+            .child('b')
+            .html(`Ajouter un utilisateur`)
+
+        let form:ExtJsObject = panel_users
+            .child('p')
+        
+        let firstname = this.buildInput(form, "Prénom", "text");  
+        let lastname = this.buildInput(form, "Nom", "text");  
+        let email = this.buildInput(form, "Email", "text", "@indse.be");
+        let pseudo = this.buildInput(form, "Pseudo", "text");
+        let password = this.buildInput(form, "Mot de passe", "password");
+        let add = form.child("button");
+        
+        add.html('Ajouter')
+        add.click(() => {
+            createUser({
+                firstname: firstname.value(),
+                name: lastname.value(),
+                mail: email.value(),
+                pseudo: pseudo.value(),
+                password:password.value()
+            }, (str:string) => {
+                if(str == "ok"){
+                    //@ts-ignore
+                    window.location.reload();
+                }else{
+                    alert(str);
+                }
+            })
+        });
+            
+
+        panel_users
+            .child('b')
+            .html('Utilisateurs actuels')
+
         admins
             .child('button')
             .addClass('button')
@@ -66,7 +103,7 @@ export class View {
             .click(() => {
                 panel_users.css('display', "inline-block")
                 admins.remove();
-            });
+            }).click();
     }
 
     /**

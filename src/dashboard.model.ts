@@ -5,6 +5,17 @@ export class Page extends P { };
 export class Model extends SharedModel {
 
     /**
+     * Creates a new user
+     * @param data 
+     * @param callback 
+     */
+    public createUser(data:User, callback:(data:any) => void){
+        AR.POST(this.api_url + "api/index.php?res=user", data, callback, () => {
+            callback("e:r");
+        });
+    }
+
+    /**
      * Uploads a photo project final result
      */
     public uploadPhotoProject(data: any, callback: (data: any) => void) {
@@ -352,7 +363,8 @@ export interface User {
     mail: string,
     name: string,
     pseudo: string,
-    id: Number
+    password?: string,
+    id?: Number
 }
 export interface addUserToProjectData {
     project_id: string,

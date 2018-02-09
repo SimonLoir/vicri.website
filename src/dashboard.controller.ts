@@ -97,7 +97,7 @@ class Controller {
                 
                 if(state.isAdmin == true){
 
-                    this._view.buildAdminPage();
+                    this._view.buildAdminPage(this._model.createUser.bind(this._model));
 
                 }else{
                     this._view.buildErrorPage({

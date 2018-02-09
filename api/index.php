@@ -149,6 +149,14 @@ if ($method == "GET") {
     }
 } else if ($method == "POST") {
     switch ($res) {
+        case 'user':
+
+            ( $_SESSION['status'] != "admin" ) ? exit( "user must be an admin" ): '';
+            
+            user::create($db, $_POST);
+
+            break;
+
         case 'login':
 
             user::login($db, $_POST);

@@ -33,6 +33,8 @@ class User{
             
             $_SESSION['email'] = $user->mail;
 
+            $_SESSION['status'] = $user->status;
+
             exit((new user)->export());
     
         }else{
@@ -62,7 +64,11 @@ class User{
         
             "email" => $_SESSION["email"],
         
-            "isINDSEUser" => ( strstr( $_SESSION["email"], "@indse.be" ) ) ? true : false
+            "isINDSEUser" => ( strstr( $_SESSION["email"], "@indse.be" ) ) ? true : false,
+
+            "isAdmin" => (isset($_SESSION["status"]) && $_SESSION["status"] == "admin") ? true : false,
+
+            "status" => $_SESSION["status"]
         
         ]);
     }

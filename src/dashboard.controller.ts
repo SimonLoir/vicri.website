@@ -57,6 +57,10 @@ class Controller {
                 this._view.buildHomePage(this._model.getHistory.bind(this._model));                
                 break;
 
+            case 'calendar':
+                this._view.buildCalendarPage(this._model.getEvents.bind(this._model))
+                break;    
+
             case "my-projects":
                 this._model.getUsersProject(this._view.buildMyProjectsPage.bind(this._view));
                 break;

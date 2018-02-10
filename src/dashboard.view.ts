@@ -1,5 +1,5 @@
 import { $, ExtJsObject } from "./extjs";
-import { Page, Project, historyEntry, User, addUserToProjectData } from "./dashboard.model";
+import { Page, Project, historyEntry, User, addUserToProjectData, VicriEvent } from "./dashboard.model";
 //@ts-ignore
 const Cookie = require('js-cookie')
 //@ts-ignore
@@ -18,6 +18,56 @@ export class View {
 
     public page: Page;
 
+    public buildCalendarPage(getEvents:(callback:(events: Array<VicriEvent>) => void) => void){
+
+        const firstDayInMonthIndex = (
+            monthIndex = new Date().getMonth(), 
+            year = new Date().getFullYear()
+          ) => (
+            new Date(`${year}-${monthIndex + 1}-01`).getDay()
+          );
+
+        const daysInMonth  = (
+            month = new Date().getMonth() + 1,
+            year = new Date().getFullYear()
+        ) => (
+            new Date(year, month, 0).getDate()
+        );
+
+        let e = this.container;
+
+        $(".header .title").html("Calendrier");
+
+        let calendar = e
+            .child("div")
+            .addClass('calendar')
+            .addClass('padding')
+            .addClass('panel');
+        
+        getEvents(event_list => 
+            event_list.forEach(e => {
+                let c = calendar
+                    .child('p')
+                
+                c.child('b').html(e.date);
+                let i = c.child("b");
+                if(e.project_id == "-1"){
+                    i.html(' [Vicri] ')
+                }else{
+                    i.html(' [<a href="dashboard-manage-project-1" data-internal="true">Projet</a>] ')
+                }
+                c.child('span').html(' - ' + e.title)
+                c.child('i').html(' - ' + e.description)
+                this.page.addUrlSwitcher();
+            })
+        );
+
+    }
+
+    /**
+     * Creates an admin panel
+     * @param createUser 
+     */
     public buildAdminPage(createUser:(data: User, callback: (result:string) => void) => void) {
         let e = this.container;
 

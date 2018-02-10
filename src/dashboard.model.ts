@@ -5,6 +5,26 @@ export class Page extends P { };
 export class Model extends SharedModel {
 
     /**
+     * Gets all the events that are going to come
+     * @param callback 
+     */
+    public getEvents(callback:(data:Array<VicriEvent>) => void){
+        AR.GET(this.api_url + "api?res=events", (data) => {
+            try {
+
+                let d: Array<VicriEvent> = JSON.parse(data);
+
+                callback(d);
+
+            } catch (error) {
+                console.log(error)
+            }
+        }, () => {
+            console.log('Fatal error 500');
+        });
+    }
+
+    /**
      * Creates a new user
      * @param data 
      * @param callback 
@@ -369,4 +389,12 @@ export interface User {
 export interface addUserToProjectData {
     project_id: string,
     user_id: string
+}
+
+export interface VicriEvent{
+    id: string, 
+    title: string, 
+    description: string, 
+    date: string, 
+    project_id: string
 }

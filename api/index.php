@@ -41,6 +41,24 @@ if ($method == "GET") {
 
             break;
 
+        case "events":
+
+            if (!isset($_SESSION["id"])) {
+                exit($user_must_be_logged_in);
+            }
+        
+            $projects = new project_list($db);
+        
+            $projects->getProjectsForUser($_SESSION["id"]);
+
+            $ids = $projects->getIDs();
+
+            $events = new event_list($db, $ids);
+
+            exit(json_encode($events->getEvents()));
+
+            break;
+
         case "user-projects":
 
             if (!isset($_SESSION["id"])) {

@@ -66,6 +66,20 @@ class project_list{
         }
 
     }
+
+    public function getIDs(){
+        
+        $ids = [];
+        
+        foreach ($this->projects as $project) {
+
+            $ids[] = $project->id;
+
+        }
+
+        return $ids;
+    }
+
     /**
      * 
      */

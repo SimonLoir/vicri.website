@@ -58,7 +58,9 @@ class Controller {
                 break;
 
             case 'calendar':
-                this._view.buildCalendarPage(this._model.getEvents.bind(this._model))
+                
+                this._view.buildCalendarPage(this._model.getEvents.bind(this._model), this._model.getUsersProject.bind(this._model));
+
                 break;    
 
             case "my-projects":

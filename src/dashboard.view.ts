@@ -18,21 +18,24 @@ export class View {
 
     public page: Page;
 
-    public buildCalendarPage(getEvents:(callback:(events: Array<VicriEvent>) => void) => void){
+    public buildCalendarPage(
+        getEvents: (callback: (events: Array<VicriEvent>) => void) => void,
+        getUserProjects: (callback: (data: Array<Project>) => void) => void
+    ) {
 
         const firstDayInMonthIndex = (
-            monthIndex = new Date().getMonth(), 
+            monthIndex = new Date().getMonth(),
             year = new Date().getFullYear()
-          ) => (
-            new Date(`${year}-${monthIndex + 1}-01`).getDay()
-          );
+        ) => (
+                new Date(`${year}-${monthIndex + 1}-01`).getDay()
+            );
 
-        const daysInMonth  = (
+        const daysInMonth = (
             month = new Date().getMonth() + 1,
             year = new Date().getFullYear()
         ) => (
-            new Date(year, month, 0).getDate()
-        );
+                new Date(year, month, 0).getDate()
+            );
 
         let e = this.container;
 
@@ -43,17 +46,27 @@ export class View {
             .addClass('calendar')
             .addClass('padding')
             .addClass('panel');
-        
-        getEvents(event_list => 
+
+        calendar
+            .child('div')
+            .html('Admin Panel')
+            .addClass("title");
+
+        let add = calendar
+            .child('p')
+            .child("button")
+            .html('Nouveau')
+
+        getEvents(event_list =>
             event_list.forEach(e => {
                 let c = calendar
                     .child('p')
-                
+
                 c.child('b').html(e.date);
                 let i = c.child("b");
-                if(e.project_id == "-1"){
+                if (e.project_id == "-1") {
                     i.html(' [Vicri] ')
-                }else{
+                } else {
                     i.html(' [<a href="dashboard-manage-project-1" data-internal="true">Projet</a>] ')
                 }
                 c.child('span').html(' - ' + e.title)
@@ -62,13 +75,24 @@ export class View {
             })
         );
 
+        add.click(() => {
+            let modal = this.createModalDialog('Ajouter un event');
+            let date = this.buildInput(modal, "Date", "date");
+            let time = this.buildInput(modal, "Heure", "time");
+            let confirm = modal
+                .child('button')
+                .addClass('button')
+                .css('float', "right")
+                .html('Ajouter cette date au calendrier')
+        });
+
     }
 
     /**
      * Creates an admin panel
      * @param createUser 
      */
-    public buildAdminPage(createUser:(data: User, callback: (result:string) => void) => void) {
+    public buildAdminPage(createUser: (data: User, callback: (result: string) => void) => void) {
         let e = this.container;
 
         $(".header .title").html("Admins");
@@ -94,7 +118,7 @@ export class View {
                 1) Toutes vos actions doivent être réalisées dans le respect de la vie privée d'autrui<br />
                 2) Toutes vos actions ont des conséquences : réfléchissez avant d'agir ! (et pas l'inverse)
             `);
-        
+
         let panel_users = e
             .child('div')
             .css('display', "none")
@@ -113,16 +137,16 @@ export class View {
             .child('b')
             .html(`Ajouter un utilisateur`)
 
-        let form:ExtJsObject = panel_users
+        let form: ExtJsObject = panel_users
             .child('p')
-        
-        let firstname = this.buildInput(form, "Prénom", "text");  
-        let lastname = this.buildInput(form, "Nom", "text");  
+
+        let firstname = this.buildInput(form, "Prénom", "text");
+        let lastname = this.buildInput(form, "Nom", "text");
         let email = this.buildInput(form, "Email", "text", "@indse.be");
         let pseudo = this.buildInput(form, "Pseudo", "text");
         let password = this.buildInput(form, "Mot de passe", "password");
         let add = form.child("button");
-        
+
         add.html('Ajouter')
         add.click(() => {
             createUser({
@@ -130,17 +154,17 @@ export class View {
                 name: lastname.value(),
                 mail: email.value(),
                 pseudo: pseudo.value(),
-                password:password.value()
-            }, (str:string) => {
-                if(str == "ok"){
+                password: password.value()
+            }, (str: string) => {
+                if (str == "ok") {
                     //@ts-ignore
                     window.location.reload();
-                }else{
+                } else {
                     alert(str);
                 }
             })
         });
-            
+
 
         panel_users
             .child('b')
@@ -345,7 +369,7 @@ export class View {
      */
     public buildInput(parent: ExtJsObject, label_text: string, type: string, default_value?: string): ExtJsObject {
 
-        let input_types = ["text", "password", "number", "range"];
+        let input_types = ["text", "password", "number", "range", "date", "time"];
         let other_types = ["textarea", "select"];
 
         let div = parent
@@ -383,7 +407,9 @@ export class View {
         }
 
         i.onblur = function () {
-            this.parentElement.classList.remove('focus');
+            if(type != "date" && type != "time"){
+                this.parentElement.classList.remove('focus');
+            }
             if (this.value != "") {
                 this.parentElement.classList.add('notempty');
             }
@@ -471,7 +497,7 @@ export class View {
 
         project_infos.child('b').html('<br />Type de projet : ' + project.type);
 
-        if(project.type == "photo"){
+        if (project.type == "photo") {
             project_infos.child('p').html('Vous pourrez uploader toutes les photos sur la page suivante. Pour le moment, choisissez une photo de couverture.')
         }
 
@@ -546,19 +572,19 @@ export class View {
                             .css('opacity', "0.2");
 
                         upload.img_uploader(upload_cover.get(0).files[0],
-                            (progress:ProgressEvent) => {
+                            (progress: ProgressEvent) => {
                                 upload_result.html("En cours : " + (100 * progress.loaded / progress.total) + "%")
-                            }, 
-                            (link:string) => {
-                                if(link != undefined){
+                            },
+                            (link: string) => {
+                                if (link != undefined) {
                                     upload_result.html(`Uploadé ! <br /><img style="height:150px;" src="${link}"><br />`);
                                     image_link = link
                                     publish
                                         .css('opacity', "1")
                                         .get(0).disabled = false
-                                }else{
+                                } else {
                                     upload_result.html('Erreur !');
-                                                                     
+
                                 }
                             });
                     });
@@ -575,38 +601,38 @@ export class View {
                         publish
                             .attr("disabled", "true")
                             .css('opacity', "0.2");
-                        
-                        if(!image_link){
+
+                        if (!image_link) {
                             alert('Uploadez une image de couverture pour illustrer le projet.')
                             return false;
                         }
 
-                        if(project.type == "photo"){
+                        if (project.type == "photo") {
 
                             upload.photo({
                                 project_id: project.id,
                                 title: title.value(),
                                 description: short_description.value(),
-                                cover:image_link
+                                cover: image_link
                             }, (data) => {
                                 publish
                                     .css('opacity', "1")
                                     .get(0).disabled = false
 
-                                if(data == "e:r")
+                                if (data == "e:r")
                                     return alert('Une erreur est survenue lors de la communication avec le serveur');
-                                
-                                if(data == "ok")
+
+                                if (data == "ok")
                                     //@ts-ignore
                                     window.location.href = "dashboard-manage-images-" + project.id;
                                 else
                                     alert(data);
                             });
 
-                        }else{
+                        } else {
 
                             upload.other({
-                                
+
                             }, () => {
 
                             });

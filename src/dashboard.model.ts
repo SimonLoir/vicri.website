@@ -3,6 +3,7 @@ import { AR } from './extjs';
 
 export class Page extends P {}
 export class Model extends SharedModel {
+    public createEvent(data: any, callback: (data: any) => void) {}
     /**
      * Gets all the events that are going to come
      * @param callback

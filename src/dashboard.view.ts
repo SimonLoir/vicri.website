@@ -30,7 +30,8 @@ export class View {
 
     public buildCalendarPage(
         getEvents: (callback: (events: Array<VicriEvent>) => void) => void,
-        getUserProjects: (callback: (data: Array<Project>) => void) => void
+        getUserProjects: (callback: (data: Array<Project>) => void) => void,
+        addNewEvent: (data: any, callback: (data: string) => void) => void
     ) {
         const firstDayInMonthIndex = (
             monthIndex = new Date().getMonth(),
@@ -82,14 +83,32 @@ export class View {
         );
 
         add.click(() => {
-            let modal = this.createModalDialog('Ajouter un event');
-            let date = this.buildInput(modal, 'Date', 'date');
-            let time = this.buildInput(modal, 'Heure', 'time');
-            let confirm = modal
-                .child('button')
-                .addClass('button')
-                .css('float', 'right')
-                .html('Ajouter cette date au calendrier');
+            getUserProjects(data => {
+                let options: any[] = [['Site web (pour tous)', '-1']];
+                data.forEach(project => {
+                    options.push([project.name, project.id]);
+                });
+                let modal = this.createModalDialog('Ajouter un event');
+                let add_to = this.buildInput(modal, 'Ajouter à ', 'select');
+                let date = this.buildInput(modal, 'Date', 'date');
+                let time = this.buildInput(modal, 'Heure', 'time');
+                let confirm = modal
+                    .child('button')
+                    .addClass('button')
+                    .css('float', 'right')
+                    .html('Ajouter cette date au calendrier')
+                    .click(() => {
+                        addNewEvent({}, (result: string) => {});
+                    });
+
+                options.forEach((p: string) => {
+                    let option = document.createElement('option');
+                    option.value = p[1];
+                    option.text = p[0];
+                    add_to.get(0).add(option);
+                });
+                add_to.get(0).focus();
+            });
         });
     }
 

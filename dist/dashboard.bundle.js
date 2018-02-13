@@ -1458,7 +1458,7 @@ var Controller = /** @class */ (function () {
                 this._view.buildHomePage(this._model.getHistory.bind(this._model));
                 break;
             case 'calendar':
-                this._view.buildCalendarPage(this._model.getEvents.bind(this._model), this._model.getUsersProject.bind(this._model));
+                this._view.buildCalendarPage(this._model.getEvents.bind(this._model), this._model.getUsersProject.bind(this._model), this._model.createEvent.bind(this._model));
                 break;
             case 'my-projects':
                 this._model.getUsersProject(this._view.buildMyProjectsPage.bind(this._view));
@@ -1627,7 +1627,7 @@ var getYouTubeID = __webpack_require__(15);
 var View = /** @class */ (function () {
     function View() {
     }
-    View.prototype.buildCalendarPage = function (getEvents, getUserProjects) {
+    View.prototype.buildCalendarPage = function (getEvents, getUserProjects, addNewEvent) {
         var _this = this;
         var firstDayInMonthIndex = function (monthIndex, year) {
             if (monthIndex === void 0) { monthIndex = new Date().getMonth(); }
@@ -1671,14 +1671,31 @@ var View = /** @class */ (function () {
             });
         });
         add.click(function () {
-            var modal = _this.createModalDialog('Ajouter un event');
-            var date = _this.buildInput(modal, 'Date', 'date');
-            var time = _this.buildInput(modal, 'Heure', 'time');
-            var confirm = modal
-                .child('button')
-                .addClass('button')
-                .css('float', 'right')
-                .html('Ajouter cette date au calendrier');
+            getUserProjects(function (data) {
+                var options = [['Site web (pour tous)', '-1']];
+                data.forEach(function (project) {
+                    options.push([project.name, project.id]);
+                });
+                var modal = _this.createModalDialog('Ajouter un event');
+                var add_to = _this.buildInput(modal, 'Ajouter à ', 'select');
+                var date = _this.buildInput(modal, 'Date', 'date');
+                var time = _this.buildInput(modal, 'Heure', 'time');
+                var confirm = modal
+                    .child('button')
+                    .addClass('button')
+                    .css('float', 'right')
+                    .html('Ajouter cette date au calendrier')
+                    .click(function () {
+                    addNewEvent({}, function (result) { });
+                });
+                options.forEach(function (p) {
+                    var option = document.createElement('option');
+                    option.value = p[1];
+                    option.text = p[0];
+                    add_to.get(0).add(option);
+                });
+                add_to.get(0).focus();
+            });
         });
     };
     /**
@@ -2727,6 +2744,7 @@ var Model = /** @class */ (function (_super) {
     function Model() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Model.prototype.createEvent = function (data, callback) { };
     /**
      * Gets all the events that are going to come
      * @param callback

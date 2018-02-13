@@ -1,22 +1,24 @@
-import { SharedModel, P } from "./shared.model";
-import { AR } from "./extjs";
+import { SharedModel, P } from './shared.model';
+import { AR } from './extjs';
 
 export class Model extends SharedModel {
-
     /**
      * Gets a list of all the photos that are on the site
      * @param callback function that is called once all the photos have been gotten
      */
     getPhotos(callback: (d: any[]) => void) {
-        console.log(this)
-        AR.GET(this.api_url + 'api/index.php?res=photos', (data) => {
+        console.log(this);
+        AR.GET(
+            this.api_url + 'api/index.php?res=photos',
+            data => {
+                let d: Array<any> = JSON.parse(data);
 
-            let d: Array<any> = JSON.parse(data);
-
-            callback(d)
-        }, () => {
-            alert('Une erreur est survenue');
-        });
+                callback(d);
+            },
+            () => {
+                alert('Une erreur est survenue');
+            }
+        );
     }
 
     /**
@@ -24,15 +26,18 @@ export class Model extends SharedModel {
      * @param callback function that is called once all the videos have been gotten
      */
     getVideos(callback: (d: any[]) => void) {
-        console.log(this)
-        AR.GET(this.api_url + 'api/index.php?res=videos', (data) => {
+        console.log(this);
+        AR.GET(
+            this.api_url + 'api/index.php?res=videos',
+            data => {
+                let d: Array<any> = JSON.parse(data);
 
-            let d: Array<any> = JSON.parse(data);
-
-            callback(d)
-        }, () => {
-            alert('Une erreur est survenue');
-        });
+                callback(d);
+            },
+            () => {
+                alert('Une erreur est survenue');
+            }
+        );
     }
 
     /**
@@ -40,15 +45,18 @@ export class Model extends SharedModel {
      * @param callback function that is called once all the project have been gotten
      */
     getProjects(callback: (d: Project[]) => void) {
-        console.log(this)
-        AR.GET(this.api_url + 'api/index.php?res=projects', (data) => {
+        console.log(this);
+        AR.GET(
+            this.api_url + 'api/index.php?res=projects',
+            data => {
+                let d: Array<Project> = JSON.parse(data);
 
-            let d: Array<Project> = JSON.parse(data);
-
-            callback(d)
-        }, () => {
-            alert('Une erreur est survenue');
-        });
+                callback(d);
+            },
+            () => {
+                alert('Une erreur est survenue');
+            }
+        );
     }
 
     /**
@@ -59,45 +67,44 @@ export class Model extends SharedModel {
      * @param othercallback function passed to callback
      * @param second_other_callback function passed to callback
      */
-    public getProjectById(id: string, callback: (data: Project) => void, onErrorCallback: (data: Project) => void) {
-        AR.GET(this.api_url + "api?res=project&id=" + id, (data) => {
+    public getProjectById(
+        id: string,
+        callback: (data: Project) => void,
+        onErrorCallback: (data: Project) => void
+    ) {
+        AR.GET(this.api_url + 'api?res=project&id=' + id, data => {
             try {
-
                 let d: Project = JSON.parse(data);
 
-                if (d.type != "error" && d.message == undefined) {
+                if (d.type != 'error' && d.message == undefined) {
                     callback(d);
                 } else {
                     if (onErrorCallback != undefined) {
                         onErrorCallback(d);
                     }
                 }
-
-
             } catch (error) {
                 onErrorCallback({
-                    type: "error",
+                    type: 'error',
                     message: error.toString()
                 });
             }
         });
     }
-
 }
-export class Page extends P { }
-
+export class Page extends P {}
 
 export interface Project {
-    type: any
-    name?: string
-    progression?: number
-    description?: string
-    shortDescription?: string
-    goals?: string
-    links?: string,
-    id?: number
-    managers?: any
-    pined?: number
-    message?: string
-    isPublished?: boolean
+    type: any;
+    name?: string;
+    progression?: number;
+    description?: string;
+    shortDescription?: string;
+    goals?: string;
+    links?: string;
+    id?: number;
+    managers?: any;
+    pined?: number;
+    message?: string;
+    isPublished?: boolean;
 }

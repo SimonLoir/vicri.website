@@ -1,23 +1,23 @@
-import "./scss/login.scss";
-import {SharedModel, UserCredentials} from "./shared.model";
-import { $, AR } from "./extjs";
+import './scss/login.scss';
+import { SharedModel, UserCredentials } from './shared.model';
+import { $, AR } from './extjs';
 
 let model = new SharedModel();
-model.api_url = "../";
+model.api_url = '../';
 
 function redirect() {
     //@ts-ignore
-    window.location.href = "../dashboard-home";
+    window.location.href = '../dashboard-home';
 }
 
 model.login(undefined, redirect);
 
 $('#send').click(() => {
-    let credentials:UserCredentials = {
+    let credentials: UserCredentials = {
         email: $('#user').value(),
         password: $('#password').value(),
-        keep_connection:false
-    }
+        keep_connection: false
+    };
     model.login(credentials, redirect, () => {
         alert("Erreur : nom d'utilisateur ou mot de passe incorrect");
     });

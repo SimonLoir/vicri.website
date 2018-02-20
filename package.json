@@ -19,8 +19,8 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
     "ts-loader": "^3.5.0",
-    "typescript": "^2.7.1",
-    "uglify-js": "^3.3.10",
+    "typescript": "^2.7.2",
+    "uglify-js": "^3.3.11",
     "webpack": "^3.11.0"
   },
   "devDependencies": {},

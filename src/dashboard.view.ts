@@ -55,13 +55,13 @@ export class View {
 
         calendar
             .child('div')
-            .html('Admin Panel')
+            .html('Calendrier du groupe vicri')
             .addClass('title');
 
         let add = calendar
             .child('p')
             .child('button')
-            .html('Nouveau');
+            .html('Ajouter un évènement');
 
         getEvents(event_list =>
             event_list.forEach(e => {
@@ -89,6 +89,8 @@ export class View {
                     options.push([project.name, project.id]);
                 });
                 let modal = this.createModalDialog('Ajouter un event');
+                let title = this.buildInput(modal, 'Nom ', 'input');
+                let message = this.buildInput(modal, 'Message ', 'textarea');
                 let add_to = this.buildInput(modal, 'Ajouter à ', 'select');
                 let date = this.buildInput(modal, 'Date', 'date');
                 let time = this.buildInput(modal, 'Heure', 'time');
@@ -98,7 +100,14 @@ export class View {
                     .css('float', 'right')
                     .html('Ajouter cette date au calendrier')
                     .click(() => {
-                        addNewEvent({}, (result: string) => {});
+                        addNewEvent(
+                            {
+                                title: title.value()
+                            },
+                            (result: string) => {
+                                console.log(result);
+                            }
+                        );
                     });
 
                 options.forEach((p: string) => {

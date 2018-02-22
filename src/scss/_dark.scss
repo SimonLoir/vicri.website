@@ -1,75 +1,82 @@
-body.dark{
-
-    background:rgb(43,51,63);
-    & .header{
-        background:rgb(55,67,85);
-        color:white;
+body.dark {
+    background: rgb(43, 51, 63);
+    & .header {
+        background: rgb(55, 67, 85);
+        color: white;
     }
-    & .body{
-        background:rgb(43,51,63);
-        & .panel{
-            & .title{
-                color:white;
+    & .body {
+        background: rgb(43, 51, 63);
+        & .panel {
+            & .title {
+                color: white;
             }
-            background:rgb(61,77,101);
-            color:white;
-            & .button,& button{
-                background:rgb(0, 129, 213);
+            background: rgb(61, 77, 101);
+            color: white;
+            & .button,
+            & button {
+                background: rgb(0, 129, 213);
             }
-            & a{
-                color:white;
+            & a {
+                color: white;
             }
         }
     }
-
-    $color:rgba(255,255,255,0.1);
-
+    $color: rgba(255, 255, 255, 0.1);
     table {
-        color:white;
+        color: white;
         font-family: arial, sans-serif;
         border-collapse: collapse;
     }
-    
-    td, th {
+    td,
+    th {
         border: 1px solid darken($color, 100%);
         text-align: left;
         padding: 8px;
         text-align: center;
     }
-    
     tr:nth-child(even) {
         background-color: $color;
     }
-
-    & .field .top{
-        color:white;
+    & .field .top {
+        color: white;
     }
-
-    & .field input,& .field textarea, & .field select{
-        color:white;
+    & .field input,
+    & .field textarea,
+    & .field select {
+        color: white;
     }
     & .modal {
-        background: rgb(61,77,101);
-        border:none;
+        background: rgb(61, 77, 101);
+        border: none;
         & .title {
-            background:rgb(55,67,85);
-            color:white;
+            //background:rgb(55,67,85);
+            color: white;
         }
-        & .button,& button{
-            background:rgb(0, 129, 213);
-            &.danger{
-                background:#e92f2f;
+        & .button,
+        & button {
+            background: rgb(0, 129, 213);
+            &.danger {
+                background: #e92f2f;
             }
         }
-        & input{
-            color:white;   
+        & input {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid darken(rgb(61, 77, 101), 5%);
+            border-radius: 4px;
+        }
+        & .field {
+            @extend %field;
+            & label.top {
+                color: white;
+            }
         }
     }
-    & .left_panel{
-        background:#2B2E3D;
-        & .title{
-            background:#2B2E3D;
-            color:#0c98f5;
+    & .left_panel {
+        background: #2b2e3d;
+        & .title {
+            background: #2b2e3d;
+            color: #0c98f5;
         }
     }
 }

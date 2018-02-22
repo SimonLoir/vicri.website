@@ -46,9 +46,9 @@ if ($method == "GET") {
             if (!isset($_SESSION["id"])) {
                 exit($user_must_be_logged_in);
             }
-        
+
             $projects = new project_list($db);
-        
+
             $projects->getProjectsForUser($_SESSION["id"]);
 
             $ids = $projects->getIDs();
@@ -102,7 +102,7 @@ if ($method == "GET") {
             exit($projects->export());
 
             break;
-        
+
         case "videos":
 
             $videos = new video_list($db);
@@ -169,8 +169,8 @@ if ($method == "GET") {
     switch ($res) {
         case 'new_user':
 
-            ( $_SESSION['status'] != "admin" ) ? exit( "user must be an admin" ): '';
-            
+            ($_SESSION['status'] != "admin") ? exit("user must be an admin") : '';
+
             user::create($db, $_POST);
 
             break;
@@ -225,7 +225,15 @@ if ($method == "GET") {
 
             $fs->uploadImage($_FILES["file"], "../res/uploads/");
 
-            break;    
+            break;
+
+        case "event":
+
+            $mail = new email();
+
+            exit($mail->build());
+
+            break;
 
         default:
 

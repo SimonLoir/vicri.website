@@ -12,15 +12,17 @@ $('.test').forEach(function() {
             if ($(this).attr('data-format') == 'json') {
                 let e = $(this).attr('data-expected');
 
-                let e_p = e.split('=>')[1].split(',');
+                let e_p: string[] = e.split('=>')[1].split(',');
+                e_p = e_p.map(k => k.trim());
 
                 let d;
 
-                let result = `<h2>${base + test_url}</h2>`;
+                let result = '';
+
                 try {
                     d = JSON.parse(data);
                 } catch (error) {
-                    result += `<br><span style="color:red"> <h3> Test failed : <br /> ${data}</h3> </span> `;
+                    result += `<br><span style="color:red"> <h3> Test failed ${test_url}: <br /> ${data}</h3> </span> `;
                     $(this).html(result);
                     return;
                 }
@@ -36,16 +38,23 @@ $('.test').forEach(function() {
                     return false;
                 }
 
-                result += JSON.stringify(toTest) + '<br />';
-
                 e_p.forEach((p: string) => {
                     //@ts-ignore
-                    if (toTest[p.trim()] == undefined) {
+                    if (toTest[p] == undefined) {
                         result += `<br><span style="color:red"> <h3> >>>>>>> Test failed for ${p} @ ${test_url} <<<<<<< </h3> </span> `;
                     } else {
-                        result += `<br><span style="color:green"> >> Test passed for ${p}</span>`;
+                        result += `<br><span style="color:green"> >> Test passed for ${p} @ ${test_url}</span>`;
                     }
                 });
+
+                let keys = Object.keys(toTest);
+                console.log(keys, e_p);
+                keys.forEach(key => {
+                    if (e_p.indexOf(key) < 0) {
+                        result += `<br><span style="color:orange"> >> Warning unknown <b style="color:red;">${key}</b> given but not in the test</span>`;
+                    }
+                });
+                //result += '<br />' + JSON.stringify(toTest);
 
                 $(this).html(result);
             } else {

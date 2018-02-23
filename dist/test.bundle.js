@@ -678,14 +678,15 @@ extjs_1.$('.test').forEach(function () {
             console.log(test_url);
             if (extjs_1.$(_this).attr('data-format') == 'json') {
                 var e = extjs_1.$(_this).attr('data-expected');
-                var e_p = e.split('=>')[1].split(',');
+                var e_p_1 = e.split('=>')[1].split(',');
+                e_p_1 = e_p_1.map(function (k) { return k.trim(); });
                 var d = void 0;
-                var result_1 = "<h2>" + (base + test_url) + "</h2>";
+                var result_1 = '';
                 try {
                     d = JSON.parse(data);
                 }
                 catch (error) {
-                    result_1 += "<br><span style=\"color:red\"> <h3> Test failed : <br /> " + data + "</h3> </span> ";
+                    result_1 += "<br><span style=\"color:red\"> <h3> Test failed " + test_url + ": <br /> " + data + "</h3> </span> ";
                     extjs_1.$(_this).html(result_1);
                     return;
                 }
@@ -700,16 +701,23 @@ extjs_1.$('.test').forEach(function () {
                     extjs_1.$(_this).html('Test description error');
                     return false;
                 }
-                result_1 += JSON.stringify(toTest_1) + '<br />';
-                e_p.forEach(function (p) {
+                e_p_1.forEach(function (p) {
                     //@ts-ignore
-                    if (toTest_1[p.trim()] == undefined) {
+                    if (toTest_1[p] == undefined) {
                         result_1 += "<br><span style=\"color:red\"> <h3> >>>>>>> Test failed for " + p + " @ " + test_url + " <<<<<<< </h3> </span> ";
                     }
                     else {
-                        result_1 += "<br><span style=\"color:green\"> >> Test passed for " + p + "</span>";
+                        result_1 += "<br><span style=\"color:green\"> >> Test passed for " + p + " @ " + test_url + "</span>";
                     }
                 });
+                var keys = Object.keys(toTest_1);
+                console.log(keys, e_p_1);
+                keys.forEach(function (key) {
+                    if (e_p_1.indexOf(key) < 0) {
+                        result_1 += "<br><span style=\"color:orange\"> >> Warning unknown <b style=\"color:red;\">" + key + "</b> given but not in the test</span>";
+                    }
+                });
+                //result += '<br />' + JSON.stringify(toTest);
                 extjs_1.$(_this).html(result_1);
             }
             else {

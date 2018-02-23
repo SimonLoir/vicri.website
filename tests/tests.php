@@ -9,8 +9,8 @@
     <style>
         body{
             font-family:sans-serif;
-            background:black;
-            color:white;
+            background:#eee;
+            color:rgb(64,64,64);
         }
     </style>
 </head>
@@ -20,11 +20,19 @@
     
     <span class="test" data-url="res=projects" data-expected="[] => id, name, managers, shortDescription, progression, pined" data-format="json"></span>
 
-    <span class="test" data-url="res=videos" data-expected="[] => url, provider, title, description" data-format="json"></span>
+    <span class="test" data-url="res=videos" data-expected="[] => id, url, provider, title, description" data-format="json"></span>
+
+    <span class="test" data-url="res=photos" data-expected="[] => id, cover, title, description" data-format="json"></span>
+    
+    <span class="test" data-url="res=history&id=-1" data-expected="[] => id, type, content, project_id" data-format="json"></span>
+
+    <span class="test" data-url="res=users" data-expected="[] => id, name, firstname, mail, pseudo" data-format="json"></span>
     
     <span class="test" data-url="res=project&id=1" data-expected="{} => id, name, managers, shortDescription, progression, pined, type, progression, description, goals, links, video, photo, other, isPublished, managers_id" data-format="json"></span>
 
     <span class="test" data-url="res=users" data-expected="[] => id, name, firstname, mail, pseudo" data-format="json"></span>
+
+    <!--<span class="test" data-url="res=pv" data-expected="" data-format="json"></span>-->
     
 
     <span class="test" data-url="res=login" data-expected="{} => isConnected" data-format="json"></span>

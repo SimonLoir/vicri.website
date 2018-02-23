@@ -89,6 +89,12 @@ export class View {
                     options.push([project.name, project.id]);
                 });
                 let modal = this.createModalDialog('Ajouter un event');
+                let error_message = modal
+                    .child('span')
+                    .html('')
+                    .css('color', 'crimson')
+                    .css('display', 'block')
+                    .css('text-align', 'center');
                 let title = this.buildInput(modal, 'Nom ', 'input');
                 let message = this.buildInput(modal, 'Message ', 'textarea');
                 let add_to = this.buildInput(modal, 'Ajouter à ', 'select');
@@ -102,10 +108,18 @@ export class View {
                     .click(() => {
                         addNewEvent(
                             {
-                                title: title.value()
+                                title: title.value(),
+                                message: message.value(),
+                                add_to: add_to.value(),
+                                date: date.value() + ' ' + time.value()
                             },
                             (result: string) => {
-                                console.log(result);
+                                if (result.indexOf('ok') == 0) {
+                                    //@ts-ignore
+                                    window.location.reload();
+                                } else {
+                                    error_message.html(result);
+                                }
                             }
                         );
                     });

@@ -229,9 +229,9 @@ if ($method == "GET") {
 
         case "event":
 
-            $mail = new email();
+            $event = new event($db, $_POST);
 
-            exit($mail->build());
+            exit('error-');
 
             break;
 

@@ -185,8 +185,8 @@ $button-color: rgb(68, 184, 175);
     & .cross {
         font-size: 18px;
         position: absolute;
-        top: 5px;
-        right: 9px;
+        top: 21px;
+        right: 25px;
         cursor: pointer;
         color: red;
     }
@@ -196,6 +196,7 @@ $button-color: rgb(68, 184, 175);
         line-height: 32px;
         padding-left: 5px;
         font-size: 18px;
+        text-align: center;
     }
     & table {
         width: 100%;

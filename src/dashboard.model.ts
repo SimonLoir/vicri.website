@@ -4,7 +4,14 @@ import { AR } from './extjs';
 export class Page extends P {}
 export class Model extends SharedModel {
     public createEvent(data: any, callback: (data: any) => void) {
-        console.log('Event creation requested', data);
+        if (
+            data.title.trim() == '' ||
+            data.message.trim() == '' ||
+            data.add_to.trim() == '' ||
+            data.date.trim() == ''
+        ) {
+            return callback('Merci de remplir tous les champs');
+        }
         AR.POST(this.api_url + 'api/index.php?res=event', data, callback, () =>
             callback('error')
         );

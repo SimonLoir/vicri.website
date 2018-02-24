@@ -40,7 +40,7 @@ if (isset($_GET['code'])) {
     if ($client->getAccessToken()) {
 
         $token_data = $client->verifyIdToken();
-    
+
     }
 
     $user_email = $token_data["email"];
@@ -63,10 +63,15 @@ if (isset($_GET['code'])) {
 
         $user = $user_infos[0];
 
-        $_SESSION['user'] = $user->firstname . " " .$user->name;
+        $_SESSION['user'] = $user->firstname . " " . $user->name;
         $_SESSION['id'] = $user->id;
         $_SESSION['email'] = $user->mail;
         $_SESSION['status'] = $user->status;
+
+        if ($user->status == "admin") {
+            header('Location: ../dashboard-admin#login');
+            exit('');
+        }
 
         header('Location: ../dashboard-home');
 
@@ -78,10 +83,10 @@ if (isset($_GET['code'])) {
 
     }
 
-}else{
+} else {
 
     $authUrl = $client->createAuthUrl();
-    
+
     header("Location: " . $authUrl);
 
 }

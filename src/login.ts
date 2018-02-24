@@ -1,11 +1,16 @@
 import './scss/login.scss';
-import { SharedModel, UserCredentials } from './shared.model';
+import { SharedModel, UserCredentials, ConnectionState } from './shared.model';
 import { $, AR } from './extjs';
 
 let model = new SharedModel();
 model.api_url = '../';
 
-function redirect() {
+function redirect(data: ConnectionState) {
+    if (data.isAdmin == true) {
+        //@ts-ignore
+        window.location.href = '../dashboard-admin#login';
+        return;
+    }
     //@ts-ignore
     window.location.href = '../dashboard-home';
 }

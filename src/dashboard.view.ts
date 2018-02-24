@@ -155,14 +155,32 @@ export class View {
             .css('width', 'calc(100% - 30px)')
             .addClass('left');
 
+        let isLogin = false;
+        //@ts-ignore
+        if (window.location.hash.replace('#', '') == 'login') {
+            isLogin = true;
+            admins.addClass('login');
+            $('.hamburger').css('display', 'none');
+        }
+
+        let old_admin = admins;
+
+        admins = admins.child('div');
+
         admins
             .child('div')
-            .html('Admin Panel')
+            .html(
+                `${
+                    isLogin == true
+                        ? 'Vous êtes admin sur ce site'
+                        : 'Admin Panel'
+                }`
+            )
             .addClass('title');
 
         admins.child('p').html(`
-                <b>Vous recevez de grands pouvoirs mais aussi de grandes responsabilités : </b><br />
-                1) Toutes vos actions doivent être réalisées dans le respect de la vie privée d'autrui<br />
+                <b>Vous recevez de grands pouvoirs mais aussi de grandes responsabilités : </b><br /><br />
+                1) Toutes vos actions doivent être réalisées dans le respect de la vie privée d'autrui<br /><br />
                 2) Toutes vos actions ont des conséquences : réfléchissez avant d'agir ! (et pas l'inverse)
             `);
 
@@ -220,7 +238,12 @@ export class View {
             .html('Compris, continuer')
             .click(() => {
                 panel_users.css('display', 'inline-block');
-                admins.remove();
+                old_admin.remove();
+                if (isLogin == true) {
+                    $('.hamburger').css('display', 'block');
+                    //@ts-ignore
+                    window.location.href = 'dashboard-home';
+                }
             });
     }
 

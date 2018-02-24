@@ -10,6 +10,9 @@ body.dark {
             & .title {
                 color: white;
             }
+            &.login .title {
+                color: hsla(0, 0%, 0%, 0.883);
+            }
             background: rgb(61, 77, 101);
             color: white;
             & .button,

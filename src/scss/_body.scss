@@ -127,7 +127,7 @@ $button-color: rgb(68, 184, 175);
             right: 0;
             z-index: 100;
             background: #eee;
-            & > div {
+            &>div {
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -139,6 +139,10 @@ $button-color: rgb(68, 184, 175);
                 border: 5px;
                 border-radius: 3px;
                 padding: 25px;
+                color: gray;
+                & .title {
+                    color: black;
+                }
             }
         }
     }

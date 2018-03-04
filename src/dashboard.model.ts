@@ -84,6 +84,17 @@ export class Model extends SharedModel {
         );
     }
 
+    public uploadOtherProject(data: any, callback: (data: any) => void) {
+        AR.POST(
+            this.api_url + 'api/index.php?res=other',
+            data,
+            callback,
+            () => {
+                callback('e:r');
+            }
+        );
+    }
+
     /**
      * Uploads an image to the server
      * @param file

@@ -241,7 +241,10 @@ class project
         foreach ($e as $key => $value) {
 
             if ($value != $this->project->$key && in_array($key, $keys)) {
-
+                if ($this->project->isPublished == true && $key == "type") {
+                    exit('Could not update type because project is published');
+                    break;
+                }
                 $count++;
 
                 if ($this->db->query('UPDATE projects SET ' . $key . ' = :v WHERE id = :id', [
@@ -341,6 +344,44 @@ class project
 
         if ($this->project->isPublished == false) {
             if ($this->db->query("INSERT INTO photos_folders VALUES (:pid,:title, :description, :cover)", [
+                "prepare" => [
+                    ":pid" => $data["project_id"],
+                    ":cover" => $data["cover"],
+                    ":title" => $data["title"],
+                    ":description" => $data["description"]
+                ],
+                "result" => true
+            ])) {
+                exit("ok");
+            } else {
+                exit("error");
+            }
+        } else {
+            exit('Projet déjà publié');
+        }
+    }
+
+
+    /**
+     * Publishes an other type of projects
+     */
+    public function publishOther($data)
+    {
+        if (!isset($data["project_id"])) {
+            exit("missing project_id");
+        }
+        if (!isset($data["title"])) {
+            exit("missing title");
+        }
+        if (!isset($data["description"])) {
+            exit("missing description");
+        }
+        if (!isset($data["cover"])) {
+            exit("missing cover");
+        }
+
+        if ($this->project->isPublished == false) {
+            if ($this->db->query("INSERT INTO other_projects VALUES (:pid,:title, :description, 'vicri',:cover)", [
                 "prepare" => [
                     ":pid" => $data["project_id"],
                     ":cover" => $data["cover"],

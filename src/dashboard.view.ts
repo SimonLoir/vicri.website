@@ -756,7 +756,17 @@ export class View {
                                 }
                             );
                         } else {
-                            upload.other({}, () => {});
+                            upload.other(
+                                {
+                                    project_id: project.id,
+                                    title: title.value(),
+                                    description: short_description.value(),
+                                    cover: image_link
+                                },
+                                data => {
+                                    console.log(data);
+                                }
+                            );
                         }
                     });
 

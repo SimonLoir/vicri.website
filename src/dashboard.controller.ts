@@ -112,7 +112,8 @@ class Controller {
                     {
                         video: this._model.uploadVideoProject.bind(this._model),
                         img_uploader: this._model.uploadImage.bind(this._model),
-                        photo: this._model.uploadPhotoProject.bind(this._model)
+                        photo: this._model.uploadPhotoProject.bind(this._model),
+                        other: this._model.uploadOtherProject.bind(this._model)
                     }
                 );
 

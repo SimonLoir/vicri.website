@@ -1479,7 +1479,8 @@ var Controller = /** @class */ (function () {
                 this._model.getProjectById(pid, this._view.buildPublishProjectPage.bind(this._view), this._view.buildErrorPage.bind(this._view), {
                     video: this._model.uploadVideoProject.bind(this._model),
                     img_uploader: this._model.uploadImage.bind(this._model),
-                    photo: this._model.uploadPhotoProject.bind(this._model)
+                    photo: this._model.uploadPhotoProject.bind(this._model),
+                    other: this._model.uploadOtherProject.bind(this._model)
                 });
                 break;
             case 'admin':
@@ -2197,7 +2198,14 @@ var View = /** @class */ (function () {
                         });
                     }
                     else {
-                        upload.other({}, function () { });
+                        upload.other({
+                            project_id: project.id,
+                            title: title.value(),
+                            description: short_description.value(),
+                            cover: image_link
+                        }, function (data) {
+                            console.log(data);
+                        });
                     }
                 });
                 break;
@@ -2861,6 +2869,11 @@ var Model = /** @class */ (function (_super) {
      */
     Model.prototype.uploadPhotoProject = function (data, callback) {
         extjs_1.AR.POST(this.api_url + 'api/index.php?res=photo', data, callback, function () {
+            callback('e:r');
+        });
+    };
+    Model.prototype.uploadOtherProject = function (data, callback) {
+        extjs_1.AR.POST(this.api_url + 'api/index.php?res=other', data, callback, function () {
             callback('e:r');
         });
     };

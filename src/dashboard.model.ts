@@ -3,6 +3,22 @@ import { AR } from './extjs';
 
 export class Page extends P {}
 export class Model extends SharedModel {
+    /**
+     * Gets all the wiki subjects that are registred in the database
+     * @param callback
+     */
+    public getWikies(callback: (data: any[]) => void) {
+        AR.GET(
+            this.api_url + 'api/index.php?res=wikies',
+            c => callback(JSON.parse(c)),
+            () => callback([{ id: -1, name: 'Pas de wiki dans la BDD' }])
+        );
+    }
+    /**
+     * Creates a new event in the calendar
+     * @param data
+     * @param callback
+     */
     public createEvent(data: any, callback: (data: any) => void) {
         if (
             data.title.trim() == '' ||

@@ -65,6 +65,12 @@ class Controller {
                 );
                 break;
 
+            case 'wiki':
+                this._view.buildWikiPage(
+                    this._model.getWikies.bind(this._model)
+                );
+                break;
+
             case 'calendar':
                 this._view.buildCalendarPage(
                     this._model.getEvents.bind(this._model),

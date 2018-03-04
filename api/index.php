@@ -41,6 +41,10 @@ if ($method == "GET") {
 
             break;
 
+        case "wikies":
+
+            break;
+
         case "events":
 
             if (!isset($_SESSION["id"])) {

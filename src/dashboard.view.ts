@@ -28,6 +28,33 @@ export class View {
 
     public page: Page;
 
+    public buildWikiPage(getWikies: (callback?: (data: any) => void) => void) {
+        $('.header .title').html('Wiki');
+
+        let e = this.container;
+
+        let wikies = e
+            .child('div')
+            .addClass('calendar')
+            .addClass('padding')
+            .addClass('panel');
+
+        wikies
+            .child('div')
+            .html('Wiki du groupe')
+            .addClass('title');
+
+        getWikies((data: any[]) => {
+            data.forEach(wiki => {
+                wikies
+                    .child('p')
+                    .child('a')
+                    .attr('href', 'dashboard-wiki-' + wiki.id)
+                    .html(wiki.name);
+            });
+        });
+    }
+
     public buildCalendarPage(
         getEvents: (callback: (events: Array<VicriEvent>) => void) => void,
         getUserProjects: (callback: (data: Array<Project>) => void) => void,

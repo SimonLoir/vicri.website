@@ -1,4 +1,5 @@
-<?php include "global.php"; (!isset($_SESSION["user"])) ? header("Location: login"): $user = $_SESSION["user"];?>
+<?php include "global.php";
+(!isset($_SESSION["user"])) ? header("Location: login") : $user = $_SESSION["user"]; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,6 +27,9 @@
             </a>
             <a href="dashboard-my-projects" data-internal="true">
                 Mes projets
+            </a>
+            <a href="dashboard-wiki" data-internal="true">
+                Gestion wiki
             </a>
             <a href="home">
                 Retour au site
